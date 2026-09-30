@@ -7,9 +7,30 @@ import { useState } from "react";
 
 import { EffectList, type EffectData } from "@/components/effects/effect-text";
 import { characterApi, type OptionCard } from "@/lib/api/auth";
+import type { ClassCard } from "@/lib/api/classes";
 import { useErrorMessage } from "@/lib/api/errors";
 
 const STEPS = ["stepName", "stepRace", "stepClass", "stepConfirm"] as const;
+
+function ClassDetails({ option }: { option: OptionCard }) {
+  const t = useTranslations("classes");
+  const card = option as unknown as Partial<ClassCard>;
+  if (!card.branches) return null;
+  return (
+    <span className="block space-y-0.5 text-xs text-muted">
+      <span className="block text-sm text-fg">
+        {card.category_name} · {card.role}
+      </span>
+      {card.stat_weights ? <span className="block">{t("stats", card.stat_weights)}</span> : null}
+      <span className="block">{t("resources", { list: (card.resources ?? []).join(", ") })}</span>
+      <span className="block">{t("weapons", { list: (card.weapons ?? []).join(", ") })}</span>
+      <span className="block">{t("paths", { list: card.branches.map((b) => b.name).join(" / ") })}</span>
+      {card.solo_accord ? (
+        <span className="block">{t("soloAccord", { percent: card.solo_accord.conversion_percent })}</span>
+      ) : null}
+    </span>
+  );
+}
 
 function OptionDetails({ option }: { option: OptionCard }) {
   const t = useTranslations("races");
@@ -25,6 +46,7 @@ function OptionDetails({ option }: { option: OptionCard }) {
         </span>
       ) : null}
       {effects.length ? <EffectList effects={effects} labels={labels} /> : null}
+      <ClassDetails option={option} />
       {affinity.length ? (
         <span className="block text-xs text-muted">
           {t("affinity", { classes: affinity.map((c) => labels[`class.${c}.name`] ?? c).join(", ") })}

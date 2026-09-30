@@ -19,7 +19,7 @@ async def test_progression_view_and_localized_labels(make_client, make_character
     assert v["level"] == 1 and v["title_code"] == "novice" and v["next_breakpoint"] == 100
     assert v["labels"]["title.level.novice.name"] == "Acemi"
     assert v["labels"]["stat.max_hp.name"] == "Maks. Can"
-    assert v["stats"]["primary"]["STR"]["final"] == 5
+    assert v["stats"]["primary"]["STR"]["final"] == 5 + 5  # base + warrior class bonus
 
 
 async def test_allocate_validation_and_success(make_client, make_character) -> None:  # type: ignore[no-untyped-def]
@@ -51,7 +51,7 @@ async def test_allocate_validation_and_success(make_client, make_character) -> N
     )
     assert stale.status_code == 409
     view = (await u.http.get(f"/api/v1/characters/{cid}/progression")).json()
-    assert view["stats"]["primary"]["STR"]["raw"] == 11
+    assert view["stats"]["primary"]["STR"]["raw"] == 5 + 5 + 6  # base + class + allocated
 
 
 async def test_admin_xp_grant_multi_level_idempotent(make_client, make_character) -> None:  # type: ignore[no-untyped-def]

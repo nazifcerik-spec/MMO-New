@@ -1,0 +1,141 @@
+code: warrior
+category: combat
+sort_order: 1
+stat_weights: {primary: STR, secondary: VIT, utility: DEX}
+main_damage_stat: STR
+resources: [rage]
+weapons: [sword, axe, mace, greatsword, greataxe, spear]
+dual_wield: false
+armor: [plate, mail, leather, cloth, shield]
+item_tags: [vanguard, slayer]
+l10n:
+  name: {en: Warrior, tr: Savaşçı, zh-CN: 战士, es: Guerrero}
+  role: {en: Tank / Melee DPS, tr: Tank / Yakın DPS, zh-CN: 坦克 / 近战输出, es: Tanque / DPS cuerpo a cuerpo}
+  description:
+    en: A frontline fighter who turns every blow, given or taken, into Rage.
+    tr: Verdiği ve aldığı her darbeyi Öfkeye dönüştüren ön saf savaşçısı.
+    zh-CN: 冲锋在前的斗士，将每一次攻击与承伤都化为怒气。
+    es: Un combatiente de primera línea que convierte cada golpe, dado o recibido, en Ira.
+base_passive:
+  code: battle_hardened
+  l10n:
+    name: {en: Battle Hardened, tr: Savaşta Pişmiş, zh-CN: 百战磨砺, es: Curtido en batalla}
+    description:
+      en: Hitting and being hit generate Rage; more Rage slightly raises physical resistance.
+      tr: Vurmak ve darbe almak Öfke üretir; Öfke arttıkça fiziksel direnç biraz yükselir.
+      zh-CN: 攻击与受击都会产生怒气；怒气越高，物理抗性略微提升。
+      es: Golpear y ser golpeado genera Ira; más Ira aumenta ligeramente la resistencia física.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rage, amount: 5}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_damage_taken, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rage, amount: 3}}]}}
+    - {effect_type: SCALING_BONUS, params: {metric: self_resource_pct, step: 20, percent_per_step: 1, max_percent: 5, applies_to: damage_reduction}}
+    - {effect_type: STAT_FLAT, params: {stat: STR, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: DEX, amount: 2}}
+branches:
+  - code: guardian
+    l10n:
+      name: {en: Guardian, tr: Muhafız, zh-CN: 守护者, es: Guardián}
+      role: {en: Tank, tr: Tank, zh-CN: 坦克, es: Tanque}
+    passive:
+      code: steadfast
+      l10n:
+        name: {en: Steadfast, tr: Sarsılmaz, zh-CN: 坚定不移, es: Inquebrantable}
+        description: {en: "Armor +12%, Block +8, Threat +10%.", tr: "Zırh +%12, Blok +8, Tehdit +%10.", zh-CN: "护甲 +12%，格挡 +8，威胁 +10%。", es: "Armadura +12%, Bloqueo +8, Amenaza +10%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: armor, percent: 12}}
+        - {effect_type: STAT_FLAT, params: {stat: block, amount: 8}}
+        - {effect_type: STAT_PERCENT, params: {stat: threat, percent: 10}}
+    specializations:
+      - code: iron_bastion
+        l10n:
+          name: {en: Iron Bastion, tr: Demir Kale, zh-CN: 钢铁堡垒, es: Bastión de Hierro}
+          role: {en: Pure tank, tr: Saf tank, zh-CN: 纯坦克, es: Tanque puro}
+          mastery_noun: {en: Bastion, tr: Kale, zh-CN: 堡垒, es: Bastión}
+        passive:
+          code: fortified_blocks
+          l10n:
+            name: {en: Fortified Blocks, tr: Tahkimli Bloklar, zh-CN: 坚固格挡, es: Bloqueos fortificados}
+            description: {en: "After a block: 3% damage reduction for 4s, stacks 5 times.", tr: "Bloktan sonra: 4 sn %3 hasar azaltma, 5 kez yığılır.", zh-CN: "格挡后：4 秒内减伤 3%，最多叠加 5 层。", es: "Tras bloquear: 3% de reducción de daño durante 4 s, se acumula 5 veces."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 3, duration_s: 4, max_stacks: 5}}]}}
+        awakening:
+          code: living_fortress
+          l10n:
+            name: {en: Living Fortress, tr: Yaşayan Kale, zh-CN: 活体要塞, es: Fortaleza viviente}
+            description: {en: "Every 5th block grants a shield worth 6% of max HP.", tr: "Her 5. blok maksimum canın %6'sı kadar kalkan verir.", zh-CN: "每第 5 次格挡获得相当于最大生命值 6% 的护盾。", es: "Cada 5.º bloqueo otorga un escudo del 6% de la vida máxima."}
+          effects:
+            - {effect_type: STACK_GAIN, params: {stack_code: fortress_blocks, amount: 1, max_stacks: 5}}
+            - {effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: SHIELD, params: {percent_max_hp: 6, duration_s: 10}}]}}
+      - code: warlord
+        l10n:
+          name: {en: Warlord, tr: Savaş Lordu, zh-CN: 军阀, es: Señor de la guerra}
+          role: {en: Tank / party buff, tr: Tank / grup güçlendirme, zh-CN: 坦克 / 团队增益, es: Tanque / mejora de grupo}
+          mastery_noun: {en: Warlord, tr: Savaş Lordu, zh-CN: 军阀, es: Señor de la guerra}
+        passive:
+          code: command_presence
+          l10n:
+            name: {en: Command Presence, tr: Komuta Varlığı, zh-CN: 统帅威仪, es: Presencia de mando}
+            description: {en: "Taking damage gives nearby allies Attack +1%, stacks 5 times.", tr: "Hasar aldıkça yakın müttefikler Saldırı +%1 kazanır, 5 kez yığılır.", zh-CN: "受到伤害时附近友军攻击 +1%，最多叠加 5 层。", es: "Recibir daño da a los aliados cercanos Ataque +1%, se acumula 5 veces."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_damage_taken, internal_cooldown_s: 1, effects: [{effect_type: BUFF, params: {duration_s: 8, max_stacks: 5, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}}]}}
+        awakening:
+          code: war_banner
+          l10n:
+            name: {en: War Banner, tr: Savaş Sancağı, zh-CN: 战旗, es: Estandarte de guerra}
+            description: {en: "After a taunt: party Damage +6% for 8s.", tr: "Kışkırtmadan sonra: 8 sn grup Hasarı +%6.", zh-CN: "嘲讽后：团队伤害 +6%，持续 8 秒。", es: "Tras provocar: Daño del grupo +6% durante 8 s."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_ability_cast, internal_cooldown_s: 12, effects: [{effect_type: BUFF, params: {duration_s: 8, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 6}}]}}]}}
+  - code: reaver
+    l10n:
+      name: {en: Reaver, tr: Yağmacı, zh-CN: 掠夺者, es: Saqueador}
+      role: {en: DPS, tr: DPS, zh-CN: 输出, es: DPS}
+    passive:
+      code: execution_instinct
+      l10n:
+        name: {en: Execution Instinct, tr: İnfaz İçgüdüsü, zh-CN: 处决本能, es: Instinto ejecutor}
+        description: {en: "+15% damage against targets below 35% HP.", tr: "%35 Can altındaki hedeflere +%15 hasar.", zh-CN: "对生命值低于 35% 的目标伤害 +15%。", es: "+15% de daño contra objetivos con menos del 35% de PS."}
+      effects:
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 15, condition: {metric: target_hp_pct, op: lt, value: 35}}}
+    specializations:
+      - code: berserker
+        l10n:
+          name: {en: Berserker, tr: Berserker, zh-CN: 狂战士, es: Berserker}
+          role: {en: Risk burst, tr: Riskli patlama, zh-CN: 高风险爆发, es: Ráfaga arriesgada}
+          mastery_noun: {en: Berserker, tr: Berserker, zh-CN: 狂战士, es: Berserker}
+        passive:
+          code: blood_rage
+          l10n:
+            name: {en: Blood Rage, tr: Kan Öfkesi, zh-CN: 血怒, es: Ira sangrienta}
+            description: {en: "+3% damage for every 10% missing HP.", tr: "Eksik her %10 Can için +%3 hasar.", zh-CN: "每损失 10% 生命值，伤害 +3%。", es: "+3% de daño por cada 10% de PS perdidos."}
+          effects:
+            - {effect_type: SCALING_BONUS, params: {metric: missing_hp_pct, step: 10, percent_per_step: 3, max_percent: 30, applies_to: damage}}
+        awakening:
+          code: red_feast
+          l10n:
+            name: {en: Red Feast, tr: Kızıl Ziyafet, zh-CN: 血宴, es: Festín rojo}
+            description: {en: "Below 30% HP: +12% lifesteal.", tr: "%30 Can altında: +%12 can çalma.", zh-CN: "生命值低于 30% 时：生命偷取 +12%。", es: "Con menos del 30% de PS: +12% de robo de vida."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_hp_pct, op: lt, value: 30}, effects: [{effect_type: STAT_FLAT, params: {stat: lifesteal, amount: 12}}]}}
+      - code: weapon_master
+        l10n:
+          name: {en: Weapon Master, tr: Silah Ustası, zh-CN: 武器大师, es: Maestro de armas}
+          role: {en: Sustained DPS, tr: Sürekli DPS, zh-CN: 持续输出, es: DPS sostenido}
+          mastery_noun: {en: Blademaster, tr: Kılıç Ustası, zh-CN: 剑圣, es: Maestro de la hoja}
+        passive:
+          code: weapon_discipline
+          l10n:
+            name: {en: Weapon Discipline, tr: Silah Disiplini, zh-CN: 武器纪律, es: Disciplina de armas}
+            description: {en: "Different bonus by weapon type: swords crit, axes penetration, maces stun resist, two-handers damage.", tr: "Silah türüne göre bonus: kılıç kritik, balta delme, gürz sersemletme direnci, çift el hasar.", zh-CN: "按武器类型获得加成：剑暴击、斧穿透、锤抗眩晕、双手武器伤害。", es: "Bonificación según el arma: espadas crítico, hachas penetración, mazas resistencia al aturdimiento, a dos manos daño."}
+          effects:
+            - {effect_type: WEAPON_FAMILY_BONUS, params: {families: [sword], effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 4}}]}}
+            - {effect_type: WEAPON_FAMILY_BONUS, params: {families: [axe], effects: [{effect_type: STAT_FLAT, params: {stat: armor_penetration, amount: 8}}]}}
+            - {effect_type: WEAPON_FAMILY_BONUS, params: {families: [mace], effects: [{effect_type: STAT_FLAT, params: {stat: stun_resist, amount: 10}}]}}
+            - {effect_type: WEAPON_FAMILY_BONUS, params: {families: [greatsword, greataxe, spear], effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 6}}]}}
+        awakening:
+          code: perfect_sequence
+          l10n:
+            name: {en: Perfect Sequence, tr: Kusursuz Dizi, zh-CN: 完美连段, es: Secuencia perfecta}
+            description: {en: "After 4 different attacks, the finisher deals +45% damage.", tr: "4 farklı saldırıdan sonra bitirici +%45 hasar verir.", zh-CN: "施展 4 种不同攻击后，终结技伤害 +45%。", es: "Tras 4 ataques distintos, el remate inflige +45% de daño."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: DAMAGE, params: {percent_of_power: 145}}]}}

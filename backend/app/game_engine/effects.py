@@ -18,6 +18,21 @@ Seconds = Annotated[float, Field(gt=0.0, le=3600.0)]
 MAX_NESTING = 3
 
 
+Trigger = Literal[
+    "on_hit",
+    "on_crit",
+    "on_block",
+    "on_dodge",
+    "on_heal",
+    "on_crit_heal",
+    "on_kill",
+    "on_damage_taken",
+    "combat_start",
+    "on_resource_spent",
+    "on_ability_cast",
+]
+
+
 class StrictParams(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -32,6 +47,11 @@ ConditionMetric = Literal[
     "self_buff_count",
     "combo_count",
     "stack_count",
+    "hit_index",
+    "combat_time_s",
+    "active_hot_count",
+    "missing_hp_pct",
+    "party_size",
 ]
 Comparator = Literal["lt", "lte", "gt", "gte", "eq"]
 
@@ -128,9 +148,7 @@ class Heal(StrictParams):
 
 class ProcChance(StrictParams):
     chance_percent: PositivePercent
-    trigger: Literal[
-        "on_hit", "on_crit", "on_block", "on_dodge", "on_heal", "on_kill", "on_damage_taken", "combat_start"
-    ] = "on_hit"
+    trigger: Trigger = "on_hit"
     effects: list["Effect"] = Field(min_length=1, max_length=5)
     internal_cooldown_s: float = Field(default=0, ge=0, le=600)
 
@@ -207,6 +225,56 @@ class StackGain(StrictParams):
     per_stack: list["Effect"] = Field(default_factory=list, max_length=5)
 
 
+class Buff(StrictParams):
+    """Timed wrapper: apply nested (usually stat) effects for a duration, optionally stacking."""
+
+    duration_s: Seconds
+    max_stacks: int = Field(default=1, ge=1, le=20)
+    target: Literal["self", "lowest_hp_ally", "party", "target"] = "self"
+    effects: list["Effect"] = Field(min_length=1, max_length=5)
+
+
+class ScalingBonus(StrictParams):
+    """+percent_per_step for every `step` of a metric (e.g. +3% damage per 10% missing HP), capped."""
+
+    metric: ConditionMetric
+    step: float = Field(gt=0, le=100)
+    percent_per_step: float = Field(gt=0, le=100)
+    max_percent: float = Field(gt=0, le=500)
+    applies_to: Literal["damage", "healing", "buff_power", "damage_reduction", "attack_speed"] = "damage"
+    stack_code: str | None = Field(default=None, max_length=64, pattern=r"^[a-z0-9_]+$")
+
+
+class WeaponFamilyBonus(StrictParams):
+    families: list[str] = Field(min_length=1, max_length=30)
+    effects: list["Effect"] = Field(min_length=1, max_length=5)
+
+
+class ResourceCostMod(StrictParams):
+    resource: str = Field(max_length=32, pattern=r"^[a-z0-9_]+$")
+    percent: Annotated[float, Field(ge=-90, le=200)]
+
+
+class StackCapMod(StrictParams):
+    stack_code: str = Field(max_length=64, pattern=r"^[a-z0-9_]+$")
+    amount: int = Field(ge=-10, le=20)
+
+
+class SoloAccord(StrictParams):
+    """Support solo conversion: outside a party, part of support power converts to offensive power."""
+
+    conversion_percent: Annotated[float, Field(ge=0, le=100)]
+    source_stats: list[str] = Field(min_length=1, max_length=8)
+    target_stats: list[str] = Field(min_length=1, max_length=4)
+
+    @field_validator("source_stats", "target_stats")
+    @classmethod
+    def _stats(cls, v: list[str]) -> list[str]:
+        for s in v:
+            _stat(s)
+        return v
+
+
 class Effect(StrictParams):
     effect_type: str = Field(max_length=40)
     schema_version: int = Field(default=1, ge=1)
@@ -251,6 +319,12 @@ _BUILTINS: list[tuple[str, type[StrictParams], str, str]] = [
     ("PROGRESSION_MODIFIER", ProgressionModifier, "economy", "Death penalty, respec cost, consumable use"),
     ("PROFESSION_YIELD_MOD", ProfessionYieldMod, "profession", "Profession yield/speed/quality modifiers"),
     ("STACK_GAIN", StackGain, "trigger", "Gain a named stack with per-stack effects"),
+    ("BUFF", Buff, "trigger", "Timed (stacking) buff wrapping nested effects"),
+    ("SCALING_BONUS", ScalingBonus, "combat", "Bonus that scales with a combat metric"),
+    ("WEAPON_FAMILY_BONUS", WeaponFamilyBonus, "combat", "Effects active with specific weapon families"),
+    ("RESOURCE_COST_MOD", ResourceCostMod, "combat", "Resource cost modifier"),
+    ("STACK_CAP_MOD", StackCapMod, "combat", "Change the cap of a named stack"),
+    ("SOLO_ACCORD", SoloAccord, "combat", "Support solo conversion outside a party"),
 ]
 for _code, _model, _cat, _desc in _BUILTINS:
     register(_code, 1, _model, _cat, _desc)
@@ -312,5 +386,5 @@ def registry_schema() -> list[dict[str, Any]]:
     ]
 
 
-for _m in (ProcChance, ThresholdTrigger, EveryNHits, Aura, StackGain):
+for _m in (ProcChance, ThresholdTrigger, EveryNHits, Aura, StackGain, Buff, WeaponFamilyBonus):
     _m.model_rebuild()

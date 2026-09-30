@@ -1,0 +1,135 @@
+code: cleric
+category: support
+sort_order: 6
+stat_weights: {primary: WIS, secondary: SPI, utility: VIT}
+main_damage_stat: INT
+resources: [faith]
+weapons: [staff, mace, holy_tome]
+dual_wield: false
+armor: [mail, leather, cloth, shield]
+item_tags: [faith]
+solo_accord: {conversion_percent: 35, source_stats: [healing_power, shield_power], target_stats: [spell_power]}
+l10n:
+  name: {en: Cleric, tr: Rahip, zh-CN: 牧师, es: Clérigo}
+  role: {en: Heal / Barrier, tr: Şifa / Bariyer, zh-CN: 治疗 / 屏障, es: Curación / Barrera}
+  description:
+    en: A devoted healer whose overflowing grace becomes Faith, empowering every blessing.
+    tr: Taşan lütfu İnanç'a dönüşen ve her kutsamayı güçlendiren adanmış şifacı.
+    zh-CN: 虔诚的治疗者，溢出的恩典化为信仰，强化每一次祝福。
+    es: Un sanador devoto cuya gracia desbordante se convierte en Fe y potencia cada bendición.
+base_passive:
+  code: grace
+  l10n:
+    name: {en: Grace, tr: Lütuf, zh-CN: 恩典, es: Gracia}
+    description:
+      en: Overhealing and cleansing generate Faith; Faith strengthens support skills.
+      tr: Fazla iyileştirme ve arındırma İnanç üretir; İnanç destek yeteneklerini güçlendirir.
+      zh-CN: 过量治疗和驱散产生信仰；信仰强化辅助技能。
+      es: La sobrecuración y la purificación generan Fe; la Fe potencia las habilidades de apoyo.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: faith, amount: 3}}]}}
+    - {effect_type: SCALING_BONUS, params: {metric: self_resource_pct, step: 20, percent_per_step: 2, max_percent: 10, applies_to: healing}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 2}}
+branches:
+  - code: saint
+    l10n:
+      name: {en: Saint, tr: Aziz, zh-CN: 圣者, es: Santo}
+      role: {en: Healing, tr: İyileştirme, zh-CN: 治疗, es: Curación}
+    passive:
+      code: benediction
+      l10n:
+        name: {en: Benediction, tr: Kutsama, zh-CN: 祝福, es: Bendición}
+        description: {en: "Healing +15%.", tr: "İyileştirme +%15.", zh-CN: "治疗量 +15%。", es: "Curación +15%."}
+      effects:
+        - {effect_type: HEAL_MULTIPLIER, params: {percent: 15, scope: outgoing}}
+    specializations:
+      - code: high_priest
+        l10n:
+          name: {en: High Priest, tr: Başrahip, zh-CN: 大主教, es: Sumo sacerdote}
+          role: {en: Burst heal, tr: Ani şifa, zh-CN: 爆发治疗, es: Curación de ráfaga}
+          mastery_noun: {en: Grace, tr: Lütuf, zh-CN: 恩典, es: Gracia}
+        passive:
+          code: mercy
+          l10n:
+            name: {en: Mercy, tr: Merhamet, zh-CN: 慈悲, es: Misericordia}
+            description: {en: "Critical heals grant Faith.", tr: "Kritik iyileştirmeler İnanç verir.", zh-CN: "治疗暴击时获得信仰。", es: "Las curaciones críticas otorgan Fe."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: faith, amount: 5}}]}}
+        awakening:
+          code: divine_grace
+          l10n:
+            name: {en: Divine Grace, tr: İlahi Lütuf, zh-CN: 神圣恩典, es: Gracia divina}
+            description: {en: "Overhealing turns into a shield.", tr: "Fazla iyileştirme kalkana dönüşür.", zh-CN: "过量治疗转化为护盾。", es: "La sobrecuración se convierte en escudo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, internal_cooldown_s: 3, effects: [{effect_type: SHIELD, params: {percent_max_hp: 4, duration_s: 6, target: lowest_hp_ally}}]}}
+      - code: aegis_priest
+        l10n:
+          name: {en: Aegis Priest, tr: Kalkan Rahibi, zh-CN: 圣盾祭司, es: Sacerdote de la égida}
+          role: {en: Barrier, tr: Bariyer, zh-CN: 屏障, es: Barrera}
+          mastery_noun: {en: Aegis, tr: Kalkan, zh-CN: 圣盾, es: Égida}
+        passive:
+          code: sacred_guard
+          l10n:
+            name: {en: Sacred Guard, tr: Kutsal Koruma, zh-CN: 神圣守护, es: Guardia sagrada}
+            description: {en: "Shield power +15%.", tr: "Kalkan gücü +%15.", zh-CN: "护盾强度 +15%。", es: "Poder de escudo +15%."}
+          effects:
+            - {effect_type: STAT_PERCENT, params: {stat: shield_power, percent: 15}}
+        awakening:
+          code: sacred_barrier
+          l10n:
+            name: {en: Sacred Barrier, tr: Kutsal Bariyer, zh-CN: 神圣屏障, es: Barrera sagrada}
+            description: {en: "When a shield breaks, it heals.", tr: "Kalkan kırılınca iyileştirir.", zh-CN: "护盾破碎时进行治疗。", es: "Cuando un escudo se rompe, cura."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_damage_taken, internal_cooldown_s: 6, effects: [{effect_type: HEAL, params: {percent_of_power: 30, target: lowest_hp_ally}}]}}
+  - code: oracle
+    l10n:
+      name: {en: Oracle, tr: Kâhin, zh-CN: 先知, es: Oráculo}
+      role: {en: Buff / Cleanse, tr: Güçlendirme / Arındırma, zh-CN: 增益 / 驱散, es: Mejora / Purificación}
+    passive:
+      code: insight
+      l10n:
+        name: {en: Insight, tr: Sezgi, zh-CN: 洞察, es: Perspicacia}
+        description: {en: "Buff and cleanse duration +15%.", tr: "Güçlendirme ve arındırma süresi +%15.", zh-CN: "增益与驱散持续时间 +15%。", es: "Duración de mejoras y purificaciones +15%."}
+      effects:
+        - {effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 15}}
+    specializations:
+      - code: prophet
+        l10n:
+          name: {en: Prophet, tr: Peygamber, zh-CN: 预言者, es: Profeta}
+          role: {en: Buff, tr: Güçlendirme, zh-CN: 增益, es: Mejora}
+          mastery_noun: {en: Prophecy, tr: Kehanet, zh-CN: 预言, es: Profecía}
+        passive:
+          code: revelation
+          l10n:
+            name: {en: Revelation, tr: Vahiy, zh-CN: 启示, es: Revelación}
+            description: {en: "Buffed allies gain a minor stat bonus.", tr: "Güçlendirilen müttefikler küçük bir stat bonusu kazanır.", zh-CN: "获得增益的友军额外获得少量属性。", es: "Los aliados mejorados obtienen una bonificación menor de atributos."}
+          effects:
+            - {effect_type: AURA, params: {scope: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 2}}, {effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 2}}]}}
+        awakening:
+          code: foretold_victory
+          l10n:
+            name: {en: Foretold Victory, tr: Önceden Bildirilmiş Zafer, zh-CN: 预言之胜, es: Victoria profetizada}
+            description: {en: "With 3 buffs active, party damage +5%.", tr: "3 güçlendirme aktifken grup hasarı +%5.", zh-CN: "3 个增益生效时，团队伤害 +5%。", es: "Con 3 mejoras activas, daño del grupo +5%."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_buff_count, op: gte, value: 3}, effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 5}}]}}]}}
+      - code: exorcist
+        l10n:
+          name: {en: Exorcist, tr: Kovucu, zh-CN: 驱魔师, es: Exorcista}
+          role: {en: Cleanse / anti-debuff, tr: Arındırma / zayıflatma karşıtı, zh-CN: 驱散 / 反减益, es: Purificación / antiperjuicio}
+          mastery_noun: {en: Purifier, tr: Arındırıcı, zh-CN: 净化者, es: Purificador}
+        passive:
+          code: purity
+          l10n:
+            name: {en: Purity, tr: Saflık, zh-CN: 纯净, es: Pureza}
+            description: {en: "Cleanse cooldown −20%.", tr: "Arındırma bekleme süresi −%20.", zh-CN: "驱散冷却 −20%。", es: "Enfriamiento de purificación −20%."}
+          effects:
+            - {effect_type: COOLDOWN_MOD, params: {percent: -20, ability_tag: cleanse}}
+        awakening:
+          code: purification
+          l10n:
+            name: {en: Purification, tr: Arınma, zh-CN: 净化, es: Purificación}
+            description: {en: "Cleansed targets become briefly immune to debuffs.", tr: "Arındırılan hedef kısa süre zayıflatmalara karşı bağışık olur.", zh-CN: "被驱散的目标短暂免疫减益。", es: "Los objetivos purificados son inmunes a perjuicios brevemente."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, internal_cooldown_s: 8, effects: [{effect_type: BUFF, params: {duration_s: 3, target: lowest_hp_ally, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 5}}]}}]}}

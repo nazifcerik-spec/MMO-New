@@ -1,0 +1,9 @@
+code: class_path
+data:
+  # Changing an already chosen Lv100 branch or Lv300 specialization (canonical sink: respec).
+  first_change_free: true
+  branch_change_gold_per_level: 60
+  spec_change_gold_per_level: 25
+  cooldown_hours: 24
+  # Support solo conversion (canonical Solo Accord default 35%); class data may override per class.
+  solo_accord_default_percent: 35

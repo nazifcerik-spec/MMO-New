@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api import auth, characters, content_public, health, i18n, progression
+from app.api import auth, characters, classes, content_public, health, i18n, progression
 from app.api.admin import content as admin_content
 from app.api.admin import localization as admin_localization
 from app.api.admin import users as admin_users
@@ -13,6 +13,7 @@ _MODULES = (
     characters,
     content_public,
     progression,
+    classes,
     admin_localization,
     admin_users,
     admin_content,

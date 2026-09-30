@@ -1,0 +1,135 @@
+code: bard
+category: support
+sort_order: 9
+stat_weights: {primary: SPI, secondary: DEX, utility: WIS}
+main_damage_stat: DEX
+resources: [rhythm]
+weapons: [lute, harp, flute, rapier]
+dual_wield: false
+armor: [leather, cloth]
+item_tags: [harmony]
+solo_accord: {conversion_percent: 35, source_stats: [song_power, buff_power, healing_power], target_stats: [attack_power, spell_power]}
+l10n:
+  name: {en: Bard, tr: Ozan, zh-CN: 吟游诗人, es: Bardo}
+  role: {en: Buff / Debuff / Rhythm, tr: Güçlendirme / Zayıflatma / Ritim, zh-CN: 增益 / 减益 / 韵律, es: Mejora / Perjuicio / Ritmo}
+  description:
+    en: A performer who weaves varied songs into Rhythm; repeating one tune loses its power.
+    tr: Çeşitli şarkıları Ritim'e ören bir sanatçı; aynı ezgiyi tekrarlamak gücünü azaltır.
+    zh-CN: 以多样歌曲编织韵律的表演者；反复演奏同一曲调会削弱效果。
+    es: Un intérprete que teje canciones variadas en Ritmo; repetir una misma melodía pierde fuerza.
+base_passive:
+  code: performance
+  l10n:
+    name: {en: Performance, tr: Performans, zh-CN: 演出, es: Actuación}
+    description:
+      en: Different songs generate Rhythm; spamming the same song lowers efficiency.
+      tr: Farklı şarkılar Ritim üretir; aynı şarkıyı tekrarlamak verimi düşürür.
+      zh-CN: 不同歌曲产生韵律；重复同一首歌效率降低。
+      es: Canciones distintas generan Ritmo; repetir la misma reduce la eficiencia.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_ability_cast, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rhythm, amount: 5}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 50, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rhythm, amount: 2}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: DEX, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 2}}
+branches:
+  - code: minstrel
+    l10n:
+      name: {en: Minstrel, tr: Âşık, zh-CN: 游吟者, es: Juglar}
+      role: {en: Buff / heal, tr: Güçlendirme / şifa, zh-CN: 增益 / 治疗, es: Mejora / curación}
+    passive:
+      code: harmony
+      l10n:
+        name: {en: Harmony, tr: Uyum, zh-CN: 和声, es: Armonía}
+        description: {en: "Song duration +15%.", tr: "Şarkı süresi +%15.", zh-CN: "歌曲持续时间 +15%。", es: "Duración de canciones +15%."}
+      effects:
+        - {effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 15}}
+    specializations:
+      - code: virtuoso
+        l10n:
+          name: {en: Virtuoso, tr: Virtüöz, zh-CN: 大师, es: Virtuoso}
+          role: {en: Buff, tr: Güçlendirme, zh-CN: 增益, es: Mejora}
+          mastery_noun: {en: Maestro, tr: Maestro, zh-CN: 乐圣, es: Maestro}
+        passive:
+          code: layered_harmony
+          l10n:
+            name: {en: Layered Harmony, tr: Katmanlı Uyum, zh-CN: 多重和声, es: Armonía en capas}
+            description: {en: "Buffs grow stronger per different active song.", tr: "Her farklı aktif şarkı için güçlendirmeler artar.", zh-CN: "每首不同的生效歌曲都会强化增益。", es: "Las mejoras se fortalecen por cada canción distinta activa."}
+          effects:
+            - {effect_type: SCALING_BONUS, params: {metric: self_buff_count, step: 1, percent_per_step: 3, max_percent: 12, applies_to: buff_power}}
+        awakening:
+          code: grand_performance
+          l10n:
+            name: {en: Grand Performance, tr: Büyük Gösteri, zh-CN: 盛大演出, es: Gran actuación}
+            description: {en: "After 3 songs, the party gains an all-stat buff.", tr: "3 şarkıdan sonra gruba tüm statlar güçlendirmesi.", zh-CN: "3 首歌曲后，团队获得全属性增益。", es: "Tras 3 canciones, el grupo recibe una mejora a todos los atributos."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 3, effects: [{effect_type: BUFF, params: {duration_s: 10, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: STR, percent: 3}}, {effect_type: STAT_PERCENT, params: {stat: DEX, percent: 3}}, {effect_type: STAT_PERCENT, params: {stat: INT, percent: 3}}, {effect_type: STAT_PERCENT, params: {stat: WIS, percent: 3}}]}}]}}
+      - code: harmonist
+        l10n:
+          name: {en: Harmonist, tr: Ahenkçi, zh-CN: 和谐者, es: Armonista}
+          role: {en: Heal, tr: Şifa, zh-CN: 治疗, es: Curación}
+          mastery_noun: {en: Chord, tr: Akor, zh-CN: 和弦, es: Acorde}
+        passive:
+          code: resonant_heal
+          l10n:
+            name: {en: Resonant Heal, tr: Yankılanan Şifa, zh-CN: 共鸣治疗, es: Curación resonante}
+            description: {en: "Song ticks heal the party.", tr: "Şarkı tikleri grubu iyileştirir.", zh-CN: "歌曲每跳治疗团队。", es: "Los pulsos de canción curan al grupo."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 3, effects: [{effect_type: HEAL, params: {percent_of_power: 15, target: party}}]}}
+        awakening:
+          code: perfect_chord
+          l10n:
+            name: {en: Perfect Chord, tr: Kusursuz Akor, zh-CN: 完美和弦, es: Acorde perfecto}
+            description: {en: "Every 4th tick is a burst heal.", tr: "Her 4. tik ani şifadır.", zh-CN: "每第 4 跳为爆发治疗。", es: "Cada 4.º pulso es una curación de ráfaga."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: HEAL, params: {percent_of_power: 60, target: lowest_hp_ally}}]}}
+  - code: skald
+    l10n:
+      name: {en: Skald, tr: Skald, zh-CN: 战吟诗人, es: Escaldo}
+      role: {en: Offensive support, tr: Saldırgan destek, zh-CN: 进攻辅助, es: Apoyo ofensivo}
+    passive:
+      code: battle_verse
+      l10n:
+        name: {en: Battle Verse, tr: Savaş Dizesi, zh-CN: 战斗诗篇, es: Verso de batalla}
+        description: {en: "Offensive song power +12%.", tr: "Saldırgan şarkı gücü +%12.", zh-CN: "进攻歌曲强度 +12%。", es: "Poder de canciones ofensivas +12%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: song_power, percent: 12}}
+    specializations:
+      - code: war_chanter
+        l10n:
+          name: {en: War Chanter, tr: Savaş İlahicisi, zh-CN: 战歌手, es: Cantor de guerra}
+          role: {en: Offensive buff, tr: Saldırgan güçlendirme, zh-CN: 进攻增益, es: Mejora ofensiva}
+          mastery_noun: {en: Anthem, tr: Marş, zh-CN: 战歌, es: Himno}
+        passive:
+          code: marching_beat
+          l10n:
+            name: {en: Marching Beat, tr: Yürüyüş Ritmi, zh-CN: 行军鼓点, es: Ritmo de marcha}
+            description: {en: "Ally crits generate Rhythm.", tr: "Müttefik kritikleri Ritim üretir.", zh-CN: "友军暴击产生韵律。", es: "Los críticos aliados generan Ritmo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rhythm, amount: 3}}]}}
+        awakening:
+          code: battle_anthem
+          l10n:
+            name: {en: Battle Anthem, tr: Savaş Marşı, zh-CN: 战斗颂歌, es: Himno de combate}
+            description: {en: "At max Rhythm, party attack speed rises.", tr: "Maksimum Ritimde grup saldırı hızı artar.", zh-CN: "韵律满值时团队攻击速度提升。", es: "Con Ritmo máximo, sube la velocidad de ataque del grupo."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 100}, effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 8}}]}}]}}
+      - code: dirge_singer
+        l10n:
+          name: {en: Dirge Singer, tr: Ağıtçı, zh-CN: 挽歌者, es: Cantor de endechas}
+          role: {en: Debuff, tr: Zayıflatma, zh-CN: 减益, es: Perjuicio}
+          mastery_noun: {en: Dirge, tr: Ağıt, zh-CN: 挽歌, es: Endecha}
+        passive:
+          code: dissonance
+          l10n:
+            name: {en: Dissonance, tr: Uyumsuzluk, zh-CN: 不和谐, es: Disonancia}
+            description: {en: "Enemy debuff duration +15%.", tr: "Düşman zayıflatma süresi +%15.", zh-CN: "敌方减益持续时间 +15%。", es: "Duración de perjuicios enemigos +15%."}
+          effects:
+            - {effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 15}}
+        awakening:
+          code: final_dirge
+          l10n:
+            name: {en: Final Dirge, tr: Son Ağıt, zh-CN: 终焉挽歌, es: Endecha final}
+            description: {en: "Debuff power rises as the target's HP falls.", tr: "Hedefin canı düştükçe zayıflatma gücü artar.", zh-CN: "目标生命值越低，减益效果越强。", es: "El poder de perjuicio aumenta a medida que baja la vida del objetivo."}
+          effects:
+            - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 12, condition: {metric: target_hp_pct, op: lt, value: 50}}}

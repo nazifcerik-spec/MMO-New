@@ -51,7 +51,7 @@ async def test_racial_effects_in_stat_breakdown(make_client, make_character) -> 
     v = (await u.http.get(f"/api/v1/characters/{cid}/progression")).json()
     vit = v["stats"]["primary"]["VIT"]
     assert {"source": "race", "ref": "dwarf", "flat": 0.0, "percent": 5.0} in vit["breakdown"]
-    assert vit["final"] == 5 * 1.05
+    assert vit["final"] == (5 + 3) * 1.05  # (base + warrior VIT) × dwarf 5%
     be = v["stats"]["derived"]["block_efficiency"]
     assert any(b["source"] == "race" and b["flat"] == 5 for b in be["breakdown"])
 

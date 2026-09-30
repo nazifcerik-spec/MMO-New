@@ -95,7 +95,16 @@
     "version_conflict": "Veri başka yerde değişti. Yenilendi — tekrar deneyin.",
     "insufficient_funds": "Yeterli altın yok.",
     "profile_unresolved": "Bu şablon sınıf verisine ihtiyaç duyar.",
-    "nothing_to_respec": "Sıfırlanacak puan yok."
+    "nothing_to_respec": "Sıfırlanacak puan yok.",
+    "level_too_low": "Bunun için seviyen yetersiz.",
+    "invalid_branch": "Bu yol sınıfına ait değil.",
+    "invalid_specialization": "Bu uzmanlık senin yolunda değil.",
+    "already_promoted": "Zaten bir yol seçtin.",
+    "already_specialized": "Zaten uzmanlaştın.",
+    "promotion_required": "Önce Sv100 yolunu seç.",
+    "path_change_cooldown": "Yol değişikliği bekleme süresinde.",
+    "invalid_class": "Bilinmeyen sınıf.",
+    "invalid_race": "Bilinmeyen ırk."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -215,5 +224,28 @@
     "raceTitle": "Irk unvanı: {title}",
     "affinity": "Doğal uyum (bilgi amaçlı): {classes}",
     "noLock": "Her ırk her sınıfı oynayabilir."
+  },
+  "classes": {
+    "title": "Sınıf yolu",
+    "resources": "Kaynak: {list}",
+    "weapons": "Silahlar: {list}",
+    "armor": "Zırh: {list}",
+    "stats": "Statlar: {primary} · {secondary} · {utility}",
+    "soloAccord": "Solo Uyum: Yalnızken destek gücünün %{percent}'i saldırıya dönüşür.",
+    "paths": "Sv100 yolları: {list}",
+    "stageAt": "Sv {level}",
+    "locked": "Kilitli",
+    "unlocked": "Açık",
+    "completed": "Tamamlandı",
+    "promote": "Bu yolu seç",
+    "specialize": "Uzmanlaş",
+    "confirmPromote": "Sv100 yolun olarak {name} seçilsin mi?",
+    "confirmSpecialize": "{name} olmak istiyor musun?",
+    "current": "Mevcut",
+    "requiresLevel": "Sv {level} gerekir",
+    "pathChange": "Yol değiştirmek {gold} altın (dal) / {spec} altın (uzmanlık) tutar.",
+    "pathChangeFree": "İlk yol değişikliğin ücretsiz.",
+    "classTitle": "Sınıf unvanı: {title}",
+    "openClass": "Sınıf yolu"
   }
 }

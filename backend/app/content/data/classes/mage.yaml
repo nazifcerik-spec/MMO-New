@@ -1,0 +1,136 @@
+code: mage
+category: combat
+sort_order: 4
+stat_weights: {primary: INT, secondary: SPI, utility: WIS}
+main_damage_stat: INT
+resources: [mana, arcane_charge]
+weapons: [staff, wand, orb, grimoire]
+dual_wield: false
+armor: [cloth]
+item_tags: [arcane]
+l10n:
+  name: {en: Mage, tr: Büyücü, zh-CN: 法师, es: Mago}
+  role: {en: Magic DPS / Control, tr: Büyü DPS / Kontrol, zh-CN: 法术输出 / 控制, es: DPS mágico / Control}
+  description:
+    en: A scholar of raw magic whose power grows with every Arcane Charge, at a rising mana cost.
+    tr: Her Arkanik Yük ile gücü artan, ama mana maliyeti de yükselen ham büyü âlimi.
+    zh-CN: 钻研纯粹魔法的学者，每层奥术充能都使威力增强，法力消耗也随之上升。
+    es: Un erudito de la magia pura cuyo poder crece con cada Carga arcana, a un coste de maná creciente.
+base_passive:
+  code: mana_flow
+  l10n:
+    name: {en: Mana Flow, tr: Mana Akışı, zh-CN: 法力流动, es: Flujo de maná}
+    description:
+      en: Spells build Arcane Charge; spell power rises, but so does mana cost.
+      tr: Büyüler Arkanik Yük biriktirir; büyü gücü artar, mana maliyeti de artar.
+      zh-CN: 施法积累奥术充能；法术强度提升，法力消耗也随之提高。
+      es: Los hechizos acumulan Carga arcana; el poder mágico sube, y también el coste de maná.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_ability_cast, effects: [{effect_type: STACK_GAIN, params: {stack_code: arcane_charge, max_stacks: 4, per_stack: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 3}}, {effect_type: RESOURCE_COST_MOD, params: {resource: mana, percent: 5}}]}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: INT, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 2}}
+branches:
+  - code: arcanist
+    l10n:
+      name: {en: Arcanist, tr: Arkanist, zh-CN: 奥术师, es: Arcanista}
+      role: {en: Control / efficiency, tr: Kontrol / verimlilik, zh-CN: 控制 / 效率, es: Control / eficiencia}
+    passive:
+      code: arcane_efficiency
+      l10n:
+        name: {en: Arcane Efficiency, tr: Arkanik Verimlilik, zh-CN: 奥术效率, es: Eficiencia arcana}
+        description: {en: "Mana cost −8%, cooldowns −5%.", tr: "Mana maliyeti −%8, bekleme süreleri −%5.", zh-CN: "法力消耗 −8%，冷却 −5%。", es: "Coste de maná −8%, enfriamientos −5%."}
+      effects:
+        - {effect_type: RESOURCE_COST_MOD, params: {resource: mana, percent: -8}}
+        - {effect_type: COOLDOWN_MOD, params: {percent: -5}}
+    specializations:
+      - code: runemaster
+        l10n:
+          name: {en: Runemaster, tr: Rün Ustası, zh-CN: 符文大师, es: Maestro rúnico}
+          role: {en: Prepared burst, tr: Hazırlıklı patlama, zh-CN: 蓄力爆发, es: Ráfaga preparada}
+          mastery_noun: {en: Runelord, tr: Rün Lordu, zh-CN: 符文之主, es: Señor de las runas}
+        passive:
+          code: runic_sequence
+          l10n:
+            name: {en: Runic Sequence, tr: Rün Dizisi, zh-CN: 符文序列, es: Secuencia rúnica}
+            description: {en: "Different runes grant stacking bonuses.", tr: "Farklı rünler yığılan bonuslar verir.", zh-CN: "不同符文提供可叠加的加成。", es: "Runas distintas otorgan bonificaciones acumulables."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_ability_cast, effects: [{effect_type: STACK_GAIN, params: {stack_code: rune, max_stacks: 3, per_stack: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 4}}]}}]}}
+        awakening:
+          code: runic_overload
+          l10n:
+            name: {en: Runic Overload, tr: Rün Aşırı Yüklemesi, zh-CN: 符文超载, es: Sobrecarga rúnica}
+            description: {en: "After 3 different runes, the next spell deals +50%.", tr: "3 farklı ründen sonra sonraki büyü +%50.", zh-CN: "使用 3 种不同符文后，下一个法术伤害 +50%。", es: "Tras 3 runas distintas, el siguiente hechizo inflige +50%."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 3, effects: [{effect_type: DAMAGE, params: {percent_of_power: 50, damage_type: arcane}}]}}
+      - code: chronomancer
+        l10n:
+          name: {en: Chronomancer, tr: Zaman Büyücüsü, zh-CN: 时空法师, es: Cronomante}
+          role: {en: Cooldown / control, tr: Bekleme / kontrol, zh-CN: 冷却 / 控制, es: Enfriamiento / control}
+          mastery_noun: {en: Timekeeper, tr: Zaman Bekçisi, zh-CN: 时光守望者, es: Guardián del tiempo}
+        passive:
+          code: time_fracture
+          l10n:
+            name: {en: Time Fracture, tr: Zaman Kırığı, zh-CN: 时间裂隙, es: Fractura temporal}
+            description: {en: "Faster cooldown recovery against slowed targets.", tr: "Yavaşlatılmış hedeflere karşı daha hızlı bekleme yenilenmesi.", zh-CN: "对减速目标时冷却恢复更快。", es: "Recuperación de enfriamientos más rápida contra objetivos ralentizados."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: target_debuff_count, op: gte, value: 1}, effects: [{effect_type: COOLDOWN_MOD, params: {percent: -10}}]}}
+        awakening:
+          code: time_loop
+          l10n:
+            name: {en: Time Loop, tr: Zaman Döngüsü, zh-CN: 时间回环, es: Bucle temporal}
+            description: {en: "12% chance a spell does not trigger its cooldown.", tr: "%12 ihtimalle büyü bekleme süresi tüketmez.", zh-CN: "12% 几率施法不进入冷却。", es: "12% de probabilidad de que un hechizo no active su enfriamiento."}
+          effects:
+            - {effect_type: COOLDOWN_MOD, params: {percent: 0, chance_no_cooldown_percent: 12}}
+  - code: elementalist
+    l10n:
+      name: {en: Elementalist, tr: Elementalist, zh-CN: 元素使, es: Elementalista}
+      role: {en: Elemental DPS, tr: Element DPS, zh-CN: 元素输出, es: DPS elemental}
+    passive:
+      code: elemental_affinity
+      l10n:
+        name: {en: Elemental Affinity, tr: Element Yakınlığı, zh-CN: 元素亲和, es: Afinidad elemental}
+        description: {en: "Elemental damage +10%.", tr: "Element hasarı +%10.", zh-CN: "元素伤害 +10%。", es: "Daño elemental +10%."}
+      effects:
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: fire}}
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: frost}}
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: lightning}}
+    specializations:
+      - code: pyromancer
+        l10n:
+          name: {en: Pyromancer, tr: Ateş Büyücüsü, zh-CN: 炎术师, es: Piromante}
+          role: {en: Fire damage over time, tr: Ateş zamanla hasar, zh-CN: 火焰持续伤害, es: Daño de fuego en el tiempo}
+          mastery_noun: {en: Inferno, tr: Cehennem, zh-CN: 炼狱, es: Infierno}
+        passive:
+          code: kindling
+          l10n:
+            name: {en: Kindling, tr: Tutuşturma, zh-CN: 引燃, es: Yesca}
+            description: {en: "Burn stacks grow stronger.", tr: "Yanma yığınları güçlenir.", zh-CN: "燃烧层数效果增强。", es: "Las acumulaciones de quemadura se fortalecen."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: DOT, params: {damage_type: fire, percent_of_power: 5, duration_s: 6, max_stacks: 8}}]}}
+        awakening:
+          code: inferno
+          l10n:
+            name: {en: Inferno, tr: Cehennem Ateşi, zh-CN: 炼狱之火, es: Infierno}
+            description: {en: "At max burn stacks the flames explode.", tr: "Maksimum yanma yığınında alevler patlar.", zh-CN: "燃烧层数满时火焰爆发。", es: "Con el máximo de quemaduras, las llamas estallan."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 8, effects: [{effect_type: DAMAGE, params: {percent_of_power: 180, damage_type: fire}}]}}
+      - code: cryomancer
+        l10n:
+          name: {en: Cryomancer, tr: Buz Büyücüsü, zh-CN: 冰霜术士, es: Criomante}
+          role: {en: Freeze / defense, tr: Dondurma / savunma, zh-CN: 冰冻 / 防御, es: Congelación / defensa}
+          mastery_noun: {en: Frost, tr: Ayaz, zh-CN: 寒霜, es: Escarcha}
+        passive:
+          code: frost_armor
+          l10n:
+            name: {en: Frost Armor, tr: Buz Zırhı, zh-CN: 冰甲术, es: Armadura de escarcha}
+            description: {en: "Enemies that hit you are slowed.", tr: "Size vuran düşmanlar yavaşlar.", zh-CN: "攻击你的敌人会被减速。", es: "Los enemigos que te golpean son ralentizados."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_damage_taken, effects: [{effect_type: DEBUFF, params: {kind: slow, percent: 15, duration_s: 4}}]}}
+        awakening:
+          code: absolute_zero
+          l10n:
+            name: {en: Absolute Zero, tr: Mutlak Sıfır, zh-CN: 绝对零度, es: Cero absoluto}
+            description: {en: "Frozen targets take +20% damage.", tr: "Donmuş hedefler +%20 hasar alır.", zh-CN: "被冻结的目标受到的伤害 +20%。", es: "Los objetivos congelados reciben +20% de daño."}
+          effects:
+            - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 20, condition: {metric: target_debuff_count, op: gte, value: 1}}}

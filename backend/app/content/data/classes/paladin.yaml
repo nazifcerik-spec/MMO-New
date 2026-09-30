@@ -1,0 +1,138 @@
+code: paladin
+category: support
+sort_order: 7
+stat_weights: {primary: VIT, secondary: WIS, utility: STR}
+main_damage_stat: STR
+resources: [conviction]
+weapons: [sword, mace, two_handed_mace]
+dual_wield: false
+armor: [plate, mail, leather, cloth, shield]
+item_tags: [vanguard, faith]
+solo_accord: {conversion_percent: 35, source_stats: [healing_power, shield_power, aura_power], target_stats: [attack_power, spell_power]}
+l10n:
+  name: {en: Paladin, tr: Paladin, zh-CN: 圣骑士, es: Paladín}
+  role: {en: Tank / Aura / Heal, tr: Tank / Aura / Şifa, zh-CN: 坦克 / 光环 / 治疗, es: Tanque / Aura / Curación}
+  description:
+    en: An oathbound knight whose blocks, heals and holy strikes build Conviction.
+    tr: Blokları, şifaları ve kutsal darbeleriyle Kararlılık biriktiren yeminli şövalye.
+    zh-CN: 受誓言约束的骑士，格挡、治疗与神圣打击都会积累信念。
+    es: Un caballero juramentado cuyos bloqueos, curaciones y golpes sagrados generan Convicción.
+base_passive:
+  code: oathbound
+  l10n:
+    name: {en: Oathbound, tr: Yemine Bağlı, zh-CN: 誓约, es: Juramentado}
+    description:
+      en: Blocks, heals and holy damage generate Conviction.
+      tr: Blok, şifa ve kutsal hasar Kararlılık üretir.
+      zh-CN: 格挡、治疗和神圣伤害产生信念。
+      es: Bloqueos, curaciones y daño sagrado generan Convicción.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: RESOURCE_GAIN, params: {resource: conviction, amount: 5}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: conviction, amount: 3}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 50, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: conviction, amount: 2}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: STR, amount: 2}}
+branches:
+  - code: warden
+    l10n:
+      name: {en: Warden, tr: Gardiyan, zh-CN: 守望者, es: Custodio}
+      role: {en: Tank support, tr: Tank destek, zh-CN: 坦克辅助, es: Apoyo tanque}
+    passive:
+      code: sacred_bulwark
+      l10n:
+        name: {en: Sacred Guard, tr: Kutsal Siper, zh-CN: 神圣壁垒, es: Baluarte sagrado}
+        description: {en: "Block +8; a small share of ally damage is redirected to you.", tr: "Blok +8; müttefik hasarının küçük bir kısmı size yönlenir.", zh-CN: "格挡 +8；少量友军伤害转移给你。", es: "Bloqueo +8; una pequeña parte del daño aliado se redirige a ti."}
+      effects:
+        - {effect_type: STAT_FLAT, params: {stat: block, amount: 8}}
+        - {effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 3}}]}}
+    specializations:
+      - code: aegis_knight
+        l10n:
+          name: {en: Aegis Knight, tr: Kalkan Şövalyesi, zh-CN: 圣盾骑士, es: Caballero de la égida}
+          role: {en: Tank, tr: Tank, zh-CN: 坦克, es: Tanque}
+          mastery_noun: {en: Aegis, tr: Kalkan, zh-CN: 圣盾, es: Égida}
+        passive:
+          code: shared_shield
+          l10n:
+            name: {en: Shared Shield, tr: Paylaşılan Kalkan, zh-CN: 共享护盾, es: Escudo compartido}
+            description: {en: "After a block, the lowest-HP ally gains a shield.", tr: "Bloktan sonra en düşük canlı müttefik kalkan kazanır.", zh-CN: "格挡后，生命值最低的友军获得护盾。", es: "Tras bloquear, el aliado con menos PS obtiene un escudo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: SHIELD, params: {percent_max_hp: 3, duration_s: 6, target: lowest_hp_ally}}]}}
+        awakening:
+          code: divine_bastion
+          l10n:
+            name: {en: Divine Bastion, tr: İlahi Kale, zh-CN: 神圣堡垒, es: Bastión divino}
+            description: {en: "Every 5th block shields the whole party.", tr: "Her 5. blok tüm gruba kalkan verir.", zh-CN: "每第 5 次格挡为全队提供护盾。", es: "Cada 5.º bloqueo protege a todo el grupo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: SHIELD, params: {percent_max_hp: 5, duration_s: 8, target: party}}]}}]}}
+      - code: lightwarden
+        l10n:
+          name: {en: Lightwarden, tr: Işık Muhafızı, zh-CN: 光之守卫, es: Guardián de la luz}
+          role: {en: Heal tank, tr: Şifacı tank, zh-CN: 治疗坦克, es: Tanque sanador}
+          mastery_noun: {en: Beacon, tr: Fener, zh-CN: 明灯, es: Faro}
+        passive:
+          code: radiant_guard
+          l10n:
+            name: {en: Radiant Guard, tr: Işıltılı Koruma, zh-CN: 辉光守护, es: Guardia radiante}
+            description: {en: "Targets you heal gain damage reduction.", tr: "İyileştirdiğiniz hedefler hasar azaltma kazanır.", zh-CN: "被你治疗的目标获得减伤。", es: "Los objetivos que curas obtienen reducción de daño."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: BUFF, params: {duration_s: 4, target: lowest_hp_ally, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 5}}]}}]}}
+        awakening:
+          code: beacon
+          l10n:
+            name: {en: Beacon, tr: Fener, zh-CN: 圣光信标, es: Faro}
+            description: {en: "20% of healing you receive is passed to an ally.", tr: "Aldığınız iyileştirmenin %20'si bir müttefike gider.", zh-CN: "你受到治疗的 20% 会传递给一名友军。", es: "El 20% de la curación que recibes pasa a un aliado."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: HEAL, params: {percent_of_power: 20, target: lowest_hp_ally}}]}}
+  - code: crusader
+    l10n:
+      name: {en: Crusader, tr: Haçlı, zh-CN: 十字军, es: Cruzado}
+      role: {en: Offensive support, tr: Saldırgan destek, zh-CN: 进攻辅助, es: Apoyo ofensivo}
+    passive:
+      code: zeal
+      l10n:
+        name: {en: Zeal, tr: Şevk, zh-CN: 狂热, es: Celo}
+        description: {en: "Holy damage +10%; hits may buff the party.", tr: "Kutsal hasar +%10; vuruşlar grubu güçlendirebilir.", zh-CN: "神圣伤害 +10%；命中可能为团队提供增益。", es: "Daño sagrado +10%; los golpes pueden mejorar al grupo."}
+      effects:
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: holy}}
+        - {effect_type: PROC_CHANCE, params: {chance_percent: 10, trigger: on_hit, internal_cooldown_s: 5, effects: [{effect_type: BUFF, params: {duration_s: 6, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 3}}]}}]}}
+    specializations:
+      - code: templar
+        l10n:
+          name: {en: Templar, tr: Tapınak Şövalyesi, zh-CN: 圣殿骑士, es: Templario}
+          role: {en: Support DPS, tr: Destek DPS, zh-CN: 辅助输出, es: DPS de apoyo}
+          mastery_noun: {en: Templar, tr: Tapınakçı, zh-CN: 圣殿, es: Templario}
+        passive:
+          code: holy_tempo
+          l10n:
+            name: {en: Holy Tempo, tr: Kutsal Tempo, zh-CN: 神圣节奏, es: Tempo sagrado}
+            description: {en: "Holy hits grant the party attack speed.", tr: "Kutsal vuruşlar gruba saldırı hızı verir.", zh-CN: "神圣命中为团队提供攻击速度。", es: "Los golpes sagrados otorgan velocidad de ataque al grupo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 25, trigger: on_hit, effects: [{effect_type: BUFF, params: {duration_s: 6, max_stacks: 3, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 2}}]}}]}}
+        awakening:
+          code: battle_hymn
+          l10n:
+            name: {en: Battle Hymn, tr: Savaş İlahisi, zh-CN: 战斗圣歌, es: Himno de batalla}
+            description: {en: "At max Zeal, party attack speed rises.", tr: "Maksimum Şevkte grup saldırı hızı artar.", zh-CN: "狂热满值时团队攻击速度提升。", es: "Con Celo máximo, sube la velocidad de ataque del grupo."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 100}, effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 8}}]}}]}}
+      - code: justicar
+        l10n:
+          name: {en: Justicar, tr: Adalet Savunucusu, zh-CN: 审判者, es: Justiciar}
+          role: {en: Debuff / execute, tr: Zayıflatma / infaz, zh-CN: 减益 / 斩杀, es: Perjuicio / ejecución}
+          mastery_noun: {en: Judge, tr: Yargıç, zh-CN: 裁决者, es: Juez}
+        passive:
+          code: judgment_mark
+          l10n:
+            name: {en: Judgment Mark, tr: Yargı İşareti, zh-CN: 审判印记, es: Marca del juicio}
+            description: {en: "Targets gain holy vulnerability.", tr: "Hedefler kutsal zafiyet kazanır.", zh-CN: "目标承受神圣易伤。", es: "Los objetivos sufren vulnerabilidad sagrada."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 20, trigger: on_hit, effects: [{effect_type: DEBUFF, params: {kind: vulnerability, percent: 8, duration_s: 8}}]}}
+        awakening:
+          code: final_judgment
+          l10n:
+            name: {en: Final Judgment, tr: Son Yargı, zh-CN: 最终审判, es: Juicio final}
+            description: {en: "Debuffed low-HP targets take bonus execute damage.", tr: "Zayıflatılmış düşük canlı hedeflere infaz bonusu.", zh-CN: "对带减益的低生命目标造成额外斩杀伤害。", es: "Los objetivos debilitados con poca vida reciben daño de ejecución adicional."}
+          effects:
+            - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 20, condition: {metric: target_hp_pct, op: lt, value: 30}}}

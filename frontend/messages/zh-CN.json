@@ -95,7 +95,16 @@
     "version_conflict": "数据已在别处变更，已刷新，请重试。",
     "insufficient_funds": "金币不足。",
     "profile_unresolved": "该模板需要职业数据。",
-    "nothing_to_respec": "没有可重置的属性点。"
+    "nothing_to_respec": "没有可重置的属性点。",
+    "level_too_low": "等级不足。",
+    "invalid_branch": "该路线不属于你的职业。",
+    "invalid_specialization": "该专精不在你的路线下。",
+    "already_promoted": "你已选择过路线。",
+    "already_specialized": "你已完成专精。",
+    "promotion_required": "请先选择 100 级路线。",
+    "path_change_cooldown": "更换路线冷却中。",
+    "invalid_class": "未知职业。",
+    "invalid_race": "未知种族。"
   },
   "characters": {
     "title": "你的角色",
@@ -215,5 +224,28 @@
     "raceTitle": "种族称号：{title}",
     "affinity": "天然契合（仅供参考）：{classes}",
     "noLock": "任何种族都可选择任何职业。"
+  },
+  "classes": {
+    "title": "职业之路",
+    "resources": "资源：{list}",
+    "weapons": "武器：{list}",
+    "armor": "护甲：{list}",
+    "stats": "属性：{primary} · {secondary} · {utility}",
+    "soloAccord": "独行契约：单人时 {percent}% 辅助强度转化为攻击。",
+    "paths": "100 级路线：{list}",
+    "stageAt": "{level} 级",
+    "locked": "未解锁",
+    "unlocked": "可用",
+    "completed": "已完成",
+    "promote": "选择此路线",
+    "specialize": "专精",
+    "confirmPromote": "选择 {name} 作为你的 100 级路线？",
+    "confirmSpecialize": "成为{name}？",
+    "current": "当前",
+    "requiresLevel": "需要 {level} 级",
+    "pathChange": "更换路线花费 {gold} 金币（分支）/ {spec} 金币（专精）。",
+    "pathChangeFree": "首次更换路线免费。",
+    "classTitle": "职业称号：{title}",
+    "openClass": "职业之路"
   }
 }

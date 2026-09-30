@@ -95,7 +95,16 @@
     "version_conflict": "Data changed elsewhere. Reloaded — please retry.",
     "insufficient_funds": "Not enough gold.",
     "profile_unresolved": "This template needs your class data.",
-    "nothing_to_respec": "No points to reset."
+    "nothing_to_respec": "No points to reset.",
+    "level_too_low": "Your level is too low for that.",
+    "invalid_branch": "That path does not belong to your class.",
+    "invalid_specialization": "That specialization is not under your path.",
+    "already_promoted": "You have already chosen a path.",
+    "already_specialized": "You are already specialized.",
+    "promotion_required": "Choose your Lv100 path first.",
+    "path_change_cooldown": "Path change is on cooldown.",
+    "invalid_class": "Unknown class.",
+    "invalid_race": "Unknown race."
   },
   "characters": {
     "title": "Your characters",
@@ -215,5 +224,28 @@
     "raceTitle": "Race title: {title}",
     "affinity": "Natural fit (informational): {classes}",
     "noLock": "Any race can play any class."
+  },
+  "classes": {
+    "title": "Class path",
+    "resources": "Resource: {list}",
+    "weapons": "Weapons: {list}",
+    "armor": "Armor: {list}",
+    "stats": "Stats: {primary} · {secondary} · {utility}",
+    "soloAccord": "Solo Accord: {percent}% of support power converts to offense when alone.",
+    "paths": "Lv100 paths: {list}",
+    "stageAt": "Lv {level}",
+    "locked": "Locked",
+    "unlocked": "Available",
+    "completed": "Completed",
+    "promote": "Choose this path",
+    "specialize": "Specialize",
+    "confirmPromote": "Choose {name} as your Lv100 path?",
+    "confirmSpecialize": "Become a {name}?",
+    "current": "Current",
+    "requiresLevel": "Requires Lv {level}",
+    "pathChange": "Changing path costs {gold} gold (branch) / {spec} gold (specialization).",
+    "pathChangeFree": "Your first path change is free.",
+    "classTitle": "Class title: {title}",
+    "openClass": "Class path"
   }
 }

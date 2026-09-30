@@ -1,0 +1,12 @@
+namespace: class_title
+entries:
+  class_title.pattern.awakened.name: {en: "Awakened {name}", tr: "Uyanmış {name}", zh-CN: "觉醒·{name}", es: "{name} despertado"}
+  class_title.pattern.ascendant.name: {en: "Ascendant {name}", tr: "Yükselen {name}", zh-CN: "飞升·{name}", es: "{name} ascendido"}
+  class_title.pattern.eternal.name: {en: "Eternal {name}", tr: "Ebedi {name}", zh-CN: "永恒·{name}", es: "{name} eterno"}
+  class_stage.promotion.name: {en: First Promotion, tr: İlk Terfi, zh-CN: 首次转职, es: Primer ascenso}
+  class_stage.specialization.name: {en: Specialization, tr: Uzmanlaşma, zh-CN: 专精, es: Especialización}
+  class_stage.awakening.name: {en: Awakening, tr: Uyanış, zh-CN: 觉醒, es: Despertar}
+  class_stage.capstone.name: {en: Talent Capstone, tr: Yetenek Zirvesi, zh-CN: 天赋终极, es: Cúspide de talentos}
+  class_stage.mastery.name: {en: Class Mastery, tr: Sınıf Ustalığı, zh-CN: 职业精通, es: Maestría de clase}
+  class_category.combat.name: {en: Combat, tr: Savaş, zh-CN: 战斗, es: Combate}
+  class_category.support.name: {en: Support, tr: Destek, zh-CN: 辅助, es: Apoyo}

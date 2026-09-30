@@ -1,0 +1,134 @@
+code: rogue
+category: combat
+sort_order: 2
+stat_weights: {primary: DEX, secondary: LUK, utility: VIT}
+main_damage_stat: DEX
+resources: [energy, opportunity]
+weapons: [dagger, shortsword, fist_weapon, throwing_knife]
+dual_wield: true
+armor: [leather, cloth]
+item_tags: [shadow, slayer]
+l10n:
+  name: {en: Rogue, tr: Haydut, zh-CN: 盗贼, es: Pícaro}
+  role: {en: Burst / Sustained DPS, tr: Patlama / Sürekli DPS, zh-CN: 爆发 / 持续输出, es: DPS de ráfaga / sostenido}
+  description:
+    en: A quick blade that feeds on openings, turning dodges and crits into lethal finishers.
+    tr: Açıklardan beslenen, kaçınma ve kritikleri ölümcül bitiricilere çeviren çevik bir bıçak.
+    zh-CN: 迅捷之刃，抓住破绽，将闪避与暴击化为致命终结。
+    es: Una hoja veloz que se alimenta de aperturas y convierte esquivas y críticos en remates letales.
+base_passive:
+  code: opportunist
+  l10n:
+    name: {en: Opportunist, tr: Fırsatçı, zh-CN: 投机者, es: Oportunista}
+    description:
+      en: Dodges and crits grant Opportunity; at 5 stacks the next finisher is empowered.
+      tr: Kaçınma ve kritikler Fırsat verir; 5 yığında sonraki bitirici güçlenir.
+      zh-CN: 闪避和暴击获得机遇；满 5 层时下一次终结技得到强化。
+      es: Esquivas y críticos otorgan Oportunidad; con 5 acumulaciones el siguiente remate se potencia.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: STACK_GAIN, params: {stack_code: opportunity, max_stacks: 5}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: STACK_GAIN, params: {stack_code: opportunity, max_stacks: 5}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: DEX, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: LUK, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 2}}
+branches:
+  - code: assassin
+    l10n:
+      name: {en: Assassin, tr: Suikastçı, zh-CN: 刺客, es: Asesino}
+      role: {en: Burst, tr: Patlama, zh-CN: 爆发, es: Ráfaga}
+    passive:
+      code: ambush
+      l10n:
+        name: {en: Ambush, tr: Pusu, zh-CN: 伏击, es: Emboscada}
+        description: {en: "First hit: critical damage +25.", tr: "İlk vuruş: kritik hasar +25.", zh-CN: "首次攻击：暴击伤害 +25。", es: "Primer golpe: daño crítico +25."}
+      effects:
+        - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: hit_index, op: lte, value: 1}, effects: [{effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 25}}]}}
+    specializations:
+      - code: nightblade
+        l10n:
+          name: {en: Nightblade, tr: Gece Bıçağı, zh-CN: 夜刃, es: Hoja nocturna}
+          role: {en: Stealth burst, tr: Gizli patlama, zh-CN: 潜行爆发, es: Ráfaga sigilosa}
+          mastery_noun: {en: Nightblade, tr: Gece Bıçağı, zh-CN: 夜刃, es: Hoja nocturna}
+        passive:
+          code: shadow_entry
+          l10n:
+            name: {en: Shadow Entry, tr: Gölge Girişi, zh-CN: 暗影突入, es: Entrada sombría}
+            description: {en: "First 5 seconds of combat: crit chance +12.", tr: "Savaşın ilk 5 saniyesi: kritik şansı +12.", zh-CN: "战斗前 5 秒：暴击率 +12。", es: "Primeros 5 s de combate: prob. de crítico +12."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: combat_time_s, op: lt, value: 5}, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 12}}]}}
+        awakening:
+          code: nightfall
+          l10n:
+            name: {en: Nightfall, tr: Gece Çöküşü, zh-CN: 夜幕降临, es: Anochecer}
+            description: {en: "The first crit triggers a second shadow strike.", tr: "İlk kritik ikinci bir gölge vuruşunu tetikler.", zh-CN: "首次暴击触发第二次暗影打击。", es: "El primer crítico desencadena un segundo golpe sombrío."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, internal_cooldown_s: 600, effects: [{effect_type: DAMAGE, params: {percent_of_power: 100, damage_type: shadow}}]}}
+      - code: venomancer
+        l10n:
+          name: {en: Venomancer, tr: Zehir Ustası, zh-CN: 毒术师, es: Venenomante}
+          role: {en: Damage over time, tr: Zamanla hasar, zh-CN: 持续伤害, es: Daño en el tiempo}
+          mastery_noun: {en: Venom, tr: Zehir, zh-CN: 剧毒, es: Veneno}
+        passive:
+          code: toxic_edge
+          l10n:
+            name: {en: Toxic Edge, tr: Zehirli Kenar, zh-CN: 淬毒之刃, es: Filo tóxico}
+            description: {en: "Every hit applies a poison stack.", tr: "Her vuruş bir zehir yığını uygular.", zh-CN: "每次命中施加一层毒素。", es: "Cada golpe aplica una acumulación de veneno."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: DOT, params: {damage_type: poison, percent_of_power: 4, duration_s: 8, max_stacks: 10}}]}}
+        awakening:
+          code: venom_burst
+          l10n:
+            name: {en: Venom Burst, tr: Zehir Patlaması, zh-CN: 毒爆, es: Estallido venenoso}
+            description: {en: "At 10 poison stacks the poison bursts.", tr: "10 zehir yığınında zehir patlar.", zh-CN: "毒素叠加至 10 层时引爆。", es: "Con 10 acumulaciones el veneno estalla."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 10, effects: [{effect_type: DAMAGE, params: {percent_of_power: 200, damage_type: poison}}]}}
+  - code: duelist
+    l10n:
+      name: {en: Duelist, tr: Düellocu, zh-CN: 决斗者, es: Duelista}
+      role: {en: Sustain, tr: Süreklilik, zh-CN: 持续, es: Sostenido}
+    passive:
+      code: flow
+      l10n:
+        name: {en: Flow, tr: Akış, zh-CN: 行云流水, es: Fluidez}
+        description: {en: "Consecutive hits increase attack speed.", tr: "Ardışık vuruşlar saldırı hızını artırır.", zh-CN: "连续命中提升攻击速度。", es: "Los golpes consecutivos aumentan la velocidad de ataque."}
+      effects:
+        - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: STACK_GAIN, params: {stack_code: flow, max_stacks: 10, per_stack: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}}]}}
+    specializations:
+      - code: blade_dancer
+        l10n:
+          name: {en: Blade Dancer, tr: Kılıç Dansçısı, zh-CN: 剑舞者, es: Danzante de hojas}
+          role: {en: Speed DPS, tr: Hız DPS, zh-CN: 高速输出, es: DPS de velocidad}
+          mastery_noun: {en: Dancer, tr: Dansçı, zh-CN: 舞者, es: Danzante}
+        passive:
+          code: tempo
+          l10n:
+            name: {en: Tempo, tr: Tempo, zh-CN: 节拍, es: Tempo}
+            description: {en: "Each hit builds Tempo (+1.5% attack speed per stack).", tr: "Her vuruş Tempo biriktirir (yığın başına +%1,5 saldırı hızı).", zh-CN: "每次命中积累节拍（每层攻击速度 +1.5%）。", es: "Cada golpe acumula Tempo (+1,5% de velocidad de ataque por acumulación)."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: STACK_GAIN, params: {stack_code: tempo, max_stacks: 10, per_stack: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1.5}}]}}]}}
+        awakening:
+          code: perfect_rhythm
+          l10n:
+            name: {en: Perfect Rhythm, tr: Kusursuz Ritim, zh-CN: 完美节奏, es: Ritmo perfecto}
+            description: {en: "At max Tempo, gain an extra attack.", tr: "Maksimum Tempoda ekstra saldırı.", zh-CN: "节拍满层时获得一次额外攻击。", es: "Con Tempo máximo, obtienes un ataque adicional."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 10, effects: [{effect_type: DAMAGE, params: {percent_of_power: 100}}]}}
+      - code: trickster
+        l10n:
+          name: {en: Trickster, tr: Hilebaz, zh-CN: 诡术师, es: Embaucador}
+          role: {en: Dodge / counter, tr: Kaçınma / karşı saldırı, zh-CN: 闪避 / 反击, es: Esquiva / contraataque}
+          mastery_noun: {en: Trickster, tr: Hilebaz, zh-CN: 诡术师, es: Embaucador}
+        passive:
+          code: feint
+          l10n:
+            name: {en: Feint, tr: Aldatmaca, zh-CN: 佯攻, es: Finta}
+            description: {en: "Counterattack after dodging.", tr: "Kaçınmadan sonra karşı saldırı.", zh-CN: "闪避后进行反击。", es: "Contraataca tras esquivar."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: DAMAGE, params: {percent_of_power: 60}}]}}
+        awakening:
+          code: untouchable
+          l10n:
+            name: {en: Untouchable, tr: Dokunulmaz, zh-CN: 不可触及, es: Intocable}
+            description: {en: "Every 3rd dodge triggers a guaranteed critical counter.", tr: "Her 3. kaçınma garantili kritik karşı saldırı tetikler.", zh-CN: "每第 3 次闪避触发必定暴击的反击。", es: "Cada 3.ª esquiva desencadena un contraataque crítico garantizado."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: EVERY_N_HITS, params: {n: 3, effects: [{effect_type: DAMAGE, params: {percent_of_power: 80, guaranteed_crit: true}}]}}]}}

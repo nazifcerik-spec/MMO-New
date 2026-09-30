@@ -1,0 +1,136 @@
+code: shaman
+category: support
+sort_order: 10
+stat_weights: {primary: SPI, secondary: WIS, utility: INT}
+main_damage_stat: INT
+resources: [spirit_charges]
+weapons: [staff, ritual_axe, mace, totem]
+dual_wield: false
+armor: [mail, leather, cloth, shield]
+item_tags: [spirit]
+solo_accord: {conversion_percent: 35, source_stats: [totem_power, healing_power, debuff_power], target_stats: [spell_power]}
+l10n:
+  name: {en: Shaman, tr: Şaman, zh-CN: 萨满, es: Chamán}
+  role: {en: Totem / Spirit / Element, tr: Totem / Ruh / Element, zh-CN: 图腾 / 灵魂 / 元素, es: Tótem / Espíritu / Elemento}
+  description:
+    en: A speaker to spirits who plants totems and channels ancestral and elemental power.
+    tr: Totemler diken, ata ve element gücünü yönlendiren ruhlarla konuşan kişi.
+    zh-CN: 与灵魂沟通者，竖立图腾，引导先祖与元素之力。
+    es: Un intermediario de los espíritus que planta tótems y canaliza poder ancestral y elemental.
+base_passive:
+  code: spirit_link
+  l10n:
+    name: {en: Spirit Link, tr: Ruh Bağı, zh-CN: 灵魂链接, es: Vínculo espiritual}
+    description:
+      en: Totem ticks, heals and elemental procs generate Spirit Charges.
+      tr: Totem tikleri, şifalar ve element tetiklenmeleri Ruh Yükü üretir.
+      zh-CN: 图腾跳动、治疗与元素触发产生灵魂充能。
+      es: Los pulsos de tótem, curaciones y activaciones elementales generan Cargas espirituales.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 25, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: spirit_charges, amount: 1}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 50, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: spirit_charges, amount: 1}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: INT, amount: 2}}
+branches:
+  - code: totemist
+    l10n:
+      name: {en: Totemist, tr: Totemci, zh-CN: 图腾师, es: Totemista}
+      role: {en: Area support, tr: Alan desteği, zh-CN: 范围辅助, es: Apoyo de área}
+    passive:
+      code: totemic_reach
+      l10n:
+        name: {en: Totemic Reach, tr: Totem Menzili, zh-CN: 图腾之域, es: Alcance totémico}
+        description: {en: "Totem radius +12%, duration +10%.", tr: "Totem yarıçapı +%12, süre +%10.", zh-CN: "图腾范围 +12%，持续时间 +10%。", es: "Radio de tótem +12%, duración +10%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: totem_power, percent: 12}}
+        - {effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 10}}
+    specializations:
+      - code: earthwarden
+        l10n:
+          name: {en: Earthwarden, tr: Toprak Muhafızı, zh-CN: 大地守护者, es: Guardián de la tierra}
+          role: {en: Defensive support, tr: Savunma desteği, zh-CN: 防御辅助, es: Apoyo defensivo}
+          mastery_noun: {en: Earthshaper, tr: Toprak Biçimleyici, zh-CN: 塑地者, es: Moldeador de tierra}
+        passive:
+          code: stone_totem
+          l10n:
+            name: {en: Stone Totem, tr: Taş Totem, zh-CN: 岩石图腾, es: Tótem de piedra}
+            description: {en: "Area damage reduction for the party.", tr: "Grup için alan hasar azaltması.", zh-CN: "为团队提供范围减伤。", es: "Reducción de daño en área para el grupo."}
+          effects:
+            - {effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 4}}]}}
+        awakening:
+          code: earthen_covenant
+          l10n:
+            name: {en: Earthen Covenant, tr: Toprak Ahdi, zh-CN: 大地盟约, es: Pacto terrenal}
+            description: {en: "With 2 defensive totems, the party gains a shield.", tr: "2 savunma totemi aktifken grup kalkan kazanır.", zh-CN: "2 个防御图腾生效时，团队获得护盾。", es: "Con 2 tótems defensivos, el grupo obtiene un escudo."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 8, effects: [{effect_type: SHIELD, params: {percent_max_hp: 5, duration_s: 8, target: party}}]}}
+      - code: storm_totemist
+        l10n:
+          name: {en: Storm Totemist, tr: Fırtına Totemcisi, zh-CN: 风暴图腾师, es: Totemista de tormenta}
+          role: {en: Offensive support, tr: Saldırgan destek, zh-CN: 进攻辅助, es: Apoyo ofensivo}
+          mastery_noun: {en: Stormcaller, tr: Fırtına Çağıran, zh-CN: 唤风者, es: Invocatormentas}
+        passive:
+          code: storm_totem
+          l10n:
+            name: {en: Storm Totem, tr: Fırtına Totemi, zh-CN: 风暴图腾, es: Tótem de tormenta}
+            description: {en: "Ally hits can trigger lightning.", tr: "Müttefik vuruşları şimşek tetikleyebilir.", zh-CN: "友军命中可触发闪电。", es: "Los golpes aliados pueden desencadenar relámpagos."}
+          effects:
+            - {effect_type: AURA, params: {scope: party, effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 10, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 30, damage_type: lightning}}]}}]}}
+        awakening:
+          code: spirit_storm
+          l10n:
+            name: {en: Spirit Storm, tr: Ruh Fırtınası, zh-CN: 灵魂风暴, es: Tormenta espiritual}
+            description: {en: "Lightning procs can chain.", tr: "Şimşek tetiklenmeleri zincirlenebilir.", zh-CN: "闪电触发可以连锁。", es: "Las activaciones de relámpago pueden encadenarse."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 15, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 45, damage_type: lightning}}]}}
+  - code: spiritcaller
+    l10n:
+      name: {en: Spiritcaller, tr: Ruh Çağıran, zh-CN: 唤灵者, es: Invocador de espíritus}
+      role: {en: Heal / debuff, tr: Şifa / zayıflatma, zh-CN: 治疗 / 减益, es: Curación / perjuicio}
+    passive:
+      code: ancestor_whisper
+      l10n:
+        name: {en: Ancestor Whisper, tr: Ata Fısıltısı, zh-CN: 先祖低语, es: Susurro ancestral}
+        description: {en: "Spirit generation +12%.", tr: "Ruh üretimi +%12.", zh-CN: "灵魂生成 +12%。", es: "Generación de espíritu +12%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 12}}
+    specializations:
+      - code: ancestor_sage
+        l10n:
+          name: {en: Ancestor Sage, tr: Ata Bilgesi, zh-CN: 先祖贤者, es: Sabio ancestral}
+          role: {en: Heal / buff, tr: Şifa / güçlendirme, zh-CN: 治疗 / 增益, es: Curación / mejora}
+          mastery_noun: {en: Elder, tr: Ulu, zh-CN: 长者, es: Anciano}
+        passive:
+          code: ancestor_aid
+          l10n:
+            name: {en: Ancestor Aid, tr: Ata Yardımı, zh-CN: 先祖援助, es: Ayuda ancestral}
+            description: {en: "Healing grants Spirit.", tr: "Şifa Ruh verir.", zh-CN: "治疗时获得灵魂充能。", es: "Curar otorga Espíritu."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: spirit_charges, amount: 1}}]}}
+        awakening:
+          code: ancestors_blessing
+          l10n:
+            name: {en: "Ancestor's Blessing", tr: Ataların Kutsaması, zh-CN: 先祖祝福, es: Bendición ancestral}
+            description: {en: "At max Spirit, heal and buff the party.", tr: "Maksimum Ruhta gruba şifa ve güçlendirme.", zh-CN: "灵魂充能满时治疗并强化团队。", es: "Con Espíritu al máximo, cura y mejora al grupo."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 100}, effects: [{effect_type: HEAL, params: {percent_of_power: 60, target: party}}, {effect_type: BUFF, params: {duration_s: 8, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 6}}]}}]}}
+      - code: hexer
+        l10n:
+          name: {en: Hexer, tr: Lanetçi, zh-CN: 咒术师, es: Maleficiador}
+          role: {en: Debuff, tr: Zayıflatma, zh-CN: 减益, es: Perjuicio}
+          mastery_noun: {en: Hexlord, tr: Lanet Lordu, zh-CN: 咒术之主, es: Señor de maleficios}
+        passive:
+          code: hex_mastery
+          l10n:
+            name: {en: Hex Mastery, tr: Lanet Ustalığı, zh-CN: 咒术精通, es: Maestría de maleficios}
+            description: {en: "Different debuffs stack in synergy.", tr: "Farklı zayıflatmalar sinerjiyle yığılır.", zh-CN: "不同减益相互叠加协同。", es: "Perjuicios distintos se acumulan en sinergia."}
+          effects:
+            - {effect_type: SCALING_BONUS, params: {metric: target_debuff_count, step: 1, percent_per_step: 3, max_percent: 15, applies_to: damage}}
+        awakening:
+          code: doom_pattern
+          l10n:
+            name: {en: Doom Pattern, tr: Kıyamet Deseni, zh-CN: 厄运之纹, es: Patrón fatídico}
+            description: {en: "3 different hexes increase the target's damage taken.", tr: "3 farklı lanet hedefin aldığı hasarı artırır.", zh-CN: "3 种不同诅咒使目标受到的伤害提升。", es: "3 maleficios distintos aumentan el daño que recibe el objetivo."}
+          effects:
+            - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 15, condition: {metric: target_debuff_count, op: gte, value: 3}}}

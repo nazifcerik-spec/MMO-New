@@ -1,0 +1,137 @@
+code: druid
+category: support
+sort_order: 8
+stat_weights: {primary: WIS, secondary: SPI, utility: VIT}
+main_damage_stat: INT
+resources: [nature_essence]
+weapons: [staff, sickle, nature_focus]
+dual_wield: false
+armor: [leather, cloth]
+item_tags: [primal]
+solo_accord: {conversion_percent: 35, source_stats: [healing_power, hot_power, form_power], target_stats: [spell_power]}
+l10n:
+  name: {en: Druid, tr: Druid, zh-CN: 德鲁伊, es: Druida}
+  role: {en: HoT / Nature / Form, tr: Zamanla şifa / Doğa / Form, zh-CN: 持续治疗 / 自然 / 变形, es: CeT / Naturaleza / Forma}
+  description:
+    en: A keeper of the wild cycle, weaving growth, thorns and shapeshifting.
+    tr: Büyümeyi, dikenleri ve şekil değiştirmeyi ören yaban döngüsünün koruyucusu.
+    zh-CN: 荒野轮回的守护者，编织生长、荆棘与变形之力。
+    es: Guardián del ciclo salvaje que entrelaza crecimiento, espinas y cambio de forma.
+base_passive:
+  code: living_cycle
+  l10n:
+    name: {en: Living Cycle, tr: Yaşam Döngüsü, zh-CN: 生命轮回, es: Ciclo vital}
+    description:
+      en: HoTs, poisons and form changes generate Nature Essence.
+      tr: Zamanla şifalar, zehirler ve form değişimleri Doğa Özü üretir.
+      zh-CN: 持续治疗、毒素和形态切换产生自然精华。
+      es: Curaciones en el tiempo, venenos y cambios de forma generan Esencia natural.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: nature_essence, amount: 3}}]}}
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 30, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: nature_essence, amount: 2}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: WIS, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 2}}
+branches:
+  - code: grovekeeper
+    l10n:
+      name: {en: Grovekeeper, tr: Koru Bekçisi, zh-CN: 林地守护者, es: Guardián del bosquecillo}
+      role: {en: Heal / control, tr: Şifa / kontrol, zh-CN: 治疗 / 控制, es: Curación / control}
+    passive:
+      code: green_pulse
+      l10n:
+        name: {en: Green Pulse, tr: Yeşil Nabız, zh-CN: 翠绿脉动, es: Pulso verde}
+        description: {en: "HoT +12%, root duration +8%.", tr: "Zamanla şifa +%12, kök süresi +%8.", zh-CN: "持续治疗 +12%，定身持续时间 +8%。", es: "CeT +12%, duración de enraizamiento +8%."}
+      effects:
+        - {effect_type: HEAL_MULTIPLIER, params: {percent: 12, scope: hot}}
+        - {effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 8}}
+    specializations:
+      - code: lifebinder
+        l10n:
+          name: {en: Lifebinder, tr: Hayat Bağlayıcı, zh-CN: 生命缚者, es: Atavidas}
+          role: {en: HoT heal, tr: Zamanla şifa, zh-CN: 持续治疗, es: Curación en el tiempo}
+          mastery_noun: {en: Bloom, tr: Çiçek, zh-CN: 繁花, es: Floración}
+        passive:
+          code: growing_life
+          l10n:
+            name: {en: Growing Life, tr: Büyüyen Hayat, zh-CN: 生生不息, es: Vida creciente}
+            description: {en: "Healing grows with the number of active HoTs.", tr: "Aktif zamanla şifa sayısıyla iyileştirme artar.", zh-CN: "治疗量随生效的持续治疗数量提升。", es: "La curación aumenta con el número de CeT activas."}
+          effects:
+            - {effect_type: SCALING_BONUS, params: {metric: active_hot_count, step: 1, percent_per_step: 4, max_percent: 16, applies_to: healing}}
+        awakening:
+          code: world_bloom
+          l10n:
+            name: {en: World Bloom, tr: Dünya Çiçeği, zh-CN: 万物绽放, es: Floración del mundo}
+            description: {en: "After 4 HoTs, an area heal.", tr: "4 zamanla şifadan sonra alan iyileştirmesi.", zh-CN: "施放 4 次持续治疗后触发群体治疗。", es: "Tras 4 CeT, una curación en área."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: HEAL, params: {percent_of_power: 50, target: party}}]}}
+      - code: thorn_sage
+        l10n:
+          name: {en: Thorn Sage, tr: Diken Bilgesi, zh-CN: 荆棘贤者, es: Sabio de espinas}
+          role: {en: Debuff / reflect, tr: Zayıflatma / yansıtma, zh-CN: 减益 / 反伤, es: Perjuicio / reflejo}
+          mastery_noun: {en: Briar, tr: Böğürtlen, zh-CN: 荆棘, es: Zarza}
+        passive:
+          code: thorn_seed
+          l10n:
+            name: {en: Thorn Seed, tr: Diken Tohumu, zh-CN: 荆棘之种, es: Semilla espinosa}
+            description: {en: "When an ally is hit, thorns strike the attacker.", tr: "Müttefik vurulunca saldırgana diken batar.", zh-CN: "友军受击时，荆棘反刺攻击者。", es: "Cuando golpean a un aliado, las espinas dañan al atacante."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_damage_taken, effects: [{effect_type: DAMAGE, params: {percent_of_power: 25, damage_type: nature}}]}}
+        awakening:
+          code: briar_web
+          l10n:
+            name: {en: Briar Web, tr: Böğürtlen Ağı, zh-CN: 荆棘之网, es: Red de zarzas}
+            description: {en: "3 thorn stacks increase damage taken.", tr: "3 diken yığını alınan hasarı artırır.", zh-CN: "3 层荆棘使目标受到的伤害提升。", es: "3 acumulaciones de espinas aumentan el daño recibido."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 3, effects: [{effect_type: DEBUFF, params: {kind: vulnerability, percent: 8, duration_s: 6}}]}}
+  - code: shapeshifter
+    l10n:
+      name: {en: Shapeshifter, tr: Şekil Değiştiren, zh-CN: 变形者, es: Cambiaformas}
+      role: {en: Hybrid, tr: Hibrit, zh-CN: 混合, es: Híbrido}
+    passive:
+      code: primal_form
+      l10n:
+        name: {en: Primal Form, tr: İlkel Form, zh-CN: 原始形态, es: Forma primigenia}
+        description: {en: "Form bonuses +12%.", tr: "Form bonusları +%12.", zh-CN: "形态加成 +12%。", es: "Bonificaciones de forma +12%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: form_power, percent: 12}}
+    specializations:
+      - code: bearwarden
+        l10n:
+          name: {en: Bearwarden, tr: Ayı Muhafızı, zh-CN: 熊之守护者, es: Guardián oso}
+          role: {en: Tank support, tr: Tank destek, zh-CN: 坦克辅助, es: Apoyo tanque}
+          mastery_noun: {en: Ursine, tr: Ayı, zh-CN: 巨熊, es: Úrsido}
+        passive:
+          code: bear_form
+          l10n:
+            name: {en: Bear Form, tr: Ayı Formu, zh-CN: 熊形态, es: Forma de oso}
+            description: {en: "More HP and armor.", tr: "Daha fazla can ve zırh.", zh-CN: "提升生命值与护甲。", es: "Más PS y armadura."}
+          effects:
+            - {effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 10}}
+            - {effect_type: STAT_PERCENT, params: {stat: armor, percent: 15}}
+        awakening:
+          code: guardian_instinct
+          l10n:
+            name: {en: Guardian Instinct, tr: Koruyucu İçgüdü, zh-CN: 守护本能, es: Instinto guardián}
+            description: {en: "Below 35% HP: automatic bear form and shield.", tr: "%35 Can altında: otomatik ayı formu ve kalkan.", zh-CN: "生命值低于 35% 时自动变熊并获得护盾。", es: "Con menos del 35% de PS: forma de oso automática y escudo."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {once_per_combat: true, condition: {metric: self_hp_pct, op: lt, value: 35}, effects: [{effect_type: SHIELD, params: {percent_max_hp: 12, duration_s: 10}}]}}
+      - code: mooncaller
+        l10n:
+          name: {en: Mooncaller, tr: Ay Çağıran, zh-CN: 唤月者, es: Invocaluna}
+          role: {en: Hybrid caster, tr: Hibrit büyücü, zh-CN: 混合施法者, es: Lanzador híbrido}
+          mastery_noun: {en: Moon, tr: Ay, zh-CN: 明月, es: Luna}
+        passive:
+          code: lunar_cycle
+          l10n:
+            name: {en: Lunar Cycle, tr: Ay Döngüsü, zh-CN: 月相轮回, es: Ciclo lunar}
+            description: {en: "Alternates healing and damage phases.", tr: "Şifa ve hasar evreleri arasında döner.", zh-CN: "在治疗与伤害阶段间轮换。", es: "Alterna fases de curación y de daño."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 6, effects: [{effect_type: BUFF, params: {duration_s: 6, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 8}}, {effect_type: HEAL_MULTIPLIER, params: {percent: 8}}]}}]}}
+        awakening:
+          code: full_moon
+          l10n:
+            name: {en: Full Moon, tr: Dolunay, zh-CN: 满月, es: Luna llena}
+            description: {en: "Phase changes grant a short dual bonus.", tr: "Evre değişimi kısa ikili bonus verir.", zh-CN: "相位切换时获得短暂的双重加成。", es: "Los cambios de fase otorgan una breve bonificación doble."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 6, effects: [{effect_type: BUFF, params: {duration_s: 3, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 10}}, {effect_type: HEAL_MULTIPLIER, params: {percent: 10}}]}}]}}

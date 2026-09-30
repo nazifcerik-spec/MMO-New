@@ -42,6 +42,10 @@ DERIVED_STATS: Final[tuple[str, ...]] = (
     "carry_capacity",
     "proc_consistency",
     "healing_received",
+    "form_power",
+    "song_power",
+    "trap_power",
+    "aura_power",
 )
 
 ALL_STATS: Final[frozenset[str]] = frozenset(PRIMARY_STATS + DERIVED_STATS)

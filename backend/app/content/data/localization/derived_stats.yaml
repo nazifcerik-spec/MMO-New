@@ -175,3 +175,23 @@ entries:
     tr: Alınan İyileştirme
     zh-CN: 受到治疗
     es: Curación recibida
+  stat.form_power.name:
+    en: Form Power
+    tr: Form Gücü
+    zh-CN: 形态强度
+    es: Poder de forma
+  stat.song_power.name:
+    en: Song Power
+    tr: Şarkı Gücü
+    zh-CN: 歌曲强度
+    es: Poder de canción
+  stat.trap_power.name:
+    en: Trap Power
+    tr: Tuzak Gücü
+    zh-CN: 陷阱强度
+    es: Poder de trampa
+  stat.aura_power.name:
+    en: Aura Power
+    tr: Aura Gücü
+    zh-CN: 光环强度
+    es: Poder de aura

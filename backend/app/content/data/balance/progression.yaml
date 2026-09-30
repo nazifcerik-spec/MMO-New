@@ -77,6 +77,10 @@ data:
     buff_duration: {base: 100, per_level: 0, per_stat: {}}
     debuff_duration: {base: 100, per_level: 0, per_stat: {}}
     healing_received: {base: 100, per_level: 0, per_stat: {}}
+    form_power: {base: 0, per_level: 0.5, per_stat: {SPI: 0.5, WIS: 0.3}}
+    song_power: {base: 0, per_level: 0.5, per_stat: {SPI: 0.8}}
+    trap_power: {base: 0, per_level: 0.5, per_stat: {DEX: 0.5, SPI: 0.3}}
+    aura_power: {base: 0, per_level: 0.5, per_stat: {WIS: 0.5, SPI: 0.5}}
   caps:                             # hard caps on derived percentages
     dodge: 60
     block: 60

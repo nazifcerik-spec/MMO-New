@@ -12,7 +12,7 @@ async def test_admin_endpoints_deny_anonymous_and_players(make_client, client: A
 async def test_translator_can_edit_but_not_manage_users(make_client) -> None:  # type: ignore[no-untyped-def]
     t = await make_client("translator")
     r = await t.http.get("/api/v1/admin/localization/keys", params={"namespace": "stat", "limit": 5})
-    assert r.status_code == 200 and r.json()["total"] == 56
+    assert r.status_code == 200 and r.json()["total"] >= 60
     item = r.json()["items"][0]
     tr = item["values"]["tr"]
     upd = await t.http.put(

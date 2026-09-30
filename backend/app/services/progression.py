@@ -25,6 +25,8 @@ CONTRIBUTION_PROVIDERS: list[ContributionProvider] = []
 STAT_TOKEN_PROVIDERS: list[Any] = []
 # Provider of respec discount (percent, limit_points) from race effects (Phase 06).
 RESPEC_DISCOUNT_PROVIDERS: list[Any] = []
+# Called after level changes (e.g. unlock Awakening/Capstone/Mastery milestones).
+POST_LEVEL_HOOKS: list[Any] = []
 
 
 async def load_config(db: AsyncSession) -> prog.ProgressionConfig:
@@ -74,6 +76,8 @@ async def grant_xp(
     character.mastery_xp += res.overflow_xp
     if res.levels_gained:
         character.last_level_up_at = datetime.now(UTC)
+        for hook in POST_LEVEL_HOOKS:
+            await hook(db, character, res)
     result = {
         "xp_gained": amount,
         "level_before": before,

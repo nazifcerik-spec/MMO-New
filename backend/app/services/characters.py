@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -9,6 +10,9 @@ from app.core.config import get_settings
 from app.core.errors import ConflictError, NotFoundError, ValidationFailedError
 from app.models.character import Character, CharacterSettings
 from app.services import audit, character_options
+
+# Hooks run in the creation transaction (e.g. class progression row). Registered via services.plugins.
+POST_CREATE_HOOKS: list[Any] = []
 
 
 async def list_characters(db: AsyncSession, user_id: int) -> list[Character]:
@@ -72,6 +76,8 @@ async def create_character(db: AsyncSession, *, user_id: int, name: str, race_id
         await db.rollback()
         raise ConflictError("Name is already taken", code="name_taken") from exc
     db.add(CharacterSettings(character_id=ch.id))
+    for hook in POST_CREATE_HOOKS:
+        await hook(db, ch)
     await audit.record(
         db,
         actor_id=user_id,

@@ -95,7 +95,16 @@
     "version_conflict": "Los datos cambiaron. Se recargaron: inténtalo de nuevo.",
     "insufficient_funds": "No tienes suficiente oro.",
     "profile_unresolved": "Esta plantilla necesita los datos de tu clase.",
-    "nothing_to_respec": "No hay puntos para restablecer."
+    "nothing_to_respec": "No hay puntos para restablecer.",
+    "level_too_low": "Tu nivel es demasiado bajo.",
+    "invalid_branch": "Esa senda no pertenece a tu clase.",
+    "invalid_specialization": "Esa especialización no pertenece a tu senda.",
+    "already_promoted": "Ya elegiste una senda.",
+    "already_specialized": "Ya estás especializado.",
+    "promotion_required": "Elige primero tu senda de Nv100.",
+    "path_change_cooldown": "El cambio de senda está en enfriamiento.",
+    "invalid_class": "Clase desconocida.",
+    "invalid_race": "Raza desconocida."
   },
   "characters": {
     "title": "Tus personajes",
@@ -215,5 +224,28 @@
     "raceTitle": "Título racial: {title}",
     "affinity": "Afinidad natural (informativa): {classes}",
     "noLock": "Cualquier raza puede jugar cualquier clase."
+  },
+  "classes": {
+    "title": "Senda de clase",
+    "resources": "Recurso: {list}",
+    "weapons": "Armas: {list}",
+    "armor": "Armadura: {list}",
+    "stats": "Atributos: {primary} · {secondary} · {utility}",
+    "soloAccord": "Acuerdo en solitario: el {percent}% del poder de apoyo se convierte en ataque cuando estás solo.",
+    "paths": "Sendas Nv100: {list}",
+    "stageAt": "Nv {level}",
+    "locked": "Bloqueado",
+    "unlocked": "Disponible",
+    "completed": "Completado",
+    "promote": "Elegir esta senda",
+    "specialize": "Especializarse",
+    "confirmPromote": "¿Elegir {name} como tu senda de Nv100?",
+    "confirmSpecialize": "¿Convertirte en {name}?",
+    "current": "Actual",
+    "requiresLevel": "Requiere Nv {level}",
+    "pathChange": "Cambiar de senda cuesta {gold} de oro (rama) / {spec} de oro (especialización).",
+    "pathChangeFree": "Tu primer cambio de senda es gratuito.",
+    "classTitle": "Título de clase: {title}",
+    "openClass": "Senda de clase"
   }
 }

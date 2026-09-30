@@ -1,0 +1,49 @@
+# Class resources, weapon families (28 item families) and armor families. Codes are immutable.
+resources:
+  rage: {max: 100, start: 0, regen_per_s: 0, decay_per_s: 1.0, l10n: {en: Rage, tr: Öfke, zh-CN: 怒气, es: Ira}}
+  energy: {max: 100, start: 100, regen_per_s: 10, decay_per_s: 0, l10n: {en: Energy, tr: Enerji, zh-CN: 能量, es: Energía}}
+  opportunity: {max: 5, start: 0, regen_per_s: 0, decay_per_s: 0, l10n: {en: Opportunity, tr: Fırsat, zh-CN: 机遇, es: Oportunidad}}
+  focus: {max: 100, start: 50, regen_per_s: 5, decay_per_s: 0, l10n: {en: Focus, tr: Odak, zh-CN: 专注, es: Concentración}}
+  mana: {max: 100, start: 100, regen_per_s: 2, decay_per_s: 0, l10n: {en: Mana, tr: Mana, zh-CN: 法力, es: Maná}}
+  arcane_charge: {max: 4, start: 0, regen_per_s: 0, decay_per_s: 0, l10n: {en: Arcane Charge, tr: Arkanik Yük, zh-CN: 奥术充能, es: Carga arcana}}
+  chi: {max: 100, start: 0, regen_per_s: 1, decay_per_s: 0, l10n: {en: Chi, tr: Chi, zh-CN: 气, es: Chi}}
+  faith: {max: 100, start: 20, regen_per_s: 1, decay_per_s: 0, l10n: {en: Faith, tr: İnanç, zh-CN: 信仰, es: Fe}}
+  conviction: {max: 100, start: 0, regen_per_s: 0.5, decay_per_s: 0, l10n: {en: Conviction, tr: Kararlılık, zh-CN: 信念, es: Convicción}}
+  nature_essence: {max: 100, start: 20, regen_per_s: 1, decay_per_s: 0, l10n: {en: Nature Essence, tr: Doğa Özü, zh-CN: 自然精华, es: Esencia natural}}
+  rhythm: {max: 100, start: 0, regen_per_s: 0, decay_per_s: 0.5, l10n: {en: Rhythm, tr: Ritim, zh-CN: 韵律, es: Ritmo}}
+  spirit_charges: {max: 10, start: 0, regen_per_s: 0, decay_per_s: 0, l10n: {en: Spirit Charges, tr: Ruh Yükleri, zh-CN: 灵魂充能, es: Cargas espirituales}}
+weapon_families:
+  sword: {hands: 1, kind: melee, l10n: {en: Sword, tr: Kılıç, zh-CN: 剑, es: Espada}}
+  axe: {hands: 1, kind: melee, l10n: {en: Axe, tr: Balta, zh-CN: 斧, es: Hacha}}
+  mace: {hands: 1, kind: melee, l10n: {en: Mace, tr: Gürz, zh-CN: 锤, es: Maza}}
+  greatsword: {hands: 2, kind: melee, l10n: {en: Greatsword, tr: Büyük Kılıç, zh-CN: 巨剑, es: Mandoble}}
+  greataxe: {hands: 2, kind: melee, l10n: {en: Greataxe, tr: Büyük Balta, zh-CN: 巨斧, es: Gran hacha}}
+  spear: {hands: 2, kind: melee, l10n: {en: Spear, tr: Mızrak, zh-CN: 长矛, es: Lanza}}
+  dagger: {hands: 1, kind: melee, l10n: {en: Dagger, tr: Hançer, zh-CN: 匕首, es: Daga}}
+  shortsword: {hands: 1, kind: melee, l10n: {en: Shortsword, tr: Kısa Kılıç, zh-CN: 短剑, es: Espada corta}}
+  fist_weapon: {hands: 1, kind: melee, l10n: {en: Fist Weapon, tr: Yumruk Silahı, zh-CN: 拳刃, es: Arma de puño}}
+  throwing_knife: {hands: 1, kind: ranged, l10n: {en: Throwing Knife, tr: Fırlatma Bıçağı, zh-CN: 飞刀, es: Cuchillo arrojadizo}}
+  bow: {hands: 2, kind: ranged, l10n: {en: Bow, tr: Yay, zh-CN: 弓, es: Arco}}
+  longbow: {hands: 2, kind: ranged, l10n: {en: Longbow, tr: Uzun Yay, zh-CN: 长弓, es: Arco largo}}
+  crossbow: {hands: 2, kind: ranged, l10n: {en: Crossbow, tr: Arbalet, zh-CN: 弩, es: Ballesta}}
+  staff: {hands: 2, kind: magic, l10n: {en: Staff, tr: Asa, zh-CN: 法杖, es: Bastón}}
+  wand: {hands: 1, kind: magic, l10n: {en: Wand, tr: Değnek, zh-CN: 魔杖, es: Varita}}
+  orb: {hands: 1, kind: magic, l10n: {en: Orb, tr: Küre, zh-CN: 法球, es: Orbe}}
+  grimoire: {hands: 1, kind: magic, l10n: {en: Grimoire, tr: Büyü Kitabı, zh-CN: 魔典, es: Grimorio}}
+  tonfa: {hands: 1, kind: melee, l10n: {en: Tonfa, tr: Tonfa, zh-CN: 拐, es: Tonfa}}
+  holy_tome: {hands: 1, kind: magic, l10n: {en: Holy Tome, tr: Kutsal Kitap, zh-CN: 圣典, es: Tomo sagrado}}
+  two_handed_mace: {hands: 2, kind: melee, l10n: {en: Two-Handed Mace, tr: Çift El Gürzü, zh-CN: 双手锤, es: Maza a dos manos}}
+  sickle: {hands: 1, kind: melee, l10n: {en: Sickle, tr: Orak, zh-CN: 镰刀, es: Hoz}}
+  nature_focus: {hands: 1, kind: magic, l10n: {en: Nature Focus, tr: Doğa Odağı, zh-CN: 自然法器, es: Foco natural}}
+  lute: {hands: 2, kind: instrument, l10n: {en: Lute, tr: Ud, zh-CN: 鲁特琴, es: Laúd}}
+  harp: {hands: 2, kind: instrument, l10n: {en: Harp, tr: Arp, zh-CN: 竖琴, es: Arpa}}
+  flute: {hands: 1, kind: instrument, l10n: {en: Flute, tr: Flüt, zh-CN: 长笛, es: Flauta}}
+  rapier: {hands: 1, kind: melee, l10n: {en: Rapier, tr: Meç, zh-CN: 细剑, es: Estoque}}
+  ritual_axe: {hands: 1, kind: melee, l10n: {en: Ritual Axe, tr: Ayin Baltası, zh-CN: 仪式斧, es: Hacha ritual}}
+  totem: {hands: 1, kind: magic, l10n: {en: Totem, tr: Totem, zh-CN: 图腾, es: Tótem}}
+armor_families:
+  cloth: {l10n: {en: Cloth, tr: Kumaş, zh-CN: 布甲, es: Tela}}
+  leather: {l10n: {en: Leather, tr: Deri, zh-CN: 皮甲, es: Cuero}}
+  mail: {l10n: {en: Mail, tr: Zincir, zh-CN: 锁甲, es: Malla}}
+  plate: {l10n: {en: Plate, tr: Plaka, zh-CN: 板甲, es: Placas}}
+  shield: {l10n: {en: Shield, tr: Kalkan, zh-CN: 盾牌, es: Escudo}}

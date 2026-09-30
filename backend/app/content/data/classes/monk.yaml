@@ -1,0 +1,134 @@
+code: monk
+category: combat
+sort_order: 5
+stat_weights: {primary: DEX, secondary: SPI, utility: VIT}
+main_damage_stat: DEX
+resources: [chi]
+weapons: [fist_weapon, staff, tonfa]
+dual_wield: true
+armor: [leather, cloth]
+item_tags: [slayer, spirit]
+l10n:
+  name: {en: Monk, tr: Keşiş, zh-CN: 武僧, es: Monje}
+  role: {en: Melee DPS / Hybrid Tank, tr: Yakın DPS / Hibrit Tank, zh-CN: 近战输出 / 混合坦克, es: DPS cuerpo a cuerpo / Tanque híbrido}
+  description:
+    en: A martial artist who channels Chi into strikes, guard or healing.
+    tr: Chi'yi darbelere, savunmaya ya da şifaya yönlendiren dövüş sanatçısı.
+    zh-CN: 将气化为攻击、防御或治疗的武术家。
+    es: Un artista marcial que canaliza el Chi en golpes, guardia o curación.
+base_passive:
+  code: inner_flow
+  l10n:
+    name: {en: Inner Flow, tr: İç Akış, zh-CN: 内息, es: Flujo interior}
+    description:
+      en: Every attack generates Chi, spent on offense, defense or self-healing.
+      tr: Her saldırı Chi üretir; saldırı, savunma veya kendini iyileştirmeye harcanır.
+      zh-CN: 每次攻击产生气，可用于攻击、防御或自我治疗。
+      es: Cada ataque genera Chi, que se gasta en ataque, defensa o autocuración.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: chi, amount: 5}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: DEX, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: VIT, amount: 2}}
+branches:
+  - code: disciple
+    l10n:
+      name: {en: Disciple, tr: Mürit, zh-CN: 门徒, es: Discípulo}
+      role: {en: Hybrid, tr: Hibrit, zh-CN: 混合, es: Híbrido}
+    passive:
+      code: centered_mind
+      l10n:
+        name: {en: Centered Mind, tr: Dingin Zihin, zh-CN: 心神合一, es: Mente centrada}
+        description: {en: "Chi regeneration +10%, healing received +6%.", tr: "Chi yenilenmesi +%10, alınan iyileştirme +%6.", zh-CN: "气回复 +10%，受到治疗 +6%。", es: "Regeneración de Chi +10%, curación recibida +6%."}
+      effects:
+        - {effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 10}}
+        - {effect_type: STAT_FLAT, params: {stat: healing_received, amount: 6}}
+    specializations:
+      - code: iron_body
+        l10n:
+          name: {en: Iron Body, tr: Demir Beden, zh-CN: 铁布衫, es: Cuerpo de hierro}
+          role: {en: Tank, tr: Tank, zh-CN: 坦克, es: Tanque}
+          mastery_noun: {en: Diamond, tr: Elmas, zh-CN: 金刚, es: Diamante}
+        passive:
+          code: stone_breath
+          l10n:
+            name: {en: Stone Breath, tr: Taş Nefes, zh-CN: 石息, es: Aliento de piedra}
+            description: {en: "Spending Chi grants armor stacks.", tr: "Chi harcamak zırh yığını verir.", zh-CN: "消耗气获得护甲层数。", es: "Gastar Chi otorga acumulaciones de armadura."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_resource_spent, effects: [{effect_type: STACK_GAIN, params: {stack_code: stone_breath, max_stacks: 5, per_stack: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 3}}]}}]}}
+        awakening:
+          code: diamond_body
+          l10n:
+            name: {en: Diamond Body, tr: Elmas Beden, zh-CN: 金刚不坏, es: Cuerpo de diamante}
+            description: {en: "Spending 100 Chi grants 15% damage reduction for 6s.", tr: "100 Chi harcamak 6 sn %15 hasar azaltma verir.", zh-CN: "消耗 100 点气后 6 秒内减伤 15%。", es: "Gastar 100 de Chi otorga 15% de reducción de daño durante 6 s."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 100}, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 15, duration_s: 6}}]}}
+      - code: spirit_walker
+        l10n:
+          name: {en: Spirit Walker, tr: Ruh Gezgini, zh-CN: 灵行者, es: Caminante espiritual}
+          role: {en: Hybrid sustain, tr: Hibrit süreklilik, zh-CN: 混合续航, es: Sostén híbrido}
+          mastery_noun: {en: Spirit, tr: Ruh, zh-CN: 灵魂, es: Espíritu}
+        passive:
+          code: spirit_step
+          l10n:
+            name: {en: Spirit Step, tr: Ruh Adımı, zh-CN: 灵步, es: Paso espiritual}
+            description: {en: "Receiving healing grants Chi.", tr: "İyileştirme almak Chi verir.", zh-CN: "受到治疗时获得气。", es: "Recibir curación otorga Chi."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_heal, effects: [{effect_type: RESOURCE_GAIN, params: {resource: chi, amount: 5}}]}}
+        awakening:
+          code: overflowing_spirit
+          l10n:
+            name: {en: Overflowing Spirit, tr: Taşan Ruh, zh-CN: 灵气满溢, es: Espíritu desbordante}
+            description: {en: "At max Chi, heal and strike at once.", tr: "Maksimum Chi'de aynı anda iyileştir ve vur.", zh-CN: "气满时同时治疗并攻击。", es: "Con Chi al máximo, cura y golpea a la vez."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 100}, effects: [{effect_type: HEAL, params: {percent_of_power: 40}}, {effect_type: DAMAGE, params: {percent_of_power: 60}}]}}
+  - code: striker
+    l10n:
+      name: {en: Striker, tr: Vurucu, zh-CN: 打击者, es: Golpeador}
+      role: {en: DPS, tr: DPS, zh-CN: 输出, es: DPS}
+    passive:
+      code: momentum
+      l10n:
+        name: {en: Momentum, tr: İvme, zh-CN: 气势, es: Impulso}
+        description: {en: "Combo hits deal increasing damage.", tr: "Kombo vuruşları artan hasar verir.", zh-CN: "连击伤害逐步提升。", es: "Los golpes en combo infligen daño creciente."}
+      effects:
+        - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: STACK_GAIN, params: {stack_code: momentum, max_stacks: 5, per_stack: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2}}]}}]}}
+    specializations:
+      - code: combo_master
+        l10n:
+          name: {en: Combo Master, tr: Kombo Ustası, zh-CN: 连击大师, es: Maestro del combo}
+          role: {en: Combo DPS, tr: Kombo DPS, zh-CN: 连击输出, es: DPS de combo}
+          mastery_noun: {en: Form, tr: Form, zh-CN: 形意, es: Forma}
+        passive:
+          code: form_chain
+          l10n:
+            name: {en: Form Chain, tr: Form Zinciri, zh-CN: 形意连环, es: Cadena de formas}
+            description: {en: "Different attacks fill a combo meter.", tr: "Farklı saldırılar kombo göstergesini doldurur.", zh-CN: "不同攻击积累连击值。", es: "Ataques distintos llenan un medidor de combo."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: STACK_GAIN, params: {stack_code: combo, max_stacks: 5, per_stack: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 3}}]}}]}}
+        awakening:
+          code: perfect_form
+          l10n:
+            name: {en: Perfect Form, tr: Kusursuz Form, zh-CN: 完美形意, es: Forma perfecta}
+            description: {en: "After 5 unique hits the finisher is empowered.", tr: "5 farklı vuruştan sonra bitirici güçlenir.", zh-CN: "5 次不同的攻击后终结技得到强化。", es: "Tras 5 golpes únicos el remate se potencia."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 150}}]}}
+      - code: storm_fist
+        l10n:
+          name: {en: Storm Fist, tr: Fırtına Yumruğu, zh-CN: 风暴之拳, es: Puño de tormenta}
+          role: {en: Speed DPS, tr: Hız DPS, zh-CN: 高速输出, es: DPS de velocidad}
+          mastery_noun: {en: Tempest, tr: Kasırga, zh-CN: 暴风, es: Tempestad}
+        passive:
+          code: lightning_hands
+          l10n:
+            name: {en: Lightning Hands, tr: Şimşek Eller, zh-CN: 闪电之手, es: Manos relámpago}
+            description: {en: "Crits grant attack speed.", tr: "Kritikler saldırı hızı verir.", zh-CN: "暴击提升攻击速度。", es: "Los críticos otorgan velocidad de ataque."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: BUFF, params: {duration_s: 4, max_stacks: 5, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 3}}]}}]}}
+        awakening:
+          code: tempest
+          l10n:
+            name: {en: Tempest, tr: Kasırga, zh-CN: 暴风骤雨, es: Tempestad}
+            description: {en: "After 5 crits, an extra strike.", tr: "5 kritikten sonra ekstra darbe.", zh-CN: "5 次暴击后追加一次攻击。", es: "Tras 5 críticos, un golpe adicional."}
+          effects:
+            - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 100, damage_type: lightning}}]}}]}}

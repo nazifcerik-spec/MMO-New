@@ -1,0 +1,137 @@
+code: ranger
+category: combat
+sort_order: 3
+stat_weights: {primary: DEX, secondary: LUK, utility: SPI}
+main_damage_stat: DEX
+resources: [focus]
+weapons: [bow, longbow, crossbow, spear]
+dual_wield: false
+armor: [mail, leather, cloth]
+item_tags: [hunter]
+l10n:
+  name: {en: Ranger, tr: Korucu, zh-CN: 游侠, es: Explorador}
+  role: {en: Ranged DPS / Pet / Control, tr: Menzilli DPS / Evcil / Kontrol, zh-CN: 远程输出 / 宠物 / 控制, es: DPS a distancia / Mascota / Control}
+  description:
+    en: A patient hunter who marks prey, builds Aim and never misses the decisive shot.
+    tr: Avını işaretleyen, Nişan biriktiren ve belirleyici atışı asla kaçırmayan sabırlı avcı.
+    zh-CN: 耐心的猎手，标记猎物、积累瞄准，决不错过关键一击。
+    es: Un cazador paciente que marca a su presa, acumula Puntería y nunca falla el disparo decisivo.
+base_passive:
+  code: hunters_eye
+  l10n:
+    name: {en: "Hunter's Eye", tr: Avcı Gözü, zh-CN: 猎人之眼, es: Ojo del cazador}
+    description:
+      en: Hitting the same target builds Aim, raising accuracy and crit chance.
+      tr: Aynı hedefe vurmak Nişan biriktirir; isabet ve kritik şansı yükselir.
+      zh-CN: 持续攻击同一目标积累瞄准，提高命中与暴击率。
+      es: Golpear al mismo objetivo acumula Puntería, aumentando precisión y prob. de crítico.
+  effects:
+    - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: STACK_GAIN, params: {stack_code: aim, max_stacks: 5, per_stack: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 1}}, {effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 1}}]}}]}}
+    - {effect_type: STAT_FLAT, params: {stat: DEX, amount: 5}}
+    - {effect_type: STAT_FLAT, params: {stat: LUK, amount: 3}}
+    - {effect_type: STAT_FLAT, params: {stat: SPI, amount: 2}}
+branches:
+  - code: marksman
+    l10n:
+      name: {en: Marksman, tr: Keskin Nişancı, zh-CN: 神射手, es: Tirador}
+      role: {en: Ranged DPS, tr: Menzilli DPS, zh-CN: 远程输出, es: DPS a distancia}
+    passive:
+      code: long_shot
+      l10n:
+        name: {en: Long Shot, tr: Uzun Atış, zh-CN: 远射, es: Disparo lejano}
+        description: {en: "Ranged damage +12%.", tr: "Menzilli hasar +%12.", zh-CN: "远程伤害 +12%。", es: "Daño a distancia +12%."}
+      effects:
+        - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 12}}
+    specializations:
+      - code: sharpshooter
+        l10n:
+          name: {en: Sharpshooter, tr: Nişancı, zh-CN: 狙击手, es: Francotirador}
+          role: {en: Boss DPS, tr: Boss DPS, zh-CN: 首领输出, es: DPS contra jefes}
+          mastery_noun: {en: Marksman, tr: Nişancı, zh-CN: 神射, es: Tirador}
+        passive:
+          code: true_aim
+          l10n:
+            name: {en: True Aim, tr: Gerçek Nişan, zh-CN: 精准瞄准, es: Puntería certera}
+            description: {en: "Aim cap +2.", tr: "Nişan sınırı +2.", zh-CN: "瞄准上限 +2。", es: "Límite de Puntería +2."}
+          effects:
+            - {effect_type: STACK_CAP_MOD, params: {stack_code: aim, amount: 2}}
+        awakening:
+          code: perfect_shot
+          l10n:
+            name: {en: Perfect Shot, tr: Kusursuz Atış, zh-CN: 完美射击, es: Disparo perfecto}
+            description: {en: "An attack at max Aim is a guaranteed crit.", tr: "Maksimum Nişandaki saldırı garantili kritiktir.", zh-CN: "瞄准满层时的攻击必定暴击。", es: "Un ataque con Puntería máxima es un crítico garantizado."}
+          effects:
+            - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: stack_count, op: gte, value: 7, stack_code: aim}, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 100}}]}}
+      - code: arbalist
+        l10n:
+          name: {en: Arbalist, tr: Arbaletçi, zh-CN: 弩手, es: Ballestero}
+          role: {en: Armor penetration, tr: Zırh delme, zh-CN: 破甲, es: Penetración de armadura}
+          mastery_noun: {en: Siegebreaker, tr: Kuşatma Kırıcı, zh-CN: 破城者, es: Rompeasedios}
+        passive:
+          code: heavy_bolt
+          l10n:
+            name: {en: Heavy Bolt, tr: Ağır Cıvata, zh-CN: 重弩箭, es: Virote pesado}
+            description: {en: "Slower but hard-piercing shots.", tr: "Daha yavaş ama yüksek delicilikte atışlar.", zh-CN: "射速较慢，但穿透力极强。", es: "Disparos más lentos pero muy perforantes."}
+          effects:
+            - {effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: -15}}
+            - {effect_type: STAT_FLAT, params: {stat: armor_penetration, amount: 15}}
+            - {effect_type: DAMAGE_MULTIPLIER, params: {percent: 15}}
+        awakening:
+          code: siegebreaker
+          l10n:
+            name: {en: Siegebreaker, tr: Kuşatma Kırıcı, zh-CN: 破城者, es: Rompeasedios}
+            description: {en: "Every 4th shot ignores 35% armor.", tr: "Her 4. atış zırhın %35'ini yok sayar.", zh-CN: "每第 4 次射击无视 35% 护甲。", es: "Cada 4.º disparo ignora el 35% de la armadura."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: DAMAGE, params: {percent_of_power: 100, armor_ignore_percent: 35}}]}}
+  - code: scout
+    l10n:
+      name: {en: Scout, tr: İzci, zh-CN: 斥候, es: Batidor}
+      role: {en: Utility, tr: Yardımcı, zh-CN: 功能, es: Utilidad}
+    passive:
+      code: fieldcraft
+      l10n:
+        name: {en: Fieldcraft, tr: Arazi Ustalığı, zh-CN: 野外技艺, es: Oficio de campo}
+        description: {en: "Dodge +8, trap and pet effectiveness increased.", tr: "Kaçınma +8, tuzak ve evcil hayvan etkinliği artar.", zh-CN: "闪避 +8，陷阱和宠物效果提升。", es: "Esquiva +8, mayor eficacia de trampas y mascotas."}
+      effects:
+        - {effect_type: STAT_FLAT, params: {stat: dodge, amount: 8}}
+        - {effect_type: STAT_PERCENT, params: {stat: trap_power, percent: 10}}
+        - {effect_type: STAT_PERCENT, params: {stat: pet_power, percent: 10}}
+    specializations:
+      - code: beastmaster
+        l10n:
+          name: {en: Beastmaster, tr: Hayvan Terbiyecisi, zh-CN: 兽王, es: Señor de las bestias}
+          role: {en: Pet, tr: Evcil hayvan, zh-CN: 宠物, es: Mascota}
+          mastery_noun: {en: Beastlord, tr: Canavar Lordu, zh-CN: 百兽之王, es: Señor salvaje}
+        passive:
+          code: bond
+          l10n:
+            name: {en: Bond, tr: Bağ, zh-CN: 羁绊, es: Vínculo}
+            description: {en: "Pet shares 25% of your stats.", tr: "Evcil hayvan statlarının %25'ini paylaşır.", zh-CN: "宠物共享你 25% 的属性。", es: "La mascota comparte el 25% de tus atributos."}
+          effects:
+            - {effect_type: STAT_PERCENT, params: {stat: pet_power, percent: 25}}
+        awakening:
+          code: alpha_bond
+          l10n:
+            name: {en: Alpha Bond, tr: Alfa Bağı, zh-CN: 头狼羁绊, es: Vínculo alfa}
+            description: {en: "After a pet skill, the owner gains a buff.", tr: "Evcil yetenekten sonra sahibi güçlenir.", zh-CN: "宠物技能后主人获得增益。", es: "Tras una habilidad de la mascota, el dueño recibe una mejora."}
+          effects:
+            - {effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: BUFF, params: {duration_s: 6, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 10}}]}}]}}
+      - code: trapper
+        l10n:
+          name: {en: Trapper, tr: Tuzakçı, zh-CN: 陷阱师, es: Trampero}
+          role: {en: Control, tr: Kontrol, zh-CN: 控制, es: Control}
+          mastery_noun: {en: Snaremaster, tr: Tuzak Ustası, zh-CN: 陷阱大师, es: Maestro trampero}
+        passive:
+          code: prepared_ground
+          l10n:
+            name: {en: Prepared Ground, tr: Hazırlanmış Zemin, zh-CN: 预设阵地, es: Terreno preparado}
+            description: {en: "Trap cooldown −15%.", tr: "Tuzak bekleme süresi −%15.", zh-CN: "陷阱冷却 −15%。", es: "Enfriamiento de trampas −15%."}
+          effects:
+            - {effect_type: COOLDOWN_MOD, params: {percent: -15, ability_tag: trap}}
+        awakening:
+          code: chain_trigger
+          l10n:
+            name: {en: Chain Trigger, tr: Zincirleme Tetik, zh-CN: 连锁触发, es: Disparo en cadena}
+            description: {en: "Triggering a trap reduces other traps' cooldowns.", tr: "Bir tuzak tetiklenince diğer tuzakların beklemesi azalır.", zh-CN: "陷阱触发时减少其他陷阱的冷却。", es: "Al activarse una trampa se reduce el enfriamiento de las demás."}
+          effects:
+            - {effect_type: COOLDOWN_MOD, params: {percent: -10, ability_tag: trap, chance_no_cooldown_percent: 10}}
