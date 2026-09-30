@@ -90,7 +90,12 @@
     "content_unavailable": "Las razas y clases aún no están disponibles.",
     "character_limit": "Límite de personajes alcanzado.",
     "forbidden": "No tienes permiso para hacer eso.",
-    "unknown": "Algo salió mal."
+    "unknown": "Algo salió mal.",
+    "insufficient_points": "No hay suficientes puntos.",
+    "version_conflict": "Los datos cambiaron. Se recargaron: inténtalo de nuevo.",
+    "insufficient_funds": "No tienes suficiente oro.",
+    "profile_unresolved": "Esta plantilla necesita los datos de tu clase.",
+    "nothing_to_respec": "No hay puntos para restablecer."
   },
   "characters": {
     "title": "Tus personajes",
@@ -116,5 +121,39 @@
   "adminShell": {
     "forbidden": "Necesitas un rol de personal para acceder a esta área.",
     "roles": "Roles: {roles}"
+  },
+  "progression": {
+    "title": "Personaje",
+    "levelOf": "Nivel {level} / {cap}",
+    "xpProgress": "{xp} / {need} EXP ({pct}%)",
+    "maxLevel": "Nivel máximo alcanzado",
+    "currentTitle": "Título",
+    "nextTitle": "Siguiente título: {title} en Nv {level}",
+    "nextBreakpoint": "Próximo hito: Nv {level}",
+    "unspent": "Puntos sin asignar: {points}",
+    "allocate": "Asignar",
+    "reset": "Limpiar",
+    "pending": "Pendientes: {points}",
+    "profile": "Plantilla automática",
+    "applyProfile": "Aplicar plantilla",
+    "primaryStats": "Atributos",
+    "derivedStats": "Estadísticas de combate",
+    "breakdown": "Desglose",
+    "respec": "Restablecer atributos",
+    "respecCost": "Reembolsar {points} puntos por {gold} de oro",
+    "respecConfirm": "¿Restablecer todos los puntos asignados?",
+    "increase": "Aumentar {stat}",
+    "decrease": "Disminuir {stat}",
+    "sources": {
+      "base": "Base",
+      "race": "Raza",
+      "class": "Clase",
+      "allocated": "Asignado",
+      "equipment": "Equipo",
+      "talent": "Talentos",
+      "buff": "Mejoras",
+      "formula": "Fórmula"
+    },
+    "view": "Ver"
   }
 }

@@ -90,7 +90,12 @@
     "content_unavailable": "种族和职业尚未开放。",
     "character_limit": "角色数量已达上限。",
     "forbidden": "你没有执行此操作的权限。",
-    "unknown": "出现错误。"
+    "unknown": "出现错误。",
+    "insufficient_points": "未分配属性点不足。",
+    "version_conflict": "数据已在别处变更，已刷新，请重试。",
+    "insufficient_funds": "金币不足。",
+    "profile_unresolved": "该模板需要职业数据。",
+    "nothing_to_respec": "没有可重置的属性点。"
   },
   "characters": {
     "title": "你的角色",
@@ -116,5 +121,39 @@
   "adminShell": {
     "forbidden": "需要工作人员角色才能访问此区域。",
     "roles": "角色：{roles}"
+  },
+  "progression": {
+    "title": "角色",
+    "levelOf": "等级 {level} / {cap}",
+    "xpProgress": "{xp} / {need} 经验（{pct}%）",
+    "maxLevel": "已达到最高等级",
+    "currentTitle": "称号",
+    "nextTitle": "下一称号：{level} 级 {title}",
+    "nextBreakpoint": "下一个转折点：{level} 级",
+    "unspent": "未分配属性点：{points}",
+    "allocate": "分配",
+    "reset": "清除",
+    "pending": "待分配：{points}",
+    "profile": "自动模板",
+    "applyProfile": "应用模板",
+    "primaryStats": "基础属性",
+    "derivedStats": "战斗属性",
+    "breakdown": "明细",
+    "respec": "重置属性",
+    "respecCost": "花费 {gold} 金币返还 {points} 点",
+    "respecConfirm": "确定重置所有已分配属性点？",
+    "increase": "增加{stat}",
+    "decrease": "减少{stat}",
+    "sources": {
+      "base": "基础",
+      "race": "种族",
+      "class": "职业",
+      "allocated": "已分配",
+      "equipment": "装备",
+      "talent": "天赋",
+      "buff": "增益",
+      "formula": "公式"
+    },
+    "view": "查看"
   }
 }

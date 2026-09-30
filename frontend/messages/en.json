@@ -90,7 +90,12 @@
     "content_unavailable": "Races and classes are not available yet.",
     "character_limit": "Character limit reached.",
     "forbidden": "You do not have permission to do that.",
-    "unknown": "Something went wrong."
+    "unknown": "Something went wrong.",
+    "insufficient_points": "Not enough unspent points.",
+    "version_conflict": "Data changed elsewhere. Reloaded — please retry.",
+    "insufficient_funds": "Not enough gold.",
+    "profile_unresolved": "This template needs your class data.",
+    "nothing_to_respec": "No points to reset."
   },
   "characters": {
     "title": "Your characters",
@@ -116,5 +121,39 @@
   "adminShell": {
     "forbidden": "You need a staff role to access this area.",
     "roles": "Roles: {roles}"
+  },
+  "progression": {
+    "title": "Character",
+    "levelOf": "Level {level} / {cap}",
+    "xpProgress": "{xp} / {need} XP ({pct}%)",
+    "maxLevel": "Maximum level reached",
+    "currentTitle": "Title",
+    "nextTitle": "Next title: {title} at Lv {level}",
+    "nextBreakpoint": "Next breakpoint: Lv {level}",
+    "unspent": "Unspent stat points: {points}",
+    "allocate": "Allocate",
+    "reset": "Clear",
+    "pending": "Pending: {points}",
+    "profile": "Auto template",
+    "applyProfile": "Apply template",
+    "primaryStats": "Attributes",
+    "derivedStats": "Combat stats",
+    "breakdown": "Breakdown",
+    "respec": "Reset attributes",
+    "respecCost": "Refund {points} points for {gold} gold",
+    "respecConfirm": "Reset all allocated points?",
+    "increase": "Increase {stat}",
+    "decrease": "Decrease {stat}",
+    "sources": {
+      "base": "Base",
+      "race": "Race",
+      "class": "Class",
+      "allocated": "Allocated",
+      "equipment": "Equipment",
+      "talent": "Talents",
+      "buff": "Buffs",
+      "formula": "Formula"
+    },
+    "view": "View"
   }
 }

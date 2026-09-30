@@ -21,6 +21,7 @@ class Character(Base, TimestampMixin):
         CheckConstraint("level >= 1 AND level <= 1000", name="level_range"),
         CheckConstraint("xp >= 0", name="xp_non_negative"),
         CheckConstraint("unspent_stat_points >= 0", name="points_non_negative"),
+        CheckConstraint("mastery_xp >= 0", name="mastery_xp_non_negative"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -33,6 +34,8 @@ class Character(Base, TimestampMixin):
     level: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     xp: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0)
     unspent_stat_points: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # XP earned past the level cap feeds horizontal (mastery) progression.
+    mastery_xp: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0, server_default="0")
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     last_level_up_at: Mapped[datetime | None] = mapped_column()
     last_active_at: Mapped[datetime | None] = mapped_column()

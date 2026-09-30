@@ -41,9 +41,9 @@ export function CharacterList() {
       <ul className="grid gap-2 sm:grid-cols-2" data-testid="character-list">
         {data?.map((c) => (
           <li key={c.id} className="flex items-center justify-between rounded border border-border bg-panel p-3">
-            <span className="font-mono">
+            <Link href={`/game/characters/${c.id}`} className="font-mono hover:underline">
               {c.name} · {t("levelShort", { level: c.level })}
-            </span>
+            </Link>
             <button
               type="button"
               className="text-xs text-bad underline"

@@ -122,3 +122,34 @@ async def make_client(app):  # type: ignore[no-untyped-def]
     yield _make
     for c in opened:
         await c.aclose()
+
+
+@pytest.fixture
+async def make_character():  # type: ignore[no-untyped-def]
+    """Insert a character directly (bypasses content-dependent creation rules) for engine/service tests."""
+    import uuid
+
+    from app.content.names import name_key
+    from app.db.session import get_sessionmaker
+    from app.models.character import Character, CharacterSettings
+
+    async def _make(user_id: int, *, level: int = 1, unspent: int = 0, race_id: int = 1, base_class_id: int = 1) -> int:
+        name = "T" + "".join(chr(97 + (b % 26)) for b in uuid.uuid4().bytes[:10])
+        async with get_sessionmaker()() as s:
+            ch = Character(
+                user_id=user_id,
+                name=name,
+                name_normalized=name_key(name),
+                race_id=race_id,
+                base_class_id=base_class_id,
+                level=level,
+                xp=0,
+                unspent_stat_points=unspent,
+            )
+            s.add(ch)
+            await s.flush()
+            s.add(CharacterSettings(character_id=ch.id))
+            await s.commit()
+            return ch.id
+
+    return _make

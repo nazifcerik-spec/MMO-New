@@ -1,0 +1,84 @@
+code: progression
+data:
+  level_cap: 1000
+  stat_points_per_level: 3
+  breakpoints: [100, 300, 600, 850, 1000]
+  base_primary_stat: 5              # every stat starts here at Lv1 (class/race add effects on top)
+  soft_cap_bands:                   # canonical per-stat effectiveness bands
+    - {upto: 300, effectiveness: 1.0}
+    - {upto: 600, effectiveness: 0.70}
+    - {upto: 900, effectiveness: 0.45}
+    - {upto: null, effectiveness: 0.25}
+  titles:                           # canonical level title ladder
+    - {level: 1, code: novice}
+    - {level: 100, code: veteran}
+    - {level: 200, code: seasoned}
+    - {level: 300, code: elite}
+    - {level: 400, code: heroic}
+    - {level: 500, code: legendary}
+    - {level: 600, code: champion}
+    - {level: 700, code: mythic}
+    - {level: 800, code: ancient}
+    - {level: 850, code: ascendant}
+    - {level: 900, code: immortal}
+    - {level: 950, code: exalted}
+    - {level: 1000, code: eternal}
+  xp_curve:
+    # Canonical time-to-level targets (hours at reference efficiency). Total 968 h ≈ 108 days × 9 h.
+    segments:
+      - {from_level: 1, to_level: 100, hours: 8, ramp: 3.0}
+      - {from_level: 100, to_level: 300, hours: 48, ramp: 2.0}
+      - {from_level: 300, to_level: 600, hours: 209, ramp: 2.0}
+      - {from_level: 600, to_level: 800, hours: 277, ramp: 1.5}
+      - {from_level: 800, to_level: 900, hours: 193, ramp: 1.1}
+      - {from_level: 900, to_level: 1000, hours: 233, ramp: 1.2}
+    reference_xp_per_hour: {base: 1200, exponent: 1.15}
+  respec:
+    free_below_level: 100
+    bands:                          # canonical: cheap early, medium 300-599, expensive 600+
+      - {min_level: 100, gold_per_point: 2}
+      - {min_level: 300, gold_per_point: 20}
+      - {min_level: 600, gold_per_point: 120}
+    cooldown_seconds: 0
+  derived:
+    # derived = base + per_level*level + Σ per_stat[stat]*effective_stat ; percent effects apply afterwards
+    max_hp: {base: 100, per_level: 12, per_stat: {VIT: 14, STR: 2}}
+    max_resource: {base: 100, per_level: 0, per_stat: {SPI: 0.5, INT: 0.3}}
+    attack_power: {base: 10, per_level: 1.5, per_stat: {STR: 2.0, DEX: 0.8}}
+    spell_power: {base: 10, per_level: 1.5, per_stat: {INT: 2.2, SPI: 0.4}}
+    healing_power: {base: 10, per_level: 1.2, per_stat: {WIS: 2.2, SPI: 0.4}}
+    shield_power: {base: 5, per_level: 0.8, per_stat: {WIS: 1.2, VIT: 0.4}}
+    buff_power: {base: 0, per_level: 0, per_stat: {SPI: 0.05}}
+    debuff_power: {base: 0, per_level: 0, per_stat: {SPI: 0.05}}
+    armor: {base: 20, per_level: 2, per_stat: {VIT: 1.5}}
+    magic_resist: {base: 10, per_level: 1, per_stat: {WIS: 0.8, SPI: 0.4}}
+    accuracy: {base: 90, per_level: 0, per_stat: {DEX: 0.02}}
+    dodge: {base: 3, per_level: 0, per_stat: {DEX: 0.012}}
+    block: {base: 0, per_level: 0, per_stat: {VIT: 0.004, STR: 0.004}}
+    block_efficiency: {base: 30, per_level: 0, per_stat: {VIT: 0.01}}
+    crit_chance: {base: 5, per_level: 0, per_stat: {DEX: 0.01, LUK: 0.012}}
+    crit_damage: {base: 150, per_level: 0, per_stat: {LUK: 0.03}}
+    attack_speed: {base: 100, per_level: 0, per_stat: {DEX: 0.03}}
+    cast_speed: {base: 100, per_level: 0, per_stat: {INT: 0.015, DEX: 0.01}}
+    resource_regen: {base: 5, per_level: 0, per_stat: {SPI: 0.02}}
+    mana_regen: {base: 5, per_level: 0, per_stat: {WIS: 0.03}}
+    hp_regen: {base: 1, per_level: 0.1, per_stat: {VIT: 0.02}}
+    stun_resist: {base: 0, per_level: 0, per_stat: {VIT: 0.01}}
+    carry_capacity: {base: 100, per_level: 0, per_stat: {STR: 1}}
+    proc_consistency: {base: 0, per_level: 0, per_stat: {LUK: 0.02}}
+    pet_power: {base: 0, per_level: 1, per_stat: {SPI: 1.0}}
+    totem_power: {base: 0, per_level: 1, per_stat: {SPI: 1.0}}
+    hot_power: {base: 0, per_level: 0, per_stat: {WIS: 0.02}}
+    threat: {base: 100, per_level: 0, per_stat: {}}
+    lifesteal: {base: 0, per_level: 0, per_stat: {}}
+    elemental_resist: {base: 0, per_level: 0, per_stat: {}}
+    armor_penetration: {base: 0, per_level: 0, per_stat: {STR: 0.005}}
+    magic_penetration: {base: 0, per_level: 0, per_stat: {INT: 0.005}}
+    buff_duration: {base: 100, per_level: 0, per_stat: {}}
+    debuff_duration: {base: 100, per_level: 0, per_stat: {}}
+    healing_received: {base: 100, per_level: 0, per_stat: {}}
+  caps:                             # hard caps on derived percentages
+    dodge: 60
+    block: 60
+    crit_chance: 75
+    accuracy: 100

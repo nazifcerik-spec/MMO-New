@@ -127,7 +127,7 @@ async def test_concurrent_edits_one_wins() -> None:
 async def test_completeness_counts(db: AsyncSession) -> None:
     stats = await service.completeness(db, namespace="stat")
     for loc in ("en", "tr", "zh-CN", "es"):
-        assert stats[loc]["total"] == 21
+        assert stats[loc]["total"] == 56
         assert stats[loc]["missing"] == 0
 
 

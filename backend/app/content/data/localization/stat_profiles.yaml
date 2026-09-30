@@ -1,0 +1,52 @@
+namespace: stat_profile
+entries:
+  stat_profile.tank.name:
+    en: Tank
+    tr: Tank
+    zh-CN: 坦克
+    es: Tanque
+  stat_profile.tank.description:
+    en: VIT 45% · main stat 30% · utility 15% · LUK 10%
+    tr: VIT %45 · ana stat %30 · yardımcı %15 · LUK %10
+    zh-CN: 体力45% · 主属性30% · 辅助15% · 幸运10%
+    es: VIT 45% · principal 30% · utilidad 15% · SUE 10%
+  stat_profile.physical_dps.name:
+    en: Physical DPS
+    tr: Fiziksel DPS
+    zh-CN: 物理输出
+    es: DPS físico
+  stat_profile.physical_dps.description:
+    en: Main stat 50% · DEX/LUK 25% · VIT 15% · utility 10%
+    tr: Ana stat %50 · DEX/LUK %25 · VIT %15 · yardımcı %10
+    zh-CN: 主属性50% · 敏捷/幸运25% · 体力15% · 辅助10%
+    es: Principal 50% · DES/SUE 25% · VIT 15% · utilidad 10%
+  stat_profile.caster_dps.name:
+    en: Caster DPS
+    tr: Büyücü DPS
+    zh-CN: 法系输出
+    es: DPS lanzador
+  stat_profile.caster_dps.description:
+    en: INT 50% · SPI 25% · WIS/VIT 15% · LUK 10%
+    tr: INT %50 · SPI %25 · WIS/VIT %15 · LUK %10
+    zh-CN: 智力50% · 精神25% · 智慧/体力15% · 幸运10%
+    es: INT 50% · ESP 25% · SAB/VIT 15% · SUE 10%
+  stat_profile.healer.name:
+    en: Healer
+    tr: Şifacı
+    zh-CN: 治疗
+    es: Sanador
+  stat_profile.healer.description:
+    en: WIS 45% · SPI 35% · VIT 15% · LUK 5%
+    tr: WIS %45 · SPI %35 · VIT %15 · LUK %5
+    zh-CN: 智慧45% · 精神35% · 体力15% · 幸运5%
+    es: SAB 45% · ESP 35% · VIT 15% · SUE 5%
+  stat_profile.hybrid_support.name:
+    en: Hybrid Support
+    tr: Hibrit Destek
+    zh-CN: 混合辅助
+    es: Apoyo híbrido
+  stat_profile.hybrid_support.description:
+    en: SPI 40% · WIS 25% · main damage 20% · VIT 15%
+    tr: SPI %40 · WIS %25 · ana hasar %20 · VIT %15
+    zh-CN: 精神40% · 智慧25% · 主伤害属性20% · 体力15%
+    es: ESP 40% · SAB 25% · daño principal 20% · VIT 15%

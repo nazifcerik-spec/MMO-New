@@ -1,0 +1,177 @@
+namespace: stat
+entries:
+  stat.max_hp.name:
+    en: Max HP
+    tr: Maks. Can
+    zh-CN: 最大生命值
+    es: PS máx.
+  stat.max_resource.name:
+    en: Max Resource
+    tr: Maks. Kaynak
+    zh-CN: 最大资源
+    es: Recurso máx.
+  stat.attack_power.name:
+    en: Attack Power
+    tr: Saldırı Gücü
+    zh-CN: 攻击强度
+    es: Poder de ataque
+  stat.spell_power.name:
+    en: Spell Power
+    tr: Büyü Gücü
+    zh-CN: 法术强度
+    es: Poder mágico
+  stat.healing_power.name:
+    en: Healing Power
+    tr: İyileştirme Gücü
+    zh-CN: 治疗强度
+    es: Poder de curación
+  stat.shield_power.name:
+    en: Shield Power
+    tr: Kalkan Gücü
+    zh-CN: 护盾强度
+    es: Poder de escudo
+  stat.armor.name:
+    en: Armor
+    tr: Zırh
+    zh-CN: 护甲
+    es: Armadura
+  stat.magic_resist.name:
+    en: Magic Resist
+    tr: Büyü Direnci
+    zh-CN: 魔法抗性
+    es: Resistencia mágica
+  stat.elemental_resist.name:
+    en: Elemental Resist
+    tr: Element Direnci
+    zh-CN: 元素抗性
+    es: Resistencia elemental
+  stat.accuracy.name:
+    en: Accuracy
+    tr: İsabet
+    zh-CN: 命中
+    es: Precisión
+  stat.dodge.name:
+    en: Dodge
+    tr: Kaçınma
+    zh-CN: 闪避
+    es: Esquiva
+  stat.block.name:
+    en: Block
+    tr: Blok
+    zh-CN: 格挡
+    es: Bloqueo
+  stat.block_efficiency.name:
+    en: Block Efficiency
+    tr: Blok Verimi
+    zh-CN: 格挡效率
+    es: Eficiencia de bloqueo
+  stat.crit_chance.name:
+    en: Crit Chance
+    tr: Kritik Şansı
+    zh-CN: 暴击率
+    es: Prob. de crítico
+  stat.crit_damage.name:
+    en: Crit Damage
+    tr: Kritik Hasarı
+    zh-CN: 暴击伤害
+    es: Daño crítico
+  stat.attack_speed.name:
+    en: Attack Speed
+    tr: Saldırı Hızı
+    zh-CN: 攻击速度
+    es: Velocidad de ataque
+  stat.cast_speed.name:
+    en: Cast Speed
+    tr: Büyü Hızı
+    zh-CN: 施法速度
+    es: Velocidad de lanzamiento
+  stat.resource_regen.name:
+    en: Resource Regen
+    tr: Kaynak Yenilenmesi
+    zh-CN: 资源回复
+    es: Regeneración de recurso
+  stat.mana_regen.name:
+    en: Mana Regen
+    tr: Mana Yenilenmesi
+    zh-CN: 法力回复
+    es: Regeneración de maná
+  stat.hp_regen.name:
+    en: HP Regen
+    tr: Can Yenilenmesi
+    zh-CN: 生命回复
+    es: Regeneración de PS
+  stat.threat.name:
+    en: Threat
+    tr: Tehdit
+    zh-CN: 威胁
+    es: Amenaza
+  stat.lifesteal.name:
+    en: Lifesteal
+    tr: Can Çalma
+    zh-CN: 生命偷取
+    es: Robo de vida
+  stat.armor_penetration.name:
+    en: Armor Penetration
+    tr: Zırh Delme
+    zh-CN: 护甲穿透
+    es: Penetración de armadura
+  stat.magic_penetration.name:
+    en: Magic Penetration
+    tr: Büyü Delme
+    zh-CN: 法术穿透
+    es: Penetración mágica
+  stat.buff_power.name:
+    en: Buff Power
+    tr: Güçlendirme Gücü
+    zh-CN: 增益强度
+    es: Poder de mejora
+  stat.debuff_power.name:
+    en: Debuff Power
+    tr: Zayıflatma Gücü
+    zh-CN: 减益强度
+    es: Poder de perjuicio
+  stat.buff_duration.name:
+    en: Buff Duration
+    tr: Güçlendirme Süresi
+    zh-CN: 增益持续时间
+    es: Duración de mejoras
+  stat.debuff_duration.name:
+    en: Debuff Duration
+    tr: Zayıflatma Süresi
+    zh-CN: 减益持续时间
+    es: Duración de perjuicios
+  stat.hot_power.name:
+    en: HoT Power
+    tr: Zamanla İyileşme Gücü
+    zh-CN: 持续治疗强度
+    es: Poder de CeT
+  stat.pet_power.name:
+    en: Pet Power
+    tr: Evcil Güç
+    zh-CN: 宠物强度
+    es: Poder de mascota
+  stat.totem_power.name:
+    en: Totem Power
+    tr: Totem Gücü
+    zh-CN: 图腾强度
+    es: Poder de tótem
+  stat.stun_resist.name:
+    en: Stun Resist
+    tr: Sersemletme Direnci
+    zh-CN: 眩晕抗性
+    es: Resistencia al aturdimiento
+  stat.carry_capacity.name:
+    en: Carry Capacity
+    tr: Taşıma Kapasitesi
+    zh-CN: 负重
+    es: Capacidad de carga
+  stat.proc_consistency.name:
+    en: Proc Consistency
+    tr: Tetiklenme Tutarlılığı
+    zh-CN: 触发稳定性
+    es: Consistencia de activación
+  stat.healing_received.name:
+    en: Healing Received
+    tr: Alınan İyileştirme
+    zh-CN: 受到治疗
+    es: Curación recibida

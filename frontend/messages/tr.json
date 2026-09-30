@@ -90,7 +90,12 @@
     "content_unavailable": "Irklar ve sınıflar henüz mevcut değil.",
     "character_limit": "Karakter sınırına ulaşıldı.",
     "forbidden": "Bunu yapmak için yetkiniz yok.",
-    "unknown": "Bir şeyler ters gitti."
+    "unknown": "Bir şeyler ters gitti.",
+    "insufficient_points": "Yeterli harcanmamış puan yok.",
+    "version_conflict": "Veri başka yerde değişti. Yenilendi — tekrar deneyin.",
+    "insufficient_funds": "Yeterli altın yok.",
+    "profile_unresolved": "Bu şablon sınıf verisine ihtiyaç duyar.",
+    "nothing_to_respec": "Sıfırlanacak puan yok."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -116,5 +121,39 @@
   "adminShell": {
     "forbidden": "Bu alana erişmek için personel rolü gerekir.",
     "roles": "Roller: {roles}"
+  },
+  "progression": {
+    "title": "Karakter",
+    "levelOf": "Seviye {level} / {cap}",
+    "xpProgress": "{xp} / {need} TP (%{pct})",
+    "maxLevel": "Maksimum seviyeye ulaşıldı",
+    "currentTitle": "Unvan",
+    "nextTitle": "Sonraki unvan: Sv {level} ile {title}",
+    "nextBreakpoint": "Sonraki kırılma noktası: Sv {level}",
+    "unspent": "Harcanmamış stat puanı: {points}",
+    "allocate": "Dağıt",
+    "reset": "Temizle",
+    "pending": "Bekleyen: {points}",
+    "profile": "Otomatik şablon",
+    "applyProfile": "Şablonu uygula",
+    "primaryStats": "Nitelikler",
+    "derivedStats": "Savaş statları",
+    "breakdown": "Döküm",
+    "respec": "Nitelikleri sıfırla",
+    "respecCost": "{points} puanı {gold} altına iade et",
+    "respecConfirm": "Tüm dağıtılmış puanlar sıfırlansın mı?",
+    "increase": "{stat} artır",
+    "decrease": "{stat} azalt",
+    "sources": {
+      "base": "Temel",
+      "race": "Irk",
+      "class": "Sınıf",
+      "allocated": "Dağıtılan",
+      "equipment": "Ekipman",
+      "talent": "Yetenek ağacı",
+      "buff": "Güçlendirmeler",
+      "formula": "Formül"
+    },
+    "view": "Görüntüle"
   }
 }

@@ -1,0 +1,67 @@
+namespace: title
+entries:
+  title.level.novice.name:
+    en: Novice
+    tr: Acemi
+    zh-CN: 新手
+    es: Novato
+  title.level.veteran.name:
+    en: Veteran
+    tr: Kıdemli
+    zh-CN: 老兵
+    es: Veterano
+  title.level.seasoned.name:
+    en: Seasoned
+    tr: Tecrübeli
+    zh-CN: 历练者
+    es: Curtido
+  title.level.elite.name:
+    en: Elite
+    tr: Seçkin
+    zh-CN: 精英
+    es: Élite
+  title.level.heroic.name:
+    en: Heroic
+    tr: Kahraman
+    zh-CN: 英勇
+    es: Heroico
+  title.level.legendary.name:
+    en: Legendary
+    tr: Efsanevi
+    zh-CN: 传奇
+    es: Legendario
+  title.level.champion.name:
+    en: Champion
+    tr: Şampiyon
+    zh-CN: 冠军
+    es: Campeón
+  title.level.mythic.name:
+    en: Mythic
+    tr: Mitik
+    zh-CN: 神话
+    es: Mítico
+  title.level.ancient.name:
+    en: Ancient
+    tr: Kadim
+    zh-CN: 远古
+    es: Ancestral
+  title.level.ascendant.name:
+    en: Ascendant
+    tr: Yükselen
+    zh-CN: 飞升者
+    es: Ascendido
+  title.level.immortal.name:
+    en: Immortal
+    tr: Ölümsüz
+    zh-CN: 不朽
+    es: Inmortal
+  title.level.exalted.name:
+    en: Exalted
+    tr: Yüce
+    zh-CN: 崇高
+    es: Exaltado
+  title.level.eternal.name:
+    en: Eternal
+    tr: Ebedi
+    zh-CN: 永恒
+    es: Eterno

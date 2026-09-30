@@ -1,0 +1,8 @@
+# Auto stat allocation templates (canonical GDD §03). Tokens: main | secondary | utility resolve from the
+# character's base class stat weights (primary/secondary/defensive-utility); explicit stat codes are literal.
+profiles:
+  tank: {weights: {VIT: 45, main: 30, utility: 15, LUK: 10}}
+  physical_dps: {weights: {main: 50, DEX|LUK: 25, VIT: 15, utility: 10}}
+  caster_dps: {weights: {INT: 50, SPI: 25, WIS|VIT: 15, LUK: 10}}
+  healer: {weights: {WIS: 45, SPI: 35, VIT: 15, LUK: 5}}
+  hybrid_support: {weights: {SPI: 40, WIS: 25, main_damage: 20, VIT: 15}}
