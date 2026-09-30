@@ -134,3 +134,31 @@ test("zone browser shows eligibility, details and a real-encounter preview", asy
   await page.getByTestId("zone-preview").click();
   await expect(page.getByTestId("zone-win-rate")).toHaveText(/\d+%/);
 });
+
+test("AFK session: start, countdown, stop early, claim summary", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Afk${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("afk-start").click();
+  await expect(page.getByTestId("afk-countdown")).toHaveText(/^[0-2]:\d\d:\d\d$/);
+  await expect(page.getByTestId("afk-claim")).toBeDisabled();
+  page.once("dialog", (d) => d.accept());
+  await page.getByTestId("afk-stop").click();
+  await expect(page.getByTestId("afk-claim")).toBeEnabled();
+  await page.getByTestId("afk-claim").click();
+  await expect(page.getByTestId("afk-claim-summary")).toBeVisible();
+  await expect(page.getByTestId("signal-pity_progress")).toBeVisible();
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page.getByTestId("afk-start")).toBeVisible();
+});

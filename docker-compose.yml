@@ -41,6 +41,17 @@ services:
       timeout: 5s
       retries: 12
 
+  afk-sweeper:
+    # Pre-resolves finished AFK sessions; claims also resolve safely on demand.
+    image: oldschool-afk-mmo-backend
+    env_file: [.env]
+    environment:
+      MMO_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-mmo}:${POSTGRES_PASSWORD:-mmo}@postgres:5432/${POSTGRES_DB:-mmo}
+      MMO_REDIS_URL: redis://redis:6379/0
+    command: ["python", "-m", "scripts.afk_sweeper", "--loop", "60"]
+    depends_on:
+      backend: {condition: service_healthy}
+
   frontend:
     image: oldschool-afk-mmo-frontend
     build:

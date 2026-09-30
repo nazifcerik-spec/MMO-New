@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.api import (
+    afk,
     afk_profiles,
     auth,
     characters,
@@ -28,6 +29,7 @@ _MODULES = (
     talents,
     afk_profiles,
     world,
+    afk,
     admin_localization,
     admin_users,
     admin_content,

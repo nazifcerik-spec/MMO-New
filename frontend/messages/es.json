@@ -127,7 +127,14 @@
     "mode_disabled": "Ese modo de combate está desactivado.",
     "zone_not_found": "Zona no encontrada.",
     "zone_not_playable": "Esta zona no tiene encuentros jugables.",
-    "constraint_violation": "Los datos infringen una regla de la base de datos."
+    "constraint_violation": "Los datos infringen una regla de la base de datos.",
+    "afk_session_active": "Ya hay una sesión AFK en curso.",
+    "afk_not_finished": "La sesión sigue en curso.",
+    "afk_no_session": "No hay sesión AFK que reclamar.",
+    "afk_claim_in_progress": "Reclamación en curso.",
+    "afk_invalid_duration": "Elige entre 5 minutos y 3 horas.",
+    "zone_locked": "No cumples los requisitos de esta zona.",
+    "profession_task_unavailable": "Las tareas de profesión aún no están disponibles."
   },
   "characters": {
     "title": "Tus personajes",
@@ -454,5 +461,46 @@
     "xpLoot": "XP / botín",
     "deathRisk": "Riesgo de muerte",
     "rare": "raro"
+  },
+  "afkSession": {
+    "title": "Aventura AFK",
+    "zone": "Zona",
+    "duration": "Duración {d}",
+    "profileRisk": "Usar el riesgo del perfil",
+    "risk": {
+      "safe": "Seguro (85%)",
+      "balanced": "Equilibrado (100%)",
+      "dangerous": "Peligroso (120%)",
+      "elite_hunt": "Caza de élite (135% + raro)"
+    },
+    "start": "Iniciar AFK",
+    "cap": "Máx. 3 horas por sesión. Tu build se fija al empezar.",
+    "farming": "Aventurando en {zone}",
+    "finished": "¡Terminado!",
+    "snapshot": "Instantánea: Nv {level} {cls}, postura {stance}",
+    "band": "{from}–{to}: {pct}%",
+    "claim": "Reclamar recompensas",
+    "stop": "Detener antes",
+    "stopConfirm": "¿Detener ahora? Conservas las recompensas del tiempo transcurrido.",
+    "signals": "Progreso",
+    "signal": {
+      "level_up": "¡Subes de nivel! +{levels} → Nv {level}",
+      "xp_progress": "+{percent}% de un nivel",
+      "boss_kills": "{count} jefe derrotado",
+      "rare_drops": "{count} botines raros+",
+      "gold": "+{amount} de oro",
+      "pity_progress": "Garantía de raro {percent}%"
+    },
+    "time": "Tiempo",
+    "fights": "Combates",
+    "kills": "Bajas",
+    "deaths": "Muertes",
+    "gold": "Oro",
+    "efficiency": "Eficiencia",
+    "durability": "Durabilidad",
+    "drops": "Botín",
+    "itemPool": "objeto T{tier} {rarity}",
+    "pendingLoot": "Los objetos llegarán a tu inventario cuando esté disponible.",
+    "close": "Cerrar"
   }
 }

@@ -127,7 +127,14 @@
     "mode_disabled": "That combat mode is disabled.",
     "zone_not_found": "Zone not found.",
     "zone_not_playable": "This zone has no playable encounters.",
-    "constraint_violation": "The data violates a database rule."
+    "constraint_violation": "The data violates a database rule.",
+    "afk_session_active": "An AFK session is already running.",
+    "afk_not_finished": "The session is still running.",
+    "afk_no_session": "There is no AFK session to claim.",
+    "afk_claim_in_progress": "Claim already in progress.",
+    "afk_invalid_duration": "Choose a duration between 5 minutes and 3 hours.",
+    "zone_locked": "You do not meet this zone's requirements.",
+    "profession_task_unavailable": "Profession tasks are not available yet."
   },
   "characters": {
     "title": "Your characters",
@@ -454,5 +461,46 @@
     "xpLoot": "XP / loot",
     "deathRisk": "Death risk",
     "rare": "rare"
+  },
+  "afkSession": {
+    "title": "AFK adventure",
+    "zone": "Zone",
+    "duration": "Duration {d}",
+    "profileRisk": "Use profile risk",
+    "risk": {
+      "safe": "Safe (85%)",
+      "balanced": "Balanced (100%)",
+      "dangerous": "Dangerous (120%)",
+      "elite_hunt": "Elite hunt (135% + rare)"
+    },
+    "start": "Start AFK",
+    "cap": "Max 3 hours per session. Your build is locked in at start.",
+    "farming": "Adventuring in {zone}",
+    "finished": "Finished!",
+    "snapshot": "Snapshot: Lv {level} {cls}, stance {stance}",
+    "band": "{from}–{to}: {pct}%",
+    "claim": "Claim rewards",
+    "stop": "Stop early",
+    "stopConfirm": "Stop now? You keep rewards for the time spent.",
+    "signals": "Progress",
+    "signal": {
+      "level_up": "Level up! +{levels} → Lv {level}",
+      "xp_progress": "+{percent}% of a level",
+      "boss_kills": "{count} boss defeated",
+      "rare_drops": "{count} rare+ drops",
+      "gold": "+{amount} gold",
+      "pity_progress": "Rare guarantee {percent}%"
+    },
+    "time": "Time",
+    "fights": "Fights",
+    "kills": "Kills",
+    "deaths": "Deaths",
+    "gold": "Gold",
+    "efficiency": "Efficiency",
+    "durability": "Durability",
+    "drops": "Drops",
+    "itemPool": "T{tier} {rarity} item",
+    "pendingLoot": "Items will arrive in your inventory once it is available.",
+    "close": "Close"
   }
 }

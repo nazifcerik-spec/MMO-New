@@ -127,7 +127,14 @@
     "mode_disabled": "该战斗模式已禁用。",
     "zone_not_found": "未找到区域。",
     "zone_not_playable": "该区域没有可进行的遭遇。",
-    "constraint_violation": "数据违反数据库规则。"
+    "constraint_violation": "数据违反数据库规则。",
+    "afk_session_active": "已有进行中的挂机。",
+    "afk_not_finished": "挂机仍在进行。",
+    "afk_no_session": "没有可领取的挂机。",
+    "afk_claim_in_progress": "正在领取中。",
+    "afk_invalid_duration": "请选择5分钟到3小时之间的时长。",
+    "zone_locked": "你未满足该区域要求。",
+    "profession_task_unavailable": "专业任务暂未开放。"
   },
   "characters": {
     "title": "你的角色",
@@ -454,5 +461,46 @@
     "xpLoot": "经验/掉落",
     "deathRisk": "死亡风险",
     "rare": "稀有"
+  },
+  "afkSession": {
+    "title": "挂机冒险",
+    "zone": "区域",
+    "duration": "时长 {d}",
+    "profileRisk": "使用方案风险",
+    "risk": {
+      "safe": "安全 (85%)",
+      "balanced": "均衡 (100%)",
+      "dangerous": "危险 (120%)",
+      "elite_hunt": "精英狩猎 (135% + 稀有)"
+    },
+    "start": "开始挂机",
+    "cap": "每次最多3小时。开始时锁定构筑。",
+    "farming": "正在{zone}冒险",
+    "finished": "已完成！",
+    "snapshot": "快照：{level}级 {cls}，姿态 {stance}",
+    "band": "{from}–{to}：{pct}%",
+    "claim": "领取奖励",
+    "stop": "提前结束",
+    "stopConfirm": "现在结束？已用时间的奖励会保留。",
+    "signals": "进度",
+    "signal": {
+      "level_up": "升级！+{levels} → {level}级",
+      "xp_progress": "获得一级的{percent}%",
+      "boss_kills": "击败{count}个首领",
+      "rare_drops": "{count}件稀有以上掉落",
+      "gold": "+{amount} 金币",
+      "pity_progress": "稀有保底 {percent}%"
+    },
+    "time": "时间",
+    "fights": "战斗",
+    "kills": "击杀",
+    "deaths": "死亡",
+    "gold": "金币",
+    "efficiency": "效率",
+    "durability": "耐久",
+    "drops": "掉落",
+    "itemPool": "T{tier} {rarity}物品",
+    "pendingLoot": "背包开放后物品将送达。",
+    "close": "关闭"
   }
 }

@@ -9,3 +9,18 @@ data:
     - {from_hours: 12, to_hours: 18, percent: 50}
     - {from_hours: 18, to_hours: 24, percent: 25}
   rested_bonus_enabled: false
+  rested: {enabled: false, accrue_pct_per_offline_hour: 0, max_bonus_pct: 0}   # extension point, off
+  # Resolution (ADR-0002): full combat samples, then a seeded fight-by-fight walk (no real-time loop).
+  sample_fights: 24
+  boss_sample_fights: 4
+  max_fights: 3000
+  downtime_base_s: 6                # loot/travel between fights
+  rest_full_hp_s: 30                # extra rest after losing 100% HP net
+  death_recovery_s: 1200            # canonical: death costs ~15-30 min of efficiency
+  death_gold_cost_pct: 2            # small recovery cost per death (of session gold, capped at 100%)
+  durability_loss_per_death_pct: 5
+  reference_cycle_s: 50             # reference: 3 normal enemies per 50 s cycle earns reference XP/h
+  reference_units_per_fight: 3
+  over_level: {grace_levels: 20, per_level_pct: 3, min_pct: 10}
+  pity_threshold_fights: 150        # guaranteed rare roll after this many fights without one
+  timeline_bucket_s: 1800

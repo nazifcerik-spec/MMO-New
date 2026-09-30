@@ -127,7 +127,14 @@
     "mode_disabled": "Bu savaş modu kapalı.",
     "zone_not_found": "Bölge bulunamadı.",
     "zone_not_playable": "Bu bölgede oynanabilir karşılaşma yok.",
-    "constraint_violation": "Veri bir veritabanı kuralını ihlal ediyor."
+    "constraint_violation": "Veri bir veritabanı kuralını ihlal ediyor.",
+    "afk_session_active": "Zaten çalışan bir AFK oturumu var.",
+    "afk_not_finished": "Oturum hâlâ devam ediyor.",
+    "afk_no_session": "Alınacak AFK oturumu yok.",
+    "afk_claim_in_progress": "Talep zaten işleniyor.",
+    "afk_invalid_duration": "5 dakika ile 3 saat arasında bir süre seç.",
+    "zone_locked": "Bu bölgenin gereksinimlerini karşılamıyorsun.",
+    "profession_task_unavailable": "Meslek görevleri henüz kullanılamıyor."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -454,5 +461,46 @@
     "xpLoot": "XP / ganimet",
     "deathRisk": "Ölüm riski",
     "rare": "nadir"
+  },
+  "afkSession": {
+    "title": "AFK macerası",
+    "zone": "Bölge",
+    "duration": "Süre {d}",
+    "profileRisk": "Profil riskini kullan",
+    "risk": {
+      "safe": "Güvenli (%85)",
+      "balanced": "Dengeli (%100)",
+      "dangerous": "Tehlikeli (%120)",
+      "elite_hunt": "Elit av (%135 + nadir)"
+    },
+    "start": "AFK başlat",
+    "cap": "Oturum başına en fazla 3 saat. Build başlangıçta sabitlenir.",
+    "farming": "{zone} bölgesinde macerada",
+    "finished": "Bitti!",
+    "snapshot": "Anlık görüntü: Sv {level} {cls}, duruş {stance}",
+    "band": "{from}–{to}: %{pct}",
+    "claim": "Ödülleri al",
+    "stop": "Erken durdur",
+    "stopConfirm": "Şimdi durdurulsun mu? Geçen sürenin ödülleri korunur.",
+    "signals": "İlerleme",
+    "signal": {
+      "level_up": "Seviye atladın! +{levels} → Sv {level}",
+      "xp_progress": "Bir seviyenin %{percent}'i",
+      "boss_kills": "{count} boss yenildi",
+      "rare_drops": "{count} nadir+ ganimet",
+      "gold": "+{amount} altın",
+      "pity_progress": "Nadir garantisi %{percent}"
+    },
+    "time": "Süre",
+    "fights": "Savaşlar",
+    "kills": "Öldürme",
+    "deaths": "Ölümler",
+    "gold": "Altın",
+    "efficiency": "Verimlilik",
+    "durability": "Dayanıklılık",
+    "drops": "Ganimetler",
+    "itemPool": "T{tier} {rarity} eşya",
+    "pendingLoot": "Eşyalar envanter açıldığında gelecektir.",
+    "close": "Kapat"
   }
 }

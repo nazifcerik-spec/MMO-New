@@ -99,7 +99,7 @@ async def list_zones(
     return {"items": items, "next_cursor": zones[-1].sort_order if more and zones else None}
 
 
-async def _zone(db: AsyncSession, code: str) -> Zone:
+async def get_zone(db: AsyncSession, code: str) -> Zone:
     zone = (await db.execute(_published(Zone).where(Zone.code == code))).scalar_one_or_none()
     if zone is None:
         raise NotFoundError("Zone not found", code="zone_not_found")
@@ -107,7 +107,7 @@ async def _zone(db: AsyncSession, code: str) -> Zone:
 
 
 async def zone_detail(db: AsyncSession, code: str, locale: str, character: Character | None = None) -> dict[str, Any]:
-    zone = await _zone(db, code)
+    zone = await get_zone(db, code)
     tier = (await db.execute(select(ZoneTier).where(ZoneTier.code == zone.tier_code))).scalar_one()
     enc_codes = [p["encounter_code"] for p in zone.encounter_pool]
     encounters = list(
@@ -181,7 +181,7 @@ async def zone_detail(db: AsyncSession, code: str, locale: str, character: Chara
 
 async def load_bundle(db: AsyncSession, code: str) -> ZoneBundle:
     """Resolve a published zone into an immutable, self-contained bundle (JSON-serializable)."""
-    zone = await _zone(db, code)
+    zone = await get_zone(db, code)
     tier = (await db.execute(select(ZoneTier).where(ZoneTier.code == zone.tier_code))).scalar_one()
     enc_weights = {p["encounter_code"]: p["weight"] for p in zone.encounter_pool}
     encounters = list(

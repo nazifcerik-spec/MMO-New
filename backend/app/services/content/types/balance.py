@@ -2,11 +2,12 @@
 
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, ValidationError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.errors import NotFoundError
+from app.game_engine.afk import AfkBalance
 from app.game_engine.combat.models import CombatConfig
 from app.game_engine.progression import ProgressionConfig
 from app.models.content import BalanceConfig
@@ -15,36 +16,6 @@ from app.services.content.registry import ContentType, Issue, register
 
 class Strict(BaseModel):
     model_config = ConfigDict(extra="forbid")
-
-
-class EfficiencyBand(Strict):
-    from_hours: float = Field(ge=0, le=24)
-    to_hours: float = Field(gt=0, le=24)
-    percent: int = Field(ge=0, le=100)
-
-
-class AfkBalance(Strict):
-    max_session_seconds: int = Field(gt=0, le=10_800)  # canonical hard cap: 3 h
-    min_session_seconds: int = Field(ge=60, le=3600)
-    player_day_reset_hour_utc: int = Field(ge=0, le=23)
-    daily_efficiency_bands: list[EfficiencyBand] = Field(min_length=1)
-    rested_bonus_enabled: bool = False
-
-    @model_validator(mode="after")
-    def _bands(self) -> "AfkBalance":
-        cursor = 0.0
-        last_pct = 101
-        for b in self.daily_efficiency_bands:
-            if b.from_hours != cursor or b.to_hours <= b.from_hours:
-                raise ValueError("efficiency bands must be contiguous and increasing from 0h")
-            if b.percent > last_pct:
-                raise ValueError("efficiency must not increase over the day")
-            cursor, last_pct = b.to_hours, b.percent
-        if cursor != 24:
-            raise ValueError("efficiency bands must cover 0-24h")
-        if self.min_session_seconds > self.max_session_seconds:
-            raise ValueError("min_session_seconds > max_session_seconds")
-        return self
 
 
 # Later phases register more schemas (progression, combat, risk profiles, ...).
