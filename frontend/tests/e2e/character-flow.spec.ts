@@ -111,3 +111,26 @@ test("active tactics priority editor: template, reorder, simulate, save", async 
   await page.getByRole("button", { name: "Show advanced settings" }).click();
   await expect(page.getByLabel("Rule 1: use")).toHaveValue("tag:single_target");
 });
+
+test("zone browser shows eligibility, details and a real-encounter preview", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Zon${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-paladin").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("open-zones").click();
+  await expect(page.getByTestId("zone-locked-mistfen_marsh")).toContainText("Level 50");
+  await page.getByTestId("zone-whispering_meadows").click();
+  await expect(page.getByTestId("boss-old_greymane")).toContainText("Old Greymane");
+  await page.getByTestId("zone-preview").click();
+  await expect(page.getByTestId("zone-win-rate")).toHaveText(/\d+%/);
+});

@@ -12,6 +12,7 @@ export default async function CharacterPage(props: PageProps<"/game/characters/[
   const tc = await getTranslations("classes");
   const tt = await getTranslations("talents");
   const ta = await getTranslations("afk");
+  const tz = await getTranslations("zones");
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -24,6 +25,9 @@ export default async function CharacterPage(props: PageProps<"/game/characters/[
         </Link>
         <Link href={`/game/characters/${characterId}/afk`} className="text-sm underline" data-testid="open-afk">
           {ta("open")}
+        </Link>
+        <Link href={`/game/characters/${characterId}/zones`} className="text-sm underline" data-testid="open-zones">
+          {tz("open")}
         </Link>
       </div>
       <ProgressionPanel characterId={characterId} />

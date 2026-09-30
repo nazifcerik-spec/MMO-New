@@ -124,7 +124,10 @@
     "tactic_ability_unavailable": "That ability is not available to your character.",
     "tactic_tag_unavailable": "None of your abilities has that tag.",
     "tactics_loadout_limit": "Tactics may use at most 5 core actives and 1 ultimate.",
-    "mode_disabled": "That combat mode is disabled."
+    "mode_disabled": "That combat mode is disabled.",
+    "zone_not_found": "Zone not found.",
+    "zone_not_playable": "This zone has no playable encounters.",
+    "constraint_violation": "The data violates a database rule."
   },
   "characters": {
     "title": "Your characters",
@@ -415,5 +418,41 @@
     "enemies": "Enemies",
     "simulate": "Simulate rules",
     "result": "Win {win}% · avg {s}s — rule uses:"
+  },
+  "zones": {
+    "open": "World map",
+    "title": "Zones",
+    "list": "Zone list",
+    "levels": "Lv {min}–{max} (rec. {rec})",
+    "danger": "Danger {n}/10",
+    "locked": "Locked",
+    "more": "Load more",
+    "pick": "Select a zone to see its enemies, bosses and rewards.",
+    "req": {
+      "min_level": "Level {level}",
+      "zone_cleared": "clear {code}",
+      "class_stage": "class stage {code}",
+      "quest": "quest {code}"
+    },
+    "enemies": "Enemies",
+    "rank": {
+      "normal": "normal",
+      "elite": "elite",
+      "boss": "boss"
+    },
+    "bosses": "Bosses ({pct}% per encounter)",
+    "drops": "Drops",
+    "dropPool": "T{tier} {rarity} items",
+    "drop": {
+      "gold": "Gold",
+      "item": "Items",
+      "material": "Materials",
+      "currency": "Currency"
+    },
+    "risk": "Risk profiles",
+    "riskLevel": "Risk",
+    "xpLoot": "XP / loot",
+    "deathRisk": "Death risk",
+    "rare": "rare"
   }
 }

@@ -1,0 +1,32 @@
+code: enemy_scaling
+data:
+  # Per-level enemy scaling (separate from zone-tier scaling in zone_tiers). Calibrated to the training
+  # encounter: a same-level character clears a 3-pack of normal enemies in ~30-45 s.
+  hp_base: 60
+  hp_per_level: 25
+  attack_base: 5
+  attack_per_level: 0.42
+  armor_per_level: 3
+  magic_resist_per_level: 2
+  accuracy: 92
+  dodge: 4
+  crit_chance: 5
+  dodge_cap: 40
+  max_pack_size: 5
+  ranks:
+    normal: {hp_pct: 100, attack_pct: 100, defense_pct: 100}
+    elite: {hp_pct: 260, attack_pct: 140, defense_pct: 120}
+    boss: {hp_pct: 1400, attack_pct: 190, defense_pct: 140}
+  archetypes:
+    brute: {max_hp: 25, attack_power: 10, dodge: -50}
+    skirmisher: {max_hp: -15, dodge: 100, crit_chance: 60}
+    caster: {max_hp: -20, attack_power: 20, armor: -40, magic_resist: 40}
+    tank: {max_hp: 40, attack_power: -25, armor: 60}
+    swarm: {max_hp: -40, attack_power: -30, attack_speed: 40}
+  sanity:
+    player_hp_base: 150
+    player_hp_per_level: 30
+    player_dps_base: 4
+    player_dps_per_level: 1.2
+    max_ttk_s: {normal: 90, elite: 240, boss: 900}
+    min_player_survival_s: {normal: 20, elite: 12, boss: 6}

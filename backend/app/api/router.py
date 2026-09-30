@@ -10,6 +10,7 @@ from app.api import (
     i18n,
     progression,
     talents,
+    world,
 )
 from app.api.admin import content as admin_content
 from app.api.admin import localization as admin_localization
@@ -26,6 +27,7 @@ _MODULES = (
     classes,
     talents,
     afk_profiles,
+    world,
     admin_localization,
     admin_users,
     admin_content,

@@ -102,6 +102,8 @@ async def create(
     if not CODE_RE.match(code):
         raise ValidationFailedError("Code must be lowercase snake_case (2-96 chars)", code="invalid_code")
     clean = _validate_schema(ct, data)
+    if (await db.execute(select(ct.model.id).where(ct.model.code == code))).first() is not None:
+        raise ConflictError(f"{ct.entity_type} code '{code}' already exists", code="duplicate_code")
     row = ct.model(
         code=code,
         name_key=f"{ct.l10n_prefix}.{code}.name",
@@ -116,7 +118,7 @@ async def create(
     try:
         await db.flush()
     except IntegrityError as exc:
-        raise ConflictError(f"{ct.entity_type} code '{code}' already exists", code="duplicate_code") from exc
+        raise ValidationFailedError("Data violates a database constraint", code="constraint_violation") from exc
     await audit.record(
         db, actor_id=actor_id, action="content.create", entity_type=ct.entity_type, entity_id=code, after=clean
     )

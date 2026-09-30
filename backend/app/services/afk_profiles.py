@@ -21,6 +21,8 @@ from app.game_engine.combat.rules import (
     validate_rules,
 )
 from app.game_engine.combat.training import TrainingEncounter, training_pack
+from app.game_engine.rng import Rng, derive_seed
+from app.game_engine.world import ZoneBundle, enemy_rules, generate_encounter, rules_by_code_selector
 from app.localization.service import resolve_text_map
 from app.models.character import Character
 from app.models.classes import BaseClass
@@ -246,6 +248,7 @@ async def preview(
     locale: str,
     enemies_count: int | None = None,
     tactics_override: RuleSet | None = None,
+    zone: ZoneBundle | None = None,
 ) -> dict[str, Any]:
     row = await get_profile(db, character)
     cfg: CombatConfig = await combat_snapshot.load_combat_config(db)
@@ -262,21 +265,36 @@ async def preview(
     usage: dict[str, dict[str, int]] = {}
     wins = deaths = 0
     total_time = total_taken = total_potions = total_dealt = 0.0
+    enemy_selector = rules_by_code_selector(enemy_rules(zone)) if zone else None
+    encounter_codes: dict[str, int] = {}
     for i in range(fights):
-        enemies = training_pack(
-            training, character.level, power_percent=risk.enemy_power_percent, count=1 if boss else enemies_count
-        )
-        if boss:
-            enemies = (
-                enemies[0].model_copy(
-                    update={"is_boss": True, "stats": {**enemies[0].stats, "max_hp": enemies[0].stats["max_hp"] * 4}}
-                ),
-            )
         seed = zlib.crc32(f"preview:{character.id}:{i}".encode())
+        if zone is not None:
+            enc = generate_encounter(
+                zone,
+                Rng(derive_seed(seed, "encounter")),
+                character.level,
+                power_percent=risk.enemy_power_percent,
+                force_boss=boss,
+            )
+            encounter_codes[enc.code] = encounter_codes.get(enc.code, 0) + 1
+            enemies = enc.enemies
+        else:
+            enemies = training_pack(
+                training, character.level, power_percent=risk.enemy_power_percent, count=1 if boss else enemies_count
+            )
+            if boss:
+                first = enemies[0]
+                enemies = (
+                    first.model_copy(
+                        update={"is_boss": True, "stats": {**first.stats, "max_hp": first.stats["max_hp"] * 4}}
+                    ),
+                )
         result = simulate(
             CombatInput(players=(snap,), enemies=enemies, strategy=strategy, seed=seed),
             cfg,
             selector=rule_selector(rules, usage),
+            enemy_selector=enemy_selector,
         )
         me = result.combatants[0]
         wins += result.outcome == "win"
@@ -299,6 +317,8 @@ async def preview(
         "mode": row.mode,
         "boss": boss,
         "draft": tactics_override is not None,
+        "zone": zone.code if zone else None,
+        "encounters": encounter_codes,
         "rules": [
             {
                 "index": i,

@@ -124,7 +124,10 @@
     "tactic_ability_unavailable": "Bu yetenek karakterin için kullanılabilir değil.",
     "tactic_tag_unavailable": "Hiçbir yeteneğinde bu etiket yok.",
     "tactics_loadout_limit": "Taktikler en fazla 5 temel aktif ve 1 ultimate kullanabilir.",
-    "mode_disabled": "Bu savaş modu kapalı."
+    "mode_disabled": "Bu savaş modu kapalı.",
+    "zone_not_found": "Bölge bulunamadı.",
+    "zone_not_playable": "Bu bölgede oynanabilir karşılaşma yok.",
+    "constraint_violation": "Veri bir veritabanı kuralını ihlal ediyor."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -415,5 +418,41 @@
     "enemies": "Düşman",
     "simulate": "Kuralları simüle et",
     "result": "Kazanma %{win} · ort. {s} sn — kural kullanımı:"
+  },
+  "zones": {
+    "open": "Dünya haritası",
+    "title": "Bölgeler",
+    "list": "Bölge listesi",
+    "levels": "Sv {min}–{max} (önerilen {rec})",
+    "danger": "Tehlike {n}/10",
+    "locked": "Kilitli",
+    "more": "Daha fazla yükle",
+    "pick": "Düşmanları, boss'ları ve ödülleri görmek için bir bölge seç.",
+    "req": {
+      "min_level": "Seviye {level}",
+      "zone_cleared": "{code} temizle",
+      "class_stage": "sınıf aşaması {code}",
+      "quest": "görev {code}"
+    },
+    "enemies": "Düşmanlar",
+    "rank": {
+      "normal": "normal",
+      "elite": "elit",
+      "boss": "boss"
+    },
+    "bosses": "Boss'lar (karşılaşma başına %{pct})",
+    "drops": "Ganimetler",
+    "dropPool": "T{tier} {rarity} eşyalar",
+    "drop": {
+      "gold": "Altın",
+      "item": "Eşyalar",
+      "material": "Malzemeler",
+      "currency": "Para birimi"
+    },
+    "risk": "Risk profilleri",
+    "riskLevel": "Risk",
+    "xpLoot": "XP / ganimet",
+    "deathRisk": "Ölüm riski",
+    "rare": "nadir"
   }
 }

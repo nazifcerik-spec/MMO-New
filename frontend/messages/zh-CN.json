@@ -124,7 +124,10 @@
     "tactic_ability_unavailable": "你的角色无法使用该技能。",
     "tactic_tag_unavailable": "你没有带该标签的技能。",
     "tactics_loadout_limit": "战术最多使用5个核心主动和1个终极技能。",
-    "mode_disabled": "该战斗模式已禁用。"
+    "mode_disabled": "该战斗模式已禁用。",
+    "zone_not_found": "未找到区域。",
+    "zone_not_playable": "该区域没有可进行的遭遇。",
+    "constraint_violation": "数据违反数据库规则。"
   },
   "characters": {
     "title": "你的角色",
@@ -415,5 +418,41 @@
     "enemies": "敌人",
     "simulate": "模拟规则",
     "result": "胜率{win}% · 平均{s}秒 — 规则使用："
+  },
+  "zones": {
+    "open": "世界地图",
+    "title": "区域",
+    "list": "区域列表",
+    "levels": "等级 {min}–{max}（推荐 {rec}）",
+    "danger": "危险 {n}/10",
+    "locked": "未解锁",
+    "more": "加载更多",
+    "pick": "选择区域以查看敌人、首领和奖励。",
+    "req": {
+      "min_level": "等级 {level}",
+      "zone_cleared": "通关 {code}",
+      "class_stage": "职业阶段 {code}",
+      "quest": "任务 {code}"
+    },
+    "enemies": "敌人",
+    "rank": {
+      "normal": "普通",
+      "elite": "精英",
+      "boss": "首领"
+    },
+    "bosses": "首领（每次遭遇 {pct}%）",
+    "drops": "掉落",
+    "dropPool": "T{tier} {rarity}物品",
+    "drop": {
+      "gold": "金币",
+      "item": "物品",
+      "material": "材料",
+      "currency": "货币"
+    },
+    "risk": "风险配置",
+    "riskLevel": "风险",
+    "xpLoot": "经验/掉落",
+    "deathRisk": "死亡风险",
+    "rare": "稀有"
   }
 }

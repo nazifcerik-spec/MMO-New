@@ -1,0 +1,170 @@
+# Development/test sample world: one zone per tier (T0-T10). Not final launch content (see PHASE_12.md).
+# Entities are expanded by app/content/seed.py::seed_world (stable codes, idempotent).
+tiers:
+  - {tier: 0, min: 1, max: 49, rarity: [worn, common], scaling: {hp_pct: 100, attack_pct: 100, defense_pct: 100, xp_pct: 100, gold_pct: 100}}
+  - {tier: 1, min: 50, max: 99, rarity: [common, fine], scaling: {hp_pct: 102, attack_pct: 101, defense_pct: 101, xp_pct: 102, gold_pct: 104}}
+  - {tier: 2, min: 100, max: 199, rarity: [fine, rare], scaling: {hp_pct: 104, attack_pct: 102, defense_pct: 102, xp_pct: 104, gold_pct: 108}}
+  - {tier: 3, min: 200, max: 299, rarity: [rare], scaling: {hp_pct: 106, attack_pct: 103, defense_pct: 103, xp_pct: 106, gold_pct: 112}}
+  - {tier: 4, min: 300, max: 399, rarity: [rare, epic], scaling: {hp_pct: 108, attack_pct: 104, defense_pct: 104, xp_pct: 108, gold_pct: 116}}
+  - {tier: 5, min: 400, max: 499, rarity: [epic], scaling: {hp_pct: 110, attack_pct: 105, defense_pct: 105, xp_pct: 110, gold_pct: 120}}
+  - {tier: 6, min: 500, max: 599, rarity: [epic, legendary], scaling: {hp_pct: 112, attack_pct: 106, defense_pct: 106, xp_pct: 112, gold_pct: 124}}
+  - {tier: 7, min: 600, max: 699, rarity: [legendary], scaling: {hp_pct: 114, attack_pct: 107, defense_pct: 107, xp_pct: 114, gold_pct: 128}}
+  - {tier: 8, min: 700, max: 849, rarity: [legendary, mythic], scaling: {hp_pct: 116, attack_pct: 108, defense_pct: 108, xp_pct: 116, gold_pct: 132}}
+  - {tier: 9, min: 850, max: 949, rarity: [mythic], scaling: {hp_pct: 118, attack_pct: 109, defense_pct: 109, xp_pct: 118, gold_pct: 136}}
+  - {tier: 10, min: 950, max: 1000, rarity: [mythic, relic], scaling: {hp_pct: 120, attack_pct: 110, defense_pct: 110, xp_pct: 120, gold_pct: 140}}
+
+ability_profiles:
+  brute_smash:
+    abilities: [{code: heavy_smash, tags: [single_target], cooldown_s: 8, effects: [{effect_type: DAMAGE, params: {percent_of_power: 180}}]}]
+    rules: [{use: {ability: heavy_smash}}]
+    l10n: {name: {en: Brute, tr: Kaba Kuvvet, zh-CN: 蛮力, es: Bruto}}
+  skirmisher_bleed:
+    abilities: [{code: rending_cut, tags: [dot], cooldown_s: 10, effects: [{effect_type: DOT, params: {percent_of_power: 25, duration_s: 8, tick_s: 2}}]}]
+    rules: [{use: {ability: rending_cut}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}]}]
+    l10n: {name: {en: Skirmisher, tr: Akıncı, zh-CN: 游击, es: Escaramuzador}}
+  caster_bolt:
+    abilities: [{code: dark_bolt, tags: [single_target], cooldown_s: 6, cast_time_s: 1, effects: [{effect_type: DAMAGE, params: {percent_of_power: 160, damage_type: shadow}}]}]
+    rules: [{use: {ability: dark_bolt}}]
+    l10n: {name: {en: Caster, tr: Büyücü, zh-CN: 施法者, es: Lanzador}}
+  boss_warlord:
+    abilities:
+      - {code: sweeping_blow, target: enemy_all, tags: [aoe], cooldown_s: 12, effects: [{effect_type: DAMAGE, params: {percent_of_power: 120}}]}
+      - {code: crushing_strike, tags: [single_target], cooldown_s: 18, cast_time_s: 2, effects: [{effect_type: DAMAGE, params: {percent_of_power: 320}}]}
+    rules:
+      - {use: {ability: crushing_strike}, when: [{kind: TARGET_HP, op: lt, value: 60}]}
+      - {use: {ability: sweeping_blow}}
+    l10n: {name: {en: Warlord, tr: Savaş Lordu, zh-CN: 军阀, es: Señor de la guerra}}
+
+zones:
+  - code: whispering_meadows
+    tier: 0
+    levels: [1, 20, 49]
+    danger: 1
+    env: [grassland, daylight]
+    nodes: [{profession_code: herbalism, node_code: meadow_herbs, tier: 0}, {profession_code: hunting, node_code: meadow_game, tier: 0}]
+    l10n: {name: {en: Whispering Meadows, tr: Fısıldayan Çayırlar, zh-CN: 低语草原, es: Praderas Susurrantes}}
+    enemies:
+      - {code: meadow_wolf, archetype: skirmisher, profile: skirmisher_bleed, l10n: {en: Meadow Wolf, tr: Çayır Kurdu, zh-CN: 草原狼, es: Lobo de la pradera}}
+      - {code: thornback_boar, archetype: brute, profile: brute_smash, l10n: {en: Thornback Boar, tr: Dikensırt Yaban Domuzu, zh-CN: 棘背野猪, es: Jabalí espinoso}}
+      - {code: bandit_captain, archetype: brute, rank: elite, profile: brute_smash, l10n: {en: Bandit Captain, tr: Haydut Kaptanı, zh-CN: 强盗队长, es: Capitán bandido}}
+    boss: {code: old_greymane, archetype: brute, l10n: {en: Old Greymane, tr: Yaşlı Kurye, zh-CN: 老灰鬃, es: Viejo Crinogris}}
+  - code: mistfen_marsh
+    tier: 1
+    levels: [50, 70, 99]
+    danger: 2
+    env: [swamp, fog]
+    nodes: [{profession_code: herbalism, node_code: marsh_reeds, tier: 1}, {profession_code: fishing, node_code: marsh_eels, tier: 1}]
+    l10n: {name: {en: Mistfen Marsh, tr: Sisbataklık, zh-CN: 迷雾沼泽, es: Pantano Neblinoso}}
+    enemies:
+      - {code: bog_lurker, archetype: tank, profile: brute_smash, l10n: {en: Bog Lurker, tr: Bataklık Pusucusu, zh-CN: 沼泽潜伏者, es: Acechador del fango}}
+      - {code: marsh_witch, archetype: caster, damage_type: shadow, profile: caster_bolt, l10n: {en: Marsh Witch, tr: Bataklık Cadısı, zh-CN: 沼泽女巫, es: Bruja del pantano}}
+      - {code: fen_troll, archetype: brute, rank: elite, profile: brute_smash, l10n: {en: Fen Troll, tr: Bataklık Trolü, zh-CN: 沼泽巨魔, es: Trol del pantano}}
+    boss: {code: the_drowned_king, archetype: caster, damage_type: shadow, l10n: {en: The Drowned King, tr: Boğulmuş Kral, zh-CN: 溺亡之王, es: El Rey Ahogado}}
+  - code: ironroot_forest
+    tier: 2
+    levels: [100, 150, 199]
+    danger: 3
+    env: [forest, ancient]
+    nodes: [{profession_code: logging, node_code: ironroot_timber, tier: 2}, {profession_code: hunting, node_code: forest_stag, tier: 2}]
+    l10n: {name: {en: Ironroot Forest, tr: Demirkök Ormanı, zh-CN: 铁根森林, es: Bosque Raíz de Hierro}}
+    enemies:
+      - {code: bark_golem, archetype: tank, profile: brute_smash, l10n: {en: Bark Golem, tr: Kabuk Golemi, zh-CN: 树皮魔像, es: Gólem de corteza}}
+      - {code: shade_stalker, archetype: skirmisher, profile: skirmisher_bleed, l10n: {en: Shade Stalker, tr: Gölge Avcısı, zh-CN: 暗影追猎者, es: Acechador sombrío}}
+      - {code: elder_treant, archetype: tank, rank: elite, profile: brute_smash, l10n: {en: Elder Treant, tr: Kadim Ağaç Adam, zh-CN: 古树人, es: Ent anciano}}
+    boss: {code: heartwood_colossus, archetype: tank, l10n: {en: Heartwood Colossus, tr: Özodun Devi, zh-CN: 心木巨像, es: Coloso de duramen}}
+  - code: sunscar_dunes
+    tier: 3
+    levels: [200, 250, 299]
+    danger: 4
+    env: [desert, heat]
+    nodes: [{profession_code: mining, node_code: dune_copper, tier: 3}]
+    l10n: {name: {en: Sunscar Dunes, tr: Güneşyarası Kumulları, zh-CN: 日痕沙丘, es: Dunas Cicatriz Solar}}
+    enemies:
+      - {code: sand_raider, archetype: skirmisher, profile: skirmisher_bleed, l10n: {en: Sand Raider, tr: Kum Akıncısı, zh-CN: 沙漠袭掠者, es: Saqueador de arena}}
+      - {code: dune_scorpion, archetype: swarm, damage_type: poison, profile: skirmisher_bleed, l10n: {en: Dune Scorpion, tr: Kumul Akrebi, zh-CN: 沙丘蝎, es: Escorpión de las dunas}}
+      - {code: sun_priest, archetype: caster, rank: elite, damage_type: fire, profile: caster_bolt, l10n: {en: Sun Priest, tr: Güneş Rahibi, zh-CN: 太阳祭司, es: Sacerdote solar}}
+    boss: {code: pharaoh_of_ash, archetype: caster, damage_type: fire, l10n: {en: Pharaoh of Ash, tr: Kül Firavunu, zh-CN: 灰烬法老, es: Faraón de ceniza}}
+  - code: frostfang_peaks
+    tier: 4
+    levels: [300, 350, 399]
+    danger: 5
+    env: [mountain, cold]
+    nodes: [{profession_code: mining, node_code: frost_iron, tier: 4}]
+    l10n: {name: {en: Frostfang Peaks, tr: Buzdişi Zirveleri, zh-CN: 霜牙群峰, es: Picos Colmillo Helado}}
+    enemies:
+      - {code: ice_wolf_pack, archetype: swarm, profile: skirmisher_bleed, l10n: {en: Ice Wolf, tr: Buz Kurdu, zh-CN: 冰狼, es: Lobo de hielo}}
+      - {code: frost_giant, archetype: brute, damage_type: frost, profile: brute_smash, l10n: {en: Frost Giant, tr: Buz Devi, zh-CN: 霜巨人, es: Gigante de escarcha}}
+      - {code: rime_shaman, archetype: caster, rank: elite, damage_type: frost, profile: caster_bolt, l10n: {en: Rime Shaman, tr: Kırağı Şamanı, zh-CN: 霜凇萨满, es: Chamán de escarcha}}
+    boss: {code: yeti_matriarch, archetype: brute, damage_type: frost, l10n: {en: Yeti Matriarch, tr: Yeti Anası, zh-CN: 雪人女族长, es: Matriarca yeti}}
+  - code: emberdeep_caverns
+    tier: 5
+    levels: [400, 450, 499]
+    danger: 6
+    env: [underground, fire]
+    nodes: [{profession_code: mining, node_code: ember_ore, tier: 5}]
+    l10n: {name: {en: Emberdeep Caverns, tr: Közderin Mağaraları, zh-CN: 余烬深窟, es: Cavernas Ascuahonda}}
+    enemies:
+      - {code: magma_crawler, archetype: tank, damage_type: fire, profile: brute_smash, l10n: {en: Magma Crawler, tr: Magma Sürüngeni, zh-CN: 熔岩爬行者, es: Reptador de magma}}
+      - {code: cinder_imp, archetype: swarm, damage_type: fire, profile: caster_bolt, l10n: {en: Cinder Imp, tr: Kor İmpi, zh-CN: 余烬小鬼, es: Diablillo de ceniza}}
+      - {code: forge_warden, archetype: tank, rank: elite, damage_type: fire, profile: brute_smash, l10n: {en: Forge Warden, tr: Ocak Muhafızı, zh-CN: 熔炉守卫, es: Guardián de la forja}}
+    boss: {code: molten_tyrant, archetype: brute, damage_type: fire, l10n: {en: Molten Tyrant, tr: Erimiş Zorba, zh-CN: 熔火暴君, es: Tirano fundido}}
+  - code: sunken_citadel
+    tier: 6
+    levels: [500, 550, 599]
+    danger: 7
+    env: [ruins, water]
+    nodes: [{profession_code: fishing, node_code: citadel_pearls, tier: 6}]
+    l10n: {name: {en: Sunken Citadel, tr: Batık Kale, zh-CN: 沉没城堡, es: Ciudadela Hundida}}
+    enemies:
+      - {code: drowned_knight, archetype: tank, profile: brute_smash, l10n: {en: Drowned Knight, tr: Boğulmuş Şövalye, zh-CN: 溺亡骑士, es: Caballero ahogado}}
+      - {code: siren_adept, archetype: caster, damage_type: arcane, profile: caster_bolt, l10n: {en: Siren Adept, tr: Siren Çırağı, zh-CN: 海妖学徒, es: Adepta sirena}}
+      - {code: abyssal_guard, archetype: brute, rank: elite, profile: brute_smash, l10n: {en: Abyssal Guard, tr: Dipsiz Muhafız, zh-CN: 深渊卫士, es: Guardia abisal}}
+    boss: {code: leviathan_herald, archetype: caster, damage_type: arcane, l10n: {en: Leviathan Herald, tr: Leviathan Habercisi, zh-CN: 利维坦先驱, es: Heraldo del leviatán}}
+  - code: stormspire_heights
+    tier: 7
+    levels: [600, 650, 699]
+    danger: 8
+    env: [mountain, storm]
+    nodes: [{profession_code: mining, node_code: storm_crystal, tier: 7}]
+    l10n: {name: {en: Stormspire Heights, tr: Fırtınakule Tepeleri, zh-CN: 风暴尖塔高地, es: Alturas Aguja Tormenta}}
+    enemies:
+      - {code: thunder_harpy, archetype: skirmisher, damage_type: lightning, profile: skirmisher_bleed, l10n: {en: Thunder Harpy, tr: Gök Gürültüsü Harpisi, zh-CN: 雷鸣鹰身女妖, es: Arpía del trueno}}
+      - {code: storm_elemental, archetype: caster, damage_type: lightning, profile: caster_bolt, l10n: {en: Storm Elemental, tr: Fırtına Elementali, zh-CN: 风暴元素, es: Elemental de tormenta}}
+      - {code: sky_titan, archetype: brute, rank: elite, damage_type: lightning, profile: brute_smash, l10n: {en: Sky Titan, tr: Gök Titanı, zh-CN: 天空泰坦, es: Titán celeste}}
+    boss: {code: tempest_sovereign, archetype: caster, damage_type: lightning, l10n: {en: Tempest Sovereign, tr: Kasırga Hükümdarı, zh-CN: 暴风君主, es: Soberano de la tempestad}}
+  - code: voidscar_rift
+    tier: 8
+    levels: [700, 775, 849]
+    danger: 9
+    env: [void, corrupted]
+    nodes: [{profession_code: enchanting, node_code: void_essence, tier: 8}]
+    l10n: {name: {en: Voidscar Rift, tr: Boşlukyarası Yarığı, zh-CN: 虚空裂痕, es: Grieta Cicatriz del Vacío}}
+    enemies:
+      - {code: void_stalker, archetype: skirmisher, damage_type: shadow, profile: skirmisher_bleed, l10n: {en: Void Stalker, tr: Boşluk Avcısı, zh-CN: 虚空潜猎者, es: Acechador del vacío}}
+      - {code: rift_horror, archetype: brute, damage_type: shadow, profile: brute_smash, l10n: {en: Rift Horror, tr: Yarık Dehşeti, zh-CN: 裂隙恐魔, es: Horror de la grieta}}
+      - {code: null_archon, archetype: caster, rank: elite, damage_type: shadow, profile: caster_bolt, l10n: {en: Null Archon, tr: Hiçlik Arkonu, zh-CN: 虚无执政官, es: Arconte nulo}}
+    boss: {code: the_unmaker, archetype: caster, damage_type: shadow, l10n: {en: The Unmaker, tr: Yok Edici, zh-CN: 毁灭者, es: El Deshacedor}}
+  - code: celestial_ruins
+    tier: 9
+    levels: [850, 900, 949]
+    danger: 9
+    env: [sky, holy]
+    nodes: [{profession_code: jewelcrafting, node_code: star_gems, tier: 9}]
+    l10n: {name: {en: Celestial Ruins, tr: Göksel Harabeler, zh-CN: 天界遗迹, es: Ruinas Celestiales}}
+    enemies:
+      - {code: fallen_seraph, archetype: skirmisher, damage_type: holy, profile: skirmisher_bleed, l10n: {en: Fallen Seraph, tr: Düşmüş Serafim, zh-CN: 堕落炽天使, es: Serafín caído}}
+      - {code: astral_sentinel, archetype: tank, damage_type: holy, profile: brute_smash, l10n: {en: Astral Sentinel, tr: Yıldız Nöbetçisi, zh-CN: 星界哨兵, es: Centinela astral}}
+      - {code: star_oracle, archetype: caster, rank: elite, damage_type: arcane, profile: caster_bolt, l10n: {en: Star Oracle, tr: Yıldız Kâhini, zh-CN: 星辰神谕者, es: Oráculo estelar}}
+    boss: {code: eclipse_warden, archetype: tank, damage_type: holy, l10n: {en: Eclipse Warden, tr: Tutulma Muhafızı, zh-CN: 日蚀守望者, es: Guardián del eclipse}}
+  - code: throne_of_eternity
+    tier: 10
+    levels: [950, 975, 1000]
+    danger: 10
+    env: [endgame, divine]
+    nodes: [{profession_code: enchanting, node_code: eternal_motes, tier: 10}]
+    l10n: {name: {en: Throne of Eternity, tr: Sonsuzluk Tahtı, zh-CN: 永恒王座, es: Trono de la Eternidad}}
+    enemies:
+      - {code: eternal_guardian, archetype: tank, profile: brute_smash, l10n: {en: Eternal Guardian, tr: Ebedi Muhafız, zh-CN: 永恒守护者, es: Guardián eterno}}
+      - {code: time_wraith, archetype: skirmisher, damage_type: arcane, profile: skirmisher_bleed, l10n: {en: Time Wraith, tr: Zaman Hortlağı, zh-CN: 时光怨灵, es: Espectro del tiempo}}
+      - {code: aeon_champion, archetype: brute, rank: elite, profile: brute_smash, l10n: {en: Aeon Champion, tr: Çağ Şampiyonu, zh-CN: 永世勇士, es: Campeón eónico}}
+    boss: {code: the_last_emperor, archetype: brute, l10n: {en: The Last Emperor, tr: Son İmparator, zh-CN: 末代皇帝, es: El Último Emperador}}

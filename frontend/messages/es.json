@@ -124,7 +124,10 @@
     "tactic_ability_unavailable": "Esa habilidad no está disponible para tu personaje.",
     "tactic_tag_unavailable": "Ninguna de tus habilidades tiene esa etiqueta.",
     "tactics_loadout_limit": "Las tácticas usan como máximo 5 activas y 1 definitiva.",
-    "mode_disabled": "Ese modo de combate está desactivado."
+    "mode_disabled": "Ese modo de combate está desactivado.",
+    "zone_not_found": "Zona no encontrada.",
+    "zone_not_playable": "Esta zona no tiene encuentros jugables.",
+    "constraint_violation": "Los datos infringen una regla de la base de datos."
   },
   "characters": {
     "title": "Tus personajes",
@@ -415,5 +418,41 @@
     "enemies": "Enemigos",
     "simulate": "Simular reglas",
     "result": "Victoria {win}% · media {s} s — usos por regla:"
+  },
+  "zones": {
+    "open": "Mapa del mundo",
+    "title": "Zonas",
+    "list": "Lista de zonas",
+    "levels": "Nv {min}–{max} (rec. {rec})",
+    "danger": "Peligro {n}/10",
+    "locked": "Bloqueada",
+    "more": "Cargar más",
+    "pick": "Elige una zona para ver enemigos, jefes y recompensas.",
+    "req": {
+      "min_level": "Nivel {level}",
+      "zone_cleared": "completar {code}",
+      "class_stage": "etapa de clase {code}",
+      "quest": "misión {code}"
+    },
+    "enemies": "Enemigos",
+    "rank": {
+      "normal": "normal",
+      "elite": "élite",
+      "boss": "jefe"
+    },
+    "bosses": "Jefes ({pct}% por encuentro)",
+    "drops": "Botín",
+    "dropPool": "objetos T{tier} {rarity}",
+    "drop": {
+      "gold": "Oro",
+      "item": "Objetos",
+      "material": "Materiales",
+      "currency": "Moneda"
+    },
+    "risk": "Perfiles de riesgo",
+    "riskLevel": "Riesgo",
+    "xpLoot": "XP / botín",
+    "deathRisk": "Riesgo de muerte",
+    "rare": "raro"
   }
 }

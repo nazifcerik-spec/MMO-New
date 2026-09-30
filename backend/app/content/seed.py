@@ -327,6 +327,133 @@ async def seed_passive_profiles(session: AsyncSession) -> int:
     return created
 
 
+TIER_NAMES = {"en": "Tier {t}", "tr": "Kademe {t}", "zh-CN": "第{t}阶", "es": "Nivel {t}"}
+
+
+async def seed_world(session: AsyncSession) -> int:
+    """Expand the compact sample world (one zone per tier) into published, validated content entities."""
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types import world as w
+
+    doc = load_yaml("world/sample_world.yaml")
+    created = 0
+    for t in doc["tiers"]:
+        code = f"t{t['tier']}"
+        await l10n_service_seed(
+            session, f"zone_tier.{code}.name", {k: v.format(t=t["tier"]) for k, v in TIER_NAMES.items()}, "zone"
+        )
+        data = {
+            "tier": t["tier"],
+            "min_level": t["min"],
+            "max_level": t["max"],
+            "scaling": t["scaling"],
+            "rarity_band": t["rarity"],
+        }
+        created += await ensure_published(session, w.ZONE_TIER_TYPE, code, data)
+    for code, prof in doc["ability_profiles"].items():
+        await _texts(session, f"enemy_ability_profile.{code}", prof["l10n"], "enemy")
+        data = {"abilities": prof["abilities"], "rules": prof["rules"], "effects": []}
+        created += await ensure_published(session, w.ENEMY_ABILITY_PROFILE_TYPE, code, data)
+    bands = {t["tier"]: t["rarity"] for t in doc["tiers"]}
+    for z in doc["zones"]:
+        tier, band = z["tier"], bands[z["tier"]]
+        gold = (10 * (tier + 1), 25 * (tier + 1))
+        zone_drops = {
+            "rolls": 2,
+            "entries": [
+                {"kind": "gold", "weight": 60, "min_qty": gold[0], "max_qty": gold[1]},
+                {"kind": "item_pool", "tier": tier, "rarity": band[0], "weight": 30, "chance_pct": 40},
+                {"kind": "item_pool", "tier": tier, "rarity": band[-1], "weight": 10, "chance_pct": 15, "rare": True},
+                {"kind": "nothing", "weight": 20},
+            ],
+        }
+        boss_drops = {
+            "rolls": 3,
+            "entries": [
+                {"kind": "gold", "weight": 40, "min_qty": gold[1] * 4, "max_qty": gold[1] * 8},
+                {"kind": "item_pool", "tier": tier, "rarity": band[-1], "weight": 40, "chance_pct": 60, "rare": True},
+                {"kind": "item_pool", "tier": tier, "rarity": band[0], "weight": 20, "boss_only": True},
+            ],
+        }
+        boss = z["boss"]
+        for code, table in ((f"{z['code']}_drops", zone_drops), (f"{boss['code']}_drops", boss_drops)):
+            created += await ensure_published(session, w.DROP_TABLE_TYPE, code, table)
+        for e in z["enemies"]:
+            await l10n_service_seed(session, f"enemy.{e['code']}.name", e["l10n"], "enemy")
+            data = {
+                "family": z["code"],
+                "archetype": e["archetype"],
+                "rank": e.get("rank", "normal"),
+                "damage_type": e.get("damage_type", "physical"),
+                "stat_mods": {},
+                "ability_profile_code": e["profile"],
+                "effects": [],
+                "tags": [*z["env"][:1], e["archetype"]],
+                "reward_pct": 250 if e.get("rank") == "elite" else 100,
+            }
+            created += await ensure_published(session, w.ENEMY_TYPE, e["code"], data)
+        normal = [e["code"] for e in z["enemies"] if e.get("rank", "normal") == "normal"]
+        elite = next(e["code"] for e in z["enemies"] if e.get("rank") == "elite")
+        await l10n_service_seed(session, f"boss.{boss['code']}.name", boss["l10n"], "enemy")
+        boss_data = {
+            "family": z["code"],
+            "archetype": boss["archetype"],
+            "damage_type": boss.get("damage_type", "physical"),
+            "stat_mods": {},
+            "ability_profile_code": "boss_warlord",
+            "effects": [],
+            "phases": [
+                {"hp_below_pct": 50, "effects": [{"effect_type": "DAMAGE_MULTIPLIER", "params": {"percent": 25}}]},
+                {
+                    "hp_below_pct": 25,
+                    "effects": [{"effect_type": "SHIELD", "params": {"percent_max_hp": 8, "duration_s": 10}}],
+                },
+            ],
+            "adds": [{"enemy_code": normal[0], "count": 1}] if tier >= 2 else [],
+            "enrage_after_s": 300,
+            "drop_table_code": f"{boss['code']}_drops",
+            "reward_pct": 1000,
+        }
+        created += await ensure_published(session, w.BOSS_TYPE, boss["code"], boss_data)
+        encounters = {
+            f"{z['code']}_pack": [
+                {"enemy_code": normal[0], "min": 2, "max": 3},
+                {"enemy_code": normal[1], "min": 0 + 1, "max": 1},
+            ],
+            f"{z['code']}_hunters": [{"enemy_code": normal[1], "min": 2, "max": 3}],
+            f"{z['code']}_elite": [
+                {"enemy_code": elite, "min": 1, "max": 1},
+                {"enemy_code": normal[0], "min": 1, "max": 2},
+            ],
+        }
+        for code, members in encounters.items():
+            created += await ensure_published(session, w.ENCOUNTER_TYPE, code, {"members": members, "tags": []})
+        lo, rec, hi = z["levels"]
+        await _texts(session, f"zone.{z['code']}", z["l10n"], "zone")
+        zone_data = {
+            "tier_code": f"t{tier}",
+            "sort_order": tier * 10,
+            "min_level": lo,
+            "recommended_level": rec,
+            "max_level": hi,
+            "danger_rating": z["danger"],
+            "environment_tags": z["env"],
+            "encounter_pool": [
+                {"encounter_code": f"{z['code']}_pack", "weight": 60},
+                {"encounter_code": f"{z['code']}_hunters", "weight": 30},
+                {"encounter_code": f"{z['code']}_elite", "weight": 10},
+            ],
+            "boss_pool": [{"boss_code": boss["code"], "weight": 1}],
+            "boss_chance_pct": 2,
+            "loot_modifiers": {"xp_pct": 100, "gold_pct": 100, "drop_pct": 100, "rare_pct": 100},
+            "drop_table_code": f"{z['code']}_drops",
+            "profession_nodes": z["nodes"],
+            "requirements": [{"kind": "min_level", "value": lo}] if lo > 1 else [],
+        }
+        created += await ensure_published(session, w.ZONE_TYPE, z["code"], zone_data)
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -335,6 +462,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("classes", seed_classes),
     ("skills", seed_skills),
     ("passive_profiles", seed_passive_profiles),
+    ("world", seed_world),
 ]
 
 
