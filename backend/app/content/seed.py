@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.content.loader import iter_yaml
 from app.localization import service as l10n
+from app.services.rbac import seed_rbac
 
 log = logging.getLogger("app.seed")
 
@@ -23,6 +24,7 @@ async def seed_localization_files(session: AsyncSession) -> int:
 
 
 STEPS: list[tuple[str, SeedStep]] = [
+    ("rbac", seed_rbac),
     ("localization", seed_localization_files),
 ]
 

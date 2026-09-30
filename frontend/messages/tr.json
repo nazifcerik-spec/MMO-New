@@ -55,7 +55,13 @@
   "auth": {
     "title": "Tekrar hoş geldin",
     "email": "E-posta",
-    "password": "Parola"
+    "password": "Parola",
+    "loginTab": "Giriş",
+    "registerTab": "Hesap oluştur",
+    "submitLogin": "Giriş yap",
+    "submitRegister": "Hesap oluştur",
+    "passwordHint": "En az 10 karakter.",
+    "loggedInAs": "{email} olarak giriş yapıldı"
   },
   "l10nEditor": {
     "missing": "eksik",
@@ -69,5 +75,46 @@
       "reviewed": "İncelendi",
       "published": "Yayında"
     }
+  },
+  "errors": {
+    "invalid_credentials": "E-posta veya parola hatalı.",
+    "email_taken": "Bu e-posta ile bir hesap zaten var.",
+    "weak_password": "Parola çok zayıf.",
+    "invalid_email": "Geçersiz e-posta adresi.",
+    "rate_limited": "Çok fazla deneme. Lütfen bekleyip tekrar deneyin.",
+    "account_locked": "Hesap geçici olarak kilitlendi.",
+    "name_taken": "Bu isim zaten alınmış.",
+    "reserved_name": "Bu isim ayrılmış.",
+    "invalid_name_length": "İsim 3–16 karakter olmalı.",
+    "invalid_name_chars": "Harf ve en fazla iki tekil boşluk, tire veya kesme işareti kullanın.",
+    "content_unavailable": "Irklar ve sınıflar henüz mevcut değil.",
+    "character_limit": "Karakter sınırına ulaşıldı.",
+    "forbidden": "Bunu yapmak için yetkiniz yok.",
+    "unknown": "Bir şeyler ters gitti."
+  },
+  "characters": {
+    "title": "Karakterlerin",
+    "empty": "Henüz karakterin yok.",
+    "create": "Karakter oluştur",
+    "levelShort": "Sv {level}",
+    "delete": "Sil",
+    "deleteConfirm": "{name} silinsin mi? Bu işlemi geri alamazsın."
+  },
+  "wizard": {
+    "title": "Yeni karakter",
+    "stepName": "İsim",
+    "stepRace": "Irk",
+    "stepClass": "Sınıf",
+    "stepConfirm": "Onay",
+    "nameLabel": "Karakter adı",
+    "nameAvailable": "İsim kullanılabilir.",
+    "noOptions": "Henüz seçenek yok. İçerik yayınlandığında burada görünecek.",
+    "summary": "{name} — {race} {cls}",
+    "create": "Oluştur",
+    "stepOf": "Adım {current}/{total}"
+  },
+  "adminShell": {
+    "forbidden": "Bu alana erişmek için personel rolü gerekir.",
+    "roles": "Roller: {roles}"
   }
 }

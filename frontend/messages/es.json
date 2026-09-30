@@ -55,7 +55,13 @@
   "auth": {
     "title": "Bienvenido de nuevo",
     "email": "Correo electrónico",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "loginTab": "Iniciar sesión",
+    "registerTab": "Crear cuenta",
+    "submitLogin": "Entrar",
+    "submitRegister": "Crear cuenta",
+    "passwordHint": "Al menos 10 caracteres.",
+    "loggedInAs": "Sesión iniciada como {email}"
   },
   "l10nEditor": {
     "missing": "falta",
@@ -69,5 +75,46 @@
       "reviewed": "Revisado",
       "published": "Publicado"
     }
+  },
+  "errors": {
+    "invalid_credentials": "Correo o contraseña incorrectos.",
+    "email_taken": "Ya existe una cuenta con este correo.",
+    "weak_password": "La contraseña es demasiado débil.",
+    "invalid_email": "Correo electrónico no válido.",
+    "rate_limited": "Demasiados intentos. Espera e inténtalo de nuevo.",
+    "account_locked": "Cuenta bloqueada temporalmente.",
+    "name_taken": "Ese nombre ya está en uso.",
+    "reserved_name": "Ese nombre está reservado.",
+    "invalid_name_length": "El nombre debe tener entre 3 y 16 caracteres.",
+    "invalid_name_chars": "Usa letras y como máximo dos espacios, guiones o apóstrofos sueltos.",
+    "content_unavailable": "Las razas y clases aún no están disponibles.",
+    "character_limit": "Límite de personajes alcanzado.",
+    "forbidden": "No tienes permiso para hacer eso.",
+    "unknown": "Algo salió mal."
+  },
+  "characters": {
+    "title": "Tus personajes",
+    "empty": "Aún no tienes personajes.",
+    "create": "Crear personaje",
+    "levelShort": "Nv {level}",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Eliminar a {name}? No podrás deshacerlo."
+  },
+  "wizard": {
+    "title": "Nuevo personaje",
+    "stepName": "Nombre",
+    "stepRace": "Raza",
+    "stepClass": "Clase",
+    "stepConfirm": "Confirmar",
+    "nameLabel": "Nombre del personaje",
+    "nameAvailable": "El nombre está disponible.",
+    "noOptions": "Aún no hay opciones. El contenido aparecerá aquí cuando se publique.",
+    "summary": "{name} — {race} {cls}",
+    "create": "Crear",
+    "stepOf": "Paso {current} de {total}"
+  },
+  "adminShell": {
+    "forbidden": "Necesitas un rol de personal para acceder a esta área.",
+    "roles": "Roles: {roles}"
   }
 }

@@ -1,0 +1,37 @@
+# Deny-by-default RBAC. Permissions are checked server-side; roles only group permissions.
+permissions:
+  admin.access: Enter the admin area
+  audit.view: Read audit logs
+  user.view: Look up accounts and characters
+  user.support: Support actions on player accounts (non-economy)
+  user.manage_roles: Grant or revoke roles
+  localization.edit: Edit translations (draft)
+  localization.review: Mark translations reviewed/published
+  content.read_drafts: Read unpublished content
+  content.edit: Create and edit content drafts
+  content.publish: Publish, archive and roll back content
+  item.edit: Create and edit item drafts
+  item.publish: Publish items and run the item generator commit
+  balance.edit: Edit balance configuration
+  balance.simulate: Run balance simulations
+  economy.view: View economy dashboards and ledgers
+  economy.grant: Grant currency or items to players
+  system.manage: Operational settings
+roles:
+  player: {rank: 0, staff: false, permissions: []}
+  support_agent: {rank: 10, staff: true, permissions: [admin.access, user.view, user.support, audit.view]}
+  translator: {rank: 10, staff: true, permissions: [admin.access, localization.edit, localization.review, content.read_drafts]}
+  item_editor: {rank: 20, staff: true, permissions: [admin.access, content.read_drafts, item.edit, localization.edit]}
+  game_designer:
+    rank: 30
+    staff: true
+    permissions: [admin.access, content.read_drafts, content.edit, content.publish, item.edit, item.publish,
+                  localization.edit, localization.review, balance.edit, balance.simulate, economy.view, audit.view]
+  admin:
+    rank: 40
+    staff: true
+    permissions: [admin.access, audit.view, user.view, user.support, user.manage_roles, localization.edit,
+                  localization.review, content.read_drafts, content.edit, content.publish, item.edit, item.publish,
+                  balance.edit, balance.simulate, economy.view, economy.grant]
+  superadmin: {rank: 50, staff: true, permissions: ["*"]}
+default_role: player

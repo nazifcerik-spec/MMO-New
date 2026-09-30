@@ -5,6 +5,8 @@ os.environ.setdefault("MMO_DATABASE_URL", "postgresql+asyncpg://mmo:mmo@localhos
 os.environ.setdefault("MMO_REDIS_URL", "redis://localhost:6379/15")
 os.environ.setdefault("MMO_LOG_JSON", "false")
 os.environ.setdefault("MMO_LOG_LEVEL", "WARNING")
+os.environ.setdefault("MMO_RL_REGISTER_IP", "100000/3600")
+os.environ.setdefault("MMO_RL_LOGIN_IP", "100000/60")
 
 from collections.abc import AsyncIterator
 
@@ -71,3 +73,52 @@ async def db() -> AsyncIterator[AsyncSession]:
     async with get_sessionmaker()() as session:
         yield session
         await session.rollback()
+
+
+@pytest.fixture(scope="session", autouse=True)
+async def _flush_test_redis() -> AsyncIterator[None]:
+    from app.db.redis import close_redis, get_redis
+
+    await get_redis().flushdb()
+    yield
+    await close_redis()
+
+
+class UserClient:
+    def __init__(self, client: AsyncClient, email: str, password: str, user_id: int) -> None:
+        self.http = client
+        self.email = email
+        self.password = password
+        self.user_id = user_id
+
+
+@pytest.fixture
+async def make_client(app):  # type: ignore[no-untyped-def]
+    """Factory: new authenticated client (fresh cookie jar) optionally holding extra roles."""
+    import uuid
+
+    from app.db.session import get_sessionmaker
+    from app.services import rbac
+
+    opened: list[AsyncClient] = []
+
+    async def _make(*roles: str, email: str | None = None, password: str = "correct-horse-battery") -> UserClient:
+        c = AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test", headers={"X-Forwarded-For": uuid.uuid4().hex}
+        )
+        opened.append(c)
+        email = email or f"u{uuid.uuid4().hex[:12]}@example.com"
+        r = await c.post("/api/v1/auth/register", json={"email": email, "password": password})
+        assert r.status_code == 201, r.text
+        uid = r.json()["id"]
+        if roles:
+            async with get_sessionmaker()() as s:
+                for role in roles:
+                    await rbac.assign_role(s, user_id=uid, role_code=role, actor_id=None, actor_rank=None)
+                await s.commit()
+        c.headers["X-CSRF-Token"] = c.cookies["csrf_token"]
+        return UserClient(c, email, password, uid)
+
+    yield _make
+    for c in opened:
+        await c.aclose()

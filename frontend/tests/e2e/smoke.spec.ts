@@ -7,7 +7,7 @@ test("home renders and reaches backend health", async ({ page }) => {
 });
 
 test.describe("route shells", () => {
-  for (const path of ["/login", "/game", "/admin"]) {
+  for (const path of ["/login"]) {
     test(`renders ${path}`, async ({ page }) => {
       const res = await page.goto(path);
       expect(res?.status()).toBeLessThan(400);

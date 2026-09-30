@@ -55,7 +55,13 @@
   "auth": {
     "title": "Welcome back",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "loginTab": "Log in",
+    "registerTab": "Create account",
+    "submitLogin": "Log in",
+    "submitRegister": "Create account",
+    "passwordHint": "At least 10 characters.",
+    "loggedInAs": "Signed in as {email}"
   },
   "l10nEditor": {
     "missing": "missing",
@@ -69,5 +75,46 @@
       "reviewed": "Reviewed",
       "published": "Published"
     }
+  },
+  "errors": {
+    "invalid_credentials": "Invalid email or password.",
+    "email_taken": "An account with this email already exists.",
+    "weak_password": "Password is too weak.",
+    "invalid_email": "Invalid email address.",
+    "rate_limited": "Too many attempts. Please wait and try again.",
+    "account_locked": "Account temporarily locked.",
+    "name_taken": "That name is already taken.",
+    "reserved_name": "That name is reserved.",
+    "invalid_name_length": "Name must be 3–16 characters.",
+    "invalid_name_chars": "Use letters and at most two single spaces, hyphens or apostrophes.",
+    "content_unavailable": "Races and classes are not available yet.",
+    "character_limit": "Character limit reached.",
+    "forbidden": "You do not have permission to do that.",
+    "unknown": "Something went wrong."
+  },
+  "characters": {
+    "title": "Your characters",
+    "empty": "No characters yet.",
+    "create": "Create character",
+    "levelShort": "Lv {level}",
+    "delete": "Delete",
+    "deleteConfirm": "Delete {name}? This cannot be undone by you."
+  },
+  "wizard": {
+    "title": "New character",
+    "stepName": "Name",
+    "stepRace": "Race",
+    "stepClass": "Class",
+    "stepConfirm": "Confirm",
+    "nameLabel": "Character name",
+    "nameAvailable": "Name is available.",
+    "noOptions": "No choices are available yet. Content will appear here once published.",
+    "summary": "{name} — {race} {cls}",
+    "create": "Create",
+    "stepOf": "Step {current} of {total}"
+  },
+  "adminShell": {
+    "forbidden": "You need a staff role to access this area.",
+    "roles": "Roles: {roles}"
   }
 }

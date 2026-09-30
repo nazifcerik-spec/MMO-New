@@ -38,7 +38,7 @@ class LocalizationValue(Base, TimestampMixin):
     value: Mapped[str] = mapped_column(Text, nullable=False, default="")
     status: Mapped[str] = mapped_column(String(16), nullable=False, default="draft")
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
-    updated_by: Mapped[int | None] = mapped_column(Integer)
+    updated_by: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
 
     key_ref: Mapped[LocalizationKey] = relationship(back_populates="values", lazy="raise")
 

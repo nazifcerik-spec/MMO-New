@@ -1,0 +1,4 @@
+# Character names that are blocked (exact, case-insensitive) and substrings that imply staff impersonation.
+exact: [admin, administrator, root, system, server, support, moderator, mod, gm, gamemaster, staff, official,
+        developer, dev, null, undefined, anonymous, guest, player, character, eternal, novice]
+contains: [admin, moderator, gamemaster, support_team, official, staff_]
