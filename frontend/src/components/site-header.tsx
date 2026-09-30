@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+
 export async function SiteHeader() {
   const t = await getTranslations();
   return (
@@ -26,6 +28,9 @@ export async function SiteHeader() {
             </Link>
           </li>
         </ul>
+        <div className="ml-auto">
+          <LanguageSwitcher />
+        </div>
       </nav>
     </header>
   );

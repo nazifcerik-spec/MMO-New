@@ -7,11 +7,11 @@ export MMO_ENV=dev MMO_LOG_LEVEL=WARNING
 cd "$ROOT/backend"
 uv run python -m scripts.reset_db --url "$MMO_DATABASE_URL"
 uv run alembic upgrade head >/dev/null
-uv run python -m scripts.seed >/dev/null 2>&1 || true
+uv run python -m scripts.seed >/dev/null
 uv run uvicorn app.main:app --port 8000 >/tmp/e2e-backend.log 2>&1 &
 BACK=$!
 cd "$ROOT/frontend"
-[ -d .next ] || npm run build >/dev/null
+[ -n "${E2E_SKIP_BUILD:-}" ] || npm run build >/dev/null
 BACKEND_URL=http://localhost:8000 npx next start -p 3000 >/tmp/e2e-frontend.log 2>&1 &
 FRONT=$!
 trap 'kill $BACK $FRONT 2>/dev/null || true' EXIT

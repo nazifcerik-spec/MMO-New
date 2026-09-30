@@ -1,0 +1,52 @@
+# Dynamic, DB-backed display text for the seven core stats. English is canonical.
+namespace: stat
+entries:
+  stat.str.name: {en: Strength, tr: Güç, zh-CN: 力量, es: Fuerza}
+  stat.str.short: {en: STR, tr: GÜÇ, zh-CN: 力, es: FUE}
+  stat.str.description:
+    en: Melee attack, heavy weapon scaling and carry capacity.
+    tr: Yakın dövüş saldırısı, ağır silah ölçeklemesi ve taşıma kapasitesi.
+    zh-CN: 提升近战攻击、重型武器加成与负重能力。
+    es: Ataque cuerpo a cuerpo, escalado de armas pesadas y capacidad de carga.
+  stat.dex.name: {en: Dexterity, tr: Çeviklik, zh-CN: 敏捷, es: Destreza}
+  stat.dex.short: {en: DEX, tr: ÇEV, zh-CN: 敏, es: DES}
+  stat.dex.description:
+    en: Attack speed, accuracy, dodge and critical strikes.
+    tr: Saldırı hızı, isabet, kaçınma ve kritik vuruş.
+    zh-CN: 提升攻击速度、命中、闪避与暴击。
+    es: Velocidad de ataque, precisión, esquiva y golpes críticos.
+  stat.int.name: {en: Intelligence, tr: Zeka, zh-CN: 智力, es: Inteligencia}
+  stat.int.short: {en: INT, tr: ZEK, zh-CN: 智, es: INT}
+  stat.int.description:
+    en: Spell power, magical penetration and mana efficiency.
+    tr: Büyü gücü, büyü delme ve mana verimliliği.
+    zh-CN: 提升法术强度、法术穿透与法力效率。
+    es: Poder mágico, penetración mágica y eficiencia de maná.
+  stat.vit.name: {en: Vitality, tr: Dayanıklılık, zh-CN: 体力, es: Vitalidad}
+  stat.vit.short: {en: VIT, tr: DAY, zh-CN: 体, es: VIT}
+  stat.vit.description:
+    en: Health, armor efficiency and stun resistance.
+    tr: Can, zırh verimliliği ve sersemletme direnci.
+    zh-CN: 提升生命值、护甲效率与眩晕抗性。
+    es: Salud, eficiencia de armadura y resistencia al aturdimiento.
+  stat.wis.name: {en: Wisdom, tr: Bilgelik, zh-CN: 智慧, es: Sabiduría}
+  stat.wis.short: {en: WIS, tr: BİL, zh-CN: 慧, es: SAB}
+  stat.wis.description:
+    en: Healing power, shield power and mana regeneration.
+    tr: İyileştirme gücü, kalkan gücü ve mana yenilenmesi.
+    zh-CN: 提升治疗强度、护盾强度与法力回复。
+    es: Poder de curación, poder de escudo y regeneración de maná.
+  stat.spi.name: {en: Spirit, tr: Ruh, zh-CN: 精神, es: Espíritu}
+  stat.spi.short: {en: SPI, tr: RUH, zh-CN: 精, es: ESP}
+  stat.spi.description:
+    en: Buff and debuff power, resource regeneration, pet and totem scaling.
+    tr: Güçlendirme ve zayıflatma gücü, kaynak yenilenmesi, evcil hayvan ve totem ölçeklemesi.
+    zh-CN: 提升增益与减益效果、资源回复以及宠物与图腾成长。
+    es: Poder de mejoras y perjuicios, regeneración de recursos, escalado de mascotas y tótems.
+  stat.luk.name: {en: Luck, tr: Şans, zh-CN: 幸运, es: Suerte}
+  stat.luk.short: {en: LUK, tr: ŞNS, zh-CN: 运, es: SUE}
+  stat.luk.description:
+    en: Critical variance, rare drop chance and proc consistency.
+    tr: Kritik sapması, nadir ganimet şansı ve tetiklenme tutarlılığı.
+    zh-CN: 影响暴击波动、稀有掉落几率与触发稳定性。
+    es: Variación crítica, probabilidad de botín raro y consistencia de activaciones.

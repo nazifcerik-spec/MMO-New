@@ -56,5 +56,18 @@
     "title": "Tekrar hoş geldin",
     "email": "E-posta",
     "password": "Parola"
+  },
+  "l10nEditor": {
+    "missing": "eksik",
+    "status": "Durum",
+    "preview": "Oyuncunun gördüğü",
+    "safeLabel": "dahili etiket",
+    "fallbackFrom": "{locale} dilinden yedek",
+    "statuses": {
+      "missing": "Eksik",
+      "draft": "Taslak",
+      "reviewed": "İncelendi",
+      "published": "Yayında"
+    }
   }
 }

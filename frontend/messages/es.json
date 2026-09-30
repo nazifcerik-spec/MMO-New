@@ -56,5 +56,18 @@
     "title": "Bienvenido de nuevo",
     "email": "Correo electrónico",
     "password": "Contraseña"
+  },
+  "l10nEditor": {
+    "missing": "falta",
+    "status": "Estado",
+    "preview": "El jugador ve",
+    "safeLabel": "etiqueta interna",
+    "fallbackFrom": "respaldo de {locale}",
+    "statuses": {
+      "missing": "Falta",
+      "draft": "Borrador",
+      "reviewed": "Revisado",
+      "published": "Publicado"
+    }
   }
 }

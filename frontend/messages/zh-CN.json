@@ -56,5 +56,18 @@
     "title": "欢迎回来",
     "email": "电子邮箱",
     "password": "密码"
+  },
+  "l10nEditor": {
+    "missing": "缺失",
+    "status": "状态",
+    "preview": "玩家看到",
+    "safeLabel": "内部标签",
+    "fallbackFrom": "回退自 {locale}",
+    "statuses": {
+      "missing": "缺失",
+      "draft": "草稿",
+      "reviewed": "已审核",
+      "published": "已发布"
+    }
   }
 }

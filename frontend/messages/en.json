@@ -56,5 +56,18 @@
     "title": "Welcome back",
     "email": "Email",
     "password": "Password"
+  },
+  "l10nEditor": {
+    "missing": "missing",
+    "status": "Status",
+    "preview": "Player sees",
+    "safeLabel": "internal label",
+    "fallbackFrom": "fallback from {locale}",
+    "statuses": {
+      "missing": "Missing",
+      "draft": "Draft",
+      "reviewed": "Reviewed",
+      "published": "Published"
+    }
   }
 }

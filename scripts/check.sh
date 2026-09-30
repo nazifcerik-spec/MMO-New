@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "== backend: lint/format/type =="
 cd "$ROOT/backend"
-uv run ruff check .
+uv run ruff check . --output-format concise
 uv run ruff format --check .
 uv run mypy app
 
