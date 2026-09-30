@@ -13,3 +13,10 @@ Status: Accepted (Phase 00)
 ## Consequences
 Published template edits never reinterpret historical instances: instance stats are computed from the
 referenced revision + rolled values. Template deletions are soft (archive).
+
+## Amendment (Phase 14)
+- Template revisions use the generic immutable `content_revisions` store (ADR-0008) instead of a dedicated
+  `item_template_revisions` table; instances pin `template_code` + `template_revision_no`.
+- Stackables are `item_instances` rows with `quantity` (≤ template `stack_size`, no affixes/sockets/durability),
+  keeping one ownership/provenance model; inventory (Phase 16) enforces capacity.
+- Provenance is an append-only `item_provenance` log (event, idempotency key, seed, revision, source, actor).
