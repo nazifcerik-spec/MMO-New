@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import BigInteger, CheckConstraint, ForeignKey, Index, Integer, String, Uuid, func
+from sqlalchemy import BigInteger, CheckConstraint, ForeignKey, Index, Integer, String, Uuid, func, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -101,6 +101,15 @@ class ItemInstance(Base, TimestampMixin):
             "location IN ('inventory','equipped','bank','mail','market','destroyed')", name="location_valid"
         ),
         Index("ix_item_instances_owner_location", "owner_character_id", "location"),
+        # one item per equipment slot per character
+        Index(
+            "uq_item_instances_equipped_slot",
+            "owner_character_id",
+            "equipped_slot",
+            unique=True,
+            postgresql_where=text("location = 'equipped'"),
+        ),
+        CheckConstraint("(location = 'equipped') = (equipped_slot IS NOT NULL)", name="equipped_slot_consistent"),
     )
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)

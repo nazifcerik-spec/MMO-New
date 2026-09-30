@@ -2,6 +2,7 @@
 
 import app.services.classes
 import app.services.content.types
+import app.services.inventory
 import app.services.items
 import app.services.races
 import app.services.tactics

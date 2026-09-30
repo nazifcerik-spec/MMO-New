@@ -12,10 +12,14 @@ import { TacticsEditor } from "./tactics-editor";
 
 type Draft = Omit<ProfileUpdate, "expected_version">;
 
+const LOOT_CATEGORIES = ["weapon", "armor", "accessory", "profession_tool", "consumable", "recipe", "cosmetic_collectible"];
+const CLASS_TAGS = ["vanguard", "slayer", "shadow", "hunter", "arcane", "faith", "harmony", "primal", "spirit"];
+
 const fieldCls = "w-full rounded border border-border bg-bg px-2 py-1 text-sm";
 
 export function AfkProfileEditor({ characterId }: { characterId: number }) {
   const t = useTranslations("afk");
+  const ti = useTranslations("itemStudio");
   const tc = useTranslations("common");
   const errorMessage = useErrorMessage();
   const qc = useQueryClient();
@@ -203,6 +207,44 @@ export function AfkProfileEditor({ characterId }: { characterId: number }) {
                 />
                 {t("autoSalvage")}
               </label>
+            </div>
+            <div className="mt-2 space-y-1">
+              <p className="text-xs text-muted">{t("lootCategories")}</p>
+              <div className="flex flex-wrap gap-1">
+                {LOOT_CATEGORIES.map((c) => {
+                  const on = p.loot_filter.categories.includes(c);
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      aria-pressed={on}
+                      data-testid={`loot-cat-${c}`}
+                      className={`rounded border px-1 text-xs ${on ? "border-accent bg-accent/15" : "border-border"}`}
+                      onClick={() => setLoot({ categories: on ? p.loot_filter.categories.filter((x) => x !== c) : [...p.loot_filter.categories, c] })}
+                    >
+                      {ti(`category.${c}`)}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted">{t("lootClassTags")}</p>
+              <div className="flex flex-wrap gap-1">
+                {CLASS_TAGS.map((c) => {
+                  const on = p.loot_filter.class_tags.includes(c);
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      aria-pressed={on}
+                      className={`rounded border px-1 text-xs ${on ? "border-accent bg-accent/15" : "border-border"}`}
+                      onClick={() => setLoot({ class_tags: on ? p.loot_filter.class_tags.filter((x) => x !== c) : [...p.loot_filter.class_tags, c] })}
+                    >
+                      {c}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted">{t("lootFilterHint")}</p>
             </div>
           </fieldset>
           <div className="flex gap-2 sm:col-span-2">

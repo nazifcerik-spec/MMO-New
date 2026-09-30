@@ -95,7 +95,7 @@ async def test_claim_grants_once_with_signals(make_client, make_character, clock
     res = out["result"]
     assert res["elapsed_s"] == 3 * 3600 and res["fights"] > 50 and res["xp"] > 0 and out["gold"] > 0
     assert out["signals"] and {s["kind"] for s in out["signals"]} >= {"xp_progress", "pity_progress"}
-    assert out["loot_pending"] == res["drops"]
+    assert out["loot_pending"] == [] and (out["loot_granted"] or not res["drops"])
     after = (await u.http.get(f"/api/v1/characters/{cid}/progression")).json()
     assert (after["level"], after["xp"]) != (before["level"], before["xp"])
     replay = await _claim(u, cid, key)
@@ -103,7 +103,15 @@ async def test_claim_grants_once_with_signals(make_client, make_character, clock
     second = await _claim(u, cid)
     assert second.status_code == 404 and second.json()["error"]["code"] == "afk_no_session"
     async with get_sessionmaker()() as db:
-        gold = (await db.execute(select(EconomyLedger).where(EconomyLedger.character_id == cid))).scalars().all()
+        gold = (
+            (
+                await db.execute(
+                    select(EconomyLedger).where(EconomyLedger.character_id == cid, EconomyLedger.reason == "afk_reward")
+                )
+            )
+            .scalars()
+            .all()
+        )
         assert len(gold) == 1 and gold[0].delta == out["gold"] and gold[0].reason == "afk_reward"
     hist = (await u.http.get(f"/api/v1/characters/{cid}/afk/history")).json()["items"]
     assert [h["session_id"] for h in hist] == [sid]
@@ -117,7 +125,15 @@ async def test_concurrent_claims_grant_exactly_once(make_client, make_character,
     codes = sorted(r.status_code for r in results)
     assert codes.count(200) == 1 and all(c in (200, 404, 409) for c in codes), [r.text for r in results]
     async with get_sessionmaker()() as db:
-        n = (await db.execute(select(EconomyLedger).where(EconomyLedger.character_id == cid))).scalars().all()
+        n = (
+            (
+                await db.execute(
+                    select(EconomyLedger).where(EconomyLedger.character_id == cid, EconomyLedger.reason == "afk_reward")
+                )
+            )
+            .scalars()
+            .all()
+        )
         assert len(n) <= 1
 
 

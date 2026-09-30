@@ -162,3 +162,39 @@ test("AFK session: start, countdown, stop early, claim summary", async ({ page }
   await page.getByRole("button", { name: "Close" }).click();
   await expect(page.getByTestId("afk-start")).toBeVisible();
 });
+
+test("inventory: staff-granted item is equipped server-side and stats update", async ({ page, baseURL }) => {
+  const admin = await adminApi(baseURL!);
+  test.skip(!admin, "staff credentials not provided");
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Inv${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await expect(page).toHaveURL(/\/game\/characters\/\d+$/);
+  const characterId = Number(page.url().split("/").pop());
+  const grant = await admin!.ctx.post(`/api/v1/admin/characters/${characterId}/items`, {
+    data: { template_code: "worn_training_sword", reason: "e2e" },
+    headers: { "X-CSRF-Token": admin!.csrf, "Idempotency-Key": crypto.randomUUID() },
+  });
+  expect(grant.ok(), await grant.text()).toBeTruthy();
+  await page.getByTestId("open-inventory").click();
+  const before = await page.getByTestId("stat-attack_power").innerText();
+  await page.getByTestId("bag-item-worn_training_sword").click();
+  await expect(page.getByTestId("item-tooltip")).toContainText("Worn Training Sword");
+  await expect(page.getByTestId("tooltip-delta")).toContainText("+");
+  await page.getByTestId("equip").click();
+  await expect(page.getByTestId("slot-main_hand")).toContainText("Worn Training Sword");
+  await expect(page.getByTestId("stat-attack_power")).not.toHaveText(before);
+  await page.getByRole("button", { name: "Remove item from main_hand" }).click();
+  await expect(page.getByTestId("stat-attack_power")).toHaveText(before);
+});

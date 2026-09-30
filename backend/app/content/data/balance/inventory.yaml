@@ -1,0 +1,25 @@
+code: inventory
+data:
+  # Data-driven equipment slots: character slot -> accepted item slot(s).
+  equipment_slots:
+    - {code: main_hand, accepts: [main_hand]}
+    - {code: off_hand, accepts: [off_hand], blocked_by_two_handed: true}
+    - {code: head, accepts: [head]}
+    - {code: shoulders, accepts: [shoulders]}
+    - {code: chest, accepts: [chest]}
+    - {code: hands, accepts: [hands]}
+    - {code: waist, accepts: [waist]}
+    - {code: legs, accepts: [legs]}
+    - {code: feet, accepts: [feet]}
+    - {code: back, accepts: [back]}
+    - {code: neck, accepts: [neck]}
+    - {code: ring_1, accepts: [ring]}
+    - {code: ring_2, accepts: [ring]}
+    - {code: trinket_1, accepts: [trinket]}
+    - {code: trinket_2, accepts: [trinket]}
+    - {code: tool, accepts: [tool]}
+  base_capacity: 60                 # inventory slots (each stack or unique instance uses one)
+  mailbox_capacity: 200             # overflow reward mailbox (entries); beyond it rewards are auto-sold for gold
+  overflow_sell_pct: 100            # % of vendor value paid when overflow exceeds the mailbox (never lost)
+  filtered_sell_pct: 100            # % of vendor value for loot rejected by the player's loot filter
+  mailbox_warn_pct: 80              # AFK start warns when the mailbox is this full

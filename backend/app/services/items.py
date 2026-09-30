@@ -21,6 +21,7 @@ from app.services import audit, combat_snapshot, progression
 from app.services.content.types.items import item_rules
 
 MAX_PAGE = 50
+SEED_MASK = (1 << 62) - 1
 
 
 async def published_template(db: AsyncSession, code: str) -> ItemTemplate:
@@ -109,6 +110,18 @@ async def roll(db: AsyncSession, template: dict[str, Any], seed: int) -> dict[st
     }
 
 
+async def existing_by_key(db: AsyncSession, character_id: int, idempotency_key: str) -> ItemInstance | None:
+    """The instance previously created with this grant key, if any (grant replays return it)."""
+    prior = (
+        await db.execute(
+            select(ItemProvenance.instance_id).where(
+                ItemProvenance.idempotency_key == f"create:{character_id}:{idempotency_key}"
+            )
+        )
+    ).scalar_one_or_none()
+    return await db.get(ItemInstance, prior) if prior is not None else None
+
+
 async def create_instance(
     db: AsyncSession,
     *,
@@ -120,21 +133,18 @@ async def create_instance(
     quantity: int = 1,
     seed: int | None = None,
     actor_id: int | None = None,
+    location: str = "inventory",
 ) -> ItemInstance:
     """Grant a new instance pinned to the current published revision. Same key ⇒ same instance (no dupes)."""
-    prov_key = f"create:{character.id}:{idempotency_key}"
-    prior = (
-        await db.execute(select(ItemProvenance.instance_id).where(ItemProvenance.idempotency_key == prov_key))
-    ).scalar_one_or_none()
+    prior = await existing_by_key(db, character.id, idempotency_key)
     if prior is not None:
-        inst = await db.get(ItemInstance, prior)
-        assert inst is not None
-        return inst
+        return prior
+    prov_key = f"create:{character.id}:{idempotency_key}"
     tpl = await published_template(db, template_code)
     if not 1 <= quantity <= tpl.stack_size:
         raise ValidationFailedError(f"Quantity must be 1-{tpl.stack_size}", code="invalid_quantity")
     data = await revision_data(db, tpl.code, tpl.revision_no)
-    seed = seed if seed is not None else secrets.randbits(62)
+    seed = (seed & SEED_MASK) if seed is not None else secrets.randbits(62)  # fits signed BIGINT
     rolled = await roll(db, data, seed)
     inst = ItemInstance(
         owner_character_id=character.id,
@@ -150,6 +160,7 @@ async def create_instance(
         provenance_id=uuid.uuid4(),
         source_type=source_type,
         source_id=source_id,
+        location=location,
     )
     db.add(inst)
     await db.flush()
@@ -228,6 +239,15 @@ async def instance_view(
         ),
         "provenance_id": str(inst.provenance_id),
         "source_type": inst.source_type,
+        "bind_policy": data["bind_policy"],
+        "tradeable": data["tradeable"] and not inst.bound,
+        "sellable": data["sellable"],
+        "vendor_value": data["vendor_value"],
+        "sources": data.get("sources", []),
+        "set_code": data.get("set_code"),
+        "class_tags": data.get("class_tags", []),
+        "weapon_family": data.get("weapon_family"),
+        "armor_family": data.get("armor_family"),
     }
     if character is not None:
         unmet = await check_requirements(db, character, data)
@@ -373,12 +393,15 @@ async def equipped(db: AsyncSession, character: Character) -> list[ItemInstance]
     )
 
 
-async def equipment_effects(db: AsyncSession, character: Character) -> list[dict[str, Any]]:
-    """All effects from equipped items (revision-pinned) + active set bonuses. Broken items (0 durability) are inert."""
+async def equipment_effects(
+    db: AsyncSession, character: Character, instances: list[ItemInstance] | None = None
+) -> list[dict[str, Any]]:
+    """All effects from equipped items (revision-pinned) + active set bonuses. Broken items (0 durability) are inert.
+    `instances` lets callers evaluate a hypothetical loadout (equip previews) with the same code path."""
     rules = await item_rules(db)
     out: list[dict[str, Any]] = []
     sets: dict[str, int] = {}
-    for inst in await equipped(db, character):
+    for inst in instances if instances is not None else await equipped(db, character):
         if inst.durability_max and inst.durability == 0:
             continue
         data = await revision_data(db, inst.template_code, inst.template_revision_no)
