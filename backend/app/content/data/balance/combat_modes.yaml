@@ -1,0 +1,15 @@
+code: combat_modes
+data:
+  # Launch default is HYBRID: ordinary AFK runs passive-first; player tactics only drive the encounter types below.
+  default_mode: HYBRID
+  enabled_modes: [PASSIVE_ONLY, ACTIVE_TACTICS, HYBRID]
+  tactics_encounter_types: [boss, arena]
+  max_rules: 6
+  # Canonical priority template. Each slot uses the first tag the character's kit actually has; slots with no
+  # matching ability are skipped. Basic attack is the implicit fallback.
+  template:
+    - {tags: [heal, defensive, shield], when: [{kind: HP_PERCENT, op: lt, value: 35}]}
+    - {tags: [finisher], when: [{kind: TARGET_TYPE, target_type: boss}]}
+    - {tags: [aoe], when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+    - {tags: [spender], when: [{kind: RESOURCE_PERCENT, op: gte, value: 70}]}
+    - {tags: [buff, debuff, song, totem], when: [{kind: COOLDOWN_READY}]}

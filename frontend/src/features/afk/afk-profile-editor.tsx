@@ -8,6 +8,8 @@ import { afkApi, pct, type AfkProfile, type LootFilter, type ProfileUpdate } fro
 import { ApiError } from "@/lib/api/client";
 import { useErrorMessage } from "@/lib/api/errors";
 
+import { TacticsEditor } from "./tactics-editor";
+
 type Draft = Omit<ProfileUpdate, "expected_version">;
 
 const fieldCls = "w-full rounded border border-border bg-bg px-2 py-1 text-sm";
@@ -218,6 +220,17 @@ export function AfkProfileEditor({ characterId }: { characterId: number }) {
             </button>
           </div>
         </section>
+      ) : null}
+
+      {advanced && p.mode !== "PASSIVE_ONLY" ? (
+        <TacticsEditor
+          key={data.profile.version}
+          characterId={characterId}
+          options={options.tactics}
+          saved={data.profile.tactics}
+          saving={save.isPending}
+          onSave={(tactics) => save.mutate({ ...draft, tactics })}
+        />
       ) : null}
 
       {err ? (

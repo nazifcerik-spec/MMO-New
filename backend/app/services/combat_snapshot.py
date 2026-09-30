@@ -52,6 +52,29 @@ def apply_solo_accord(stats: dict[str, float], effects: list[dict[str, Any]], pa
     return out
 
 
+async def usable_abilities(db: AsyncSession, character: Character) -> list[AbilityDefinition]:
+    """Published, unlocked active/ultimate/stance abilities owned by the character's class path."""
+    row = await classes.get_progression_row(db, character)
+    owners = {("class", row.base_class_code)}
+    if row.branch_code:
+        owners.add(("branch", row.branch_code))
+    if row.specialization_code:
+        owners.add(("specialization", row.specialization_code))
+    rows = (
+        await db.execute(
+            select(AbilityDefinition)
+            .where(
+                AbilityDefinition.status == "published",
+                AbilityDefinition.deleted_at.is_(None),
+                AbilityDefinition.unlock_level <= character.level,
+                AbilityDefinition.ability_type.in_(sorted(ACTIVE_TYPES)),
+            )
+            .order_by(AbilityDefinition.sort_order, AbilityDefinition.code)
+        )
+    ).scalars()
+    return [a for a in rows if (a.owner_type, a.owner_code) in owners]
+
+
 async def character_snapshot(
     db: AsyncSession, character: Character, *, party_size: int = 1, snapshot_id: str | None = None
 ) -> CombatantSnapshot:
@@ -96,28 +119,8 @@ async def character_snapshot(
     stats = apply_solo_accord(sheet.finals(), effects, party_size)
     resources = list((await db.execute(select(ClassResource).where(ClassResource.code.in_(base.resources)))).scalars())
     by_code = {r.code: r for r in resources}
-    owners = {("class", base.code)}
-    if row.branch_code:
-        owners.add(("branch", row.branch_code))
-    if row.specialization_code:
-        owners.add(("specialization", row.specialization_code))
-    ability_rows = list(
-        (
-            await db.execute(
-                select(AbilityDefinition)
-                .where(
-                    AbilityDefinition.status == "published",
-                    AbilityDefinition.unlock_level <= character.level,
-                    AbilityDefinition.ability_type.in_(sorted(ACTIVE_TYPES)),
-                )
-                .order_by(AbilityDefinition.sort_order)
-            )
-        ).scalars()
-    )
     abilities = []
-    for a in ability_rows:
-        if (a.owner_type, a.owner_code) not in owners:
-            continue
+    for a in await usable_abilities(db, character):
         rank = a.ranks[0]
         cost = rank.get("cost") or {}
         abilities.append(

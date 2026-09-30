@@ -77,3 +77,37 @@ test("create character, allocate stats, promote at Lv100", async ({ page, baseUR
   await page.getByTestId("afk-run-preview").click();
   await expect(page.getByTestId("preview-win-rate")).toHaveText(/\d+%/);
 });
+
+test("active tactics priority editor: template, reorder, simulate, save", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Tac${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("open-afk").click();
+  await page.getByRole("button", { name: "Show advanced settings" }).click();
+  const editor = page.getByTestId("tactics-editor");
+  await expect(editor).toBeVisible();
+  await page.getByRole("button", { name: "+ rule" }).click();
+  await page.getByRole("button", { name: "+ rule" }).click();
+  await expect(editor.getByTestId(/^tactic-rule-/)).toHaveCount(2);
+  await page.getByLabel("Rule 2: use").selectOption("tag:single_target");
+  await page.getByRole("button", { name: "Move rule 2 up" }).click();
+  await expect(page.getByLabel("Rule 1: use")).toHaveValue("tag:single_target");
+  await page.getByTestId("tactics-preview").click();
+  await expect(page.getByTestId("tactics-preview-result")).toBeVisible();
+  await expect(page.getByTestId("tactic-uses-0")).toContainText(/\d+/);
+  await page.getByTestId("tactics-save").click();
+  await page.reload();
+  await page.getByRole("button", { name: "Show advanced settings" }).click();
+  await expect(page.getByLabel("Rule 1: use")).toHaveValue("tag:single_target");
+});

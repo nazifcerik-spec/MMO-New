@@ -38,6 +38,42 @@ class RiskProfiles(_S):
         return self
 
 
+Mode = Literal["PASSIVE_ONLY", "ACTIVE_TACTICS", "HYBRID"]
+
+
+class TemplateSlot(_S):
+    tags: list[str] = Field(min_length=1, max_length=6)
+    when: list[dict[str, Any]] = Field(default_factory=list, max_length=4)
+
+
+class CombatModes(_S):
+    default_mode: Mode
+    enabled_modes: list[Mode] = Field(min_length=1)
+    tactics_encounter_types: list[Literal["normal", "elite", "boss", "arena"]]
+    max_rules: int = Field(ge=1, le=6)
+    template: list[TemplateSlot] = Field(max_length=6)
+
+    @model_validator(mode="after")
+    def _check(self) -> "CombatModes":
+        if self.default_mode not in self.enabled_modes:
+            raise ValueError("default_mode must be enabled")
+        validate_rules([{"use": {"tag": t.tags[0]}, "when": t.when} for t in self.template], max_rules=self.max_rules)
+        return self
+
+
+BALANCE_SCHEMAS["combat_modes"] = CombatModes
+
+
+def template_rules(cfg: CombatModes, kit_tags: set[str]) -> list[dict[str, Any]]:
+    """Instantiate the canonical priority template for a kit: first matching tag per slot, empty slots skipped."""
+    out: list[dict[str, Any]] = []
+    for slot in cfg.template:
+        tag = next((t for t in slot.tags if t in kit_tags), None)
+        if tag is not None:
+            out.append({"use": {"tag": tag}, "when": slot.when})
+    return out[: cfg.max_rules]
+
+
 BALANCE_SCHEMAS["risk_profiles"] = RiskProfiles
 BALANCE_SCHEMAS["training_encounter"] = TrainingEncounter
 

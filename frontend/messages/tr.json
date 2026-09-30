@@ -120,7 +120,11 @@
     "invalid_preset": "Bilinmeyen hazır ayar.",
     "invalid_passive_profile": "Bu profil sınıfına ait değil.",
     "invalid_loot_filter": "Geçersiz ganimet filtresi.",
-    "invalid_tactics": "Geçersiz taktikler."
+    "invalid_tactics": "Geçersiz taktikler.",
+    "tactic_ability_unavailable": "Bu yetenek karakterin için kullanılabilir değil.",
+    "tactic_tag_unavailable": "Hiçbir yeteneğinde bu etiket yok.",
+    "tactics_loadout_limit": "Taktikler en fazla 5 temel aktif ve 1 ultimate kullanabilir.",
+    "mode_disabled": "Bu savaş modu kapalı."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -346,5 +350,70 @@
     "potionsUsed": "İksir/savaş",
     "uses": "{n} kullanım",
     "fallback": "Temel saldırı: {n}"
+  },
+  "tactics": {
+    "title": "Aktif Taktik öncelikleri",
+    "limits": "En fazla {rules} kural · {actives} temel aktif + {ultimates} ultimate",
+    "hint": "Yeteneği hazır ve koşulları sağlanan ilk kural kullanılır. Hibrit modda bu kurallar yalnızca şunlarda çalışır: {encounters}.",
+    "encounter": {
+      "boss": "Boss",
+      "arena": "Arena",
+      "elite": "Elit",
+      "normal": "Normal"
+    },
+    "use": "Kural {n}: kullan",
+    "abilities": "Yetenekler",
+    "tags": "Etiketli herhangi bir yetenek",
+    "tagLabel": "herhangi bir “{tag}” yeteneği",
+    "ultimate": "ultimate",
+    "moveUp": "Kural {n} yukarı",
+    "moveDown": "Kural {n} aşağı",
+    "remove": "Kural {n} sil",
+    "when": "eğer",
+    "and": "ve",
+    "conditionKind": "Kural {n} koşulu",
+    "kind": {
+      "HP_PERCENT": "canım %",
+      "RESOURCE_PERCENT": "kaynağım %",
+      "TARGET_TYPE": "hedef şu",
+      "ENEMY_COUNT": "düşman sayısı",
+      "TARGET_HP": "hedef canı %",
+      "BUFF_PRESENT": "güçlendirmem",
+      "DEBUFF_PRESENT": "hedef zayıflatması",
+      "COOLDOWN_READY": "bekleme süresi hazır",
+      "ALLY_HP_BELOW": "en düşük müttefik canı % altında",
+      "STACK_COUNT": "yığın sayısı",
+      "COMBAT_TIME": "savaş süresi (sn)",
+      "EVERY_N_ACTIONS": "her N eylemde"
+    },
+    "op": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "targetType": "Hedef türü",
+    "presence": "Varlık",
+    "present": "var",
+    "absent": "yok",
+    "operator": "Karşılaştırma",
+    "value": "Değer",
+    "code": "Etki kodu",
+    "codePlaceholder": "herhangi",
+    "removeCondition": "Koşulu sil",
+    "addCondition": "+ koşul",
+    "always": "Hazır olunca her zaman {name} kullan.",
+    "fallback": "Aksi halde: temel saldırı.",
+    "fallbackShort": "Temel saldırı",
+    "addRule": "+ kural",
+    "loadTemplate": "Önerilen öncelikleri yükle",
+    "save": "Taktikleri kaydet",
+    "scenario": "Örnek karşılaşma",
+    "scenarioPack": "Düşman grubu",
+    "scenarioBoss": "Boss",
+    "enemies": "Düşman",
+    "simulate": "Kuralları simüle et",
+    "result": "Kazanma %{win} · ort. {s} sn — kural kullanımı:"
   }
 }

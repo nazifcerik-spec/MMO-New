@@ -120,7 +120,11 @@
     "invalid_preset": "未知预设。",
     "invalid_passive_profile": "该方案不属于你的职业。",
     "invalid_loot_filter": "拾取过滤无效。",
-    "invalid_tactics": "战术无效。"
+    "invalid_tactics": "战术无效。",
+    "tactic_ability_unavailable": "你的角色无法使用该技能。",
+    "tactic_tag_unavailable": "你没有带该标签的技能。",
+    "tactics_loadout_limit": "战术最多使用5个核心主动和1个终极技能。",
+    "mode_disabled": "该战斗模式已禁用。"
   },
   "characters": {
     "title": "你的角色",
@@ -346,5 +350,70 @@
     "potionsUsed": "每场药水",
     "uses": "{n}次",
     "fallback": "普通攻击：{n}"
+  },
+  "tactics": {
+    "title": "主动战术优先级",
+    "limits": "最多{rules}条规则 · {actives}个核心主动 + {ultimates}个终极",
+    "hint": "使用第一条技能就绪且条件满足的规则。混合模式下这些规则仅用于：{encounters}。",
+    "encounter": {
+      "boss": "首领",
+      "arena": "竞技场",
+      "elite": "精英",
+      "normal": "普通"
+    },
+    "use": "规则{n}：使用",
+    "abilities": "技能",
+    "tags": "任意带标签的技能",
+    "tagLabel": "任意“{tag}”技能",
+    "ultimate": "终极",
+    "moveUp": "规则{n}上移",
+    "moveDown": "规则{n}下移",
+    "remove": "删除规则{n}",
+    "when": "当",
+    "and": "且",
+    "conditionKind": "规则{n}条件",
+    "kind": {
+      "HP_PERCENT": "我的生命%",
+      "RESOURCE_PERCENT": "我的资源%",
+      "TARGET_TYPE": "目标是",
+      "ENEMY_COUNT": "敌人数量",
+      "TARGET_HP": "目标生命%",
+      "BUFF_PRESENT": "我的增益",
+      "DEBUFF_PRESENT": "目标减益",
+      "COOLDOWN_READY": "冷却就绪",
+      "ALLY_HP_BELOW": "最低队友生命低于%",
+      "STACK_COUNT": "层数",
+      "COMBAT_TIME": "战斗时间（秒）",
+      "EVERY_N_ACTIONS": "每N次行动"
+    },
+    "op": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "targetType": "目标类型",
+    "presence": "存在",
+    "present": "存在",
+    "absent": "不存在",
+    "operator": "比较",
+    "value": "数值",
+    "code": "效果代码",
+    "codePlaceholder": "任意",
+    "removeCondition": "删除条件",
+    "addCondition": "+ 条件",
+    "always": "就绪时总是使用{name}。",
+    "fallback": "否则：普通攻击。",
+    "fallbackShort": "普通攻击",
+    "addRule": "+ 规则",
+    "loadTemplate": "载入推荐优先级",
+    "save": "保存战术",
+    "scenario": "示例遭遇",
+    "scenarioPack": "敌群",
+    "scenarioBoss": "首领",
+    "enemies": "敌人",
+    "simulate": "模拟规则",
+    "result": "胜率{win}% · 平均{s}秒 — 规则使用："
   }
 }

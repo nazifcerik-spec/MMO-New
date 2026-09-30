@@ -3,4 +3,5 @@
 import app.services.classes
 import app.services.content.types
 import app.services.races
+import app.services.tactics
 import app.services.talents  # noqa: F401

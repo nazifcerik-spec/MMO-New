@@ -13,6 +13,7 @@ from app.game_engine.combat.engine import Actor, Battle
 from app.game_engine.combat.models import AbilitySnapshot
 
 Op = Literal["lt", "lte", "gt", "gte", "eq"]
+OPS = ("lt", "lte", "gt", "gte", "eq")
 CONDITION_KINDS = (
     "HP_PERCENT",
     "RESOURCE_PERCENT",
@@ -28,6 +29,7 @@ CONDITION_KINDS = (
     "EVERY_N_ACTIONS",
 )
 MAX_RULES = 6
+MAX_CONDITIONS = 4
 
 
 class _M(BaseModel):
@@ -78,7 +80,7 @@ class RuleUse(_M):
 
 class Rule(_M):
     use: RuleUse
-    when: tuple[RuleCondition, ...] = Field(default=(), max_length=4)
+    when: tuple[RuleCondition, ...] = Field(default=(), max_length=MAX_CONDITIONS)
     label: str | None = Field(default=None, max_length=64)
 
 

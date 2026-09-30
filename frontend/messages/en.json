@@ -120,7 +120,11 @@
     "invalid_preset": "Unknown preset.",
     "invalid_passive_profile": "That profile does not belong to your class.",
     "invalid_loot_filter": "Invalid loot filter.",
-    "invalid_tactics": "Invalid tactics."
+    "invalid_tactics": "Invalid tactics.",
+    "tactic_ability_unavailable": "That ability is not available to your character.",
+    "tactic_tag_unavailable": "None of your abilities has that tag.",
+    "tactics_loadout_limit": "Tactics may use at most 5 core actives and 1 ultimate.",
+    "mode_disabled": "That combat mode is disabled."
   },
   "characters": {
     "title": "Your characters",
@@ -346,5 +350,70 @@
     "potionsUsed": "Potions/fight",
     "uses": "{n} uses",
     "fallback": "Basic attacks: {n}"
+  },
+  "tactics": {
+    "title": "Active Tactics priorities",
+    "limits": "Up to {rules} rules · {actives} core actives + {ultimates} ultimate",
+    "hint": "The first rule whose ability is ready and whose conditions hold is used. In Hybrid mode these rules only drive: {encounters}.",
+    "encounter": {
+      "boss": "Boss",
+      "arena": "Arena",
+      "elite": "Elite",
+      "normal": "Normal"
+    },
+    "use": "Rule {n}: use",
+    "abilities": "Abilities",
+    "tags": "Any ability tagged",
+    "tagLabel": "any “{tag}” ability",
+    "ultimate": "ultimate",
+    "moveUp": "Move rule {n} up",
+    "moveDown": "Move rule {n} down",
+    "remove": "Remove rule {n}",
+    "when": "when",
+    "and": "and",
+    "conditionKind": "Rule {n} condition",
+    "kind": {
+      "HP_PERCENT": "my HP %",
+      "RESOURCE_PERCENT": "my resource %",
+      "TARGET_TYPE": "target is",
+      "ENEMY_COUNT": "enemy count",
+      "TARGET_HP": "target HP %",
+      "BUFF_PRESENT": "my buff",
+      "DEBUFF_PRESENT": "target debuff",
+      "COOLDOWN_READY": "cooldown ready",
+      "ALLY_HP_BELOW": "lowest ally HP below %",
+      "STACK_COUNT": "stack count",
+      "COMBAT_TIME": "combat time (s)",
+      "EVERY_N_ACTIONS": "every N actions"
+    },
+    "op": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "targetType": "Target type",
+    "presence": "Presence",
+    "present": "present",
+    "absent": "missing",
+    "operator": "Comparison",
+    "value": "Value",
+    "code": "Effect code",
+    "codePlaceholder": "any",
+    "removeCondition": "Remove condition",
+    "addCondition": "+ condition",
+    "always": "Always use {name} when ready.",
+    "fallback": "Otherwise: basic attack.",
+    "fallbackShort": "Basic attack",
+    "addRule": "+ rule",
+    "loadTemplate": "Load recommended priorities",
+    "save": "Save tactics",
+    "scenario": "Sample encounter",
+    "scenarioPack": "Enemy pack",
+    "scenarioBoss": "Boss",
+    "enemies": "Enemies",
+    "simulate": "Simulate rules",
+    "result": "Win {win}% · avg {s}s — rule uses:"
   }
 }

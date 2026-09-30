@@ -11,14 +11,29 @@ from app.content.loader import load_yaml
 from app.core.errors import ConflictError, ValidationFailedError
 from app.game_engine.combat.engine import simulate
 from app.game_engine.combat.models import CombatantSnapshot, CombatConfig, CombatInput, CombatStrategy
-from app.game_engine.combat.rules import RuleSet, RuleValidationError, rule_selector, validate_rules
+from app.game_engine.combat.rules import (
+    CONDITION_KINDS,
+    MAX_CONDITIONS,
+    OPS,
+    RuleSet,
+    RuleValidationError,
+    rule_selector,
+    validate_rules,
+)
 from app.game_engine.combat.training import TrainingEncounter, training_pack
 from app.localization.service import resolve_text_map
 from app.models.character import Character
 from app.models.classes import BaseClass
 from app.models.profiles import CharacterAfkProfile, PassiveProfile
 from app.services import audit, combat_snapshot
-from app.services.content.types.afk_profiles import RISK_LEVELS, TARGET_PRIORITIES, RiskProfiles
+from app.services.content.types.abilities import AbilityLimits
+from app.services.content.types.afk_profiles import (
+    RISK_LEVELS,
+    TARGET_PRIORITIES,
+    CombatModes,
+    RiskProfiles,
+    template_rules,
+)
 from app.services.content.types.balance import get_published_balance
 
 RARITIES = ("worn", "common", "fine", "rare", "epic", "legendary", "mythic", "relic")
@@ -80,9 +95,10 @@ async def get_profile(db: AsyncSession, character: Character, *, for_update: boo
         profiles = await class_profiles(db, base.code)
         default = profiles[0] if profiles else None
         d = default.defaults if default else {}
+        modes = await get_published_balance(db, "combat_modes", CombatModes)
         row = CharacterAfkProfile(
             character_id=character.id,
-            mode="HYBRID",
+            mode=modes.default_mode,
             stance=d.get("stance", "efficient"),
             target_priority=d.get("target_priority", "lowest_hp"),
             potion_threshold_pct=d.get("potion_threshold_pct", 40),
@@ -115,6 +131,10 @@ async def update_profile(
         fields["preset_code"] = update.preset_code
     elif fields:
         fields.setdefault("preset_code", None)
+    if fields.get("mode") is not None:
+        modes = await get_published_balance(db, "combat_modes", CombatModes)
+        if fields["mode"] not in modes.enabled_modes:
+            raise ValidationFailedError("Combat mode is disabled", code="mode_disabled")
     if "stance" in fields and fields["stance"] not in combat_cfg.stances:
         raise ValidationFailedError("Unknown stance", code="invalid_stance")
     if "target_priority" in fields and fields["target_priority"] not in TARGET_PRIORITIES:
@@ -189,12 +209,13 @@ def strategy_for(row: CharacterAfkProfile, potions: int) -> CombatStrategy:
 
 
 async def resolved_rules(
-    db: AsyncSession, row: CharacterAfkProfile, *, boss_encounter: bool
+    db: AsyncSession, row: CharacterAfkProfile, *, encounter_type: str, tactics_override: RuleSet | None = None
 ) -> tuple[RuleSet, list[dict[str, Any]]]:
     """(rules, extra identity effects) for this encounter type.
 
     PASSIVE_ONLY → passive profile rules; ACTIVE_TACTICS → player tactics; HYBRID → passive-first, player tactics
-    only in boss encounters (no constant input required)."""
+    only in configured decision encounters (boss/arena), so no constant input is required."""
+    modes = await get_published_balance(db, "combat_modes", CombatModes)
     profile = None
     if row.passive_profile_code:
         profile = (
@@ -202,8 +223,11 @@ async def resolved_rules(
         ).scalar_one_or_none()
     extra = list(profile.effects) if profile else []
     passive_rules = validate_rules(profile.rules) if profile else RuleSet()
-    tactics = validate_rules(row.tactics or [])
-    if row.mode == "ACTIVE_TACTICS" or (row.mode == "HYBRID" and boss_encounter and tactics.rules):
+    tactics = tactics_override or validate_rules(row.tactics or [], max_rules=modes.max_rules)
+    if tactics_override is not None:
+        return tactics, extra
+    decision = encounter_type in modes.tactics_encounter_types
+    if row.mode == "ACTIVE_TACTICS" or (row.mode == "HYBRID" and decision and tactics.rules):
         return tactics, extra
     return passive_rules, extra
 
@@ -213,7 +237,15 @@ def with_extra_effects(snap: CombatantSnapshot, extra: list[dict[str, Any]]) -> 
 
 
 async def preview(
-    db: AsyncSession, *, character: Character, fights: int, potions: int | None, boss: bool, locale: str
+    db: AsyncSession,
+    *,
+    character: Character,
+    fights: int,
+    potions: int | None,
+    boss: bool,
+    locale: str,
+    enemies_count: int | None = None,
+    tactics_override: RuleSet | None = None,
 ) -> dict[str, Any]:
     row = await get_profile(db, character)
     cfg: CombatConfig = await combat_snapshot.load_combat_config(db)
@@ -221,7 +253,9 @@ async def preview(
     risks = await get_published_balance(db, "risk_profiles", RiskProfiles)
     risk = risks.profiles[row.risk_level]
     snap = await combat_snapshot.character_snapshot(db, character)
-    rules, extra = await resolved_rules(db, row, boss_encounter=boss)
+    rules, extra = await resolved_rules(
+        db, row, encounter_type="boss" if boss else "normal", tactics_override=tactics_override
+    )
     snap = with_extra_effects(snap, extra)
     n_potions = potions if potions is not None else await potion_count(db, character)
     strategy = strategy_for(row, n_potions)
@@ -230,7 +264,7 @@ async def preview(
     total_time = total_taken = total_potions = total_dealt = 0.0
     for i in range(fights):
         enemies = training_pack(
-            training, character.level, power_percent=risk.enemy_power_percent, count=1 if boss else None
+            training, character.level, power_percent=risk.enemy_power_percent, count=1 if boss else enemies_count
         )
         if boss:
             enemies = (
@@ -264,6 +298,7 @@ async def preview(
         "dps": round(total_dealt / max(total_time, 1e-9), 2),
         "mode": row.mode,
         "boss": boss,
+        "draft": tactics_override is not None,
         "rules": [
             {
                 "index": i,
@@ -282,7 +317,12 @@ async def options(db: AsyncSession, character: Character, locale: str) -> dict[s
     cfg = await combat_snapshot.load_combat_config(db)
     base = await db.get(BaseClass, character.base_class_id)
     profiles = await class_profiles(db, base.code if base else "")
+    modes = await get_published_balance(db, "combat_modes", CombatModes)
+    limits = await get_published_balance(db, "ability_limits", AbilityLimits)
+    kit = await combat_snapshot.usable_abilities(db, character)
+    kit_tags = sorted({t for a in kit for t in a.tags})
     keys = [
+        *(a.name_key for a in kit),
         *(f"stance.{s}.name" for s in cfg.stances),
         *(f"stance.{s}.description" for s in cfg.stances),
         *(f"target_priority.{t}.name" for t in TARGET_PRIORITIES),
@@ -319,7 +359,29 @@ async def options(db: AsyncSession, character: Character, locale: str) -> dict[s
             for p in profiles
         ],
         "rarities": list(RARITIES),
-        "modes": ["PASSIVE_ONLY", "ACTIVE_TACTICS", "HYBRID"],
+        "modes": list(modes.enabled_modes),
+        "default_mode": modes.default_mode,
+        "tactics": {
+            "max_rules": modes.max_rules,
+            "max_conditions": MAX_CONDITIONS,
+            "max_core_actives": limits.max_core_actives,
+            "max_ultimates": limits.max_ultimates,
+            "decision_encounters": list(modes.tactics_encounter_types),
+            "condition_kinds": list(CONDITION_KINDS),
+            "ops": list(OPS),
+            "tags": kit_tags,
+            "abilities": [
+                {
+                    "code": a.code,
+                    "name": text[a.name_key],
+                    "type": a.ability_type,
+                    "tags": a.tags,
+                    "cooldown_s": a.ranks[0].get("cooldown_s", 0),
+                }
+                for a in kit
+            ],
+            "template": template_rules(modes, set(kit_tags)),
+        },
     }
 
 

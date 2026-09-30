@@ -14,3 +14,4 @@ test-results/
 playwright-report/
 *.log
 .DS_Store
+dump.rdb

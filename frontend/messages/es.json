@@ -120,7 +120,11 @@
     "invalid_preset": "Preajuste desconocido.",
     "invalid_passive_profile": "Ese perfil no pertenece a tu clase.",
     "invalid_loot_filter": "Filtro de botín no válido.",
-    "invalid_tactics": "Tácticas no válidas."
+    "invalid_tactics": "Tácticas no válidas.",
+    "tactic_ability_unavailable": "Esa habilidad no está disponible para tu personaje.",
+    "tactic_tag_unavailable": "Ninguna de tus habilidades tiene esa etiqueta.",
+    "tactics_loadout_limit": "Las tácticas usan como máximo 5 activas y 1 definitiva.",
+    "mode_disabled": "Ese modo de combate está desactivado."
   },
   "characters": {
     "title": "Tus personajes",
@@ -346,5 +350,70 @@
     "potionsUsed": "Pociones/combate",
     "uses": "{n} usos",
     "fallback": "Ataques básicos: {n}"
+  },
+  "tactics": {
+    "title": "Prioridades de tácticas activas",
+    "limits": "Hasta {rules} reglas · {actives} activas + {ultimates} definitiva",
+    "hint": "Se usa la primera regla cuya habilidad esté lista y cuyas condiciones se cumplan. En modo híbrido solo rigen: {encounters}.",
+    "encounter": {
+      "boss": "Jefe",
+      "arena": "Arena",
+      "elite": "Élite",
+      "normal": "Normal"
+    },
+    "use": "Regla {n}: usar",
+    "abilities": "Habilidades",
+    "tags": "Cualquier habilidad con etiqueta",
+    "tagLabel": "cualquier habilidad “{tag}”",
+    "ultimate": "definitiva",
+    "moveUp": "Subir regla {n}",
+    "moveDown": "Bajar regla {n}",
+    "remove": "Quitar regla {n}",
+    "when": "cuando",
+    "and": "y",
+    "conditionKind": "Condición de la regla {n}",
+    "kind": {
+      "HP_PERCENT": "mi vida %",
+      "RESOURCE_PERCENT": "mi recurso %",
+      "TARGET_TYPE": "el objetivo es",
+      "ENEMY_COUNT": "número de enemigos",
+      "TARGET_HP": "vida del objetivo %",
+      "BUFF_PRESENT": "mi mejora",
+      "DEBUFF_PRESENT": "perjuicio del objetivo",
+      "COOLDOWN_READY": "recarga lista",
+      "ALLY_HP_BELOW": "vida del aliado más bajo bajo %",
+      "STACK_COUNT": "acumulaciones",
+      "COMBAT_TIME": "tiempo de combate (s)",
+      "EVERY_N_ACTIONS": "cada N acciones"
+    },
+    "op": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "targetType": "Tipo de objetivo",
+    "presence": "Presencia",
+    "present": "presente",
+    "absent": "ausente",
+    "operator": "Comparación",
+    "value": "Valor",
+    "code": "Código de efecto",
+    "codePlaceholder": "cualquiera",
+    "removeCondition": "Quitar condición",
+    "addCondition": "+ condición",
+    "always": "Usar siempre {name} cuando esté lista.",
+    "fallback": "Si no: ataque básico.",
+    "fallbackShort": "Ataque básico",
+    "addRule": "+ regla",
+    "loadTemplate": "Cargar prioridades recomendadas",
+    "save": "Guardar tácticas",
+    "scenario": "Encuentro de ejemplo",
+    "scenarioPack": "Grupo de enemigos",
+    "scenarioBoss": "Jefe",
+    "enemies": "Enemigos",
+    "simulate": "Simular reglas",
+    "result": "Victoria {win}% · media {s} s — usos por regla:"
   }
 }
