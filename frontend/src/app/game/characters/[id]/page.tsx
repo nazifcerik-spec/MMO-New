@@ -10,12 +10,16 @@ export default async function CharacterPage(props: PageProps<"/game/characters/[
   if (!Number.isInteger(characterId) || characterId <= 0) notFound();
   const t = await getTranslations("progression");
   const tc = await getTranslations("classes");
+  const tt = await getTranslations("talents");
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-xl font-bold">{t("title")}</h1>
         <Link href={`/game/characters/${characterId}/class`} className="text-sm underline" data-testid="open-class">
           {tc("openClass")}
+        </Link>
+        <Link href={`/game/characters/${characterId}/talents`} className="text-sm underline" data-testid="open-talents">
+          {tt("open")}
         </Link>
       </div>
       <ProgressionPanel characterId={characterId} />

@@ -1,0 +1,35 @@
+# Localized names for generic talent nodes (node effects are rendered from structured data).
+fortitude: {en: Fortitude, tr: Metanet, zh-CN: 坚韧, es: Fortaleza}
+bulwark: {en: Bulwark, tr: Siper, zh-CN: 壁垒, es: Baluarte}
+guarding: {en: Guarding, tr: Muhafaza, zh-CN: 守卫, es: Custodia}
+resilience: {en: Resilience, tr: Dayanım, zh-CN: 韧性, es: Resiliencia}
+ferocity: {en: Ferocity, tr: Vahşet, zh-CN: 凶猛, es: Ferocidad}
+precision: {en: Precision, tr: Kesinlik, zh-CN: 精准, es: Precisión}
+penetration: {en: Penetration, tr: Delicilik, zh-CN: 穿透, es: Penetración}
+celerity: {en: Celerity, tr: Süratlilik, zh-CN: 迅捷, es: Celeridad}
+brutality: {en: Brutality, tr: Gaddarlık, zh-CN: 残暴, es: Brutalidad}
+bloodthirst: {en: Bloodthirst, tr: Kan Susuzluğu, zh-CN: 嗜血, es: Sed de sangre}
+lethality: {en: Lethality, tr: Ölümcüllük, zh-CN: 致命, es: Letalidad}
+evasion: {en: Evasion, tr: Kaçış, zh-CN: 闪避, es: Evasión}
+toxicity: {en: Toxicity, tr: Zehirlilik, zh-CN: 毒性, es: Toxicidad}
+cunning: {en: Cunning, tr: Kurnazlık, zh-CN: 狡诈, es: Astucia}
+keen_eye: {en: Keen Eye, tr: Keskin Göz, zh-CN: 锐眼, es: Ojo agudo}
+wild_bond: {en: Wild Bond, tr: Yaban Bağı, zh-CN: 野性羁绊, es: Vínculo salvaje}
+trapcraft: {en: Trapcraft, tr: Tuzak Zanaatı, zh-CN: 陷阱技艺, es: Arte trampero}
+arcane_power: {en: Arcane Power, tr: Arkanik Güç, zh-CN: 奥术之力, es: Poder arcano}
+elemental_fury: {en: Elemental Fury, tr: Element Öfkesi, zh-CN: 元素之怒, es: Furia elemental}
+clarity: {en: Clarity, tr: Berraklık, zh-CN: 清明, es: Claridad}
+discipline: {en: Discipline, tr: Disiplin, zh-CN: 自律, es: Disciplina}
+inner_peace: {en: Inner Peace, tr: İç Huzur, zh-CN: 内心平静, es: Paz interior}
+mending: {en: Mending, tr: Onarım, zh-CN: 愈合, es: Sanación}
+devotion: {en: Devotion, tr: Bağlılık, zh-CN: 虔诚, es: Devoción}
+radiance: {en: Radiance, tr: Işıltı, zh-CN: 光辉, es: Resplandor}
+wardcraft: {en: Wardcraft, tr: Koruma Sanatı, zh-CN: 守护之术, es: Arte protector}
+growth: {en: Growth, tr: Büyüme, zh-CN: 生长, es: Crecimiento}
+thornweave: {en: Thornweave, tr: Diken Örgüsü, zh-CN: 荆棘编织, es: Tejido espinoso}
+cadence: {en: Cadence, tr: Kadans, zh-CN: 韵律感, es: Cadencia}
+resonance: {en: Resonance, tr: Rezonans, zh-CN: 共鸣, es: Resonancia}
+spirit_well: {en: Spirit Well, tr: Ruh Kaynağı, zh-CN: 灵泉, es: Pozo espiritual}
+hexcraft: {en: Hexcraft, tr: Lanet Zanaatı, zh-CN: 咒术, es: Arte del maleficio}
+totemic_might: {en: Totemic Might, tr: Totem Kudreti, zh-CN: 图腾之力, es: Poderío totémico}
+vitality: {en: Vitality, tr: Yaşam Gücü, zh-CN: 活力, es: Vitalidad}

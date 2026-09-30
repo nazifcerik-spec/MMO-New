@@ -1,0 +1,138 @@
+class: bard
+abilities:
+  - code: song_of_valor
+    type: ACTIVE
+    unlock_level: 1
+    target: party
+    tags: [buff, song]
+    cost: {resource: rhythm, amount: 10}
+    cooldown_s: 12
+    effects: [{effect_type: BUFF, params: {duration_s: 12, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 6}}]}}]
+    l10n:
+      name: {en: Song of Valor, tr: Yiğitlik Şarkısı, zh-CN: 勇气之歌, es: Canción del valor}
+      description: {en: Attack buff., tr: Saldırı güçlendirmesi., zh-CN: 攻击增益。, es: Mejora de ataque.}
+  - code: healing_verse
+    type: ACTIVE
+    unlock_level: 10
+    target: party
+    tags: [heal, hot, song]
+    cost: {resource: rhythm, amount: 12}
+    cooldown_s: 10
+    effects: [{effect_type: HOT, params: {percent_of_power: 15, duration_s: 10, tick_s: 2, target: party}}]
+    l10n:
+      name: {en: Healing Verse, tr: Şifa Dizesi, zh-CN: 治愈诗篇, es: Verso sanador}
+      description: {en: Heal over time., tr: Zamanla şifa., zh-CN: 持续治疗。, es: Curación en el tiempo.}
+  - code: dissonant_chord
+    type: ACTIVE
+    unlock_level: 25
+    target: enemy_single
+    tags: [debuff, song]
+    cost: {resource: rhythm, amount: 15}
+    cooldown_s: 12
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 80, damage_type: arcane}}, {effect_type: DEBUFF, params: {kind: weaken, percent: 8, duration_s: 8}}]
+    l10n:
+      name: {en: Dissonant Chord, tr: Uyumsuz Akor, zh-CN: 不谐和弦, es: Acorde disonante}
+      description: {en: Debuff., tr: Zayıflatma., zh-CN: 减益。, es: Perjuicio.}
+  - code: quick_tempo
+    type: ACTIVE
+    unlock_level: 40
+    target: party
+    tags: [buff, song]
+    cost: {resource: rhythm, amount: 20}
+    cooldown_s: 20
+    effects: [{effect_type: BUFF, params: {duration_s: 10, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 8}}]}}]
+    l10n:
+      name: {en: Quick Tempo, tr: Hızlı Tempo, zh-CN: 快板, es: Tempo rápido}
+      description: {en: Attack speed., tr: Saldırı hızı., zh-CN: 攻击速度。, es: Velocidad de ataque.}
+  - code: encore
+    type: ACTIVE
+    unlock_level: 60
+    target: party
+    tags: [buff, spender]
+    cost: {resource: rhythm, amount: 40}
+    cooldown_s: 30
+    effects: [{effect_type: BUFF, params: {duration_s: 12, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 8}}]}}]
+    l10n:
+      name: {en: Encore, tr: Bis, zh-CN: 安可, es: Bis}
+      description: {en: "Repeats the last song, empowered.", tr: Son şarkıyı güçlendirilmiş tekrarlar., zh-CN: 强化重奏上一首歌。, es: Repite la última canción potenciada.}
+  - code: symphony_of_legends
+    type: ULTIMATE
+    unlock_level: 600
+    target: party
+    tags: [buff, song]
+    cost: {resource: rhythm, amount: 80}
+    cooldown_s: 150
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 12}}, {effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 10}}]}}]
+    l10n:
+      name: {en: Symphony of Legends, tr: Efsaneler Senfonisi, zh-CN: 传奇交响曲, es: Sinfonía de leyendas}
+      description: {en: An epic song that empowers the whole party., tr: Tüm grubu güçlendiren destansı bir şarkı., zh-CN: 强化全队的史诗之歌。, es: Una canción épica que potencia a todo el grupo.}
+  - code: perfect_pitch
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: buff_power, percent: 6}}]
+    l10n:
+      name: {en: Perfect Pitch, tr: Mutlak Kulak, zh-CN: 完美音准, es: Oído absoluto}
+      description: {en: Buff consistency., tr: Güçlendirme istikrarı., zh-CN: 增益稳定性。, es: Consistencia de mejoras.}
+  - code: stage_presence
+    type: PASSIVE
+    unlock_level: 30
+    effects: [{effect_type: SCALING_BONUS, params: {metric: party_size, step: 1, percent_per_step: 1, max_percent: 4, applies_to: buff_power}}]
+    l10n:
+      name: {en: Stage Presence, tr: Sahne Hâkimiyeti, zh-CN: 舞台魅力, es: Presencia escénica}
+      description: {en: Small power gain with party size., tr: Grup büyüklüğüyle küçük güç artışı., zh-CN: 队伍越大，力量略有提升。, es: Pequeño aumento de poder según el tamaño del grupo.}
+  - code: resonance
+    type: PASSIVE
+    unlock_level: 45
+    effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 8}}]
+    l10n:
+      name: {en: Resonance, tr: Rezonans, zh-CN: 共鸣, es: Resonancia}
+      description: {en: Song overlap efficiency., tr: Şarkı örtüşme verimi., zh-CN: 歌曲叠加效率。, es: Eficiencia de canciones superpuestas.}
+trees:
+  - code: melody
+    l10n:
+      name: {en: Melody, tr: Melodi, zh-CN: 旋律, es: Melodía}
+      focus: {en: "Buff, duration, heal", tr: "Güçlendirme, süre, şifa", zh-CN: 增益、持续时间、治疗, es: "Mejora, duración, curación"}
+    focus:
+      - {archetype: resonance, effects: [{effect_type: STAT_PERCENT, params: {stat: buff_power, percent: 2}}]}
+      - {archetype: cadence, effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 2}}]}
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: song_power, percent: 2}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_PERCENT, params: {stat: healing_power, percent: 1}}]}
+    capstone:
+      code: grand_symphony
+      effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: STAT_PERCENT, params: {stat: STR, percent: 2}}, {effect_type: STAT_PERCENT, params: {stat: DEX, percent: 2}}, {effect_type: STAT_PERCENT, params: {stat: INT, percent: 2}}, {effect_type: STAT_PERCENT, params: {stat: WIS, percent: 2}}]}}]
+      l10n:
+        name: {en: Grand Symphony, tr: Büyük Senfoni, zh-CN: 宏大交响, es: Gran sinfonía}
+        description: {en: The party gains a permanent all-stat bonus., tr: Grup kalıcı tüm stat bonusu kazanır., zh-CN: 全队获得永久全属性加成。, es: El grupo obtiene una bonificación permanente a todos los atributos.}
+  - code: rhythm
+    l10n:
+      name: {en: Rhythm, tr: Ritim, zh-CN: 节奏, es: Ritmo}
+      focus: {en: "Speed, crit, tempo", tr: "Hız, kritik, tempo", zh-CN: 速度、暴击、节拍, es: "Velocidad, crítico, tempo"}
+    focus:
+      - {archetype: cadence, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}
+      - {archetype: resonance, effects: [{effect_type: STAT_PERCENT, params: {stat: song_power, percent: 2}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+    capstone:
+      code: battle_anthem_capstone
+      effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 6}}]}}]
+      l10n:
+        name: {en: Battle Anthem, tr: Savaş Marşı, zh-CN: 战斗颂歌, es: Himno de combate}
+        description: {en: Permanent party attack speed., tr: Kalıcı grup saldırı hızı., zh-CN: 永久提升全队攻击速度。, es: Velocidad de ataque permanente para el grupo.}
+  - code: discord
+    l10n:
+      name: {en: Discord, tr: Ahenksizlik, zh-CN: 不和, es: Discordia}
+      focus: {en: "Slow, weakness, silence", tr: "Yavaşlatma, zayıflık, susturma", zh-CN: 减速、虚弱、沉默, es: "Ralentización, debilidad, silencio"}
+    focus:
+      - {archetype: hexcraft, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_PERCENT, params: {stat: debuff_power, percent: 2}}]}
+      - {archetype: arcane_power, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1, damage_type: arcane}}]}
+      - {archetype: guarding, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 1}}]}
+    capstone:
+      code: final_dirge_capstone
+      effects: [{effect_type: SCALING_BONUS, params: {metric: target_debuff_count, step: 1, percent_per_step: 4, max_percent: 20, applies_to: damage}}]
+      l10n:
+        name: {en: Final Dirge, tr: Son Ağıt, zh-CN: 终焉挽歌, es: Endecha final}
+        description: {en: Damage grows with every debuff on the target., tr: Hedefteki her zayıflatmayla hasar artar., zh-CN: 目标身上每个减益都提升伤害。, es: El daño crece con cada perjuicio del objetivo.}

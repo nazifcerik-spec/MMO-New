@@ -104,7 +104,16 @@
     "promotion_required": "请先选择 100 级路线。",
     "path_change_cooldown": "更换路线冷却中。",
     "invalid_class": "未知职业。",
-    "invalid_race": "未知种族。"
+    "invalid_race": "未知种族。",
+    "tier_locked": "请先在此天赋树投入更多点数。",
+    "tree_cap": "每棵天赋树最多 25 点。",
+    "not_enough_points": "天赋点不足。",
+    "level_locked": "等级不足以学习该天赋。",
+    "prerequisite_missing": "缺少前置天赋。",
+    "multiple_capstones": "只能拥有一个终极天赋。",
+    "talent_decrease": "降低天赋需要重置。",
+    "material_system_unavailable": "暂时无法支付所需的重置材料。",
+    "nothing_to_reset": "没有可重置的天赋。"
   },
   "characters": {
     "title": "你的角色",
@@ -247,5 +256,39 @@
     "pathChangeFree": "首次更换路线免费。",
     "classTitle": "职业称号：{title}",
     "openClass": "职业之路"
+  },
+  "talents": {
+    "title": "天赋",
+    "points": "点数：{spent} / {available}（上限 {max}）",
+    "treeSpent": "{spent} / {max}",
+    "tier": "第 {tier} 层",
+    "capstone": "终极天赋",
+    "needsPoints": "需要在此天赋树投入 {points} 点",
+    "needsLevel": "需要 {level} 级",
+    "rank": "等级 {rank}/{max}",
+    "apply": "学习天赋",
+    "clear": "清除待定",
+    "reset": "重置天赋",
+    "resetCost": "重置费用：{gold} 金币{material}",
+    "resetMaterial": " + {qty}× {material}",
+    "resetConfirm": "确定重置所有天赋？",
+    "increase": "为{name}加一点",
+    "open": "天赋"
+  },
+  "abilities": {
+    "title": "技能",
+    "types": {
+      "ACTIVE": "主动",
+      "PASSIVE": "被动",
+      "ULTIMATE": "终极",
+      "STANCE": "姿态",
+      "AURA": "光环",
+      "PROC": "触发"
+    },
+    "unlockAt": "{level} 级解锁",
+    "cost": "消耗 {amount} {resource}",
+    "cooldown": "冷却 {seconds} 秒",
+    "awakening": "觉醒：{name}",
+    "awakeningInactive": "{level} 级觉醒"
   }
 }

@@ -1,0 +1,6 @@
+code: ability_limits
+data:
+  # Canonical launch limit per specialization for Active Tactics: 5 core actives + 1 ultimate.
+  max_core_actives: 5
+  max_ultimates: 1
+  max_passives: 20

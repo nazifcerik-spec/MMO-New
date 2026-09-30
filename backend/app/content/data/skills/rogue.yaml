@@ -1,0 +1,145 @@
+class: rogue
+abilities:
+  - code: backstab
+    type: ACTIVE
+    unlock_level: 1
+    target: enemy_single
+    tags: [single_target, spender]
+    cost: {resource: energy, amount: 35}
+    cooldown_s: 4
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 160}}]
+    l10n:
+      name: {en: Backstab, tr: Sırttan Bıçak, zh-CN: 背刺, es: Puñalada trapera}
+      description: {en: High single-target damage., tr: Yüksek tek hedef hasarı., zh-CN: 高额单体伤害。, es: Gran daño a un objetivo.}
+  - code: poisoned_blade
+    type: ACTIVE
+    unlock_level: 10
+    target: enemy_single
+    tags: [debuff, dot]
+    cost: {resource: energy, amount: 25}
+    cooldown_s: 12
+    effects: [{effect_type: DOT, params: {damage_type: poison, percent_of_power: 20, duration_s: 12, tick_s: 2}}]
+    l10n:
+      name: {en: Poisoned Blade, tr: Zehirli Bıçak, zh-CN: 淬毒之刃, es: Hoja envenenada}
+      description: {en: Applies poison., tr: Zehir uygular., zh-CN: 施加毒素。, es: Aplica veneno.}
+  - code: evasion
+    type: ACTIVE
+    unlock_level: 25
+    target: self
+    tags: [defensive]
+    cost: null
+    cooldown_s: 60
+    effects: [{effect_type: BUFF, params: {duration_s: 8, effects: [{effect_type: STAT_FLAT, params: {stat: dodge, amount: 30}}]}}]
+    l10n:
+      name: {en: Evasion, tr: Sıyrılma, zh-CN: 闪避术, es: Evasión}
+      description: {en: Brief burst of dodge., tr: Kısa süreli kaçınma., zh-CN: 短时间大幅提升闪避。, es: Esquiva breve.}
+  - code: fan_of_knives
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_all
+    tags: [aoe]
+    cost: {resource: energy, amount: 40}
+    cooldown_s: 8
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 70}}]
+    l10n:
+      name: {en: Fan of Knives, tr: Bıçak Yelpazesi, zh-CN: 刀扇, es: Abanico de cuchillos}
+      description: {en: Hits multiple targets., tr: Çoklu hedefe vurur., zh-CN: 攻击多个目标。, es: Golpea a varios objetivos.}
+  - code: finisher
+    type: ACTIVE
+    unlock_level: 60
+    target: enemy_single
+    tags: [finisher, single_target, spender]
+    cost: {resource: opportunity, amount: 5}
+    cooldown_s: 3
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 300}}]
+    l10n:
+      name: {en: Finisher, tr: Bitirici, zh-CN: 终结技, es: Remate}
+      description: {en: Spends Opportunity for a powerful strike., tr: Fırsat harcayarak güçlenir., zh-CN: 消耗机遇发动强力一击。, es: Gasta Oportunidad para un golpe poderoso.}
+  - code: death_mark
+    type: ULTIMATE
+    unlock_level: 600
+    target: enemy_single
+    tags: [finisher, single_target]
+    cost: {resource: energy, amount: 60}
+    cooldown_s: 120
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 500, guaranteed_crit: true}}]
+    l10n:
+      name: {en: Death Mark, tr: Ölüm İşareti, zh-CN: 死亡印记, es: Marca mortal}
+      description: {en: A guaranteed critical execution., tr: Garantili kritik bir infaz., zh-CN: 必定暴击的处决。, es: Una ejecución crítica garantizada.}
+  - code: quick_hands
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 5}}]
+    l10n:
+      name: {en: Quick Hands, tr: Çevik Eller, zh-CN: 快手, es: Manos rápidas}
+      description: {en: Attack speed increased., tr: Saldırı hızı artar., zh-CN: 攻击速度提升。, es: Velocidad de ataque aumentada.}
+  - code: deep_wounds
+    type: PROC
+    unlock_level: 30
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: DOT, params: {damage_type: physical, percent_of_power: 10, duration_s: 6, max_stacks: 3}}]}}]
+    l10n:
+      name: {en: Deep Wounds, tr: Derin Yaralar, zh-CN: 重伤, es: Heridas profundas}
+      description: {en: Crits cause bleeding., tr: Kritikler kanama uygular., zh-CN: 暴击造成流血。, es: Los críticos causan sangrado.}
+  - code: shadowstep
+    type: PROC
+    unlock_level: 45
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: BUFF, params: {duration_s: 4, effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 5}}]}}]}}]
+    l10n:
+      name: {en: Shadowstep, tr: Gölge Adımı, zh-CN: 暗影步, es: Paso sombrío}
+      description: {en: Accuracy rises after dodging., tr: Kaçınmadan sonra isabet artar., zh-CN: 闪避后命中提升。, es: La precisión sube tras esquivar.}
+  - code: deadly_precision
+    type: PASSIVE
+    unlock_level: 70
+    effects: [{effect_type: STAT_PERCENT, params: {stat: proc_consistency, percent: 10}}]
+    l10n:
+      name: {en: Deadly Precision, tr: Ölümcül Kesinlik, zh-CN: 致命精准, es: Precisión letal}
+      description: {en: LUK stabilizes crits., tr: LUK kritik istikrarını artırır., zh-CN: 幸运使暴击更稳定。, es: La SUE estabiliza los críticos.}
+trees:
+  - code: assassination
+    l10n:
+      name: {en: Assassination, tr: Suikast, zh-CN: 刺杀, es: Asesinato}
+      focus: {en: "Crit, execute, poison", tr: "Kritik, infaz, zehir", zh-CN: 暴击、斩杀、毒素, es: "Crítico, ejecución, veneno"}
+    focus:
+      - {archetype: lethality, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: toxicity, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, damage_type: poison}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 2}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, condition: {metric: target_hp_pct, op: lt, value: 35}}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 1}}]}
+    capstone:
+      code: perfect_kill
+      effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 25, condition: {metric: target_hp_pct, op: lt, value: 20}}}]
+      l10n:
+        name: {en: Perfect Kill, tr: Kusursuz Öldürüş, zh-CN: 完美击杀, es: Muerte perfecta}
+        description: {en: Massive damage to nearly dead targets., tr: Ölmek üzere olan hedeflere büyük hasar., zh-CN: 对濒死目标造成巨额伤害。, es: Daño masivo a objetivos casi muertos.}
+  - code: combat
+    l10n:
+      name: {en: Combat, tr: Dövüş, zh-CN: 战斗, es: Combate}
+      focus: {en: "Speed, dual wield, combo", tr: "Hız, çift silah, kombo", zh-CN: 速度、双持、连击, es: "Velocidad, doble empuñadura, combo"}
+    focus:
+      - {archetype: celerity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 1}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+    capstone:
+      code: blade_storm
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 6, effects: [{effect_type: DAMAGE, params: {percent_of_power: 120}}]}}]
+      l10n:
+        name: {en: Blade Storm, tr: Bıçak Fırtınası, zh-CN: 剑刃风暴, es: Tormenta de cuchillas}
+        description: {en: Every 6th hit unleashes a flurry., tr: Her 6. vuruş bir darbe sağanağı başlatır., zh-CN: 每第 6 次攻击释放连斩。, es: Cada 6.º golpe desata una ráfaga.}
+  - code: trickery
+    l10n:
+      name: {en: Trickery, tr: Hile, zh-CN: 诡计, es: Engaño}
+      focus: {en: "Dodge, counter, debuff", tr: "Kaçınma, karşı saldırı, zayıflatma", zh-CN: 闪避、反击、减益, es: "Esquiva, contraataque, perjuicio"}
+    focus:
+      - {archetype: evasion, effects: [{effect_type: STAT_FLAT, params: {stat: dodge, amount: 0.5}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: guarding, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+    capstone:
+      code: untouchable_capstone
+      effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: DAMAGE, params: {percent_of_power: 90, guaranteed_crit: true}}]}}]
+      l10n:
+        name: {en: Untouchable, tr: Dokunulmaz, zh-CN: 不可触及, es: Intocable}
+        description: {en: Every dodge becomes a critical counter., tr: Her kaçınma kritik bir karşı saldırıya dönüşür., zh-CN: 每次闪避都转化为暴击反击。, es: Cada esquiva se convierte en un contraataque crítico.}

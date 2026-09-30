@@ -104,7 +104,16 @@
     "promotion_required": "Choose your Lv100 path first.",
     "path_change_cooldown": "Path change is on cooldown.",
     "invalid_class": "Unknown class.",
-    "invalid_race": "Unknown race."
+    "invalid_race": "Unknown race.",
+    "tier_locked": "Spend more points in this tree first.",
+    "tree_cap": "A tree can hold at most 25 points.",
+    "not_enough_points": "Not enough talent points.",
+    "level_locked": "Your level is too low for that talent.",
+    "prerequisite_missing": "A prerequisite talent is missing.",
+    "multiple_capstones": "Only one capstone can be active.",
+    "talent_decrease": "Lowering talents requires a reset.",
+    "material_system_unavailable": "The required reset material cannot be paid yet.",
+    "nothing_to_reset": "No talents to reset."
   },
   "characters": {
     "title": "Your characters",
@@ -247,5 +256,39 @@
     "pathChangeFree": "Your first path change is free.",
     "classTitle": "Class title: {title}",
     "openClass": "Class path"
+  },
+  "talents": {
+    "title": "Talents",
+    "points": "Points: {spent} / {available} (max {max})",
+    "treeSpent": "{spent} / {max}",
+    "tier": "Tier {tier}",
+    "capstone": "Capstone",
+    "needsPoints": "Needs {points} points in this tree",
+    "needsLevel": "Requires Lv {level}",
+    "rank": "Rank {rank}/{max}",
+    "apply": "Learn talents",
+    "clear": "Clear pending",
+    "reset": "Reset talents",
+    "resetCost": "Reset cost: {gold} gold{material}",
+    "resetMaterial": " + {qty}× {material}",
+    "resetConfirm": "Reset all talents?",
+    "increase": "Add a point to {name}",
+    "open": "Talents"
+  },
+  "abilities": {
+    "title": "Abilities",
+    "types": {
+      "ACTIVE": "Active",
+      "PASSIVE": "Passive",
+      "ULTIMATE": "Ultimate",
+      "STANCE": "Stance",
+      "AURA": "Aura",
+      "PROC": "Proc"
+    },
+    "unlockAt": "Unlocks at Lv {level}",
+    "cost": "Cost {amount} {resource}",
+    "cooldown": "Cooldown {seconds}s",
+    "awakening": "Awakening: {name}",
+    "awakeningInactive": "Awakens at Lv {level}"
   }
 }

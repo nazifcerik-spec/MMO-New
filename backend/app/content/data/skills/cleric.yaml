@@ -1,0 +1,138 @@
+class: cleric
+abilities:
+  - code: heal
+    type: ACTIVE
+    unlock_level: 1
+    target: lowest_hp_ally
+    tags: [heal]
+    cost: {resource: faith, amount: 10}
+    cooldown_s: 3
+    effects: [{effect_type: HEAL, params: {percent_of_power: 150, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Heal, tr: Şifa, zh-CN: 治疗术, es: Curar}
+      description: {en: Single-target heal., tr: Tek hedef iyileştirme., zh-CN: 单体治疗。, es: Curación a un objetivo.}
+  - code: renew
+    type: ACTIVE
+    unlock_level: 10
+    target: lowest_hp_ally
+    tags: [heal, hot]
+    cost: {resource: faith, amount: 8}
+    cooldown_s: 6
+    effects: [{effect_type: HOT, params: {percent_of_power: 20, duration_s: 12, tick_s: 2, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Renew, tr: Yenile, zh-CN: 恢复, es: Renovar}
+      description: {en: Heal over time., tr: Zamanla iyileştirme., zh-CN: 持续治疗。, es: Curación en el tiempo.}
+  - code: barrier
+    type: ACTIVE
+    unlock_level: 25
+    target: lowest_hp_ally
+    tags: [defensive, shield]
+    cost: {resource: faith, amount: 15}
+    cooldown_s: 12
+    effects: [{effect_type: SHIELD, params: {percent_max_hp: 12, duration_s: 10, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Barrier, tr: Bariyer, zh-CN: 屏障, es: Barrera}
+      description: {en: Absorb shield., tr: Emici kalkan., zh-CN: 吸收护盾。, es: Escudo absorbente.}
+  - code: cleanse
+    type: ACTIVE
+    unlock_level: 40
+    target: lowest_hp_ally
+    tags: [cleanse, buff]
+    cost: {resource: faith, amount: 10}
+    cooldown_s: 15
+    effects: [{effect_type: HEAL, params: {percent_of_power: 40, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Cleanse, tr: Arındır, zh-CN: 驱散, es: Purificar}
+      description: {en: Removes debuffs., tr: Zayıflatmaları kaldırır., zh-CN: 移除减益。, es: Elimina perjuicios.}
+  - code: sanctuary
+    type: ACTIVE
+    unlock_level: 60
+    target: party
+    tags: [heal, aoe]
+    cost: {resource: faith, amount: 40}
+    cooldown_s: 30
+    effects: [{effect_type: HOT, params: {percent_of_power: 25, duration_s: 10, tick_s: 2, target: party}}]
+    l10n:
+      name: {en: Sanctuary, tr: Sığınak, zh-CN: 圣域, es: Santuario}
+      description: {en: Group healing area., tr: Grup iyileştirme alanı., zh-CN: 群体治疗区域。, es: Área de curación grupal.}
+  - code: divine_intervention
+    type: ULTIMATE
+    unlock_level: 600
+    target: party
+    tags: [heal, defensive]
+    cost: {resource: faith, amount: 80}
+    cooldown_s: 180
+    effects: [{effect_type: HEAL, params: {percent_of_power: 300, target: party}}, {effect_type: SHIELD, params: {percent_max_hp: 15, duration_s: 10, target: party}}]
+    l10n:
+      name: {en: Divine Intervention, tr: İlahi Müdahale, zh-CN: 神圣干涉, es: Intervención divina}
+      description: {en: Fully restores and shields the party., tr: Grubu tamamen iyileştirir ve korur., zh-CN: 全面治疗并保护团队。, es: Restaura y protege al grupo.}
+  - code: devotion
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: healing_power, percent: 6}}]
+    l10n:
+      name: {en: Devotion, tr: Adanmışlık, zh-CN: 奉献, es: Devoción}
+      description: {en: WIS scaling improved., tr: WIS ölçeklemesi artar., zh-CN: 智慧加成提升。, es: Mejora el escalado de SAB.}
+  - code: merciful_heart
+    type: PASSIVE
+    unlock_level: 30
+    effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 10, condition: {metric: target_hp_pct, op: lt, value: 35}}}]
+    l10n:
+      name: {en: Merciful Heart, tr: Merhametli Yürek, zh-CN: 仁心, es: Corazón piadoso}
+      description: {en: Bonus healing on low-HP targets., tr: Düşük canlı hedeflere şifa bonusu., zh-CN: 对低生命目标治疗加成。, es: Curación extra a objetivos con poca vida.}
+  - code: sacred_reserve
+    type: PASSIVE
+    unlock_level: 45
+    effects: [{effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 8}}]
+    l10n:
+      name: {en: Sacred Reserve, tr: Kutsal Rezerv, zh-CN: 神圣储备, es: Reserva sagrada}
+      description: {en: Mana/Faith regeneration., tr: Mana/İnanç yenilenmesi., zh-CN: 法力/信仰回复。, es: Regeneración de maná/Fe.}
+trees:
+  - code: restoration
+    l10n:
+      name: {en: Restoration, tr: Onarım, zh-CN: 恢复, es: Restauración}
+      focus: {en: "Heal, HoT, crit heal", tr: "Şifa, zamanla şifa, kritik şifa", zh-CN: 治疗、持续治疗、治疗暴击, es: "Curación, CeT, curación crítica"}
+    focus:
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: growth, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 2, scope: hot}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_PERCENT, params: {stat: healing_power, percent: 1}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 2}}]}
+    capstone:
+      code: miracle
+      effects: [{effect_type: THRESHOLD_TRIGGER, params: {once_per_combat: true, condition: {metric: target_hp_pct, op: lt, value: 20}, effects: [{effect_type: HEAL, params: {percent_of_power: 400, target: lowest_hp_ally}}]}}]
+      l10n:
+        name: {en: Miracle, tr: Mucize, zh-CN: 奇迹, es: Milagro}
+        description: {en: "Once per fight, a dying ally is saved by a huge heal.", tr: Savaş başına bir kez ölmek üzere olan müttefik büyük bir şifayla kurtarılır., zh-CN: 每场战斗一次，以巨额治疗拯救濒死友军。, es: "Una vez por combate, una gran curación salva a un aliado moribundo."}
+  - code: barrier
+    l10n:
+      name: {en: Barrier, tr: Bariyer, zh-CN: 屏障, es: Barrera}
+      focus: {en: "Shield, absorb, DR", tr: "Kalkan, emme, hasar azaltma", zh-CN: 护盾、吸收、减伤, es: "Escudo, absorción, reducción de daño"}
+    focus:
+      - {archetype: wardcraft, effects: [{effect_type: STAT_PERCENT, params: {stat: shield_power, percent: 2}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: fortitude, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+      - {archetype: guarding, effects: [{effect_type: STAT_PERCENT, params: {stat: magic_resist, percent: 2}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_PERCENT, params: {stat: healing_power, percent: 1}}]}
+    capstone:
+      code: divine_fortress
+      effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 6}}]}}]
+      l10n:
+        name: {en: Divine Fortress, tr: İlahi Kale, zh-CN: 神圣堡垒, es: Fortaleza divina}
+        description: {en: The whole party takes less damage., tr: Tüm grup daha az hasar alır., zh-CN: 全队受到的伤害降低。, es: Todo el grupo recibe menos daño.}
+  - code: faith
+    l10n:
+      name: {en: Faith, tr: İnanç, zh-CN: 信仰, es: Fe}
+      focus: {en: "Buff, cleanse, aura", tr: "Güçlendirme, arındırma, aura", zh-CN: 增益、驱散、光环, es: "Mejora, purificación, aura"}
+    focus:
+      - {archetype: radiance, effects: [{effect_type: STAT_PERCENT, params: {stat: buff_power, percent: 2}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 2}}]}
+      - {archetype: discipline, effects: [{effect_type: COOLDOWN_MOD, params: {percent: -1, ability_tag: cleanse}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: aura_power, percent: 2}}]}
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 1}}]}
+    capstone:
+      code: divine_presence
+      effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 4}}, {effect_type: HEAL_MULTIPLIER, params: {percent: 4, scope: received}}]}}]
+      l10n:
+        name: {en: Divine Presence, tr: İlahi Varlık, zh-CN: 神圣临在, es: Presencia divina}
+        description: {en: Party deals more damage and receives more healing., tr: Grup daha fazla hasar verir ve daha çok şifa alır., zh-CN: 团队伤害提升，受到的治疗增加。, es: El grupo inflige más daño y recibe más curación.}

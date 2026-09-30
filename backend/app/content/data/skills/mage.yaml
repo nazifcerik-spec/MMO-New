@@ -1,0 +1,145 @@
+class: mage
+abilities:
+  - code: arcane_bolt
+    type: ACTIVE
+    unlock_level: 1
+    target: enemy_single
+    tags: [single_target, generator]
+    cost: {resource: mana, amount: 8}
+    cooldown_s: 2
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 100, damage_type: arcane}}]
+    l10n:
+      name: {en: Arcane Bolt, tr: Arkanik Ok, zh-CN: 奥术飞弹, es: Proyectil arcano}
+      description: {en: Basic spell., tr: Temel büyü., zh-CN: 基础法术。, es: Hechizo básico.}
+  - code: rune_burst
+    type: ACTIVE
+    unlock_level: 10
+    target: enemy_single
+    tags: [single_target, spender, finisher]
+    cost: {resource: arcane_charge, amount: 4}
+    cooldown_s: 10
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 260, damage_type: arcane}}]
+    l10n:
+      name: {en: Rune Burst, tr: Rün Patlaması, zh-CN: 符文爆裂, es: Estallido rúnico}
+      description: {en: Effect depends on rune state., tr: Etkisi rün durumuna bağlıdır., zh-CN: 效果取决于符文状态。, es: El efecto depende de las runas.}
+  - code: fireball
+    type: ACTIVE
+    unlock_level: 25
+    target: enemy_single
+    tags: [single_target, dot]
+    cost: {resource: mana, amount: 15}
+    cooldown_s: 5
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 130, damage_type: fire}}, {effect_type: DOT, params: {damage_type: fire, percent_of_power: 12, duration_s: 6}}]
+    l10n:
+      name: {en: Fireball, tr: Ateş Topu, zh-CN: 火球术, es: Bola de fuego}
+      description: {en: Applies burn., tr: Yanma uygular., zh-CN: 施加燃烧。, es: Aplica quemadura.}
+  - code: frost_nova
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_all
+    tags: [aoe, debuff, defensive]
+    cost: {resource: mana, amount: 20}
+    cooldown_s: 20
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 60, damage_type: frost}}, {effect_type: DEBUFF, params: {kind: freeze, duration_s: 3}}]
+    l10n:
+      name: {en: Frost Nova, tr: Buz Novası, zh-CN: 冰霜新星, es: Nova de escarcha}
+      description: {en: Slow or freeze., tr: Yavaşlatır veya dondurur., zh-CN: 减速或冻结。, es: Ralentiza o congela.}
+  - code: mana_shield
+    type: ACTIVE
+    unlock_level: 60
+    target: self
+    tags: [defensive]
+    cost: {resource: mana, amount: 25}
+    cooldown_s: 60
+    effects: [{effect_type: SHIELD, params: {percent_max_hp: 25, duration_s: 12}}]
+    l10n:
+      name: {en: Mana Shield, tr: Mana Kalkanı, zh-CN: 法力护盾, es: Escudo de maná}
+      description: {en: Redirects damage to mana., tr: Hasarı manaya yönlendirir., zh-CN: 将伤害转移至法力。, es: Redirige el daño al maná.}
+  - code: meteor
+    type: ULTIMATE
+    unlock_level: 600
+    target: enemy_all
+    tags: [aoe]
+    cost: {resource: mana, amount: 60}
+    cooldown_s: 120
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 420, damage_type: fire}}]
+    l10n:
+      name: {en: Meteor, tr: Meteor, zh-CN: 陨石术, es: Meteoro}
+      description: {en: A falling star crushes all enemies., tr: Düşen bir yıldız tüm düşmanları ezer., zh-CN: 陨星砸向所有敌人。, es: Una estrella fugaz aplasta a todos los enemigos.}
+  - code: scholar
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: max_resource, percent: 10}}]
+    l10n:
+      name: {en: Scholar, tr: Âlim, zh-CN: 学者, es: Erudito}
+      description: {en: Mana pool increased., tr: Mana havuzu artar., zh-CN: 法力上限提升。, es: Reserva de maná aumentada.}
+  - code: spell_echo
+    type: PROC
+    unlock_level: 30
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 8, trigger: on_ability_cast, effects: [{effect_type: DAMAGE, params: {percent_of_power: 80, damage_type: arcane}}]}}]
+    l10n:
+      name: {en: Spell Echo, tr: Büyü Yankısı, zh-CN: 法术回响, es: Eco de hechizo}
+      description: {en: Small chance to repeat a spell., tr: Düşük ihtimalle büyü tekrarlanır., zh-CN: 小几率重复施放法术。, es: Pequeña probabilidad de repetir un hechizo.}
+  - code: arcane_focus
+    type: PASSIVE
+    unlock_level: 45
+    effects: [{effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 5}}]
+    l10n:
+      name: {en: Arcane Focus, tr: Arkanik Odak, zh-CN: 奥术专注, es: Enfoque arcano}
+      description: {en: INT scaling improved., tr: INT ölçeklemesi artar., zh-CN: 智力加成提升。, es: Mejora el escalado de INT.}
+  - code: elemental_memory
+    type: PASSIVE
+    unlock_level: 70
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_ability_cast, effects: [{effect_type: STACK_GAIN, params: {stack_code: elemental_memory, max_stacks: 5, per_stack: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}}]}}]
+    l10n:
+      name: {en: Elemental Memory, tr: Element Hafızası, zh-CN: 元素记忆, es: Memoria elemental}
+      description: {en: Consecutive same-element spells grow stronger., tr: Ardışık aynı element büyüleri güçlenir., zh-CN: 连续同元素法术威力递增。, es: Hechizos seguidos del mismo elemento se fortalecen.}
+trees:
+  - code: arcane
+    l10n:
+      name: {en: Arcane, tr: Arkanik, zh-CN: 奥术, es: Arcano}
+      focus: {en: "Mana, rune, overload", tr: "Mana, rün, aşırı yükleme", zh-CN: 法力、符文、超载, es: "Maná, runa, sobrecarga"}
+    focus:
+      - {archetype: arcane_power, effects: [{effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 1}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: max_resource, percent: 2}}]}
+      - {archetype: discipline, effects: [{effect_type: RESOURCE_COST_MOD, params: {resource: mana, percent: -1}}]}
+      - {archetype: penetration, effects: [{effect_type: STAT_FLAT, params: {stat: magic_penetration, amount: 1}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1, damage_type: arcane}}]}
+    capstone:
+      code: arcane_singularity
+      effects: [{effect_type: STACK_CAP_MOD, params: {stack_code: arcane_charge, amount: 2}}, {effect_type: DAMAGE_MULTIPLIER, params: {percent: 8, damage_type: arcane}}]
+      l10n:
+        name: {en: Arcane Singularity, tr: Arkanik Tekillik, zh-CN: 奥术奇点, es: Singularidad arcana}
+        description: {en: More Arcane Charges and stronger arcane spells., tr: Daha fazla Arkanik Yük ve daha güçlü arkanik büyüler., zh-CN: 更多奥术充能，奥术法术更强。, es: Más Cargas arcanas y hechizos arcanos más fuertes.}
+  - code: element
+    l10n:
+      name: {en: Element, tr: Element, zh-CN: 元素, es: Elemento}
+      focus: {en: "Burn/frost, resist penetration", tr: "Yanma/ayaz, direnç delme", zh-CN: 燃烧/冰霜、抗性穿透, es: "Quemadura/escarcha, penetración de resistencias"}
+    focus:
+      - {archetype: elemental_fury, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1, damage_type: fire}}]}
+      - {archetype: elemental_fury, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1, damage_type: frost}}]}
+      - {archetype: penetration, effects: [{effect_type: STAT_FLAT, params: {stat: magic_penetration, amount: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: arcane_power, effects: [{effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 1}}]}
+    capstone:
+      code: elemental_avatar
+      effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: fire}}, {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: frost}}, {effect_type: DAMAGE_MULTIPLIER, params: {percent: 10, damage_type: lightning}}]
+      l10n:
+        name: {en: Elemental Avatar, tr: Element Avatarı, zh-CN: 元素化身, es: Avatar elemental}
+        description: {en: All elemental damage greatly increased., tr: Tüm element hasarı büyük ölçüde artar., zh-CN: 所有元素伤害大幅提升。, es: Todo el daño elemental aumenta mucho.}
+  - code: control
+    l10n:
+      name: {en: Control, tr: Kontrol, zh-CN: 控制, es: Control}
+      focus: {en: "Slow, shield, cooldown", tr: "Yavaşlatma, kalkan, bekleme", zh-CN: 减速、护盾、冷却, es: "Ralentización, escudo, enfriamiento"}
+    focus:
+      - {archetype: discipline, effects: [{effect_type: COOLDOWN_MOD, params: {percent: -1}}]}
+      - {archetype: guarding, effects: [{effect_type: STAT_PERCENT, params: {stat: shield_power, percent: 2}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: mana_regen, percent: 2}}]}
+    capstone:
+      code: time_stop
+      effects: [{effect_type: COOLDOWN_MOD, params: {percent: -10, chance_no_cooldown_percent: 10}}]
+      l10n:
+        name: {en: Time Stop, tr: Zaman Durdurma, zh-CN: 时间静止, es: Detener el tiempo}
+        description: {en: Cooldowns shorten and sometimes skip., tr: Bekleme süreleri kısalır ve bazen atlanır., zh-CN: 冷却缩短，且有时跳过冷却。, es: Los enfriamientos se acortan y a veces se omiten.}

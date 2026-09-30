@@ -1,0 +1,145 @@
+class: warrior
+abilities:
+  - code: shield_slam
+    type: ACTIVE
+    unlock_level: 1
+    target: enemy_single
+    tags: [single_target, threat, generator]
+    cost: {resource: rage, amount: 10}
+    cooldown_s: 6
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 110}}]
+    l10n:
+      name: {en: Shield Slam, tr: Kalkan Darbesi, zh-CN: 盾牌猛击, es: Golpe de escudo}
+      description: {en: Bash with your shield; high threat., tr: Kalkanla vurur; yüksek tehdit., zh-CN: 用盾牌猛击；产生大量威胁。, es: Golpea con el escudo; mucha amenaza.}
+  - code: war_cry
+    type: ACTIVE
+    unlock_level: 10
+    target: self
+    tags: [buff]
+    cost: {resource: rage, amount: 20}
+    cooldown_s: 30
+    effects: [{effect_type: BUFF, params: {duration_s: 10, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 10}}]}}]
+    l10n:
+      name: {en: War Cry, tr: Savaş Narası, zh-CN: 战吼, es: Grito de guerra}
+      description: {en: Short attack or defense buff., tr: Kısa süreli saldırı veya savunma güçlendirmesi., zh-CN: 短暂提升攻击或防御。, es: Mejora breve de ataque o defensa.}
+  - code: execution
+    type: ACTIVE
+    unlock_level: 25
+    target: enemy_single
+    tags: [finisher, single_target, spender]
+    cost: {resource: rage, amount: 40}
+    cooldown_s: 8
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 250}}]
+    l10n:
+      name: {en: Execution, tr: İnfaz, zh-CN: 斩杀, es: Ejecución}
+      description: {en: Heavy damage to a low-HP target., tr: Düşük canlı hedefe yüksek hasar., zh-CN: 对低生命目标造成高额伤害。, es: Gran daño a un objetivo con poca vida.}
+  - code: whirlwind
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_all
+    tags: [aoe, spender]
+    cost: {resource: rage, amount: 30}
+    cooldown_s: 10
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 80}}]
+    l10n:
+      name: {en: Whirlwind, tr: Kasırga, zh-CN: 旋风斩, es: Torbellino}
+      description: {en: Physical attack on multiple targets., tr: Çoklu hedefe fiziksel saldırı., zh-CN: 对多个目标造成物理伤害。, es: Ataque físico a varios objetivos.}
+  - code: last_stand
+    type: ACTIVE
+    unlock_level: 60
+    target: self
+    tags: [defensive]
+    cost: null
+    cooldown_s: 90
+    effects: [{effect_type: SHIELD, params: {percent_max_hp: 20, duration_s: 10}}, {effect_type: DAMAGE_REDUCTION, params: {percent: 20, duration_s: 10}}]
+    l10n:
+      name: {en: Last Stand, tr: Son Direniş, zh-CN: 破釜沉舟, es: Última resistencia}
+      description: {en: Temporary HP and damage reduction., tr: Geçici can ve hasar azaltma., zh-CN: 获得临时生命与减伤。, es: PS temporales y reducción de daño.}
+  - code: titans_wrath
+    type: ULTIMATE
+    unlock_level: 600
+    target: enemy_all
+    tags: [aoe, finisher]
+    cost: {resource: rage, amount: 80}
+    cooldown_s: 120
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 400}}]
+    l10n:
+      name: {en: "Titan's Wrath", tr: Titanın Gazabı, zh-CN: 泰坦之怒, es: Ira del titán}
+      description: {en: A devastating blow to all enemies., tr: Tüm düşmanlara yıkıcı bir darbe., zh-CN: 对所有敌人造成毁灭性打击。, es: Un golpe devastador a todos los enemigos.}
+  - code: iron_skin
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 6}}]
+    l10n:
+      name: {en: Iron Skin, tr: Demir Deri, zh-CN: 钢铁之肤, es: Piel de hierro}
+      description: {en: Armor scaling improved., tr: Zırh ölçeklemesi artar., zh-CN: 护甲加成提升。, es: Mejora el escalado de armadura.}
+  - code: veterans_tempo
+    type: PASSIVE
+    unlock_level: 30
+    effects: [{effect_type: SCALING_BONUS, params: {metric: combat_time_s, step: 10, percent_per_step: 2, max_percent: 10, applies_to: attack_speed}}]
+    l10n:
+      name: {en: "Veteran's Tempo", tr: Kıdemli Temposu, zh-CN: 老兵节奏, es: Ritmo del veterano}
+      description: {en: Attack speed rises in long fights., tr: Uzayan savaşlarda saldırı hızı artar., zh-CN: 战斗越久攻击速度越快。, es: La velocidad de ataque sube en combates largos.}
+  - code: blood_memory
+    type: PROC
+    unlock_level: 45
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: rage, amount: 5}}]}}]
+    l10n:
+      name: {en: Blood Memory, tr: Kan Hafızası, zh-CN: 血之记忆, es: Memoria de sangre}
+      description: {en: Crits generate Rage., tr: Kritikler Öfke üretir., zh-CN: 暴击产生怒气。, es: Los críticos generan Ira.}
+  - code: weapon_familiarity
+    type: PASSIVE
+    unlock_level: 70
+    effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 3}}]
+    l10n:
+      name: {en: Weapon Familiarity, tr: Silah Aşinalığı, zh-CN: 武器熟稔, es: Familiaridad con armas}
+      description: {en: Weapon mastery grows faster., tr: Silah ustalığı daha hızlı gelişir., zh-CN: 武器熟练度提升更快。, es: El dominio de armas crece más rápido.}
+trees:
+  - code: defense
+    l10n:
+      name: {en: Defense, tr: Savunma, zh-CN: 防御, es: Defensa}
+      focus: {en: "HP, Block, Shield, DR", tr: "Can, Blok, Kalkan, Hasar azaltma", zh-CN: 生命、格挡、护盾、减伤, es: "PS, Bloqueo, Escudo, Reducción de daño"}
+    focus:
+      - {archetype: fortitude, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+      - {archetype: bulwark, effects: [{effect_type: STAT_FLAT, params: {stat: block, amount: 1}}]}
+      - {archetype: guarding, effects: [{effect_type: STAT_PERCENT, params: {stat: shield_power, percent: 2}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 2}}]}
+    capstone:
+      code: living_fortress
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: SHIELD, params: {percent_max_hp: 5, duration_s: 8}}]}}]
+      l10n:
+        name: {en: Living Fortress, tr: Yaşayan Kale, zh-CN: 活体要塞, es: Fortaleza viviente}
+        description: {en: Blocks periodically raise a large shield., tr: Bloklar düzenli olarak büyük bir kalkan oluşturur., zh-CN: 格挡周期性生成大型护盾。, es: Los bloqueos generan periódicamente un gran escudo.}
+  - code: arms
+    l10n:
+      name: {en: Arms, tr: Silahlar, zh-CN: 武器, es: Armas}
+      focus: {en: "Weapon damage, penetration, combo", tr: "Silah hasarı, delme, kombo", zh-CN: 武器伤害、穿透、连击, es: "Daño de arma, penetración, combo"}
+    focus:
+      - {archetype: ferocity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}
+      - {archetype: penetration, effects: [{effect_type: STAT_FLAT, params: {stat: armor_penetration, amount: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: celerity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+    capstone:
+      code: perfect_technique_warrior
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 150}}]}}]
+      l10n:
+        name: {en: Perfect Technique, tr: Kusursuz Teknik, zh-CN: 完美技艺, es: Técnica perfecta}
+        description: {en: Every 5th hit is a devastating strike., tr: Her 5. vuruş yıkıcı bir darbedir., zh-CN: 每第 5 次攻击为毁灭一击。, es: Cada 5.º golpe es devastador.}
+  - code: blood
+    l10n:
+      name: {en: Blood, tr: Kan, zh-CN: 鲜血, es: Sangre}
+      focus: {en: "Lifesteal, rage, crit, missing-HP damage", tr: "Can çalma, öfke, kritik, eksik can hasarı", zh-CN: 生命偷取、怒气、暴击、损血伤害, es: "Robo de vida, ira, crítico, daño por vida perdida"}
+    focus:
+      - {archetype: bloodthirst, effects: [{effect_type: STAT_FLAT, params: {stat: lifesteal, amount: 0.5}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 2}}]}
+      - {archetype: lethality, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, condition: {metric: self_hp_pct, op: lt, value: 50}}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+    capstone:
+      code: blood_frenzy
+      effects: [{effect_type: SCALING_BONUS, params: {metric: missing_hp_pct, step: 10, percent_per_step: 2, max_percent: 20, applies_to: attack_speed}}]
+      l10n:
+        name: {en: Blood Frenzy, tr: Kan Çılgınlığı, zh-CN: 血之狂乱, es: Frenesí sangriento}
+        description: {en: Attack speed rises as HP falls., tr: Can düştükçe saldırı hızı artar., zh-CN: 生命越低，攻击速度越快。, es: La velocidad de ataque sube al bajar la vida.}

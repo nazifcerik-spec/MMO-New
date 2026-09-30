@@ -1,0 +1,138 @@
+class: shaman
+abilities:
+  - code: earth_totem
+    type: ACTIVE
+    unlock_level: 1
+    target: party
+    tags: [buff, totem, defensive]
+    cost: {resource: spirit_charges, amount: 1}
+    cooldown_s: 15
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 6}}]}}]
+    l10n:
+      name: {en: Earth Totem, tr: Toprak Totemi, zh-CN: 大地图腾, es: Tótem de tierra}
+      description: {en: Defense aura., tr: Savunma aurası., zh-CN: 防御光环。, es: Aura defensiva.}
+  - code: storm_totem_skill
+    type: ACTIVE
+    unlock_level: 10
+    target: party
+    tags: [buff, totem]
+    cost: {resource: spirit_charges, amount: 1}
+    cooldown_s: 15
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 15, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 30, damage_type: lightning}}]}}]}}]
+    l10n:
+      name: {en: Storm Totem, tr: Fırtına Totemi, zh-CN: 风暴图腾, es: Tótem de tormenta}
+      description: {en: Offensive proc., tr: Saldırgan tetiklenme., zh-CN: 进攻触发。, es: Activación ofensiva.}
+  - code: spirit_mend
+    type: ACTIVE
+    unlock_level: 25
+    target: lowest_hp_ally
+    tags: [heal]
+    cost: {resource: spirit_charges, amount: 1}
+    cooldown_s: 5
+    effects: [{effect_type: HEAL, params: {percent_of_power: 130, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Spirit Mend, tr: Ruh Onarımı, zh-CN: 灵魂治愈, es: Remiendo espiritual}
+      description: {en: Heal., tr: Şifa., zh-CN: 治疗。, es: Curación.}
+  - code: hex
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_single
+    tags: [debuff]
+    cost: {resource: spirit_charges, amount: 1}
+    cooldown_s: 10
+    effects: [{effect_type: DEBUFF, params: {kind: weaken, percent: 10, duration_s: 10}}, {effect_type: DOT, params: {damage_type: shadow, percent_of_power: 12, duration_s: 10, tick_s: 2}}]
+    l10n:
+      name: {en: Hex, tr: Lanet, zh-CN: 妖术, es: Maleficio}
+      description: {en: Debuff., tr: Zayıflatma., zh-CN: 减益。, es: Perjuicio.}
+  - code: ancestor_call
+    type: ACTIVE
+    unlock_level: 60
+    target: party
+    tags: [buff, spender]
+    cost: {resource: spirit_charges, amount: 5}
+    cooldown_s: 45
+    effects: [{effect_type: BUFF, params: {duration_s: 10, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 10}}, {effect_type: HEAL_MULTIPLIER, params: {percent: 10}}]}}]
+    l10n:
+      name: {en: Ancestor Call, tr: Ata Çağrısı, zh-CN: 先祖召唤, es: Llamada ancestral}
+      description: {en: "A short, large support buff.", tr: Kısa süreli büyük destek güçlendirmesi., zh-CN: 短时强力辅助增益。, es: Una mejora de apoyo grande y breve.}
+  - code: spirit_walk
+    type: ULTIMATE
+    unlock_level: 600
+    target: party
+    tags: [buff, heal, totem]
+    cost: {resource: spirit_charges, amount: 8}
+    cooldown_s: 150
+    effects: [{effect_type: HEAL, params: {percent_of_power: 150, target: party}}, {effect_type: BUFF, params: {duration_s: 12, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 12}}]}}]
+    l10n:
+      name: {en: Spirit Walk, tr: Ruh Yürüyüşü, zh-CN: 灵魂行走, es: Paseo espiritual}
+      description: {en: Ancestors heal and empower the party., tr: Atalar grubu iyileştirir ve güçlendirir., zh-CN: 先祖治疗并强化全队。, es: Los ancestros curan y potencian al grupo.}
+  - code: totem_craft
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 8}}]
+    l10n:
+      name: {en: Totem Craft, tr: Totem Zanaatı, zh-CN: 图腾工艺, es: Arte totémico}
+      description: {en: Totem duration., tr: Totem süresi., zh-CN: 图腾持续时间。, es: Duración de tótems.}
+  - code: spirit_vessel
+    type: PASSIVE
+    unlock_level: 30
+    effects: [{effect_type: STACK_CAP_MOD, params: {stack_code: spirit_charges, amount: 2}}]
+    l10n:
+      name: {en: Spirit Vessel, tr: Ruh Kabı, zh-CN: 灵魂容器, es: Recipiente espiritual}
+      description: {en: Charge cap increased., tr: Yük sınırı artar., zh-CN: 充能上限提升。, es: Aumenta el límite de cargas.}
+  - code: elemental_echo
+    type: PROC
+    unlock_level: 45
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 10, trigger: on_ability_cast, effects: [{effect_type: DAMAGE, params: {percent_of_power: 50, damage_type: lightning}}]}}]
+    l10n:
+      name: {en: Elemental Echo, tr: Element Yankısı, zh-CN: 元素回响, es: Eco elemental}
+      description: {en: Totem procs may repeat., tr: Totem tetiklenmeleri tekrarlanabilir., zh-CN: 图腾触发可能重复。, es: Las activaciones de tótem pueden repetirse.}
+trees:
+  - code: totem
+    l10n:
+      name: {en: Totem, tr: Totem, zh-CN: 图腾, es: Tótem}
+      focus: {en: "Radius, duration, extra totem", tr: "Yarıçap, süre, ekstra totem", zh-CN: 范围、持续时间、额外图腾, es: "Radio, duración, tótem extra"}
+    focus:
+      - {archetype: totemic_might, effects: [{effect_type: STAT_PERCENT, params: {stat: totem_power, percent: 2}}]}
+      - {archetype: cadence, effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 2}}]}
+      - {archetype: guarding, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: radiance, effects: [{effect_type: STAT_PERCENT, params: {stat: aura_power, percent: 2}}]}
+      - {archetype: fortitude, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+    capstone:
+      code: totemic_dominion
+      effects: [{effect_type: STAT_PERCENT, params: {stat: totem_power, percent: 25}}, {effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 3}}]}}]
+      l10n:
+        name: {en: Totemic Dominion, tr: Totem Hâkimiyeti, zh-CN: 图腾统御, es: Dominio totémico}
+        description: {en: Totems dominate the battlefield., tr: Totemler savaş alanına hükmeder., zh-CN: 图腾主宰战场。, es: Los tótems dominan el campo de batalla.}
+  - code: ancestor
+    l10n:
+      name: {en: Ancestor, tr: Ata, zh-CN: 先祖, es: Ancestro}
+      focus: {en: "Spirit, heal, mana", tr: "Ruh, şifa, mana", zh-CN: 灵魂、治疗、法力, es: "Espíritu, curación, maná"}
+    focus:
+      - {archetype: spirit_well, effects: [{effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 2}}]}
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_PERCENT, params: {stat: healing_power, percent: 1}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: mana_regen, percent: 2}}]}
+      - {archetype: radiance, effects: [{effect_type: STAT_PERCENT, params: {stat: buff_power, percent: 2}}]}
+    capstone:
+      code: ancestors_blessing_capstone
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 6, effects: [{effect_type: HEAL, params: {percent_of_power: 70, target: party}}]}}]
+      l10n:
+        name: {en: "Ancestor's Blessing", tr: Ataların Kutsaması, zh-CN: 先祖祝福, es: Bendición ancestral}
+        description: {en: Ancestors periodically heal the party., tr: Atalar düzenli olarak grubu iyileştirir., zh-CN: 先祖周期性治疗全队。, es: Los ancestros curan periódicamente al grupo.}
+  - code: element
+    l10n:
+      name: {en: Element, tr: Element, zh-CN: 元素, es: Elemento}
+      focus: {en: "Lightning, earth, hex", tr: "Şimşek, toprak, lanet", zh-CN: 闪电、大地、诅咒, es: "Relámpago, tierra, maleficio"}
+    focus:
+      - {archetype: elemental_fury, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, damage_type: lightning}}]}
+      - {archetype: hexcraft, effects: [{effect_type: STAT_PERCENT, params: {stat: debuff_power, percent: 2}}]}
+      - {archetype: arcane_power, effects: [{effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 1}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+    capstone:
+      code: spirit_storm_capstone
+      effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 20, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 60, damage_type: lightning}}]}}]
+      l10n:
+        name: {en: Spirit Storm, tr: Ruh Fırtınası, zh-CN: 灵魂风暴, es: Tormenta espiritual}
+        description: {en: Hits frequently call chain lightning., tr: Vuruşlar sık sık zincir şimşek çağırır., zh-CN: 攻击常常召唤连锁闪电。, es: Los golpes invocan a menudo relámpagos en cadena.}

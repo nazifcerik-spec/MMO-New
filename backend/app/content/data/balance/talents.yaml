@@ -1,0 +1,82 @@
+# Talent point budget, tree layout, capstone rule and reset costs (canonical 45 total / 25 per tree / Lv850).
+code: talents
+data:
+  points:
+    total_max: 45
+    per_tree_max: 25
+    first_level: 10
+    every_levels: 22
+  capstone:
+    required_points_in_tree: 24
+    required_level: 850
+  layout:
+  - slot: n1
+    tier: 1
+    focus: 0
+    max_rank: 5
+    requires: []
+  - slot: n2
+    tier: 1
+    focus: 1
+    max_rank: 3
+    requires: []
+  - slot: n3
+    tier: 2
+    focus: 2
+    max_rank: 5
+    requires:
+    - n1
+  - slot: n4
+    tier: 2
+    focus: 3
+    max_rank: 3
+    requires:
+    - n2
+  - slot: n5
+    tier: 3
+    focus: 4
+    max_rank: 5
+    requires:
+    - n3
+  - slot: n6
+    tier: 3
+    focus: 0
+    max_rank: 3
+    requires:
+    - n4
+  - slot: n7
+    tier: 4
+    focus: 1
+    max_rank: 3
+    requires:
+    - n5
+  - slot: n8
+    tier: 4
+    focus: 2
+    max_rank: 3
+    requires:
+    - n6
+  - slot: n9
+    tier: 5
+    focus: 3
+    max_rank: 3
+    requires:
+    - n7
+  tier_points:
+    1: 0
+    2: 5
+    3: 10
+    4: 15
+    5: 20
+  reset:
+    free_below_level: 300
+    bands:
+    - min_level: 300
+      gold_per_point: 40
+      material_code: null
+      material_per_10_points: 0
+    - min_level: 600
+      gold_per_point: 200
+      material_code: talent_reset_crystal
+      material_per_10_points: 1
+  trees_per_class: 3

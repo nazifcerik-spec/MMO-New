@@ -1,0 +1,145 @@
+class: ranger
+abilities:
+  - code: aimed_shot
+    type: ACTIVE
+    unlock_level: 1
+    target: enemy_single
+    tags: [single_target, spender, finisher]
+    cost: {resource: focus, amount: 30}
+    cooldown_s: 6
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 170}}]
+    l10n:
+      name: {en: Aimed Shot, tr: Nişanlı Atış, zh-CN: 瞄准射击, es: Disparo apuntado}
+      description: {en: A powerful single-target shot., tr: Güçlü tek hedef atışı., zh-CN: 强力单体射击。, es: Un potente disparo a un objetivo.}
+  - code: multishot
+    type: ACTIVE
+    unlock_level: 10
+    target: enemy_all
+    tags: [aoe]
+    cost: {resource: focus, amount: 35}
+    cooldown_s: 8
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 70}}]
+    l10n:
+      name: {en: Multishot, tr: Çoklu Atış, zh-CN: 多重射击, es: Disparo múltiple}
+      description: {en: Hits multiple targets., tr: Birden fazla hedefe vurur., zh-CN: 攻击多个目标。, es: Golpea a varios objetivos.}
+  - code: snare_trap
+    type: ACTIVE
+    unlock_level: 25
+    target: enemy_single
+    tags: [debuff, trap]
+    cost: {resource: focus, amount: 20}
+    cooldown_s: 15
+    effects: [{effect_type: DEBUFF, params: {kind: root, duration_s: 4}}, {effect_type: DEBUFF, params: {kind: slow, percent: 30, duration_s: 8}}]
+    l10n:
+      name: {en: Snare Trap, tr: Kapan Tuzağı, zh-CN: 捕猎陷阱, es: Trampa de lazo}
+      description: {en: Slows or roots the target., tr: Hedefi yavaşlatır veya köklendirir., zh-CN: 减速或定身目标。, es: Ralentiza o enraíza al objetivo.}
+  - code: companion_command
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_single
+    tags: [pet, single_target]
+    cost: {resource: focus, amount: 25}
+    cooldown_s: 10
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 120}}]
+    l10n:
+      name: {en: Companion Command, tr: Yoldaş Komutu, zh-CN: 伙伴指令, es: Orden al compañero}
+      description: {en: Your pet performs a special attack., tr: Evcil hayvanın özel saldırı yapar., zh-CN: 宠物发动特殊攻击。, es: Tu mascota realiza un ataque especial.}
+  - code: disengage
+    type: ACTIVE
+    unlock_level: 60
+    target: self
+    tags: [defensive]
+    cost: null
+    cooldown_s: 45
+    effects: [{effect_type: BUFF, params: {duration_s: 6, effects: [{effect_type: STAT_FLAT, params: {stat: dodge, amount: 25}}]}}]
+    l10n:
+      name: {en: Disengage, tr: Geri Çekil, zh-CN: 脱离, es: Retirada}
+      description: {en: A defensive maneuver., tr: Savunma manevrası., zh-CN: 防御性机动。, es: Una maniobra defensiva.}
+  - code: rain_of_arrows
+    type: ULTIMATE
+    unlock_level: 600
+    target: enemy_all
+    tags: [aoe]
+    cost: {resource: focus, amount: 70}
+    cooldown_s: 120
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 350}}]
+    l10n:
+      name: {en: Rain of Arrows, tr: Ok Yağmuru, zh-CN: 箭雨, es: Lluvia de flechas}
+      description: {en: Arrows blanket every enemy., tr: Oklar tüm düşmanları kaplar., zh-CN: 箭矢覆盖所有敌人。, es: Las flechas cubren a todos los enemigos.}
+  - code: keen_sight
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 4}}]
+    l10n:
+      name: {en: Keen Sight, tr: Keskin Görüş, zh-CN: 锐利视觉, es: Vista aguda}
+      description: {en: Accuracy increased., tr: İsabet artar., zh-CN: 命中提升。, es: Precisión aumentada.}
+  - code: field_rations
+    type: PASSIVE
+    unlock_level: 30
+    effects: [{effect_type: PROGRESSION_MODIFIER, params: {kind: consumable_use, percent: -15}}]
+    l10n:
+      name: {en: Field Rations, tr: Arazi Erzakı, zh-CN: 野外口粮, es: Raciones de campo}
+      description: {en: AFK consumable use reduced., tr: AFK sarf malzemesi kullanımı azalır., zh-CN: 挂机消耗品使用减少。, es: Menor consumo de consumibles en AFK.}
+  - code: predator_mark
+    type: PASSIVE
+    unlock_level: 45
+    effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 5, condition: {metric: target_debuff_count, op: gte, value: 1}}}]
+    l10n:
+      name: {en: Predator Mark, tr: Avcı İşareti, zh-CN: 掠食印记, es: Marca depredadora}
+      description: {en: Marked targets take bonus damage., tr: İşaretli hedefler bonus hasar alır., zh-CN: 被标记目标受到额外伤害。, es: Los objetivos marcados reciben daño adicional.}
+  - code: trail_sense
+    type: PASSIVE
+    unlock_level: 70
+    effects: [{effect_type: PROGRESSION_MODIFIER, params: {kind: death_penalty, percent: -10}}]
+    l10n:
+      name: {en: Trail Sense, tr: İz Sezgisi, zh-CN: 追踪直觉, es: Sentido del rastro}
+      description: {en: Lower death risk in dangerous zones., tr: Tehlikeli bölgelerde ölüm riski azalır., zh-CN: 危险区域死亡风险降低。, es: Menor riesgo de muerte en zonas peligrosas.}
+trees:
+  - code: marksmanship
+    l10n:
+      name: {en: Marksmanship, tr: Nişancılık, zh-CN: 射术, es: Puntería}
+      focus: {en: "Aim, crit, penetration", tr: "Nişan, kritik, delme", zh-CN: 瞄准、暴击、穿透, es: "Puntería, crítico, penetración"}
+    focus:
+      - {archetype: keen_eye, effects: [{effect_type: STAT_FLAT, params: {stat: accuracy, amount: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: penetration, effects: [{effect_type: STAT_FLAT, params: {stat: armor_penetration, amount: 1}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 2}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+    capstone:
+      code: perfect_shot_capstone
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 140, guaranteed_crit: true}}]}}]
+      l10n:
+        name: {en: Perfect Shot, tr: Kusursuz Atış, zh-CN: 完美射击, es: Disparo perfecto}
+        description: {en: Every 5th shot is a guaranteed crit., tr: Her 5. atış garantili kritiktir., zh-CN: 每第 5 次射击必定暴击。, es: Cada 5.º disparo es un crítico garantizado.}
+  - code: beastcraft
+    l10n:
+      name: {en: Beastcraft, tr: Canavar Zanaatı, zh-CN: 驭兽术, es: Arte bestial}
+      focus: {en: "Pet HP, damage, bond", tr: "Evcil can, hasar, bağ", zh-CN: 宠物生命、伤害、羁绊, es: "PS, daño y vínculo de mascota"}
+    focus:
+      - {archetype: wild_bond, effects: [{effect_type: STAT_PERCENT, params: {stat: pet_power, percent: 2}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+      - {archetype: ferocity, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: guarding, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: celerity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}
+    capstone:
+      code: alpha_bond_capstone
+      effects: [{effect_type: STAT_PERCENT, params: {stat: pet_power, percent: 25}}, {effect_type: DAMAGE_MULTIPLIER, params: {percent: 5}}]
+      l10n:
+        name: {en: Alpha Bond, tr: Alfa Bağı, zh-CN: 头狼羁绊, es: Vínculo alfa}
+        description: {en: Pet and owner fight as one., tr: Evcil ve sahibi tek vücut savaşır., zh-CN: 宠物与主人合而为一。, es: Mascota y dueño luchan como uno.}
+  - code: survival
+    l10n:
+      name: {en: Survival, tr: Hayatta Kalma, zh-CN: 生存, es: Supervivencia}
+      focus: {en: "Dodge, trap, bleed, control", tr: "Kaçınma, tuzak, kanama, kontrol", zh-CN: 闪避、陷阱、流血、控制, es: "Esquiva, trampa, sangrado, control"}
+    focus:
+      - {archetype: evasion, effects: [{effect_type: STAT_FLAT, params: {stat: dodge, amount: 0.5}}]}
+      - {archetype: trapcraft, effects: [{effect_type: STAT_PERCENT, params: {stat: trap_power, percent: 2}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+    capstone:
+      code: master_hunter
+      effects: [{effect_type: COOLDOWN_MOD, params: {percent: -20, ability_tag: trap}}, {effect_type: STAT_PERCENT, params: {stat: trap_power, percent: 15}}]
+      l10n:
+        name: {en: Master Hunter, tr: Usta Avcı, zh-CN: 狩猎大师, es: Maestro cazador}
+        description: {en: Traps recharge faster and hit harder., tr: Tuzaklar daha hızlı dolar ve daha sert vurur., zh-CN: 陷阱冷却更快、威力更强。, es: Las trampas se recargan antes y golpean más fuerte.}

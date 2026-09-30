@@ -104,7 +104,16 @@
     "promotion_required": "Önce Sv100 yolunu seç.",
     "path_change_cooldown": "Yol değişikliği bekleme süresinde.",
     "invalid_class": "Bilinmeyen sınıf.",
-    "invalid_race": "Bilinmeyen ırk."
+    "invalid_race": "Bilinmeyen ırk.",
+    "tier_locked": "Önce bu ağaca daha fazla puan harca.",
+    "tree_cap": "Bir ağaç en fazla 25 puan alabilir.",
+    "not_enough_points": "Yeterli yetenek puanı yok.",
+    "level_locked": "Bu yetenek için seviyen yetersiz.",
+    "prerequisite_missing": "Ön koşul yetenek eksik.",
+    "multiple_capstones": "Yalnızca bir zirve etkin olabilir.",
+    "talent_decrease": "Yeteneği düşürmek için sıfırlama gerekir.",
+    "material_system_unavailable": "Gerekli sıfırlama malzemesi henüz ödenemiyor.",
+    "nothing_to_reset": "Sıfırlanacak yetenek yok."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -247,5 +256,39 @@
     "pathChangeFree": "İlk yol değişikliğin ücretsiz.",
     "classTitle": "Sınıf unvanı: {title}",
     "openClass": "Sınıf yolu"
+  },
+  "talents": {
+    "title": "Yetenek Ağaçları",
+    "points": "Puan: {spent} / {available} (maks {max})",
+    "treeSpent": "{spent} / {max}",
+    "tier": "Kademe {tier}",
+    "capstone": "Zirve",
+    "needsPoints": "Bu ağaçta {points} puan gerekir",
+    "needsLevel": "Sv {level} gerekir",
+    "rank": "Derece {rank}/{max}",
+    "apply": "Yetenekleri öğren",
+    "clear": "Bekleyeni temizle",
+    "reset": "Yetenekleri sıfırla",
+    "resetCost": "Sıfırlama maliyeti: {gold} altın{material}",
+    "resetMaterial": " + {qty}× {material}",
+    "resetConfirm": "Tüm yetenekler sıfırlansın mı?",
+    "increase": "{name} için puan ekle",
+    "open": "Yetenekler"
+  },
+  "abilities": {
+    "title": "Yetenekler",
+    "types": {
+      "ACTIVE": "Aktif",
+      "PASSIVE": "Pasif",
+      "ULTIMATE": "Nihai",
+      "STANCE": "Duruş",
+      "AURA": "Aura",
+      "PROC": "Tetik"
+    },
+    "unlockAt": "Sv {level} açılır",
+    "cost": "Maliyet {amount} {resource}",
+    "cooldown": "Bekleme {seconds} sn",
+    "awakening": "Uyanış: {name}",
+    "awakeningInactive": "Sv {level} uyanır"
   }
 }

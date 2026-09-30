@@ -2,6 +2,7 @@
 
 import logging
 from collections.abc import Awaitable, Callable
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -163,12 +164,152 @@ async def seed_classes(session: AsyncSession) -> int:
     return created
 
 
+MASTERY_NAME_PATTERNS = {
+    "en": "{name} Mastery",
+    "tr": "{name} Ustalığı",
+    "zh-CN": "{name}精通",
+    "es": "Maestría de {name}",
+}
+
+
+def _trigger_of(effects: list[dict[str, Any]]) -> str | None:
+    for e in effects:
+        if e["effect_type"] == "PROC_CHANCE":
+            return str(e["params"].get("trigger", "on_hit"))
+    return None
+
+
+async def seed_skills(session: AsyncSession) -> int:
+    from app.game_engine.talents import TalentConfig
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types import abilities as at
+    from app.services.content.types.balance import get_published_balance
+
+    created = 0
+    cfg = await get_published_balance(session, "talents", TalentConfig)
+    for arch, values in load_yaml("skills/_archetypes.yaml").items():
+        await l10n.seed_values(session, f"talent_archetype.{arch}.name", values, namespace="talent")
+    for class_code in CLASS_CODES:
+        doc = load_yaml(f"skills/{class_code}.yaml")
+        class_doc = load_yaml(f"classes/{class_code}.yaml")
+        for i, a in enumerate(doc["abilities"]):
+            await _texts(session, f"ability.{a['code']}", a["l10n"], "ability")
+            rank = {
+                "rank": 1,
+                "cost": a.get("cost"),
+                "cooldown_s": a.get("cooldown_s", 0),
+                "cast_time_s": a.get("cast_time_s", 0),
+                "effects": a["effects"],
+            }
+            created += await ensure_published(
+                session,
+                at.ABILITY_TYPE,
+                a["code"],
+                {
+                    "owner_type": "class",
+                    "owner_code": class_code,
+                    "ability_type": a["type"],
+                    "unlock_level": a["unlock_level"],
+                    "target_rule": a.get("target", "self"),
+                    "tags": a.get("tags", []),
+                    "ranks": [rank],
+                    "trigger": _trigger_of(a["effects"]),
+                    "sort_order": i,
+                },
+            )
+        for ti, tree in enumerate(doc["trees"]):
+            tree_code = f"{class_code}_{tree['code']}"
+            await l10n.seed_values(session, f"talent_tree.{tree_code}.name", tree["l10n"]["name"], namespace="talent")
+            await l10n.seed_values(session, f"talent_tree.{tree_code}.focus", tree["l10n"]["focus"], namespace="talent")
+            created += await ensure_published(
+                session,
+                at.TALENT_TREE_TYPE,
+                tree_code,
+                {"base_class_code": class_code, "focus_key": f"talent_tree.{tree_code}.focus", "sort_order": ti},
+            )
+            for slot in cfg.layout:
+                focus = tree["focus"][slot.focus]
+                created += await ensure_published(
+                    session,
+                    at.TALENT_NODE_TYPE,
+                    f"{tree_code}_{slot.slot}",
+                    {
+                        "tree_code": tree_code,
+                        "tier": slot.tier,
+                        "slot": slot.slot,
+                        "max_rank": slot.max_rank,
+                        "required_points_in_tree": cfg.tier_points[slot.tier],
+                        "required_level": 1,
+                        "is_capstone": False,
+                        "requires": [f"{tree_code}_{r}" for r in slot.requires],
+                        "archetype_key": f"talent_archetype.{focus['archetype']}.name",
+                        "effects": focus["effects"],
+                    },
+                )
+            cap = tree["capstone"]
+            await _texts(session, f"talent_node.{cap['code']}", cap["l10n"], "talent")
+            last_slot = cfg.layout[-1].slot
+            created += await ensure_published(
+                session,
+                at.TALENT_NODE_TYPE,
+                cap["code"],
+                {
+                    "tree_code": tree_code,
+                    "tier": 6,
+                    "slot": "capstone",
+                    "max_rank": 1,
+                    "required_points_in_tree": cfg.capstone.required_points_in_tree,
+                    "required_level": cfg.capstone.required_level,
+                    "is_capstone": True,
+                    "requires": [f"{tree_code}_{last_slot}"],
+                    "archetype_key": None,
+                    "effects": cap["effects"],
+                },
+            )
+        for branch in class_doc["branches"]:
+            for spec in branch["specializations"]:
+                aw = spec["awakening"]
+                await _texts(session, f"awakening.{aw['code']}", aw["l10n"], "awakening")
+                created += await ensure_published(
+                    session,
+                    at.AWAKENING_TYPE,
+                    aw["code"],
+                    {"specialization_code": spec["code"], "required_level": 600, "effects": aw["effects"]},
+                )
+        mastery_code = f"{class_code}_mastery"
+        names = class_doc["l10n"]["name"]
+        await l10n.seed_values(
+            session,
+            f"mastery.{mastery_code}.name",
+            {loc: pat.replace("{name}", names[loc]) for loc, pat in MASTERY_NAME_PATTERNS.items()},
+            namespace="mastery",
+        )
+        created += await ensure_published(
+            session,
+            at.MASTERY_TYPE,
+            mastery_code,
+            {
+                "base_class_code": class_code,
+                "required_level": 1000,
+                "cosmetic_code": f"aura_{class_code}_eternal",
+                "effects": [
+                    {
+                        "effect_type": "STAT_PERCENT",
+                        "params": {"stat": class_doc["stat_weights"]["primary"], "percent": 2},
+                    }
+                ],
+            },
+        )
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
     ("balance", seed_balance),
     ("races", seed_races),
     ("classes", seed_classes),
+    ("skills", seed_skills),
 ]
 
 

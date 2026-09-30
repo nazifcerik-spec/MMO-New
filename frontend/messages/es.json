@@ -104,7 +104,16 @@
     "promotion_required": "Elige primero tu senda de Nv100.",
     "path_change_cooldown": "El cambio de senda está en enfriamiento.",
     "invalid_class": "Clase desconocida.",
-    "invalid_race": "Raza desconocida."
+    "invalid_race": "Raza desconocida.",
+    "tier_locked": "Gasta primero más puntos en este árbol.",
+    "tree_cap": "Un árbol admite como máximo 25 puntos.",
+    "not_enough_points": "No hay suficientes puntos de talento.",
+    "level_locked": "Tu nivel es demasiado bajo para ese talento.",
+    "prerequisite_missing": "Falta un talento previo.",
+    "multiple_capstones": "Solo puede haber una cúspide.",
+    "talent_decrease": "Reducir talentos requiere restablecerlos.",
+    "material_system_unavailable": "Aún no se puede pagar el material requerido.",
+    "nothing_to_reset": "No hay talentos que restablecer."
   },
   "characters": {
     "title": "Tus personajes",
@@ -247,5 +256,39 @@
     "pathChangeFree": "Tu primer cambio de senda es gratuito.",
     "classTitle": "Título de clase: {title}",
     "openClass": "Senda de clase"
+  },
+  "talents": {
+    "title": "Talentos",
+    "points": "Puntos: {spent} / {available} (máx. {max})",
+    "treeSpent": "{spent} / {max}",
+    "tier": "Nivel {tier}",
+    "capstone": "Cúspide",
+    "needsPoints": "Requiere {points} puntos en este árbol",
+    "needsLevel": "Requiere Nv {level}",
+    "rank": "Rango {rank}/{max}",
+    "apply": "Aprender talentos",
+    "clear": "Limpiar pendientes",
+    "reset": "Restablecer talentos",
+    "resetCost": "Coste: {gold} de oro{material}",
+    "resetMaterial": " + {qty}× {material}",
+    "resetConfirm": "¿Restablecer todos los talentos?",
+    "increase": "Añadir un punto a {name}",
+    "open": "Talentos"
+  },
+  "abilities": {
+    "title": "Habilidades",
+    "types": {
+      "ACTIVE": "Activa",
+      "PASSIVE": "Pasiva",
+      "ULTIMATE": "Definitiva",
+      "STANCE": "Postura",
+      "AURA": "Aura",
+      "PROC": "Activación"
+    },
+    "unlockAt": "Se desbloquea en Nv {level}",
+    "cost": "Coste {amount} {resource}",
+    "cooldown": "Enfriamiento {seconds} s",
+    "awakening": "Despertar: {name}",
+    "awakeningInactive": "Despierta en Nv {level}"
   }
 }

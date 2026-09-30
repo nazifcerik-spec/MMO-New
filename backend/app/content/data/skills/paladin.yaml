@@ -1,0 +1,138 @@
+class: paladin
+abilities:
+  - code: shield_of_faith
+    type: ACTIVE
+    unlock_level: 1
+    target: self
+    tags: [defensive, shield]
+    cost: {resource: conviction, amount: 10}
+    cooldown_s: 10
+    effects: [{effect_type: SHIELD, params: {percent_max_hp: 10, duration_s: 8}}]
+    l10n:
+      name: {en: Shield of Faith, tr: İnanç Kalkanı, zh-CN: 信仰之盾, es: Escudo de fe}
+      description: {en: Defense., tr: Savunma., zh-CN: 防御。, es: Defensa.}
+  - code: holy_strike
+    type: ACTIVE
+    unlock_level: 10
+    target: enemy_single
+    tags: [single_target, generator]
+    cost: null
+    cooldown_s: 4
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 110, damage_type: holy}}]
+    l10n:
+      name: {en: Holy Strike, tr: Kutsal Darbe, zh-CN: 神圣打击, es: Golpe sagrado}
+      description: {en: Holy damage., tr: Kutsal hasar., zh-CN: 神圣伤害。, es: Daño sagrado.}
+  - code: lay_on_hands
+    type: ACTIVE
+    unlock_level: 25
+    target: lowest_hp_ally
+    tags: [heal, defensive]
+    cost: {resource: conviction, amount: 40}
+    cooldown_s: 60
+    effects: [{effect_type: HEAL, params: {percent_of_power: 300, target: lowest_hp_ally}}]
+    l10n:
+      name: {en: Lay on Hands, tr: Elle Şifa, zh-CN: 圣疗术, es: Imposición de manos}
+      description: {en: A powerful heal., tr: Güçlü bir şifa., zh-CN: 强力治疗。, es: Una curación poderosa.}
+  - code: judgment
+    type: ACTIVE
+    unlock_level: 40
+    target: enemy_single
+    tags: [debuff, single_target]
+    cost: {resource: conviction, amount: 20}
+    cooldown_s: 12
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 90, damage_type: holy}}, {effect_type: DEBUFF, params: {kind: vulnerability, percent: 8, duration_s: 8}}]
+    l10n:
+      name: {en: Judgment, tr: Yargı, zh-CN: 审判, es: Juicio}
+      description: {en: A debuffing strike., tr: Zayıflatan darbe., zh-CN: 带减益的打击。, es: Un golpe que debilita.}
+  - code: consecration
+    type: ACTIVE
+    unlock_level: 60
+    target: enemy_all
+    tags: [aoe, buff]
+    cost: {resource: conviction, amount: 30}
+    cooldown_s: 20
+    effects: [{effect_type: DOT, params: {damage_type: holy, percent_of_power: 15, duration_s: 10, tick_s: 2}}, {effect_type: AURA, params: {scope: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 3}}]}}]
+    l10n:
+      name: {en: Consecration, tr: Kutsama Alanı, zh-CN: 奉献, es: Consagración}
+      description: {en: Area support., tr: Alan desteği., zh-CN: 区域支援。, es: Apoyo en área.}
+  - code: avenging_light
+    type: ULTIMATE
+    unlock_level: 600
+    target: party
+    tags: [buff, heal]
+    cost: {resource: conviction, amount: 80}
+    cooldown_s: 150
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 15}}, {effect_type: DAMAGE_REDUCTION, params: {percent: 10}}]}}]
+    l10n:
+      name: {en: Avenging Light, tr: İntikam Işığı, zh-CN: 复仇之光, es: Luz vengadora}
+      description: {en: The party shines with holy power., tr: Grup kutsal güçle parlar., zh-CN: 全队闪耀神圣之力。, es: El grupo brilla con poder sagrado.}
+  - code: oathkeeper
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: VIT, percent: 3}}, {effect_type: STAT_PERCENT, params: {stat: WIS, percent: 3}}]
+    l10n:
+      name: {en: Oathkeeper, tr: Yemin Bekçisi, zh-CN: 守誓者, es: Guardajuramentos}
+      description: {en: VIT/WIS scaling., tr: VIT/WIS ölçeklemesi., zh-CN: 体力/智慧加成。, es: Escalado de VIT/SAB.}
+  - code: aura_mastery
+    type: AURA
+    unlock_level: 30
+    effects: [{effect_type: STAT_PERCENT, params: {stat: aura_power, percent: 10}}]
+    l10n:
+      name: {en: Aura Mastery, tr: Aura Ustalığı, zh-CN: 光环精通, es: Maestría de aura}
+      description: {en: Aura radius increased., tr: Aura yarıçapı artar., zh-CN: 光环范围扩大。, es: Aumenta el radio del aura.}
+  - code: righteous_return
+    type: PROC
+    unlock_level: 45
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: RESOURCE_GAIN, params: {resource: conviction, amount: 4}}]}}]
+    l10n:
+      name: {en: Righteous Return, tr: Haklı Dönüş, zh-CN: 正义回报, es: Retorno justo}
+      description: {en: Blocks grant resource., tr: Bloklar kaynak verir., zh-CN: 格挡获得资源。, es: Los bloqueos otorgan recurso.}
+trees:
+  - code: aegis
+    l10n:
+      name: {en: Aegis, tr: Kalkan, zh-CN: 圣盾, es: Égida}
+      focus: {en: "Armor, block, protection", tr: "Zırh, blok, koruma", zh-CN: 护甲、格挡、保护, es: "Armadura, bloqueo, protección"}
+    focus:
+      - {archetype: bulwark, effects: [{effect_type: STAT_FLAT, params: {stat: block, amount: 1}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 2}}]}
+      - {archetype: fortitude, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: wardcraft, effects: [{effect_type: STAT_PERCENT, params: {stat: shield_power, percent: 2}}]}
+    capstone:
+      code: divine_bastion_capstone
+      effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: EVERY_N_HITS, params: {n: 4, effects: [{effect_type: SHIELD, params: {percent_max_hp: 4, duration_s: 8, target: party}}]}}]}}]
+      l10n:
+        name: {en: Divine Bastion, tr: İlahi Kale, zh-CN: 神圣堡垒, es: Bastión divino}
+        description: {en: Blocks periodically shield the party., tr: Bloklar düzenli olarak grubu korur., zh-CN: 格挡周期性为全队提供护盾。, es: Los bloqueos protegen periódicamente al grupo.}
+  - code: aura
+    l10n:
+      name: {en: Aura, tr: Aura, zh-CN: 光环, es: Aura}
+      focus: {en: "Healing, radius, buff", tr: "Şifa, yarıçap, güçlendirme", zh-CN: 治疗、范围、增益, es: "Curación, radio, mejora"}
+    focus:
+      - {archetype: radiance, effects: [{effect_type: STAT_PERCENT, params: {stat: aura_power, percent: 2}}]}
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 1}}]}
+      - {archetype: devotion, effects: [{effect_type: STAT_PERCENT, params: {stat: buff_power, percent: 2}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_FLAT, params: {stat: buff_duration, amount: 2}}]}
+      - {archetype: guarding, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+    capstone:
+      code: holy_presence
+      effects: [{effect_type: AURA, params: {scope: party, effects: [{effect_type: HOT, params: {percent_of_power: 5, duration_s: 30, tick_s: 3, target: party}}]}}]
+      l10n:
+        name: {en: Holy Presence, tr: Kutsal Varlık, zh-CN: 神圣光环, es: Presencia sagrada}
+        description: {en: The party is constantly healed., tr: Grup sürekli iyileşir., zh-CN: 全队持续获得治疗。, es: El grupo se cura constantemente.}
+  - code: judgment
+    l10n:
+      name: {en: Judgment, tr: Yargı, zh-CN: 审判, es: Juicio}
+      focus: {en: "Holy damage, debuff", tr: "Kutsal hasar, zayıflatma", zh-CN: 神圣伤害、减益, es: "Daño sagrado, perjuicio"}
+    focus:
+      - {archetype: radiance, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, damage_type: holy}}]}
+      - {archetype: ferocity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}
+      - {archetype: cunning, effects: [{effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 2}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 2, condition: {metric: target_hp_pct, op: lt, value: 30}}}]}
+    capstone:
+      code: final_judgment_capstone
+      effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 25, condition: {metric: target_debuff_count, op: gte, value: 2}}}]
+      l10n:
+        name: {en: Final Judgment, tr: Son Yargı, zh-CN: 最终审判, es: Juicio final}
+        description: {en: Heavily debuffed targets take massive damage., tr: Yoğun zayıflatılmış hedefler büyük hasar alır., zh-CN: 多重减益的目标承受巨额伤害。, es: Los objetivos muy debilitados reciben daño masivo.}

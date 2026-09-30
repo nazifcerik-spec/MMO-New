@@ -58,4 +58,11 @@ test("create character, allocate stats, promote at Lv100", async ({ page, baseUR
   page.once("dialog", (d) => d.accept());
   await page.getByTestId("branch-guardian").getByRole("button").click();
   await expect(page.getByTestId("class-title")).toContainText("Guardian");
+  await expect(page.getByTestId("ability-list")).toContainText("Shield Slam");
+
+  await page.goto(`/game/characters/${characterId}/talents`);
+  await expect(page.getByTestId("tree-warrior_defense")).toBeVisible();
+  await page.getByTestId("node-warrior_defense_n1").getByRole("button").click();
+  await page.getByRole("button", { name: "Learn talents" }).click();
+  await expect(page.getByTestId("node-warrior_defense_n1")).toContainText("Rank 1/5");
 });

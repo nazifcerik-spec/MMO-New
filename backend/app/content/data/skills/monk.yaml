@@ -1,0 +1,145 @@
+class: monk
+abilities:
+  - code: palm_strike
+    type: ACTIVE
+    unlock_level: 1
+    target: enemy_single
+    tags: [single_target, generator]
+    cost: null
+    cooldown_s: 3
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 100}}, {effect_type: RESOURCE_GAIN, params: {resource: chi, amount: 10}}]
+    l10n:
+      name: {en: Palm Strike, tr: Avuç Darbesi, zh-CN: 掌击, es: Golpe de palma}
+      description: {en: Basic strike that builds Chi., tr: Chi üreten temel darbe., zh-CN: 产生气的基础攻击。, es: Golpe básico que genera Chi.}
+  - code: iron_guard
+    type: ACTIVE
+    unlock_level: 10
+    target: self
+    tags: [defensive, spender]
+    cost: {resource: chi, amount: 30}
+    cooldown_s: 20
+    effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 20, duration_s: 6}}]
+    l10n:
+      name: {en: Iron Guard, tr: Demir Muhafız, zh-CN: 铁卫, es: Guardia de hierro}
+      description: {en: Spend Chi to defend., tr: Chi ile savunma., zh-CN: 消耗气进行防御。, es: Gasta Chi para defenderte.}
+  - code: cyclone_kick
+    type: ACTIVE
+    unlock_level: 25
+    target: enemy_all
+    tags: [aoe]
+    cost: {resource: chi, amount: 25}
+    cooldown_s: 8
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 80}}]
+    l10n:
+      name: {en: Cyclone Kick, tr: Kasırga Tekmesi, zh-CN: 旋风踢, es: Patada ciclón}
+      description: {en: Area kick., tr: Alan tekmesi., zh-CN: 范围踢击。, es: Patada en área.}
+  - code: meditate
+    type: ACTIVE
+    unlock_level: 40
+    target: self
+    tags: [heal, defensive]
+    cost: null
+    cooldown_s: 30
+    effects: [{effect_type: HEAL, params: {percent_of_power: 120}}, {effect_type: RESOURCE_GAIN, params: {resource: chi, amount: 30}}]
+    l10n:
+      name: {en: Meditate, tr: Meditasyon, zh-CN: 冥想, es: Meditar}
+      description: {en: Restore Chi and heal., tr: Chi ve can yeniler., zh-CN: 恢复气与生命。, es: Recupera Chi y cura.}
+  - code: dragon_fist
+    type: ACTIVE
+    unlock_level: 60
+    target: enemy_single
+    tags: [finisher, single_target, spender]
+    cost: {resource: chi, amount: 60}
+    cooldown_s: 10
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 280}}]
+    l10n:
+      name: {en: Dragon Fist, tr: Ejder Yumruğu, zh-CN: 龙拳, es: Puño del dragón}
+      description: {en: Combo finisher., tr: Kombo bitirici., zh-CN: 连击终结技。, es: Remate de combo.}
+  - code: thousand_palms
+    type: ULTIMATE
+    unlock_level: 600
+    target: enemy_single
+    tags: [finisher, single_target]
+    cost: {resource: chi, amount: 80}
+    cooldown_s: 120
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 480}}]
+    l10n:
+      name: {en: Thousand Palms, tr: Bin Avuç, zh-CN: 千手掌, es: Mil palmas}
+      description: {en: An unstoppable flurry of strikes., tr: Durdurulamaz bir darbe sağanağı., zh-CN: 势不可挡的连击风暴。, es: Una ráfaga imparable de golpes.}
+  - code: calm_mind
+    type: PASSIVE
+    unlock_level: 15
+    effects: [{effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 8}}]
+    l10n:
+      name: {en: Calm Mind, tr: Sakin Zihin, zh-CN: 静心, es: Mente serena}
+      description: {en: Resource regeneration., tr: Kaynak yenilenmesi., zh-CN: 资源回复提升。, es: Regeneración de recurso.}
+  - code: flowing_defense
+    type: PROC
+    unlock_level: 30
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 5, duration_s: 3}}]}}]
+    l10n:
+      name: {en: Flowing Defense, tr: Akan Savunma, zh-CN: 流水防御, es: Defensa fluida}
+      description: {en: Damage reduction after dodging., tr: Kaçınmadan sonra hasar azaltma., zh-CN: 闪避后获得减伤。, es: Reducción de daño tras esquivar.}
+  - code: pressure_point
+    type: PROC
+    unlock_level: 45
+    effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_crit, effects: [{effect_type: DEBUFF, params: {kind: weaken, percent: 5, duration_s: 4}}]}}]
+    l10n:
+      name: {en: Pressure Point, tr: Baskı Noktası, zh-CN: 点穴, es: Punto de presión}
+      description: {en: Crits apply a short debuff., tr: Kritikler kısa zayıflatma uygular., zh-CN: 暴击施加短暂减益。, es: Los críticos aplican un perjuicio breve.}
+  - code: martial_memory
+    type: PASSIVE
+    unlock_level: 70
+    effects: [{effect_type: STACK_CAP_MOD, params: {stack_code: combo, amount: 1}}]
+    l10n:
+      name: {en: Martial Memory, tr: Dövüş Hafızası, zh-CN: 武学记忆, es: Memoria marcial}
+      description: {en: Combo decays more slowly., tr: Kombo daha yavaş söner., zh-CN: 连击衰减变慢。, es: El combo decae más despacio.}
+trees:
+  - code: body
+    l10n:
+      name: {en: Body, tr: Beden, zh-CN: 体魄, es: Cuerpo}
+      focus: {en: "HP, dodge, DR, counter", tr: "Can, kaçınma, hasar azaltma, karşı saldırı", zh-CN: 生命、闪避、减伤、反击, es: "PS, esquiva, reducción de daño, contraataque"}
+    focus:
+      - {archetype: fortitude, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+      - {archetype: evasion, effects: [{effect_type: STAT_FLAT, params: {stat: dodge, amount: 0.5}}]}
+      - {archetype: resilience, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 1}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 2}}]}
+      - {archetype: guarding, effects: [{effect_type: STAT_FLAT, params: {stat: healing_received, amount: 1}}]}
+    capstone:
+      code: diamond_body_capstone
+      effects: [{effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_hp_pct, op: lt, value: 40}, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 15}}]}}]
+      l10n:
+        name: {en: Diamond Body, tr: Elmas Beden, zh-CN: 金刚不坏, es: Cuerpo de diamante}
+        description: {en: Heavy damage reduction when wounded., tr: Yaralıyken güçlü hasar azaltma., zh-CN: 受伤时获得大幅减伤。, es: Gran reducción de daño al estar herido.}
+  - code: technique
+    l10n:
+      name: {en: Technique, tr: Teknik, zh-CN: 技巧, es: Técnica}
+      focus: {en: "Combo, crit, finisher", tr: "Kombo, kritik, bitirici", zh-CN: 连击、暴击、终结技, es: "Combo, crítico, remate"}
+    focus:
+      - {archetype: ferocity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 1}}]}
+      - {archetype: precision, effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 0.5}}]}
+      - {archetype: celerity, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 1}}]}
+      - {archetype: lethality, effects: [{effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 2}}]}
+      - {archetype: brutality, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 1}}]}
+    capstone:
+      code: perfect_technique_monk
+      effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 160}}]}}]
+      l10n:
+        name: {en: Perfect Technique, tr: Kusursuz Teknik, zh-CN: 完美技艺, es: Técnica perfecta}
+        description: {en: Every 5th strike is empowered., tr: Her 5. darbe güçlenir., zh-CN: 每第 5 次攻击得到强化。, es: Cada 5.º golpe se potencia.}
+  - code: chi
+    l10n:
+      name: {en: Chi, tr: Chi, zh-CN: 气, es: Chi}
+      focus: {en: "Generation, heal, overflow", tr: "Üretim, şifa, taşma", zh-CN: 产气、治疗、满溢, es: "Generación, curación, desbordamiento"}
+    focus:
+      - {archetype: inner_peace, effects: [{effect_type: STAT_PERCENT, params: {stat: resource_regen, percent: 2}}]}
+      - {archetype: mending, effects: [{effect_type: HEAL_MULTIPLIER, params: {percent: 2, scope: self}}]}
+      - {archetype: clarity, effects: [{effect_type: STAT_PERCENT, params: {stat: max_resource, percent: 2}}]}
+      - {archetype: discipline, effects: [{effect_type: RESOURCE_COST_MOD, params: {resource: chi, percent: -1}}]}
+      - {archetype: vitality, effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 1}}]}
+    capstone:
+      code: infinite_flow
+      effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: chi, amount: 3}}]}}]
+      l10n:
+        name: {en: Infinite Flow, tr: Sonsuz Akış, zh-CN: 无尽之流, es: Flujo infinito}
+        description: {en: Every hit returns extra Chi., tr: Her vuruş ekstra Chi kazandırır., zh-CN: 每次命中额外回复气。, es: Cada golpe devuelve Chi adicional.}

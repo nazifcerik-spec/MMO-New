@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { ClassTree } from "@/features/classes/class-tree";
+import { AbilityList } from "@/features/talents/ability-list";
 
 export default async function CharacterClassPage(props: PageProps<"/game/characters/[id]/class">) {
   const { id } = await props.params;
@@ -12,6 +13,7 @@ export default async function CharacterClassPage(props: PageProps<"/game/charact
     <div className="space-y-4">
       <h1 className="text-xl font-bold">{t("title")}</h1>
       <ClassTree characterId={characterId} />
+      <AbilityList characterId={characterId} />
     </div>
   );
 }

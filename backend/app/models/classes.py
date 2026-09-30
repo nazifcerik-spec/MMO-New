@@ -120,6 +120,9 @@ class CharacterClassProgression(Base, TimestampMixin):
     capstone_unlocked_at: Mapped[datetime | None] = mapped_column()
     mastery_at: Mapped[datetime | None] = mapped_column()
     path_changes: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    talent_resets: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    talent_points_spent: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    last_talent_reset_at: Mapped[datetime | None] = mapped_column()
     last_path_change_at: Mapped[datetime | None] = mapped_column()
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
