@@ -1,0 +1,27 @@
+code: combat
+data:
+  max_duration_s: 180
+  armor_k: 50              # mitigation = def / (def + armor_k*attacker_level + armor_k_base)
+  armor_k_base: 200
+  max_mitigation_pct: 75
+  max_penetration_pct: 50
+  damage_variance_pct: 5
+  min_hit_pct: 60
+  level_diff_hit_pct: 1.0
+  crit_cap_pct: 75
+  max_damage_reduction_pct: 75
+  min_attack_interval_s: 0.4
+  gcd_s: 1.0
+  regen_tick_s: 1.0
+  threat_damage_factor: 1.0
+  threat_heal_factor: 0.5
+  lifesteal_cap_pct: 30
+  log_limit: 120
+  coefficients:            # PvE vs PvP layer (PvP tuned separately; open-world PvP out of scope)
+    pve: {damage: 1.0, healing: 1.0, cc_duration: 1.0}
+    pvp: {damage: 0.7, healing: 0.7, cc_duration: 0.5}
+  stances:                 # Passive-only stances (Phase 10); balanced = no modifiers
+    balanced: {}
+    aggressive: {damage_percent: 10, damage_taken_percent: 8, resource_cost_percent: 0, attack_speed_percent: 5}
+    guarded: {damage_percent: -10, damage_taken_percent: -12, resource_cost_percent: 0, attack_speed_percent: -5}
+    efficient: {damage_percent: -4, damage_taken_percent: 0, resource_cost_percent: -20, attack_speed_percent: 0}

@@ -7,6 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.errors import NotFoundError
+from app.game_engine.combat.models import CombatConfig
 from app.game_engine.progression import ProgressionConfig
 from app.models.content import BalanceConfig
 from app.services.content.registry import ContentType, Issue, register
@@ -47,7 +48,11 @@ class AfkBalance(Strict):
 
 
 # Later phases register more schemas (progression, combat, risk profiles, ...).
-BALANCE_SCHEMAS: dict[str, type[BaseModel]] = {"afk": AfkBalance, "progression": ProgressionConfig}
+BALANCE_SCHEMAS: dict[str, type[BaseModel]] = {
+    "afk": AfkBalance,
+    "progression": ProgressionConfig,
+    "combat": CombatConfig,
+}
 
 
 class BalanceData(Strict):
