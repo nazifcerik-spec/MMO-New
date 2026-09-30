@@ -1,0 +1,33 @@
+code: professions
+data:
+  level_cap: 500
+  ranks:                                # canonical
+    - {code: apprentice, min_level: 1}
+    - {code: journeyman, min_level: 100}
+    - {code: expert, min_level: 200}
+    - {code: artisan, min_level: 300}
+    - {code: master, min_level: 400}
+    - {code: grandmaster, min_level: 500}
+  specialization_level: 200
+  unlicensed_level_cap: 199             # without a Specialist License progress stops before Expert
+  xp_curve: {base: 60, per_level: 6, exponent: 1.35}
+  license:
+    max_active: 3                       # canonical
+    free_activations: 3                 # the first three licenses are free
+    swap_cooldown_s: 604800             # 7 days between changes after the free ones
+    swap_cost_gold: [{min_level: 1, gold: 500}, {min_level: 200, gold: 5000}, {min_level: 400, gold: 25000}]
+    respecialize_cost_gold: 10000
+  stats:                                # stats affect speed/quality chance, never hard-lock content
+    speed_pct_per_point: 0.05
+    speed_cap_pct: 40
+    quality_pct_per_point: 0.03
+    quality_cap_pct: 25
+  tools:
+    below_tier_yield_penalty_pct: 35    # per tier the tool is below the node (canonical heavy loss)
+    min_yield_pct: 10
+    above_tier_bonus_pct: 3             # per tier above, capped
+    above_tier_bonus_cap_pct: 12
+  node_level_per_tier: 50               # profession level needed for tier-N nodes = max(1, N*50)
+  quality_chain: [common, fine, superior, masterwork, mythic_crafted]
+  quality_base_chances: {fine: 20, superior: 6, masterwork: 1.5, mythic_crafted: 0.2}
+  quality_level_bonus_pct_per_10_over: 1.0

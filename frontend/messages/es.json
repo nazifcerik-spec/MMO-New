@@ -98,7 +98,7 @@
     "nothing_to_respec": "No hay puntos para restablecer.",
     "level_too_low": "Tu nivel es demasiado bajo.",
     "invalid_branch": "Esa senda no pertenece a tu clase.",
-    "invalid_specialization": "Esa especialización no pertenece a tu senda.",
+    "invalid_specialization": "Especialización no válida.",
     "already_promoted": "Ya elegiste una senda.",
     "already_specialized": "Ya estás especializado.",
     "promotion_required": "Elige primero tu senda de Nv100.",
@@ -159,7 +159,12 @@
     "inventory_full": "Tu bolsa está llena.",
     "item_not_in_inventory": "El objeto debe estar en tu bolsa.",
     "slot_empty": "No hay nada equipado ahí.",
-    "item_equipped": "Quita primero el objeto."
+    "item_equipped": "Quita primero el objeto.",
+    "license_limit": "Ya tienes el máximo de licencias.",
+    "license_cooldown": "Los cambios de licencia están en espera.",
+    "license_required": "Se requiere una licencia de especialista.",
+    "specialization_locked": "La especialización aún no está desbloqueada.",
+    "profession_not_found": "Profesión no encontrada."
   },
   "characters": {
     "title": "Tus personajes",
@@ -865,5 +870,43 @@
     "deltaIfEquipped": "Si lo equipas:",
     "deltaVsEquipped": "Comparado con lo equipado:",
     "noDelta": "Sin cambios"
+  },
+  "professions": {
+    "open": "Profesiones",
+    "title": "Profesiones",
+    "licenses": "Licencias de especialista: {active}/{max}",
+    "freeLicenses": "Quedan {n} activaciones gratis",
+    "swapRules": "Cambiar licencias cuesta oro y tiene tiempo de espera.",
+    "cooldown": "Próximo cambio disponible {at}",
+    "show": "Mostrar",
+    "all": "Todas",
+    "type": {
+      "gathering": "Recolección",
+      "crafting": "Fabricación",
+      "service": "Servicio"
+    },
+    "rules": "Cada profesión sube por sí misma (no con la XP del personaje). Sin licencia se detiene en {cap}; con licencia llega a 500 y elige especialización en {spec}.",
+    "level": "Nv {level}/{cap}",
+    "xpOf": "Experiencia de {name}",
+    "tool": "herramienta: {tool}",
+    "statBonus": "+{speed}% velocidad, +{quality}% calidad",
+    "mod": {
+      "yield": "+{pct}% rendimiento",
+      "speed": "+{pct}% velocidad",
+      "quality": "+{pct}% calidad",
+      "rare_find": "+{pct}% hallazgo raro",
+      "xp": "+{pct}% XP"
+    },
+    "license": "Activar licencia",
+    "licenseFor": "Licencia ({gold} oro)",
+    "revoke": "Revocar licencia",
+    "licenseUpdated": "Licencia actualizada.",
+    "licensePaid": "Licencia activada por {gold} de oro.",
+    "licenseCostConfirm": "Este cambio cuesta {gold} de oro e inicia una espera. ¿Continuar?",
+    "unlicenseConfirm": "¿Revocar la licencia de {name}? Se conserva el progreso pero se detiene en {cap} y se pausan los bonos.",
+    "specialization": "Especialización",
+    "specAt": "Especialización Nv {level}: {names}",
+    "specialized": "Especialización elegida.",
+    "specializeConfirm": "¿Elegir esta especialización? Cambiarla después cuesta oro."
   }
 }

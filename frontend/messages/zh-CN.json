@@ -98,7 +98,7 @@
     "nothing_to_respec": "没有可重置的属性点。",
     "level_too_low": "等级不足。",
     "invalid_branch": "该路线不属于你的职业。",
-    "invalid_specialization": "该专精不在你的路线下。",
+    "invalid_specialization": "无效专精。",
     "already_promoted": "你已选择过路线。",
     "already_specialized": "你已完成专精。",
     "promotion_required": "请先选择 100 级路线。",
@@ -159,7 +159,12 @@
     "inventory_full": "背包已满。",
     "item_not_in_inventory": "物品必须在背包中。",
     "slot_empty": "该部位没有装备。",
-    "item_equipped": "请先卸下物品。"
+    "item_equipped": "请先卸下物品。",
+    "license_limit": "执照数量已达上限。",
+    "license_cooldown": "执照更换冷却中。",
+    "license_required": "需要专精执照。",
+    "specialization_locked": "专精尚未解锁。",
+    "profession_not_found": "未找到专业。"
   },
   "characters": {
     "title": "你的角色",
@@ -865,5 +870,43 @@
     "deltaIfEquipped": "若装备：",
     "deltaVsEquipped": "与已装备物品相比：",
     "noDelta": "属性无变化"
+  },
+  "professions": {
+    "open": "专业",
+    "title": "专业技能",
+    "licenses": "专精执照：{active}/{max}",
+    "freeLicenses": "剩余 {n} 次免费激活",
+    "swapRules": "更换执照需要金币并有冷却时间。",
+    "cooldown": "下次可更换时间 {at}",
+    "show": "显示",
+    "all": "全部",
+    "type": {
+      "gathering": "采集",
+      "crafting": "制作",
+      "service": "服务"
+    },
+    "rules": "每个专业独立升级（与角色经验无关）。无执照的专业停在 {cap} 级；持照专业可达 500 级，并在 {spec} 级选择专精。",
+    "level": "{level}/{cap} 级",
+    "xpOf": "{name} 经验",
+    "tool": "工具：{tool}",
+    "statBonus": "速度 +{speed}%，品质 +{quality}%",
+    "mod": {
+      "yield": "产量 +{pct}%",
+      "speed": "速度 +{pct}%",
+      "quality": "品质 +{pct}%",
+      "rare_find": "稀有发现 +{pct}%",
+      "xp": "经验 +{pct}%"
+    },
+    "license": "激活执照",
+    "licenseFor": "执照（{gold} 金币）",
+    "revoke": "撤销执照",
+    "licenseUpdated": "执照已更新。",
+    "licensePaid": "已花费 {gold} 金币激活执照。",
+    "licenseCostConfirm": "此次更换执照需 {gold} 金币并进入冷却。继续？",
+    "unlicenseConfirm": "撤销 {name} 执照？进度保留，但止步于 {cap} 级，专精加成暂停。",
+    "specialization": "专精",
+    "specAt": "{level} 级专精：{names}",
+    "specialized": "已选择专精。",
+    "specializeConfirm": "选择此专精？之后更换需要金币。"
   }
 }

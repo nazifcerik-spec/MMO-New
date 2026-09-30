@@ -1,0 +1,130 @@
+# Canonical 15 priority professions (docs/game-design/CANONICAL_RULES.md §9). Specialization effects use the
+# PROFESSION_YIELD_MOD registry effect (kinds: yield, speed, quality, rare_find, xp) — never combat code.
+professions:
+  - code: mining
+    type: gathering
+    tool: pickaxe
+    stats: [STR, VIT]
+    l10n: {name: {en: Mining, tr: Madencilik, zh-CN: 采矿, es: Minería}, title: {en: Grandmaster Miner, tr: Büyük Usta Madenci, zh-CN: 采矿宗师, es: Gran maestro minero}}
+    specs:
+      - {code: prospector, effects: [[yield, 12], [speed, 5]], l10n: {en: Prospector, tr: Maden Arayıcısı, zh-CN: 探矿者, es: Prospector}}
+      - {code: deep_miner, effects: [[rare_find, 12], [quality, 6]], l10n: {en: Deep Miner, tr: Derin Madenci, zh-CN: 深层矿工, es: Minero profundo}}
+  - code: logging
+    type: gathering
+    tool: axe
+    stats: [STR, VIT]
+    l10n: {name: {en: Logging, tr: Oduncluk, zh-CN: 伐木, es: Tala}, title: {en: Grandmaster Lumberjack, tr: Büyük Usta Oduncu, zh-CN: 伐木宗师, es: Gran maestro leñador}}
+    specs:
+      - {code: forester, effects: [[yield, 12], [speed, 5]], l10n: {en: Forester, tr: Ormancı, zh-CN: 林务员, es: Guardabosques}}
+      - {code: resin_harvester, effects: [[rare_find, 12], [quality, 6]], l10n: {en: Resin Harvester, tr: Reçine Toplayıcısı, zh-CN: 树脂采集者, es: Recolector de resina}}
+  - code: fishing
+    type: gathering
+    tool: rod
+    stats: [DEX, LUK]
+    l10n: {name: {en: Fishing, tr: Balıkçılık, zh-CN: 钓鱼, es: Pesca}, title: {en: Grandmaster Angler, tr: Büyük Usta Balıkçı, zh-CN: 垂钓宗师, es: Gran maestro pescador}}
+    specs:
+      - {code: angler, effects: [[yield, 12], [speed, 5]], l10n: {en: Angler, tr: Oltacı, zh-CN: 垂钓者, es: Pescador de caña}}
+      - {code: pearl_diver, effects: [[rare_find, 15], [quality, 4]], l10n: {en: Pearl Diver, tr: İnci Dalgıcı, zh-CN: 采珠人, es: Buceador de perlas}}
+  - code: hunting
+    type: gathering
+    tool: knife_bow
+    stats: [DEX, LUK]
+    l10n: {name: {en: Hunting, tr: Avcılık, zh-CN: 狩猎, es: Caza}, title: {en: Grandmaster Hunter, tr: Büyük Usta Avcı, zh-CN: 狩猎宗师, es: Gran maestro cazador}}
+    specs:
+      - {code: tracker, effects: [[yield, 12], [speed, 5]], l10n: {en: Tracker, tr: İz Sürücü, zh-CN: 追踪者, es: Rastreador}}
+      - {code: trophy_hunter, effects: [[rare_find, 15], [quality, 4]], l10n: {en: Trophy Hunter, tr: Ganimet Avcısı, zh-CN: 战利品猎人, es: Cazador de trofeos}}
+  - code: herbalism
+    type: gathering
+    tool: sickle
+    stats: [WIS, LUK]
+    l10n: {name: {en: Herbalism, tr: Şifalı Bitkicilik, zh-CN: 草药学, es: Herboristería}, title: {en: Grandmaster Herbalist, tr: Büyük Usta Bitkici, zh-CN: 草药宗师, es: Gran maestro herbolario}}
+    specs:
+      - {code: botanist, effects: [[yield, 12], [speed, 5]], l10n: {en: Botanist, tr: Botanikçi, zh-CN: 植物学家, es: Botánico}}
+      - {code: seedkeeper, effects: [[rare_find, 12], [quality, 6]], l10n: {en: Seedkeeper, tr: Tohum Bekçisi, zh-CN: 种子守护者, es: Guardián de semillas}}
+  - code: blacksmithing
+    type: crafting
+    tool: forge_hammer
+    stats: [STR]
+    l10n: {name: {en: Blacksmithing, tr: Demircilik, zh-CN: 锻造, es: Herrería}, title: {en: Grandmaster Blacksmith, tr: Büyük Usta Demirci, zh-CN: 锻造宗师, es: Gran maestro herrero}}
+    specs:
+      - {code: refiner, effects: [[yield, 10], [speed, 8]], l10n: {en: Refiner, tr: Arıtıcı, zh-CN: 精炼师, es: Refinador}}
+      - {code: master_forger, effects: [[quality, 12], [rare_find, 4]], l10n: {en: Master Forger, tr: Usta Dövmeci, zh-CN: 锻造大师, es: Maestro forjador}}
+  - code: weaponsmithing
+    type: crafting
+    tool: forge_kit
+    stats: [STR, DEX]
+    l10n: {name: {en: Weaponsmithing, tr: Silah Ustalığı, zh-CN: 武器锻造, es: Forja de armas}, title: {en: Grandmaster Weaponsmith, tr: Büyük Usta Silahçı, zh-CN: 武器锻造宗师, es: Gran maestro armero}}
+    specs:
+      - {code: edge_master, effects: [[quality, 10], [speed, 5]], l10n: {en: Edge Master, tr: Keskinlik Ustası, zh-CN: 利刃大师, es: Maestro del filo}}
+      - {code: impact_smith, effects: [[quality, 10], [yield, 5]], l10n: {en: Impact Smith, tr: Darbe Demircisi, zh-CN: 重击锻匠, es: Herrero de impacto}}
+  - code: armorsmithing
+    type: crafting
+    tool: forge_kit
+    stats: [STR, VIT]
+    l10n: {name: {en: Armorsmithing, tr: Zırh Ustalığı, zh-CN: 护甲锻造, es: Forja de armaduras}, title: {en: Grandmaster Armorsmith, tr: Büyük Usta Zırhçı, zh-CN: 护甲锻造宗师, es: Gran maestro armadurero}}
+    specs:
+      - {code: bulwark_smith, effects: [[quality, 10], [yield, 5]], l10n: {en: Bulwark Smith, tr: Siper Demircisi, zh-CN: 壁垒锻匠, es: Herrero de baluartes}}
+      - {code: plate_artisan, effects: [[quality, 12], [speed, 3]], l10n: {en: Plate Artisan, tr: Plaka Zanaatkârı, zh-CN: 板甲工匠, es: Artesano de placas}}
+  - code: leatherworking
+    type: crafting
+    tool: leather_tools
+    stats: [DEX]
+    l10n: {name: {en: Leatherworking, tr: Dericilik, zh-CN: 制皮, es: Peletería}, title: {en: Grandmaster Leatherworker, tr: Büyük Usta Derici, zh-CN: 制皮宗师, es: Gran maestro peletero}}
+    specs:
+      - {code: tanner, effects: [[yield, 10], [speed, 8]], l10n: {en: Tanner, tr: Tabak, zh-CN: 鞣皮匠, es: Curtidor}}
+      - {code: hide_artisan, effects: [[quality, 12], [rare_find, 4]], l10n: {en: Hide Artisan, tr: Post Zanaatkârı, zh-CN: 兽皮工匠, es: Artesano del cuero}}
+  - code: tailoring
+    type: crafting
+    tool: needle_kit
+    stats: [WIS, DEX]
+    l10n: {name: {en: Tailoring, tr: Terzilik, zh-CN: 裁缝, es: Sastrería}, title: {en: Grandmaster Tailor, tr: Büyük Usta Terzi, zh-CN: 裁缝宗师, es: Gran maestro sastre}}
+    specs:
+      - {code: weaver, effects: [[yield, 10], [speed, 8]], l10n: {en: Weaver, tr: Dokumacı, zh-CN: 织工, es: Tejedor}}
+      - {code: mystic_tailor, effects: [[quality, 12], [rare_find, 4]], l10n: {en: Mystic Tailor, tr: Mistik Terzi, zh-CN: 秘法裁缝, es: Sastre místico}}
+  - code: jewelcrafting
+    type: crafting
+    tool: jeweler_kit
+    stats: [LUK, DEX]
+    l10n: {name: {en: Jewelcrafting, tr: Kuyumculuk, zh-CN: 珠宝加工, es: Joyería}, title: {en: Grandmaster Jeweler, tr: Büyük Usta Kuyumcu, zh-CN: 珠宝宗师, es: Gran maestro joyero}}
+    specs:
+      - {code: gemcutter, effects: [[yield, 8], [quality, 8]], l10n: {en: Gemcutter, tr: Mücevher Kesici, zh-CN: 宝石切割师, es: Tallador de gemas}}
+      - {code: runesetter, effects: [[quality, 10], [rare_find, 8]], l10n: {en: Runesetter, tr: Rün Yerleştirici, zh-CN: 符文镶嵌师, es: Engastador de runas}}
+  - code: alchemy
+    type: crafting
+    tool: alchemist_kit
+    stats: [INT, WIS]
+    l10n: {name: {en: Alchemy, tr: Simya, zh-CN: 炼金术, es: Alquimia}, title: {en: Grand Alchemist, tr: Büyük Simyacı, zh-CN: 炼金大宗师, es: Gran alquimista}}
+    specs:
+      - {code: elixirist, effects: [[yield, 12], [speed, 5]], l10n: {en: Elixirist, tr: İksirci, zh-CN: 药剂师, es: Elixirista}}
+      - {code: toxicologist, effects: [[quality, 10], [rare_find, 6]], l10n: {en: Toxicologist, tr: Toksikolog, zh-CN: 毒理学家, es: Toxicólogo}}
+  - code: cooking
+    type: crafting
+    tool: cookware
+    stats: [WIS]
+    l10n: {name: {en: Cooking, tr: Aşçılık, zh-CN: 烹饪, es: Cocina}, title: {en: Master Culinarian, tr: Usta Aşçı, zh-CN: 烹饪大师, es: Maestro culinario}}
+    specs:
+      - {code: provisioner, effects: [[yield, 12], [speed, 5]], l10n: {en: Provisioner, tr: Erzakçı, zh-CN: 补给官, es: Proveedor}}
+      - {code: feastmaster, effects: [[quality, 12], [xp, 4]], l10n: {en: Feastmaster, tr: Ziyafet Ustası, zh-CN: 宴会大师, es: Maestro de banquetes}}
+  - code: enchanting
+    type: crafting
+    tool: arcane_focus
+    stats: [INT, SPI]
+    l10n: {name: {en: Enchanting, tr: Büyü Ustalığı, zh-CN: 附魔, es: Encantamiento}, title: {en: Grand Enchanter, tr: Büyük Efsuncu, zh-CN: 附魔大宗师, es: Gran encantador}}
+    specs:
+      - {code: imbuer, effects: [[quality, 12], [speed, 4]], l10n: {en: Imbuer, tr: Aşılayıcı, zh-CN: 灌注师, es: Imbuidor}}
+      - {code: disenchanter, effects: [[yield, 15], [rare_find, 5]], l10n: {en: Disenchanter, tr: Büyü Sökücü, zh-CN: 拆解附魔师, es: Desencantador}}
+  - code: engineering
+    type: crafting
+    tool: toolbox
+    stats: [INT, DEX]
+    l10n: {name: {en: Engineering, tr: Mühendislik, zh-CN: 工程学, es: Ingeniería}, title: {en: Master Engineer, tr: Usta Mühendis, zh-CN: 工程大师, es: Maestro ingeniero}}
+    specs:
+      - {code: mechanist, effects: [[speed, 10], [yield, 6]], l10n: {en: Mechanist, tr: Makinist, zh-CN: 机械师, es: Mecanicista}}
+      - {code: trapwright, effects: [[quality, 10], [rare_find, 6]], l10n: {en: Trapwright, tr: Tuzak Ustası, zh-CN: 陷阱匠, es: Trampero artesano}}
+ranks:
+  apprentice: {en: Apprentice, tr: Çırak, zh-CN: 学徒, es: Aprendiz}
+  journeyman: {en: Journeyman, tr: Kalfa, zh-CN: 熟练工, es: Oficial}
+  expert: {en: Expert, tr: Uzman, zh-CN: 专家, es: Experto}
+  artisan: {en: Artisan, tr: Zanaatkâr, zh-CN: 工匠, es: Artesano}
+  master: {en: Master, tr: Usta, zh-CN: 大师, es: Maestro}
+  grandmaster: {en: Grandmaster, tr: Büyük Usta, zh-CN: 宗师, es: Gran maestro}

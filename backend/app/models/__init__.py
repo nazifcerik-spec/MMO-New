@@ -9,6 +9,7 @@ from app.models import (  # noqa: F401
     content,
     items,
     localization,
+    professions,
     profiles,
     progression,
     race,

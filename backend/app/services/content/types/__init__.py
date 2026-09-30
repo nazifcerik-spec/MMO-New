@@ -1,3 +1,12 @@
 """Importing this package registers every content type with the content registry."""
 
-from app.services.content.types import abilities, afk_profiles, balance, classes, items, race, world  # noqa: F401
+from app.services.content.types import (  # noqa: F401
+    abilities,
+    afk_profiles,
+    balance,
+    classes,
+    items,
+    professions,
+    race,
+    world,
+)

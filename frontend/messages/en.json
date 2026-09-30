@@ -98,7 +98,7 @@
     "nothing_to_respec": "No points to reset.",
     "level_too_low": "Your level is too low for that.",
     "invalid_branch": "That path does not belong to your class.",
-    "invalid_specialization": "That specialization is not under your path.",
+    "invalid_specialization": "Invalid specialization.",
     "already_promoted": "You have already chosen a path.",
     "already_specialized": "You are already specialized.",
     "promotion_required": "Choose your Lv100 path first.",
@@ -159,7 +159,12 @@
     "inventory_full": "Your bag is full.",
     "item_not_in_inventory": "The item must be in your bag.",
     "slot_empty": "Nothing is equipped there.",
-    "item_equipped": "Unequip the item first."
+    "item_equipped": "Unequip the item first.",
+    "license_limit": "You already have the maximum number of licenses.",
+    "license_cooldown": "License changes are on cooldown.",
+    "license_required": "A Specialist License is required.",
+    "specialization_locked": "Specialization is not unlocked yet.",
+    "profession_not_found": "Profession not found."
   },
   "characters": {
     "title": "Your characters",
@@ -865,5 +870,43 @@
     "deltaIfEquipped": "If equipped:",
     "deltaVsEquipped": "Compared with equipped item:",
     "noDelta": "No stat change"
+  },
+  "professions": {
+    "open": "Professions",
+    "title": "Professions",
+    "licenses": "Specialist Licenses: {active}/{max}",
+    "freeLicenses": "{n} free activations left",
+    "swapRules": "Changing licenses costs gold and has a cooldown.",
+    "cooldown": "Next change available {at}",
+    "show": "Show",
+    "all": "All",
+    "type": {
+      "gathering": "Gathering",
+      "crafting": "Crafting",
+      "service": "Service"
+    },
+    "rules": "Every profession levels on its own (not character XP). Without a license a profession stops at {cap}; licensed professions reach 500 and choose a specialization at {spec}.",
+    "level": "Lv {level}/{cap}",
+    "xpOf": "{name} experience",
+    "tool": "tool: {tool}",
+    "statBonus": "+{speed}% speed, +{quality}% quality",
+    "mod": {
+      "yield": "+{pct}% yield",
+      "speed": "+{pct}% speed",
+      "quality": "+{pct}% quality",
+      "rare_find": "+{pct}% rare find",
+      "xp": "+{pct}% XP"
+    },
+    "license": "Activate license",
+    "licenseFor": "License ({gold} gold)",
+    "revoke": "Revoke license",
+    "licenseUpdated": "License updated.",
+    "licensePaid": "License activated for {gold} gold.",
+    "licenseCostConfirm": "This license change costs {gold} gold and starts a cooldown. Continue?",
+    "unlicenseConfirm": "Revoke the {name} license? Progress is kept but stops at {cap} and specialization bonuses pause.",
+    "specialization": "Specialization",
+    "specAt": "Lv {level} specialization: {names}",
+    "specialized": "Specialization chosen.",
+    "specializeConfirm": "Choose this specialization? Changing it later costs gold."
   }
 }

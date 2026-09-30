@@ -98,7 +98,7 @@
     "nothing_to_respec": "Sıfırlanacak puan yok.",
     "level_too_low": "Bunun için seviyen yetersiz.",
     "invalid_branch": "Bu yol sınıfına ait değil.",
-    "invalid_specialization": "Bu uzmanlık senin yolunda değil.",
+    "invalid_specialization": "Geçersiz uzmanlık.",
     "already_promoted": "Zaten bir yol seçtin.",
     "already_specialized": "Zaten uzmanlaştın.",
     "promotion_required": "Önce Sv100 yolunu seç.",
@@ -159,7 +159,12 @@
     "inventory_full": "Çantan dolu.",
     "item_not_in_inventory": "Eşya çantanda olmalı.",
     "slot_empty": "Orada kuşanılı bir şey yok.",
-    "item_equipped": "Önce eşyayı çıkar."
+    "item_equipped": "Önce eşyayı çıkar.",
+    "license_limit": "Zaten azami sayıda lisansın var.",
+    "license_cooldown": "Lisans değişikliği beklemede.",
+    "license_required": "Uzmanlık Lisansı gerekli.",
+    "specialization_locked": "Uzmanlık henüz açılmadı.",
+    "profession_not_found": "Meslek bulunamadı."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -865,5 +870,43 @@
     "deltaIfEquipped": "Kuşanılırsa:",
     "deltaVsEquipped": "Kuşanılı eşyaya göre:",
     "noDelta": "Stat değişikliği yok"
+  },
+  "professions": {
+    "open": "Meslekler",
+    "title": "Meslekler",
+    "licenses": "Uzmanlık Lisansları: {active}/{max}",
+    "freeLicenses": "{n} ücretsiz etkinleştirme kaldı",
+    "swapRules": "Lisans değiştirmek altın gerektirir ve bekleme süresi vardır.",
+    "cooldown": "Sonraki değişiklik {at}",
+    "show": "Göster",
+    "all": "Tümü",
+    "type": {
+      "gathering": "Toplayıcılık",
+      "crafting": "Üretim",
+      "service": "Hizmet"
+    },
+    "rules": "Her meslek kendi başına seviye atlar (karakter XP'si değil). Lisanssız meslek {cap}'da durur; lisanslı meslekler 500'e ulaşır ve {spec}'de uzmanlık seçer.",
+    "level": "Sv {level}/{cap}",
+    "xpOf": "{name} deneyimi",
+    "tool": "alet: {tool}",
+    "statBonus": "+%{speed} hız, +%{quality} kalite",
+    "mod": {
+      "yield": "+%{pct} verim",
+      "speed": "+%{pct} hız",
+      "quality": "+%{pct} kalite",
+      "rare_find": "+%{pct} nadir bulma",
+      "xp": "+%{pct} XP"
+    },
+    "license": "Lisansı etkinleştir",
+    "licenseFor": "Lisans ({gold} altın)",
+    "revoke": "Lisansı iptal et",
+    "licenseUpdated": "Lisans güncellendi.",
+    "licensePaid": "Lisans {gold} altına etkinleştirildi.",
+    "licenseCostConfirm": "Bu lisans değişikliği {gold} altın tutar ve bekleme başlatır. Devam?",
+    "unlicenseConfirm": "{name} lisansı iptal edilsin mi? İlerleme korunur ama {cap}'da durur ve uzmanlık bonusları duraklar.",
+    "specialization": "Uzmanlık",
+    "specAt": "Sv {level} uzmanlığı: {names}",
+    "specialized": "Uzmanlık seçildi.",
+    "specializeConfirm": "Bu uzmanlık seçilsin mi? Sonradan değiştirmek altın gerektirir."
   }
 }

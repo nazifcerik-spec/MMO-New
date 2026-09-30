@@ -528,6 +528,37 @@ async def seed_items(session: AsyncSession) -> int:
     return created
 
 
+async def seed_professions(session: AsyncSession) -> int:
+    """Canonical 15 professions × 2 specializations, rank names and grandmaster titles (4 locales)."""
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types.professions import PROFESSION_SPEC_TYPE, PROFESSION_TYPE
+
+    doc = load_yaml("professions/professions.yaml")
+    created = 0
+    for code, names in doc["ranks"].items():
+        await l10n_service_seed(session, f"profession_rank.{code}.name", names, "profession")
+    for order, p in enumerate(doc["professions"]):
+        await _texts(session, f"profession.{p['code']}", p["l10n"], "profession")
+        data = {
+            "type": p["type"],
+            "tool_kind": p["tool"],
+            "stats": p["stats"],
+            "sort_order": order,
+            "title_key": f"profession.{p['code']}.title",
+            "effects": [],
+        }
+        created += await ensure_published(session, PROFESSION_TYPE, p["code"], data)
+        for i, spec in enumerate(p["specs"]):
+            await l10n_service_seed(session, f"profession_spec.{spec['code']}.name", spec["l10n"], "profession")
+            effects = [
+                {"effect_type": "PROFESSION_YIELD_MOD", "params": {"profession": p["code"], "kind": k, "percent": v}}
+                for k, v in spec["effects"]
+            ]
+            data = {"profession_code": p["code"], "sort_order": i, "effects": effects}
+            created += await ensure_published(session, PROFESSION_SPEC_TYPE, spec["code"], data)
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -536,6 +567,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("classes", seed_classes),
     ("skills", seed_skills),
     ("passive_profiles", seed_passive_profiles),
+    ("professions", seed_professions),
     ("world", seed_world),
     ("items", seed_items),
 ]

@@ -1,6 +1,6 @@
 {
   "project": "oldschool-afk-text-mmorpg",
-  "current_phase": "17",
+  "current_phase": "18",
   "completed_phases": [
     "00",
     "01",
@@ -18,20 +18,21 @@
     "13",
     "14",
     "15",
-    "16"
+    "16",
+    "17"
   ],
   "skipped_optional_phases": [],
   "run_optional_phases": false,
   "last_quality_gate": {
-    "phase": "16",
+    "phase": "17",
     "result": "pass",
     "checks": [
-      "backend ruff/mypy/pytest 220",
-      "migrations 0013",
-      "frontend lint/typecheck/unit 36/build",
-      "e2e 36 passed"
+      "backend ruff/mypy/pytest 227",
+      "migrations 0014",
+      "frontend lint/typecheck/unit 39/build",
+      "e2e 38 passed"
     ]
   },
-  "last_updated_utc": "2026-09-30T23:15:39Z",
+  "last_updated_utc": "2026-09-30T23:26:05Z",
   "blocking_issue": null
 }

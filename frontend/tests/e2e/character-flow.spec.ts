@@ -198,3 +198,28 @@ test("inventory: staff-granted item is equipped server-side and stats update", a
   await page.getByRole("button", { name: "Remove item from main_hand" }).click();
   await expect(page.getByTestId("stat-attack_power")).toHaveText(before);
 });
+
+test("professions: activate and revoke a Specialist License", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Prf${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-dwarf").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("open-professions").click();
+  await expect(page.getByTestId("profession-mining")).toContainText("+8% speed"); // dwarf racial via effect registry
+  await page.getByTestId("license-mining").click();
+  await expect(page.getByTestId("license-summary")).toContainText("1/3");
+  await expect(page.getByTestId("prof-level-mining")).toContainText("Lv 1/500");
+  page.once("dialog", (d) => d.accept());
+  await page.getByTestId("license-mining").click();
+  await expect(page.getByTestId("license-summary")).toContainText("0/3");
+});
