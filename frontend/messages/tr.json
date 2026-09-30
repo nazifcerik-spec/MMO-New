@@ -1,0 +1,60 @@
+{
+  "common": {
+    "appName": "Oldschool AFK Metin MMO",
+    "loading": "Yükleniyor…",
+    "error": "Bir şeyler ters gitti.",
+    "retry": "Tekrar dene",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "next": "İleri",
+    "language": "Dil",
+    "settings": "Ayarlar",
+    "search": "Ara",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı"
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "game": "Oyna",
+    "admin": "Yönetim",
+    "login": "Giriş yap",
+    "logout": "Çıkış yap",
+    "register": "Kayıt ol",
+    "character": "Karakter",
+    "inventory": "Envanter",
+    "equipment": "Ekipman",
+    "professions": "Meslekler",
+    "market": "Pazar",
+    "party": "Grup",
+    "afk": "AFK",
+    "skills": "Yetenekler ve Talentler"
+  },
+  "home": {
+    "tagline": "Build'ini planla. Kahramanına komut ver. Sonuçlara geri dön.",
+    "systemStatus": "Sistem durumu",
+    "database": "Veritabanı",
+    "cache": "Önbellek",
+    "statusOk": "Çalışıyor",
+    "statusDown": "Erişilemiyor"
+  },
+  "game": {
+    "title": "Macera",
+    "level": "Seviye",
+    "xp": "TP",
+    "startAfk": "AFK başlat",
+    "claim": "Topla",
+    "item": "Eşya",
+    "profession": "Meslek"
+  },
+  "admin": {
+    "title": "Yönetim paneli",
+    "restricted": "Yalnızca yetkili personel."
+  },
+  "auth": {
+    "title": "Tekrar hoş geldin",
+    "email": "E-posta",
+    "password": "Parola"
+  }
+}

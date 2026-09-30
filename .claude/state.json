@@ -1,10 +1,28 @@
 {
   "project": "oldschool-afk-text-mmorpg",
-  "current_phase": "01",
-  "completed_phases": ["00"],
+  "current_phase": "02",
+  "completed_phases": [
+    "00",
+    "01"
+  ],
   "skipped_optional_phases": [],
   "run_optional_phases": false,
-  "last_quality_gate": {"phase": "00", "result": "pass", "checks": ["docs present: CLAUDE.md, 6 ADRs, CANONICAL_RULES.md"]},
-  "last_updated_utc": "2026-09-30T13:54:07Z",
+  "last_quality_gate": {
+    "phase": "01",
+    "result": "pass",
+    "checks": [
+      "ruff",
+      "mypy",
+      "pytest",
+      "drift",
+      "eslint",
+      "tsc",
+      "vitest",
+      "next build",
+      "compose up",
+      "playwright smoke"
+    ]
+  },
+  "last_updated_utc": "2026-09-30T14:04:32Z",
   "blocking_issue": null
 }

@@ -1,0 +1,60 @@
+{
+  "common": {
+    "appName": "MMO de Texto AFK Clásico",
+    "loading": "Cargando…",
+    "error": "Algo salió mal.",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "language": "Idioma",
+    "settings": "Ajustes",
+    "search": "Buscar",
+    "online": "En línea",
+    "offline": "Sin conexión"
+  },
+  "nav": {
+    "home": "Inicio",
+    "game": "Jugar",
+    "admin": "Administración",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "register": "Registrarse",
+    "character": "Personaje",
+    "inventory": "Inventario",
+    "equipment": "Equipo",
+    "professions": "Profesiones",
+    "market": "Mercado",
+    "party": "Grupo",
+    "afk": "AFK",
+    "skills": "Habilidades y talentos"
+  },
+  "home": {
+    "tagline": "Planifica tu build. Da órdenes a tu héroe. Vuelve a ver los resultados.",
+    "systemStatus": "Estado del sistema",
+    "database": "Base de datos",
+    "cache": "Caché",
+    "statusOk": "Operativo",
+    "statusDown": "No disponible"
+  },
+  "game": {
+    "title": "Aventura",
+    "level": "Nivel",
+    "xp": "EXP",
+    "startAfk": "Iniciar AFK",
+    "claim": "Reclamar",
+    "item": "Objeto",
+    "profession": "Profesión"
+  },
+  "admin": {
+    "title": "Administración",
+    "restricted": "Solo acceso para personal."
+  },
+  "auth": {
+    "title": "Bienvenido de nuevo",
+    "email": "Correo electrónico",
+    "password": "Contraseña"
+  }
+}

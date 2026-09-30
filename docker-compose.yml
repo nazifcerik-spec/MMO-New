@@ -1,0 +1,56 @@
+# Local development stack: `docker compose up --build`
+name: oldschool-afk-mmo
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mmo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mmo}
+      POSTGRES_DB: ${POSTGRES_DB:-mmo}
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    ports: ["${REDIS_PORT:-6379}:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    image: oldschool-afk-mmo-backend
+    build: ./backend
+    env_file: [.env]
+    environment:
+      MMO_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-mmo}:${POSTGRES_PASSWORD:-mmo}@postgres:5432/${POSTGRES_DB:-mmo}
+      MMO_REDIS_URL: redis://redis:6379/0
+    ports: ["8000:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  frontend:
+    image: oldschool-afk-mmo-frontend
+    build:
+      context: ./frontend
+      args: {BACKEND_URL: "http://backend:8000"}
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports: ["3000:3000"]
+    depends_on:
+      backend: {condition: service_healthy}
+
+volumes:
+  pgdata:

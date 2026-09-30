@@ -1,0 +1,60 @@
+{
+  "common": {
+    "appName": "复古挂机文字MMO",
+    "loading": "加载中…",
+    "error": "出现错误。",
+    "retry": "重试",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "language": "语言",
+    "settings": "设置",
+    "search": "搜索",
+    "online": "在线",
+    "offline": "离线"
+  },
+  "nav": {
+    "home": "首页",
+    "game": "开始游戏",
+    "admin": "管理",
+    "login": "登录",
+    "logout": "退出登录",
+    "register": "注册",
+    "character": "角色",
+    "inventory": "背包",
+    "equipment": "装备",
+    "professions": "职业技能",
+    "market": "市场",
+    "party": "队伍",
+    "afk": "挂机",
+    "skills": "技能与天赋"
+  },
+  "home": {
+    "tagline": "规划构建，指挥英雄，回来收获成果。",
+    "systemStatus": "系统状态",
+    "database": "数据库",
+    "cache": "缓存",
+    "statusOk": "运行正常",
+    "statusDown": "不可用"
+  },
+  "game": {
+    "title": "冒险",
+    "level": "等级",
+    "xp": "经验",
+    "startAfk": "开始挂机",
+    "claim": "领取",
+    "item": "物品",
+    "profession": "职业技能"
+  },
+  "admin": {
+    "title": "管理后台",
+    "restricted": "仅限工作人员访问。"
+  },
+  "auth": {
+    "title": "欢迎回来",
+    "email": "电子邮箱",
+    "password": "密码"
+  }
+}

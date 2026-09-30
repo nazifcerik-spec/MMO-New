@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4f1ea;
+  --panel: #fffdf8;
+  --fg: #1d1b16;
+  --muted: #6b6457;
+  --border: #d8d0bf;
+  --accent: #8a5a00;
+  --good: #2f7d32;
+  --bad: #b3261e;
+  --rare: #1e5fb3;
+  --epic: #7b2cbf;
+  --legendary: #c26a00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1110;
+    --panel: #161a18;
+    --fg: #d9e0d4;
+    --muted: #8b9486;
+    --border: #2a312d;
+    --accent: #e0b25a;
+    --good: #7bc47f;
+    --bad: #ef6b61;
+    --rare: #6ea8ff;
+    --epic: #c08cff;
+    --legendary: #ffb347;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --color-rare: var(--rare);
+  --color-epic: var(--epic);
+  --color-legendary: var(--legendary);
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Noto Sans Mono CJK SC", Menlo, monospace;
+  --font-sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Noto Sans SC", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+
+/* CJK-friendly wrapping: long translated strings must never overflow containers. */
+body {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-break: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

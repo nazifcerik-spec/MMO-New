@@ -1,0 +1,60 @@
+{
+  "common": {
+    "appName": "Oldschool AFK Text MMO",
+    "loading": "Loading…",
+    "error": "Something went wrong.",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "language": "Language",
+    "settings": "Settings",
+    "search": "Search",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "nav": {
+    "home": "Home",
+    "game": "Play",
+    "admin": "Admin",
+    "login": "Log in",
+    "logout": "Log out",
+    "register": "Register",
+    "character": "Character",
+    "inventory": "Inventory",
+    "equipment": "Equipment",
+    "professions": "Professions",
+    "market": "Market",
+    "party": "Party",
+    "afk": "AFK",
+    "skills": "Skills & Talents"
+  },
+  "home": {
+    "tagline": "Plan your build. Command your hero. Return to results.",
+    "systemStatus": "System status",
+    "database": "Database",
+    "cache": "Cache",
+    "statusOk": "Operational",
+    "statusDown": "Unavailable"
+  },
+  "game": {
+    "title": "Adventure",
+    "level": "Level",
+    "xp": "XP",
+    "startAfk": "Start AFK",
+    "claim": "Claim",
+    "item": "Item",
+    "profession": "Profession"
+  },
+  "admin": {
+    "title": "Administration",
+    "restricted": "Staff access only."
+  },
+  "auth": {
+    "title": "Welcome back",
+    "email": "Email",
+    "password": "Password"
+  }
+}
