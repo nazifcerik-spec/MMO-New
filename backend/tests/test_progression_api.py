@@ -116,7 +116,9 @@ async def test_respec_free_early_and_costly_later(make_client, make_character) -
     r = await u.http.post(f"/api/v1/characters/{cid}/stats/respec", headers={"Idempotency-Key": _key()})
     assert r.status_code == 200 and r.json()["unspent_after"] == 20
 
-    cid2 = await make_character(u.user_id, level=700, unspent=10)
+    from tests.test_races import _race_id
+
+    cid2 = await make_character(u.user_id, level=700, unspent=10, race_id=await _race_id("orc"))
     ver2 = (await u.http.get(f"/api/v1/characters/{cid2}/progression")).json()["version"]
     await u.http.post(
         f"/api/v1/characters/{cid2}/stats/allocate",

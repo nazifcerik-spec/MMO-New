@@ -11,6 +11,7 @@ from app.core.logging import configure_logging
 from app.core.middleware import CorrelationIdMiddleware
 from app.db.redis import close_redis
 from app.db.session import dispose_engine
+from app.services import plugins as _plugins  # noqa: F401  (registers content types + providers)
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:

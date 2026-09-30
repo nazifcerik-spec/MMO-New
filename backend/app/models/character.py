@@ -28,8 +28,8 @@ class Character(Base, TimestampMixin):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"), nullable=False, index=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False)
     name_normalized: Mapped[str] = mapped_column(String(64), nullable=False)
-    # FKs to content tables are added when race/class content lands (Phases 06/07).
-    race_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    race_id: Mapped[int] = mapped_column(ForeignKey("races.id", ondelete="RESTRICT"), nullable=False, index=True)
+    # FK to base classes is added with class content (Phase 07).
     base_class_id: Mapped[int] = mapped_column(Integer, nullable=False)
     level: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     xp: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0)

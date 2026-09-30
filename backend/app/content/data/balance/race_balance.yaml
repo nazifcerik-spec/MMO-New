@@ -1,0 +1,15 @@
+code: race_balance
+data:
+  # Estimated total combat advantage (%) of a race's effects must stay near the canonical 3-5% band.
+  warn_percent: 5.0
+  error_percent: 7.0
+  primary_stat_weight: 0.5        # +1% of a primary stat ≈ +0.5% combat output
+  stat_percent_weights: {mana_regen: 0.2, lifesteal: 0.25, crit_damage: 0.25}
+  stat_flat_weights: {dodge: 0.5, block: 0.5, elemental_resist: 0.3, crit_damage: 0.25, crit_chance: 0.6,
+                      block_efficiency: 0.3, debuff_duration: 0.3, healing_received: 0.3}
+  default_stat_weight: 0.3
+  damage_multiplier_weight: 1.0
+  heal_multiplier_weight: 0.3
+  condition_uptime: {self_hp_pct: 0.25, target_hp_pct: 0.3}
+  default_condition_uptime: 0.5
+  non_combat_effects: [LOOT_MODIFIER, PROGRESSION_MODIFIER, PROFESSION_YIELD_MOD]

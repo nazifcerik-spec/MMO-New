@@ -155,5 +155,65 @@
       "formula": "Fórmula"
     },
     "view": "Ver"
+  },
+  "effects": {
+    "statFlat": "{stat} {amount}",
+    "statPercent": "{stat} {percent}%",
+    "damage": "Daño {percent}%",
+    "damageTyped": "Daño {type} {percent}%",
+    "damageReduction": "Daño recibido −{percent}%",
+    "heal": {
+      "outgoing": "Curación realizada {percent}%",
+      "received": "Curación recibida {percent}%",
+      "hot": "Curación en el tiempo {percent}%",
+      "self": "Autocuración {percent}%"
+    },
+    "loot": {
+      "xp": "EXP {percent}%",
+      "gold": "Oro {percent}%",
+      "drop_rate": "Tasa de botín {percent}%",
+      "rare_chance": "Prob. de rareza {percent}%",
+      "material_yield": "Rendimiento de materiales {percent}%"
+    },
+    "progression": {
+      "death_penalty": "Penalización por muerte {percent}%",
+      "respec_cost": "Coste de reasignación {percent}%",
+      "consumable_use": "Consumo de consumibles {percent}%",
+      "durability_loss": "Pérdida de durabilidad {percent}%",
+      "rested_xp": "EXP de descanso {percent}%"
+    },
+    "limitPoints": "(primeros {points} puntos)",
+    "profession": {
+      "yield": "Rendimiento de {profession} {percent}%",
+      "speed": "Velocidad de {profession} {percent}%",
+      "quality": "Calidad de {profession} {percent}%",
+      "rare_find": "Hallazgo raro de {profession} {percent}%",
+      "xp": "EXP de {profession} {percent}%"
+    },
+    "when": "Cuando {condition}: {effects}",
+    "cond": {
+      "self_hp_pct": "PS {op} {value}%",
+      "self_resource_pct": "recurso {op} {value}%",
+      "target_hp_pct": "PS del objetivo {op} {value}%",
+      "enemy_count": "enemigos {op} {value}",
+      "target_debuff_count": "perjuicios del objetivo {op} {value}",
+      "self_buff_count": "mejoras propias {op} {value}",
+      "combo_count": "combo {op} {value}",
+      "stack_count": "acumulaciones {op} {value}"
+    },
+    "ops": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "other": "{type}"
+  },
+  "races": {
+    "trait": "Rasgo",
+    "raceTitle": "Título racial: {title}",
+    "affinity": "Afinidad natural (informativa): {classes}",
+    "noLock": "Cualquier raza puede jugar cualquier clase."
   }
 }

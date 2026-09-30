@@ -1,17 +1,21 @@
-"""Character-creation choices come from published content (races, base classes).
-
-Until race/class content is seeded (Phases 06/07) the lists are empty and creation is rejected with
-`content_unavailable`; the UI renders whatever this returns and never hardcodes choices."""
+"""Character-creation choices come from published content (races, base classes); never hardcoded."""
 
 from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.errors import ValidationFailedError
+from app.services import races
+
+# Base classes are registered by the class module (Phase 07).
+CLASS_OPTION_PROVIDERS: list[Any] = []
 
 
 async def get_character_options(db: AsyncSession, locale: str) -> dict[str, list[dict[str, Any]]]:
-    return {"races": [], "base_classes": []}
+    classes: list[dict[str, Any]] = []
+    for provider in CLASS_OPTION_PROVIDERS:
+        classes.extend(await provider(db, locale))
+    return {"races": await races.race_cards(db, locale), "base_classes": classes}
 
 
 async def validate_choice(db: AsyncSession, race_id: int, base_class_id: int) -> None:

@@ -1,0 +1,182 @@
+# Canonical launch races (GDD §04). No class locks; affinity is informational only.
+races:
+  - code: human
+    sort_order: 1
+    identity: balance
+    affinity: [warrior, rogue, ranger, mage, monk, cleric, paladin, druid, bard, shaman]
+    effects:
+      - {effect_type: LOOT_MODIFIER, params: {scope: xp, percent: 3}}
+      - {effect_type: PROGRESSION_MODIFIER, params: {kind: respec_cost, percent: -50, limit_points: 300}}
+    l10n:
+      name: {en: Human, tr: İnsan, zh-CN: 人类, es: Humano}
+      description:
+        en: Versatile and quick to learn; at home in any calling.
+        tr: Çok yönlü ve hızlı öğrenen; her yolda kendini evinde hisseder.
+        zh-CN: 多才多艺、学习迅速，适合任何职业。
+        es: Versátiles y de rápido aprendizaje; se adaptan a cualquier vocación.
+      trait_name: {en: Adaptable, tr: Uyumlu, zh-CN: 适应力, es: Adaptable}
+      trait_description:
+        en: All XP +3%. Cheaper stat respec for the first 300 points.
+        tr: Tüm TP +%3. İlk 300 stat puanında daha ucuz sıfırlama.
+        zh-CN: 所有经验 +3%。前 300 点属性重置费用降低。
+        es: Toda la EXP +3%. Reasignación más barata para los primeros 300 puntos.
+      title: {en: Diplomat, tr: Diplomat, zh-CN: 外交家, es: Diplomático}
+  - code: high_elf
+    sort_order: 2
+    identity: caster
+    affinity: [mage, cleric, druid]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: INT, percent: 4}}
+      - {effect_type: STAT_PERCENT, params: {stat: mana_regen, percent: 5}}
+      - {effect_type: STAT_FLAT, params: {stat: elemental_resist, amount: 3}}
+    l10n:
+      name: {en: High Elf, tr: Yüce Elf, zh-CN: 高等精灵, es: Alto elfo}
+      description:
+        en: Ancient bloodlines steeped in arcane power.
+        tr: Kadim soyları arkanik güçle yoğrulmuş.
+        zh-CN: 古老血脉浸润着奥术之力。
+        es: Linajes antiguos impregnados de poder arcano.
+      trait_name: {en: Arcane Blood, tr: Arkanik Kan, zh-CN: 奥术之血, es: Sangre arcana}
+      trait_description:
+        en: INT +4%, mana regeneration +5%, elemental resistance +3.
+        tr: INT +%4, mana yenilenmesi +%5, element direnci +3.
+        zh-CN: 智力 +4%，法力回复 +5%，元素抗性 +3。
+        es: INT +4%, regeneración de maná +5%, resistencia elemental +3.
+      title: {en: Starborn, tr: Yıldızdoğan, zh-CN: 星裔, es: Nacido de las estrellas}
+  - code: dark_elf
+    sort_order: 3
+    identity: burst_debuff
+    affinity: [rogue, ranger, bard]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: DEX, percent: 4}}
+      - {effect_type: STAT_FLAT, params: {stat: crit_damage, amount: 5}}
+      - {effect_type: STAT_FLAT, params: {stat: debuff_duration, amount: 4}}
+    l10n:
+      name: {en: Dark Elf, tr: Kara Elf, zh-CN: 暗夜精灵, es: Elfo oscuro}
+      description:
+        en: Shadow-born hunters with a gift for precise, cruel strikes.
+        tr: Kesin ve acımasız darbelerde ustalaşmış, gölgeden doğmuş avcılar.
+        zh-CN: 生于暗影的猎手，擅长精准而冷酷的打击。
+        es: Cazadores nacidos de las sombras, dotados para golpes precisos y crueles.
+      trait_name: {en: Night Instinct, tr: Gece İçgüdüsü, zh-CN: 夜之本能, es: Instinto nocturno}
+      trait_description:
+        en: DEX +4%, critical damage +5, debuff duration +4%.
+        tr: DEX +%4, kritik hasar +5, zayıflatma süresi +%4.
+        zh-CN: 敏捷 +4%，暴击伤害 +5，减益持续时间 +4%。
+        es: DES +4%, daño crítico +5, duración de perjuicios +4%.
+      title: {en: Umbral, tr: Gölgeli, zh-CN: 幽影, es: Umbral}
+  - code: dwarf
+    sort_order: 4
+    identity: tank_crafting
+    affinity: [warrior, paladin, shaman]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: VIT, percent: 5}}
+      - {effect_type: STAT_FLAT, params: {stat: block_efficiency, amount: 5}}
+      - {effect_type: PROFESSION_YIELD_MOD, params: {profession: mining, kind: speed, percent: 8}}
+    l10n:
+      name: {en: Dwarf, tr: Cüce, zh-CN: 矮人, es: Enano}
+      description:
+        en: Stout folk of stone and forge, as enduring as the mountains.
+        tr: Taşın ve ocağın sağlam halkı; dağlar kadar dayanıklı.
+        zh-CN: 石与熔炉之民，坚韧如山。
+        es: Pueblo robusto de piedra y forja, tan duradero como las montañas.
+      trait_name: {en: Stoneborn, tr: Taşdoğan, zh-CN: 石裔, es: Nacido de la piedra}
+      trait_description:
+        en: VIT +5%, block efficiency +5, Mining speed +8%.
+        tr: VIT +%5, blok verimi +5, Madencilik hızı +%8.
+        zh-CN: 体力 +5%，格挡效率 +5，采矿速度 +8%。
+        es: VIT +5%, eficiencia de bloqueo +5, velocidad de minería +8%.
+      title: {en: Deepforged, tr: Derin Dövülmüş, zh-CN: 深铸者, es: Forjado en lo profundo}
+  - code: orc
+    sort_order: 5
+    identity: risk_dps
+    affinity: [warrior, monk, shaman]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: STR, percent: 5}}
+      - effect_type: THRESHOLD_TRIGGER
+        params:
+          condition: {metric: self_hp_pct, op: lt, value: 35}
+          effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 6}}]
+      - {effect_type: STAT_FLAT, params: {stat: healing_received, amount: -2}}
+    l10n:
+      name: {en: Orc, tr: Ork, zh-CN: 兽人, es: Orco}
+      description:
+        en: Fierce warriors who fight hardest when wounded.
+        tr: Yaralandıklarında en sert savaşan azılı savaşçılar.
+        zh-CN: 凶猛的战士，越是负伤越是勇猛。
+        es: Guerreros feroces que luchan con más fuerza cuando están heridos.
+      trait_name: {en: Blood Fury, tr: Kan Öfkesi, zh-CN: 血之狂怒, es: Furia sangrienta}
+      trait_description:
+        en: STR +5%, damage +6% below 35% HP, healing received −2%.
+        tr: STR +%5, %35 Can altında hasar +%6, alınan iyileştirme −%2.
+        zh-CN: 力量 +5%，生命低于 35% 时伤害 +6%，受到治疗 −2%。
+        es: FUE +5%, daño +6% con menos del 35% de PS, curación recibida −2%.
+      title: {en: Warborn, tr: Savaşdoğan, zh-CN: 战裔, es: Nacido para la guerra}
+  - code: sylvan
+    sort_order: 6
+    identity: sustain
+    affinity: [druid, ranger, cleric]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: WIS, percent: 4}}
+      - {effect_type: HEAL_MULTIPLIER, params: {percent: 5, scope: hot}}
+      - {effect_type: PROFESSION_YIELD_MOD, params: {profession: herbalism, kind: yield, percent: 6}}
+      - {effect_type: PROFESSION_YIELD_MOD, params: {profession: fishing, kind: yield, percent: 6}}
+    l10n:
+      name: {en: Sylvan, tr: Orman Halkı, zh-CN: 林灵, es: Silvano}
+      description:
+        en: Forest dwellers bound to the living green.
+        tr: Yaşayan yeşile bağlı orman sakinleri.
+        zh-CN: 与生机之绿相连的林地居民。
+        es: Habitantes del bosque unidos al verde viviente.
+      trait_name: {en: Nature Bond, tr: Doğa Bağı, zh-CN: 自然之契, es: Vínculo natural}
+      trait_description:
+        en: WIS +4%, heal-over-time +5%, Herbalism and Fishing yield +6%.
+        tr: WIS +%4, zamanla iyileşme +%5, Şifalı Bitki ve Balıkçılık verimi +%6.
+        zh-CN: 智慧 +4%，持续治疗 +5%，草药学与钓鱼产出 +6%。
+        es: SAB +4%, curación en el tiempo +5%, rendimiento de herboristería y pesca +6%.
+      title: {en: Greenwarden, tr: Yeşil Muhafız, zh-CN: 绿野守望者, es: Guardaverde}
+  - code: beastkin
+    sort_order: 7
+    identity: speed_gather
+    affinity: [rogue, ranger, monk]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: DEX, percent: 3}}
+      - {effect_type: STAT_PERCENT, params: {stat: LUK, percent: 3}}
+      - {effect_type: STAT_FLAT, params: {stat: dodge, amount: 3}}
+      - {effect_type: PROFESSION_YIELD_MOD, params: {profession: hunting, kind: yield, percent: 8}}
+    l10n:
+      name: {en: Beastkin, tr: Canavar Soyu, zh-CN: 兽族, es: Bestial}
+      description:
+        en: Swift, keen-sensed kin of the wild.
+        tr: Vahşi doğanın hızlı, keskin duyulu akrabaları.
+        zh-CN: 迅捷敏锐的荒野之子。
+        es: Parientes veloces y de sentidos agudos de lo salvaje.
+      trait_name: {en: Predator Sense, tr: Avcı Hissi, zh-CN: 掠食直觉, es: Sentido depredador}
+      trait_description:
+        en: DEX +3%, LUK +3%, dodge +3, Hunting yield +8%.
+        tr: DEX +%3, LUK +%3, kaçınma +3, Avcılık verimi +%8.
+        zh-CN: 敏捷 +3%，幸运 +3%，闪避 +3，狩猎产出 +8%。
+        es: DES +3%, SUE +3%, esquiva +3, rendimiento de caza +8%.
+      title: {en: Wildblood, tr: Yabankan, zh-CN: 野性之血, es: Sangre salvaje}
+  - code: revenant
+    sort_order: 8
+    identity: attrition
+    affinity: [warrior, mage, shaman]
+    effects:
+      - {effect_type: STAT_PERCENT, params: {stat: SPI, percent: 4}}
+      - {effect_type: PROGRESSION_MODIFIER, params: {kind: death_penalty, percent: -25}}
+      - {effect_type: STAT_PERCENT, params: {stat: lifesteal, percent: 4}}
+    l10n:
+      name: {en: Revenant, tr: Hortlak, zh-CN: 亡魂, es: Retornado}
+      description:
+        en: Those who returned from death, and refuse to fall again.
+        tr: Ölümden dönen ve bir daha düşmeyi reddedenler.
+        zh-CN: 自死亡中归来者，誓不再倒下。
+        es: Quienes volvieron de la muerte y se niegan a caer de nuevo.
+      trait_name: {en: Undying Will, tr: Ölümsüz İrade, zh-CN: 不死意志, es: Voluntad imperecedera}
+      trait_description:
+        en: SPI +4%, death penalty −25%, lifesteal effectiveness +4%.
+        tr: SPI +%4, ölüm cezası −%25, can çalma etkinliği +%4.
+        zh-CN: 精神 +4%，死亡惩罚 −25%，生命偷取效果 +4%。
+        es: ESP +4%, penalización por muerte −25%, eficacia de robo de vida +4%.
+      title: {en: Deathless, tr: Ölümsüz, zh-CN: 不死者, es: Imperecedero}

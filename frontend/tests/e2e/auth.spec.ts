@@ -37,8 +37,12 @@ test("character wizard validates name and renders content-driven options", async
   await page.getByRole("button", { name: "Next" }).click();
   await expect(page.getByText("Name is available.")).toBeVisible();
   await page.getByRole("button", { name: "Next" }).click();
-  // Race step: whatever the content API provides (empty until race content is seeded).
-  await expect(page.getByRole("radiogroup").or(page.getByTestId("no-options"))).toBeVisible();
+  // Race step renders the 8 published races as localized cards with effect summaries.
+  await expect(page.getByRole("radio")).toHaveCount(8);
+  await expect(page.getByTestId("option-dwarf")).toContainText("Stoneborn");
+  await expect(page.getByTestId("option-dwarf")).toContainText("Vitality +5%");
+  await page.getByTestId("option-dwarf").click();
+  await expect(page.getByTestId("option-dwarf")).toHaveAttribute("aria-checked", "true");
 });
 
 test("player cannot enter admin; staff can", async ({ page, browser }) => {

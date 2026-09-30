@@ -155,5 +155,65 @@
       "formula": "Formül"
     },
     "view": "Görüntüle"
+  },
+  "effects": {
+    "statFlat": "{stat} {amount}",
+    "statPercent": "{stat} %{percent}",
+    "damage": "Hasar %{percent}",
+    "damageTyped": "{type} hasarı %{percent}",
+    "damageReduction": "Alınan hasar −%{percent}",
+    "heal": {
+      "outgoing": "Yapılan iyileştirme %{percent}",
+      "received": "Alınan iyileştirme %{percent}",
+      "hot": "Zamanla iyileşme %{percent}",
+      "self": "Kendini iyileştirme %{percent}"
+    },
+    "loot": {
+      "xp": "TP %{percent}",
+      "gold": "Altın %{percent}",
+      "drop_rate": "Ganimet oranı %{percent}",
+      "rare_chance": "Nadir bulma şansı %{percent}",
+      "material_yield": "Malzeme verimi %{percent}"
+    },
+    "progression": {
+      "death_penalty": "Ölüm cezası %{percent}",
+      "respec_cost": "Stat sıfırlama maliyeti %{percent}",
+      "consumable_use": "Sarf malzemesi kullanımı %{percent}",
+      "durability_loss": "Dayanıklılık kaybı %{percent}",
+      "rested_xp": "Dinlenmiş TP %{percent}"
+    },
+    "limitPoints": "(ilk {points} puan)",
+    "profession": {
+      "yield": "{profession} verimi %{percent}",
+      "speed": "{profession} hızı %{percent}",
+      "quality": "{profession} kalitesi %{percent}",
+      "rare_find": "{profession} nadir bulma %{percent}",
+      "xp": "{profession} TP %{percent}"
+    },
+    "when": "{condition} olduğunda: {effects}",
+    "cond": {
+      "self_hp_pct": "Can {op} %{value}",
+      "self_resource_pct": "kaynak {op} %{value}",
+      "target_hp_pct": "hedef canı {op} %{value}",
+      "enemy_count": "düşman sayısı {op} {value}",
+      "target_debuff_count": "hedef zayıflatmaları {op} {value}",
+      "self_buff_count": "kendi güçlendirmeleri {op} {value}",
+      "combo_count": "kombo {op} {value}",
+      "stack_count": "yığın {op} {value}"
+    },
+    "ops": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "other": "{type}"
+  },
+  "races": {
+    "trait": "Özellik",
+    "raceTitle": "Irk unvanı: {title}",
+    "affinity": "Doğal uyum (bilgi amaçlı): {classes}",
+    "noLock": "Her ırk her sınıfı oynayabilir."
   }
 }

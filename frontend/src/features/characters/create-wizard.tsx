@@ -5,10 +5,34 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { EffectList, type EffectData } from "@/components/effects/effect-text";
 import { characterApi, type OptionCard } from "@/lib/api/auth";
 import { useErrorMessage } from "@/lib/api/errors";
 
 const STEPS = ["stepName", "stepRace", "stepClass", "stepConfirm"] as const;
+
+function OptionDetails({ option }: { option: OptionCard }) {
+  const t = useTranslations("races");
+  const labels = (option.labels as Record<string, string>) ?? {};
+  const effects = (option.effects as EffectData[]) ?? [];
+  const affinity = (option.affinity as string[]) ?? [];
+  return (
+    <span className="mt-2 block space-y-1">
+      {option.trait_name ? (
+        <span className="block text-sm">
+          <span className="text-accent">{String(option.trait_name)}</span>
+          {option.title ? <span className="text-muted"> · {t("raceTitle", { title: String(option.title) })}</span> : null}
+        </span>
+      ) : null}
+      {effects.length ? <EffectList effects={effects} labels={labels} /> : null}
+      {affinity.length ? (
+        <span className="block text-xs text-muted">
+          {t("affinity", { classes: affinity.map((c) => labels[`class.${c}.name`] ?? c).join(", ") })}
+        </span>
+      ) : null}
+    </span>
+  );
+}
 
 function OptionGrid({
   items,
@@ -42,6 +66,7 @@ function OptionGrid({
         >
           <span className="font-semibold">{o.name}</span>
           {o.description ? <span className="mt-1 block text-sm text-muted">{o.description}</span> : null}
+          <OptionDetails option={o} />
         </button>
       ))}
     </div>
@@ -50,6 +75,7 @@ function OptionGrid({
 
 export function CreateCharacterWizard() {
   const t = useTranslations("wizard");
+  const tr = useTranslations("races");
   const tc = useTranslations("common");
   const router = useRouter();
   const qc = useQueryClient();
@@ -121,7 +147,12 @@ export function CreateCharacterWizard() {
           ) : null}
         </div>
       ) : null}
-      {step === 1 ? <OptionGrid items={races} selected={raceId} onSelect={setRaceId} label={t("stepRace")} /> : null}
+      {step === 1 ? (
+        <div className="space-y-2">
+          <p className="text-sm text-muted">{tr("noLock")}</p>
+          <OptionGrid items={races} selected={raceId} onSelect={setRaceId} label={t("stepRace")} />
+        </div>
+      ) : null}
       {step === 2 ? (
         <OptionGrid items={classes} selected={classId} onSelect={setClassId} label={t("stepClass")} />
       ) : null}

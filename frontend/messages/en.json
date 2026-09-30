@@ -155,5 +155,65 @@
       "formula": "Formula"
     },
     "view": "View"
+  },
+  "effects": {
+    "statFlat": "{stat} {amount}",
+    "statPercent": "{stat} {percent}%",
+    "damage": "Damage {percent}%",
+    "damageTyped": "{type} damage {percent}%",
+    "damageReduction": "Damage taken −{percent}%",
+    "heal": {
+      "outgoing": "Healing done {percent}%",
+      "received": "Healing received {percent}%",
+      "hot": "Heal-over-time {percent}%",
+      "self": "Self-healing {percent}%"
+    },
+    "loot": {
+      "xp": "XP {percent}%",
+      "gold": "Gold {percent}%",
+      "drop_rate": "Drop rate {percent}%",
+      "rare_chance": "Rare find chance {percent}%",
+      "material_yield": "Material yield {percent}%"
+    },
+    "progression": {
+      "death_penalty": "Death penalty {percent}%",
+      "respec_cost": "Stat reset cost {percent}%",
+      "consumable_use": "Consumable use {percent}%",
+      "durability_loss": "Durability loss {percent}%",
+      "rested_xp": "Rested XP {percent}%"
+    },
+    "limitPoints": "(first {points} points)",
+    "profession": {
+      "yield": "{profession} yield {percent}%",
+      "speed": "{profession} speed {percent}%",
+      "quality": "{profession} quality {percent}%",
+      "rare_find": "{profession} rare find {percent}%",
+      "xp": "{profession} XP {percent}%"
+    },
+    "when": "When {condition}: {effects}",
+    "cond": {
+      "self_hp_pct": "HP {op} {value}%",
+      "self_resource_pct": "resource {op} {value}%",
+      "target_hp_pct": "target HP {op} {value}%",
+      "enemy_count": "enemies {op} {value}",
+      "target_debuff_count": "target debuffs {op} {value}",
+      "self_buff_count": "own buffs {op} {value}",
+      "combo_count": "combo {op} {value}",
+      "stack_count": "stacks {op} {value}"
+    },
+    "ops": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "other": "{type}"
+  },
+  "races": {
+    "trait": "Trait",
+    "raceTitle": "Race title: {title}",
+    "affinity": "Natural fit (informational): {classes}",
+    "noLock": "Any race can play any class."
   }
 }

@@ -155,5 +155,65 @@
       "formula": "公式"
     },
     "view": "查看"
+  },
+  "effects": {
+    "statFlat": "{stat} {amount}",
+    "statPercent": "{stat} {percent}%",
+    "damage": "伤害 {percent}%",
+    "damageTyped": "{type}伤害 {percent}%",
+    "damageReduction": "受到伤害 −{percent}%",
+    "heal": {
+      "outgoing": "治疗量 {percent}%",
+      "received": "受到治疗 {percent}%",
+      "hot": "持续治疗 {percent}%",
+      "self": "自我治疗 {percent}%"
+    },
+    "loot": {
+      "xp": "经验 {percent}%",
+      "gold": "金币 {percent}%",
+      "drop_rate": "掉落率 {percent}%",
+      "rare_chance": "稀有几率 {percent}%",
+      "material_yield": "材料产出 {percent}%"
+    },
+    "progression": {
+      "death_penalty": "死亡惩罚 {percent}%",
+      "respec_cost": "属性重置费用 {percent}%",
+      "consumable_use": "消耗品消耗 {percent}%",
+      "durability_loss": "耐久损耗 {percent}%",
+      "rested_xp": "休息经验 {percent}%"
+    },
+    "limitPoints": "（前 {points} 点）",
+    "profession": {
+      "yield": "{profession}产出 {percent}%",
+      "speed": "{profession}速度 {percent}%",
+      "quality": "{profession}品质 {percent}%",
+      "rare_find": "{profession}稀有发现 {percent}%",
+      "xp": "{profession}经验 {percent}%"
+    },
+    "when": "当{condition}时：{effects}",
+    "cond": {
+      "self_hp_pct": "生命值{op}{value}%",
+      "self_resource_pct": "资源{op}{value}%",
+      "target_hp_pct": "目标生命值{op}{value}%",
+      "enemy_count": "敌人数{op}{value}",
+      "target_debuff_count": "目标减益数{op}{value}",
+      "self_buff_count": "自身增益数{op}{value}",
+      "combo_count": "连击{op}{value}",
+      "stack_count": "层数{op}{value}"
+    },
+    "ops": {
+      "lt": "<",
+      "lte": "≤",
+      "gt": ">",
+      "gte": "≥",
+      "eq": "="
+    },
+    "other": "{type}"
+  },
+  "races": {
+    "trait": "特性",
+    "raceTitle": "种族称号：{title}",
+    "affinity": "天然契合（仅供参考）：{classes}",
+    "noLock": "任何种族都可选择任何职业。"
   }
 }

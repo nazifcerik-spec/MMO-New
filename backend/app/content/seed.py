@@ -5,7 +5,7 @@ from collections.abc import Awaitable, Callable
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.content.loader import iter_yaml
+from app.content.loader import iter_yaml, load_yaml
 from app.localization import service as l10n
 from app.services.rbac import seed_rbac
 
@@ -33,10 +33,33 @@ async def seed_balance(session: AsyncSession) -> int:
     return created
 
 
+async def seed_races(session: AsyncSession) -> int:
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types.race import RACE_TYPE
+
+    created = 0
+    for race in load_yaml("races/races.yaml")["races"]:
+        code = race["code"]
+        for field, values in race["l10n"].items():
+            await l10n.seed_values(session, f"race.{code}.{field}", values, namespace="race")
+        data = {
+            "sort_order": race["sort_order"],
+            "identity": race["identity"],
+            "trait_name_key": f"race.{code}.trait_name",
+            "trait_description_key": f"race.{code}.trait_description",
+            "title_key": f"race.{code}.title",
+            "affinity": race["affinity"],
+            "effects": race["effects"],
+        }
+        created += await ensure_published(session, RACE_TYPE, code, data)
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
     ("balance", seed_balance),
+    ("races", seed_races),
 ]
 
 
