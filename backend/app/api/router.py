@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 
-from app.api import auth, characters, health, i18n
+from app.api import auth, characters, content_public, health, i18n
+from app.api.admin import content as admin_content
 from app.api.admin import localization as admin_localization
 from app.api.admin import users as admin_users
 
 api_router = APIRouter(prefix="/api/v1")
-for module in (health, i18n, auth, characters, admin_localization, admin_users):
+for module in (health, i18n, auth, characters, content_public, admin_localization, admin_users, admin_content):
     api_router.include_router(module.router)
 
 root_router = APIRouter()

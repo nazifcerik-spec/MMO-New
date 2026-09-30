@@ -23,9 +23,20 @@ async def seed_localization_files(session: AsyncSession) -> int:
     return written
 
 
+async def seed_balance(session: AsyncSession) -> int:
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types.balance import BALANCE_TYPE
+
+    created = 0
+    for _, doc in iter_yaml("balance"):
+        created += await ensure_published(session, BALANCE_TYPE, doc["code"], {"data": doc["data"]})
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
+    ("balance", seed_balance),
 ]
 
 

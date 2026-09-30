@@ -1,0 +1,11 @@
+code: afk
+data:
+  max_session_seconds: 10800        # canonical 3 h cap
+  min_session_seconds: 300
+  player_day_reset_hour_utc: 0
+  daily_efficiency_bands:           # canonical: 0-9h 100%, 9-12h 80%, 12-18h 50%, 18-24h 25%
+    - {from_hours: 0, to_hours: 9, percent: 100}
+    - {from_hours: 9, to_hours: 12, percent: 80}
+    - {from_hours: 12, to_hours: 18, percent: 50}
+    - {from_hours: 18, to_hours: 24, percent: 25}
+  rested_bonus_enabled: false
