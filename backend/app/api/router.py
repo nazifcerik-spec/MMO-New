@@ -15,6 +15,7 @@ from app.api import (
     world,
 )
 from app.api.admin import content as admin_content
+from app.api.admin import items as admin_items
 from app.api.admin import localization as admin_localization
 from app.api.admin import users as admin_users
 
@@ -34,6 +35,7 @@ _MODULES = (
     items,
     admin_localization,
     admin_users,
+    admin_items,
     admin_content,
 )
 for module in _MODULES:

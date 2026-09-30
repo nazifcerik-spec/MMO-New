@@ -1,0 +1,29 @@
+code: item_studio
+data:
+  # Test characters for the Item Studio preview (requirement pass/fail + derived-stat deltas).
+  preview_profiles:
+    - {code: warrior_100, class: warrior, race: human, level: 100, stat_profile: physical_dps}
+    - {code: warrior_600, class: warrior, race: human, level: 600, stat_profile: physical_dps}
+    - {code: rogue_300, class: rogue, race: human, level: 300, stat_profile: physical_dps}
+    - {code: mage_850, class: mage, race: human, level: 850, stat_profile: caster_dps}
+    - {code: cleric_400, class: cleric, race: human, level: 400, stat_profile: hybrid_support}
+    - {code: paladin_1000, class: paladin, race: human, level: 1000, stat_profile: hybrid_support}
+  # Item Generator Wizard: base stat curves (value = base + per_level * item min level) × rarity multiplier.
+  generator:
+    max_batch: 200
+    curves:
+      weapon_melee: [{stat: attack_power, base: 4, per_level: 0.9}]
+      weapon_ranged: [{stat: attack_power, base: 4, per_level: 0.85}, {stat: accuracy, base: 1, per_level: 0.004}]
+      weapon_magic: [{stat: spell_power, base: 4, per_level: 0.9}]
+      weapon_instrument: [{stat: spell_power, base: 3, per_level: 0.6}, {stat: buff_power, base: 0.5, per_level: 0.003}]
+      armor_plate: [{stat: armor, base: 20, per_level: 1.4}, {stat: max_hp, base: 10, per_level: 0.6}]
+      armor_mail: [{stat: armor, base: 14, per_level: 1.0}, {stat: max_hp, base: 6, per_level: 0.4}]
+      armor_leather: [{stat: armor, base: 10, per_level: 0.7}, {stat: dodge, base: 0.5, per_level: 0.003}]
+      armor_cloth: [{stat: armor, base: 5, per_level: 0.35}, {stat: magic_resist, base: 5, per_level: 0.4}]
+      armor_shield: [{stat: armor, base: 25, per_level: 1.6}, {stat: block, base: 2, per_level: 0.01}]
+      accessory: [{stat: crit_chance, base: 0.5, per_level: 0.002}]
+    slot_multipliers: {main_hand: 1.0, off_hand: 0.6, head: 0.7, shoulders: 0.6, chest: 1.0, hands: 0.5, waist: 0.45,
+                       legs: 0.85, feet: 0.55, back: 0.4, neck: 0.6, ring: 0.5, trinket: 0.7}
+    rarity_multipliers: {worn: 0.8, common: 1.0, fine: 1.08, rare: 1.16, epic: 1.25, legendary: 1.35, mythic: 1.5, relic: 1.7}
+    vendor_value: {base: 5, per_level: 1.5, rarity_pow: 1.6}
+    durability: {base: 40, per_tier: 15}
