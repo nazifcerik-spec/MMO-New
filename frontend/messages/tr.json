@@ -134,7 +134,10 @@
     "afk_claim_in_progress": "Talep zaten işleniyor.",
     "afk_invalid_duration": "5 dakika ile 3 saat arasında bir süre seç.",
     "zone_locked": "Bu bölgenin gereksinimlerini karşılamıyorsun.",
-    "profession_task_unavailable": "Meslek görevleri henüz kullanılamıyor."
+    "profession_task_unavailable": "Meslek görevleri henüz kullanılamıyor.",
+    "item_not_found": "Eşya bulunamadı.",
+    "item_revision_not_found": "Eşya sürümü bulunamadı.",
+    "invalid_quantity": "Geçersiz miktar."
   },
   "characters": {
     "title": "Karakterlerin",

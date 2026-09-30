@@ -454,6 +454,80 @@ async def seed_world(session: AsyncSession) -> int:
     return created
 
 
+async def seed_items(session: AsyncSession) -> int:
+    """Sample affixes/sets/templates (dev/test). Requirements come from the canonical requirement profiles."""
+    from app.game_engine.items import ItemRules, suggested_requirements
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types import items as it
+    from app.services.content.types.balance import get_published_balance
+
+    doc = load_yaml("items/sample_items.yaml")
+    rules = await get_published_balance(session, "item_rules", ItemRules)
+    created = 0
+    for a in doc["affixes"]:
+        await l10n_service_seed(session, f"affix.{a['code']}.name", a["l10n"], "item")
+        data = {k: v for k, v in a.items() if k not in ("code", "l10n")}
+        created += await ensure_published(session, it.AFFIX_TYPE, a["code"], data)
+    for s in doc["sets"]:
+        await l10n_service_seed(session, f"item_set.{s['code']}.name", s["l10n"], "item")
+        created += await ensure_published(session, it.ITEM_SET_TYPE, s["code"], {"bonuses": s["bonuses"]})
+
+    def base(t: dict[str, Any], category: str) -> dict[str, Any]:
+        return {
+            "category": category,
+            "tier": t["tier"],
+            "min_level": t.get("level", rules.gate(t["tier"]).min_level),
+            "rarity": t["rarity"],
+            "stack_size": t.get("stack", 1),
+            "vendor_value": t.get("vendor", 0),
+        }
+
+    for m in doc["materials"]:
+        await l10n_service_seed(session, f"item.{m['code']}.name", m["l10n"], "item")
+        data = {**base(m, "material"), "sources": [{"kind": "drop"}]}
+        created += await ensure_published(session, it.ITEM_TEMPLATE_TYPE, m["code"], data)
+    for c in doc["consumables"]:
+        await l10n_service_seed(session, f"item.{c['code']}.name", c["l10n"], "item")
+        data = {
+            **base(c, "consumable"),
+            "subcategory": "potion",
+            "effects": c["effects"],
+            "sources": [{"kind": "vendor"}],
+        }
+        created += await ensure_published(session, it.ITEM_TEMPLATE_TYPE, c["code"], data)
+    for e in doc["equipment"]:
+        await l10n_service_seed(session, f"item.{e['code']}.name", e["l10n"], "item")
+        data = base(e, e["category"])
+        reqs = suggested_requirements(rules, e["profile"], data["min_level"], e["tier"]) if e.get("profile") else {}
+        data.update(
+            {
+                "slot": e["slot"],
+                "subcategory": e.get("subcategory"),
+                "weapon_family": e.get("weapon_family"),
+                "armor_family": e.get("armor_family"),
+                "requirement_profile": e.get("profile"),
+                "requirements": {"stats": {k: v for k, v in reqs.items() if v > 0}},
+                "base_stats": [{"stat": k, "amount": v} for k, v in e.get("base", {}).items()],
+                "effects": e.get("effects", []),
+                "durability": {"max": e.get("durability", 0)},
+                "affix_rules": {
+                    "pool": e.get("pool", []),
+                    "fixed": e.get("fixed", []),
+                    **({} if e.get("pool") or e.get("fixed") else {"max": 0}),
+                },
+                "unique_effect": e.get("unique"),
+                "set_code": e.get("set"),
+                "salvage": [{"template_code": code, "min_qty": 1, "max_qty": 3} for code in e.get("salvage", [])],
+                "bind_policy": e.get("bind", "none"),
+                "tradeable": e.get("tradeable", True),
+                "icon": f"items/{e['code']}.svg",
+                "sources": e.get("sources", [{"kind": "drop"}]),
+            }
+        )
+        created += await ensure_published(session, it.ITEM_TEMPLATE_TYPE, e["code"], data)
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -463,6 +537,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("skills", seed_skills),
     ("passive_profiles", seed_passive_profiles),
     ("world", seed_world),
+    ("items", seed_items),
 ]
 
 

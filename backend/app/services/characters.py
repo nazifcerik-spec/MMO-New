@@ -39,6 +39,17 @@ async def get_owned(db: AsyncSession, user_id: int, character_id: int, *, for_up
     return ch
 
 
+async def get_any(db: AsyncSession, character_id: int, *, for_update: bool = False) -> Character:
+    """Staff lookup (callers enforce permissions)."""
+    stmt = select(Character).where(Character.id == character_id, Character.deleted_at.is_(None))
+    if for_update:
+        stmt = stmt.with_for_update()
+    ch = (await db.execute(stmt)).scalar_one_or_none()
+    if ch is None:
+        raise NotFoundError("Character not found")
+    return ch
+
+
 async def is_name_available(db: AsyncSession, name: str) -> bool:
     key = name_key(name)
     hit = (

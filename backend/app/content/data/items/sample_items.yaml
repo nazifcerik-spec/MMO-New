@@ -1,0 +1,79 @@
+# Development/test sample items (Phase 14). The 1,520-item launch catalog is generated in Phase 19.
+affixes:
+  - {code: of_strength, kind: suffix, group: str_flat, weight: 100, effect: {effect_type: STAT_FLAT, params: {stat: STR}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 6}, {tier_from: 3, tier_to: 6, min: 6, max: 20}, {tier_from: 7, tier_to: 10, min: 20, max: 45}],
+     l10n: {en: of Strength, tr: Gücün, zh-CN: 力量之, es: de Fuerza}}
+  - {code: of_agility, kind: suffix, group: dex_flat, weight: 100, effect: {effect_type: STAT_FLAT, params: {stat: DEX}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 6}, {tier_from: 3, tier_to: 6, min: 6, max: 20}, {tier_from: 7, tier_to: 10, min: 20, max: 45}],
+     l10n: {en: of Agility, tr: Çevikliğin, zh-CN: 敏捷之, es: de Agilidad}}
+  - {code: of_intellect, kind: suffix, group: int_flat, weight: 100, effect: {effect_type: STAT_FLAT, params: {stat: INT}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 6}, {tier_from: 3, tier_to: 6, min: 6, max: 20}, {tier_from: 7, tier_to: 10, min: 20, max: 45}],
+     l10n: {en: of Intellect, tr: Zekânın, zh-CN: 智力之, es: de Intelecto}}
+  - {code: of_vitality, kind: suffix, group: vit_flat, weight: 100, effect: {effect_type: STAT_FLAT, params: {stat: VIT}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 6}, {tier_from: 3, tier_to: 6, min: 6, max: 20}, {tier_from: 7, tier_to: 10, min: 20, max: 45}],
+     l10n: {en: of Vitality, tr: Dayanıklılığın, zh-CN: 体质之, es: de Vitalidad}}
+  - {code: of_wisdom, kind: suffix, group: wis_flat, weight: 100, effect: {effect_type: STAT_FLAT, params: {stat: WIS}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 6}, {tier_from: 3, tier_to: 6, min: 6, max: 20}, {tier_from: 7, tier_to: 10, min: 20, max: 45}],
+     l10n: {en: of Wisdom, tr: Bilgeliğin, zh-CN: 智慧之, es: de Sabiduría}}
+  - {code: of_fortune, kind: suffix, group: luk_flat, weight: 60, effect: {effect_type: STAT_FLAT, params: {stat: LUK}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 2, min: 1, max: 5}, {tier_from: 3, tier_to: 6, min: 5, max: 16}, {tier_from: 7, tier_to: 10, min: 16, max: 36}],
+     l10n: {en: of Fortune, tr: Talihin, zh-CN: 幸运之, es: de Fortuna}}
+  - {code: sturdy, kind: prefix, group: hp_pct, weight: 80, effect: {effect_type: STAT_PERCENT, params: {stat: max_hp}, value_param: percent},
+     rolls: [{tier_from: 0, tier_to: 10, min: 1, max: 6}], l10n: {en: Sturdy, tr: Sağlam, zh-CN: 坚固的, es: Robusto}}
+  - {code: keen, kind: prefix, group: crit, weight: 60, categories: [weapon, accessory], effect: {effect_type: STAT_FLAT, params: {stat: crit_chance}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 10, min: 0.5, max: 4}], l10n: {en: Keen, tr: Keskin, zh-CN: 锋锐的, es: Afilado}}
+  - {code: brutal, kind: prefix, group: attack_flat, weight: 90, categories: [weapon], effect: {effect_type: STAT_FLAT, params: {stat: attack_power}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 3, min: 2, max: 12}, {tier_from: 4, tier_to: 10, min: 12, max: 60}], l10n: {en: Brutal, tr: Acımasız, zh-CN: 残暴的, es: Brutal}}
+  - {code: arcane, kind: prefix, group: spell_flat, weight: 90, categories: [weapon, accessory], effect: {effect_type: STAT_FLAT, params: {stat: spell_power}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 3, min: 2, max: 12}, {tier_from: 4, tier_to: 10, min: 12, max: 60}], l10n: {en: Arcane, tr: Arkanik, zh-CN: 奥术的, es: Arcano}}
+  - {code: warded, kind: prefix, group: armor_flat, weight: 90, categories: [armor], effect: {effect_type: STAT_FLAT, params: {stat: armor}, value_param: amount},
+     rolls: [{tier_from: 0, tier_to: 3, min: 3, max: 20}, {tier_from: 4, tier_to: 10, min: 20, max: 90}], l10n: {en: Warded, tr: Korunaklı, zh-CN: 护佑的, es: Protegido}}
+  - {code: vanguards, kind: prefix, group: class_tag, class_tag: vanguard, rarity_min: epic, weight: 20, effect: {effect_type: STAT_PERCENT, params: {stat: block}, value_param: percent},
+     rolls: [{tier_from: 0, tier_to: 10, min: 2, max: 8}], l10n: {en: "Vanguard's", tr: Öncünün, zh-CN: 先锋的, es: De vanguardia}}
+materials:
+  - {code: copper_ore, tier: 0, rarity: common, stack: 999, vendor: 2, l10n: {en: Copper Ore, tr: Bakır Cevheri, zh-CN: 铜矿石, es: Mineral de cobre}}
+  - {code: iron_ingot, tier: 2, rarity: fine, stack: 999, vendor: 12, l10n: {en: Iron Ingot, tr: Demir Külçe, zh-CN: 铁锭, es: Lingote de hierro}}
+  - {code: arcane_dust, tier: 0, rarity: common, stack: 999, vendor: 3, l10n: {en: Arcane Dust, tr: Arkanik Toz, zh-CN: 奥术粉尘, es: Polvo arcano}}
+consumables:
+  - {code: minor_healing_potion, tier: 0, rarity: common, stack: 50, vendor: 5, effects: [{effect_type: HEAL, params: {percent_of_power: 100}}],
+     l10n: {en: Minor Healing Potion, tr: Küçük İyileştirme İksiri, zh-CN: 次级治疗药水, es: Poción de curación menor}}
+sets:
+  - {code: ironwall_regalia, bonuses: [{pieces: 2, effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 5}}]}, {pieces: 3, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 4}}]}],
+     l10n: {en: Ironwall Regalia, tr: Demirsur Takımı, zh-CN: 铁壁礼装, es: Galas de Murohierro}}
+equipment:
+  - {code: worn_training_sword, category: weapon, slot: main_hand, weapon_family: sword, tier: 0, level: 1, rarity: worn, profile: heavy_weapon,
+     base: {attack_power: 6}, durability: 40, vendor: 1, sources: [{kind: starter}], l10n: {en: Worn Training Sword, tr: Yıpranmış Talim Kılıcı, zh-CN: 破旧训练剑, es: Espada de entrenamiento gastada}}
+  - {code: apprentice_staff, category: weapon, slot: main_hand, weapon_family: staff, tier: 0, level: 5, rarity: common, profile: caster_weapon,
+     base: {spell_power: 9}, durability: 40, vendor: 8, pool: [of_intellect, of_wisdom, arcane, keen], salvage: [arcane_dust],
+     l10n: {en: Apprentice Staff, tr: Çırak Asası, zh-CN: 学徒法杖, es: Bastón de aprendiz}}
+  - {code: militia_axe, category: weapon, slot: main_hand, weapon_family: axe, tier: 1, level: 50, rarity: fine, profile: heavy_weapon,
+     base: {attack_power: 55}, durability: 60, vendor: 40, pool: [of_strength, of_vitality, brutal, keen], salvage: [copper_ore],
+     l10n: {en: Militia Axe, tr: Milis Baltası, zh-CN: 民兵战斧, es: Hacha de milicia}}
+  - {code: ironwall_helm, category: armor, slot: head, armor_family: plate, tier: 2, level: 120, rarity: rare, profile: heavy_armor, set: ironwall_regalia,
+     base: {armor: 90, max_hp: 60}, durability: 80, vendor: 120, pool: [of_vitality, of_strength, warded, sturdy], salvage: [iron_ingot],
+     l10n: {en: Ironwall Helm, tr: Demirsur Miğferi, zh-CN: 铁壁头盔, es: Yelmo de Murohierro}}
+  - {code: ironwall_chestplate, category: armor, slot: chest, armor_family: plate, tier: 2, level: 130, rarity: rare, profile: heavy_armor, set: ironwall_regalia,
+     base: {armor: 150, max_hp: 90}, durability: 100, vendor: 150, pool: [of_vitality, of_strength, warded, sturdy], salvage: [iron_ingot],
+     l10n: {en: Ironwall Chestplate, tr: Demirsur Göğüslüğü, zh-CN: 铁壁胸甲, es: Coraza de Murohierro}}
+  - {code: ironwall_greaves, category: armor, slot: legs, armor_family: plate, tier: 2, level: 140, rarity: rare, profile: heavy_armor, set: ironwall_regalia,
+     base: {armor: 120, max_hp: 70}, durability: 90, vendor: 130, pool: [of_vitality, of_strength, warded, sturdy], salvage: [iron_ingot],
+     l10n: {en: Ironwall Greaves, tr: Demirsur Dizlikleri, zh-CN: 铁壁护腿, es: Grebas de Murohierro}}
+  - {code: shadowsilk_hood, category: armor, slot: head, armor_family: leather, tier: 4, level: 320, rarity: epic, profile: light_armor,
+     base: {armor: 180, dodge: 2}, durability: 90, vendor: 400, pool: [of_agility, of_fortune, sturdy, warded], l10n: {en: Shadowsilk Hood, tr: Gölgeipek Başlık, zh-CN: 影丝兜帽, es: Capucha de sedasombra}}
+  - {code: bulwark_of_dawn, category: armor, slot: off_hand, armor_family: shield, tier: 6, level: 520, rarity: legendary, profile: heavy_armor,
+     base: {armor: 600, block: 8}, durability: 150, vendor: 2500, pool: [of_vitality, of_strength, warded, sturdy, vanguards],
+     unique: {key: dawn_aegis, effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 20, trigger: on_block, effects: [{effect_type: SHIELD, params: {percent_max_hp: 5, duration_s: 6}}]}}]},
+     l10n: {en: Bulwark of Dawn, tr: Şafak Siperi, zh-CN: 黎明壁垒, es: Baluarte del Alba}}
+  - {code: starfall_scepter, category: weapon, slot: main_hand, weapon_family: wand, tier: 9, level: 860, rarity: mythic, profile: caster_weapon,
+     base: {spell_power: 900}, durability: 200, vendor: 12000, pool: [of_intellect, of_wisdom, arcane, keen, sturdy, of_fortune],
+     unique: {key: starfall, mastery_scaling: true, effects: [{effect_type: EVERY_N_HITS, params: {n: 5, effects: [{effect_type: DAMAGE, params: {percent_of_power: 150, damage_type: arcane}}]}}]},
+     l10n: {en: Starfall Scepter, tr: Yıldızdüşüm Asası, zh-CN: 星陨权杖, es: Cetro de Lluvia Estelar}}
+  - {code: crown_of_the_last_emperor, category: armor, slot: head, armor_family: plate, tier: 10, level: 980, rarity: relic, profile: heavy_armor,
+     base: {armor: 1400, max_hp: 900}, durability: 250, vendor: 50000, bind: on_pickup, tradeable: false,
+     fixed: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 12}}, {effect_type: DAMAGE_REDUCTION, params: {percent: 6}}],
+     unique: {key: imperial_will, effects: [{effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_hp_pct, op: lt, value: 30}, once_per_combat: true, effects: [{effect_type: SHIELD, params: {percent_max_hp: 25, duration_s: 10}}]}}]},
+     l10n: {en: Crown of the Last Emperor, tr: Son İmparatorun Tacı, zh-CN: 末代皇帝之冠, es: Corona del Último Emperador}}
+  - {code: copper_ring, category: accessory, slot: ring, tier: 0, level: 10, rarity: common, base: {LUK: 2}, vendor: 10, pool: [of_fortune, keen, of_agility],
+     l10n: {en: Copper Ring, tr: Bakır Yüzük, zh-CN: 铜戒指, es: Anillo de cobre}}
+  - {code: novice_pickaxe, category: profession_tool, slot: tool, subcategory: pickaxe, tier: 0, level: 1, rarity: common, vendor: 6, durability: 50,
+     effects: [{effect_type: PROFESSION_YIELD_MOD, params: {profession: mining, kind: yield, percent: 5}}], l10n: {en: Novice Pickaxe, tr: Acemi Kazması, zh-CN: 新手镐, es: Pico de novato}}

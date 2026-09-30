@@ -134,7 +134,10 @@
     "afk_claim_in_progress": "正在领取中。",
     "afk_invalid_duration": "请选择5分钟到3小时之间的时长。",
     "zone_locked": "你未满足该区域要求。",
-    "profession_task_unavailable": "专业任务暂未开放。"
+    "profession_task_unavailable": "专业任务暂未开放。",
+    "item_not_found": "未找到物品。",
+    "item_revision_not_found": "未找到物品版本。",
+    "invalid_quantity": "数量无效。"
   },
   "characters": {
     "title": "你的角色",

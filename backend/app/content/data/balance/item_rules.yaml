@@ -1,0 +1,42 @@
+code: item_rules
+data:
+  # Canonical tier gates (level range, rarity band, suggested total stat requirement).
+  tiers:
+    - {tier: 0, min_level: 1, max_level: 49, rarities: [worn, common], stat_req_min: 0, stat_req_max: 40}
+    - {tier: 1, min_level: 50, max_level: 99, rarities: [common, fine], stat_req_min: 40, stat_req_max: 80}
+    - {tier: 2, min_level: 100, max_level: 199, rarities: [fine, rare], stat_req_min: 80, stat_req_max: 150}
+    - {tier: 3, min_level: 200, max_level: 299, rarities: [rare], stat_req_min: 150, stat_req_max: 230}
+    - {tier: 4, min_level: 300, max_level: 399, rarities: [rare, epic], stat_req_min: 230, stat_req_max: 320}
+    - {tier: 5, min_level: 400, max_level: 499, rarities: [epic], stat_req_min: 320, stat_req_max: 410}
+    - {tier: 6, min_level: 500, max_level: 599, rarities: [epic, legendary], stat_req_min: 410, stat_req_max: 500}
+    - {tier: 7, min_level: 600, max_level: 699, rarities: [legendary], stat_req_min: 500, stat_req_max: 590}
+    - {tier: 8, min_level: 700, max_level: 849, rarities: [legendary, mythic], stat_req_min: 590, stat_req_max: 720}
+    - {tier: 9, min_level: 850, max_level: 949, rarities: [mythic], stat_req_min: 720, stat_req_max: 830}
+    - {tier: 10, min_level: 950, max_level: 1000, rarities: [mythic, relic], stat_req_min: 830, stat_req_max: 900}
+  # Canonical affix budgets per rarity.
+  rarity_budgets:
+    worn: {min: 0, max: 0}
+    common: {min: 0, max: 1}
+    fine: {min: 1, max: 2}
+    rare: {min: 2, max: 3}
+    epic: {min: 3, max: 4}
+    legendary: {min: 4, max: 5, unique_required: true}
+    mythic: {min: 5, max: 6, unique_required: true, mastery_scaling_required: true}
+    relic: {min: 0, max: 0, unique_required: true, fixed: true}
+  # Canonical requirement profiles (Lv600 example, primary + secondary).
+  requirement_profiles:
+    heavy_weapon: {primary: [STR], secondary: VIT, primary_at_600: 470, secondary_at_600: 140}
+    finesse_weapon: {primary: [DEX], secondary: LUK, primary_at_600: 470, secondary_at_600: 120}
+    caster_weapon: {primary: [INT], secondary: SPI, primary_at_600: 470, secondary_at_600: 130}
+    healing_focus: {primary: [WIS], secondary: SPI, primary_at_600: 450, secondary_at_600: 160}
+    heavy_armor: {primary: [VIT], secondary: STR, primary_at_600: 430, secondary_at_600: 140}
+    light_armor: {primary: [DEX], secondary: VIT, primary_at_600: 380, secondary_at_600: 170}
+    cloth_armor: {primary: [INT, WIS], secondary: SPI, primary_at_600: 390, secondary_at_600: 160}
+    support_relic: {primary: [SPI], secondary: WIS, primary_at_600: 420, secondary_at_600: 160}
+  base_stat_value: 5
+  points_per_level: 3
+  requirement_warn_pct: 60          # warn when requirements need >60% of the distributable budget at min level
+  requirement_error_pct: 70         # block publish above 70%
+  max_sockets: 3
+  max_upgrade_level: 10
+  upgrade_pct_per_level: 3

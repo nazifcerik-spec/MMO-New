@@ -134,7 +134,10 @@
     "afk_claim_in_progress": "Claim already in progress.",
     "afk_invalid_duration": "Choose a duration between 5 minutes and 3 hours.",
     "zone_locked": "You do not meet this zone's requirements.",
-    "profession_task_unavailable": "Profession tasks are not available yet."
+    "profession_task_unavailable": "Profession tasks are not available yet.",
+    "item_not_found": "Item not found.",
+    "item_revision_not_found": "Item version not found.",
+    "invalid_quantity": "Invalid quantity."
   },
   "characters": {
     "title": "Your characters",

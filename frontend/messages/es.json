@@ -134,7 +134,10 @@
     "afk_claim_in_progress": "Reclamación en curso.",
     "afk_invalid_duration": "Elige entre 5 minutos y 3 horas.",
     "zone_locked": "No cumples los requisitos de esta zona.",
-    "profession_task_unavailable": "Las tareas de profesión aún no están disponibles."
+    "profession_task_unavailable": "Las tareas de profesión aún no están disponibles.",
+    "item_not_found": "Objeto no encontrado.",
+    "item_revision_not_found": "Versión del objeto no encontrada.",
+    "invalid_quantity": "Cantidad no válida."
   },
   "characters": {
     "title": "Tus personajes",
