@@ -65,4 +65,15 @@ test("create character, allocate stats, promote at Lv100", async ({ page, baseUR
   await page.getByTestId("node-warrior_defense_n1").getByRole("button").click();
   await page.getByRole("button", { name: "Learn talents" }).click();
   await expect(page.getByTestId("node-warrior_defense_n1")).toContainText("Rank 1/5");
+
+  await page.goto(`/game/characters/${characterId}`);
+  await page.getByTestId("open-afk").click();
+  await page.getByTestId("preset-safe_farmer").click();
+  await expect(page.getByTestId("preset-safe_farmer")).toHaveAttribute("aria-checked", "true");
+  await page.getByRole("button", { name: "Show advanced settings" }).click();
+  await page.getByLabel("Combat mode").selectOption("PASSIVE_ONLY");
+  await page.getByTestId("afk-save").click();
+  await expect(page.getByTestId("preset-safe_farmer")).toHaveAttribute("aria-checked", "false");
+  await page.getByTestId("afk-run-preview").click();
+  await expect(page.getByTestId("preview-win-rate")).toHaveText(/\d+%/);
 });

@@ -1,0 +1,22 @@
+namespace: afk
+entries:
+  stance.aggressive.name: {en: Aggressive, tr: Saldırgan, zh-CN: 激进, es: Agresivo}
+  stance.aggressive.description: {en: "More damage and speed, take more damage.", tr: "Daha fazla hasar ve hız, daha fazla alınan hasar.", zh-CN: 伤害与速度提升，承受伤害增加。, es: "Más daño y velocidad, recibes más daño."}
+  stance.guarded.name: {en: Guarded, tr: Temkinli, zh-CN: 稳守, es: Defensivo}
+  stance.guarded.description: {en: "Take much less damage, deal less.", tr: "Çok daha az hasar al, daha az hasar ver.", zh-CN: 大幅降低承伤，伤害降低。, es: "Recibes mucho menos daño e infliges menos."}
+  stance.efficient.name: {en: Efficient, tr: Verimli, zh-CN: 高效, es: Eficiente}
+  stance.efficient.description: {en: "Cheaper abilities, slightly less damage.", tr: "Daha ucuz yetenekler, biraz daha az hasar.", zh-CN: 技能消耗更低，伤害略降。, es: "Habilidades más baratas, algo menos de daño."}
+  target_priority.first.name: {en: First in line, tr: Sıradaki ilk, zh-CN: 依次攻击, es: El primero}
+  target_priority.lowest_hp.name: {en: Lowest HP, tr: En düşük can, zh-CN: 最低生命, es: Menos vida}
+  target_priority.highest_hp.name: {en: Highest HP, tr: En yüksek can, zh-CN: 最高生命, es: Más vida}
+  target_priority.elite_first.name: {en: Elites first, tr: Önce elitler, zh-CN: 精英优先, es: Élites primero}
+  target_priority.boss_first.name: {en: Boss first, tr: Önce boss, zh-CN: 首领优先, es: Jefe primero}
+  target_priority.healer_first.name: {en: Healers first, tr: Önce şifacılar, zh-CN: 治疗者优先, es: Sanadores primero}
+  risk.safe.name: {en: Safe, tr: Güvenli, zh-CN: 安全, es: Seguro}
+  risk.balanced.name: {en: Balanced, tr: Dengeli, zh-CN: 均衡, es: Equilibrado}
+  risk.dangerous.name: {en: Dangerous, tr: Tehlikeli, zh-CN: 危险, es: Peligroso}
+  risk.elite_hunt.name: {en: Elite Hunt, tr: Elit Avı, zh-CN: 精英狩猎, es: Caza de élite}
+  afk_preset.safe_farmer.name: {en: Safe Farmer, tr: Güvenli Toplayıcı, zh-CN: 稳健刷怪, es: Granjero seguro}
+  afk_preset.balanced.name: {en: Balanced, tr: Dengeli, zh-CN: 均衡, es: Equilibrado}
+  afk_preset.aggressive_hunter.name: {en: Aggressive Hunter, tr: Saldırgan Avcı, zh-CN: 激进猎手, es: Cazador agresivo}
+  afk_preset.boss_hunter.name: {en: Boss Hunter, tr: Boss Avcısı, zh-CN: 首领猎手, es: Cazajefes}

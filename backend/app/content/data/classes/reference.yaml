@@ -8,10 +8,10 @@ resources:
   arcane_charge: {max: 4, start: 0, regen_per_s: 0, decay_per_s: 0, l10n: {en: Arcane Charge, tr: Arkanik Yük, zh-CN: 奥术充能, es: Carga arcana}}
   chi: {max: 100, start: 0, regen_per_s: 1, decay_per_s: 0, l10n: {en: Chi, tr: Chi, zh-CN: 气, es: Chi}}
   faith: {max: 100, start: 20, regen_per_s: 1, decay_per_s: 0, l10n: {en: Faith, tr: İnanç, zh-CN: 信仰, es: Fe}}
-  conviction: {max: 100, start: 0, regen_per_s: 0.5, decay_per_s: 0, l10n: {en: Conviction, tr: Kararlılık, zh-CN: 信念, es: Convicción}}
+  conviction: {max: 100, start: 30, regen_per_s: 1.5, decay_per_s: 0, l10n: {en: Conviction, tr: Kararlılık, zh-CN: 信念, es: Convicción}}
   nature_essence: {max: 100, start: 20, regen_per_s: 1, decay_per_s: 0, l10n: {en: Nature Essence, tr: Doğa Özü, zh-CN: 自然精华, es: Esencia natural}}
-  rhythm: {max: 100, start: 0, regen_per_s: 0, decay_per_s: 0.5, l10n: {en: Rhythm, tr: Ritim, zh-CN: 韵律, es: Ritmo}}
-  spirit_charges: {max: 10, start: 0, regen_per_s: 0, decay_per_s: 0, l10n: {en: Spirit Charges, tr: Ruh Yükleri, zh-CN: 灵魂充能, es: Cargas espirituales}}
+  rhythm: {max: 100, start: 30, regen_per_s: 2.5, decay_per_s: 0, l10n: {en: Rhythm, tr: Ritim, zh-CN: 韵律, es: Ritmo}}
+  spirit_charges: {max: 10, start: 2, regen_per_s: 0.1, decay_per_s: 0, l10n: {en: Spirit Charges, tr: Ruh Yükleri, zh-CN: 灵魂充能, es: Cargas espirituales}}
 weapon_families:
   sword: {hands: 1, kind: melee, l10n: {en: Sword, tr: Kılıç, zh-CN: 剑, es: Espada}}
   axe: {hands: 1, kind: melee, l10n: {en: Axe, tr: Balta, zh-CN: 斧, es: Hacha}}

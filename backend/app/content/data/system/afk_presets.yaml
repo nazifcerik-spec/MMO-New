@@ -1,0 +1,5 @@
+presets:
+  safe_farmer: {stance: guarded, target_priority: lowest_hp, potion_threshold_pct: 55, risk_level: safe}
+  balanced: {stance: efficient, target_priority: lowest_hp, potion_threshold_pct: 40, risk_level: balanced}
+  aggressive_hunter: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 35, risk_level: dangerous}
+  boss_hunter: {stance: aggressive, target_priority: boss_first, potion_threshold_pct: 45, risk_level: elite_hunt}

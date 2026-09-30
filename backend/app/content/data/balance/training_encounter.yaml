@@ -1,0 +1,14 @@
+code: training_encounter
+data:
+  # Generic level-scaled pack for previews. Calibrated so a same-level character with template stats clears
+  # 3 foes in ~30-45 s using roughly half of its HP (see scripts/balance_probe.py).
+  count: 3
+  hp_base: 60
+  hp_per_level: 28
+  attack_base: 5
+  attack_per_level: 0.5
+  armor_per_level: 3
+  magic_resist_per_level: 2
+  accuracy: 92
+  dodge: 4
+  crit_chance: 5

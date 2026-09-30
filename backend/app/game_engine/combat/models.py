@@ -58,7 +58,7 @@ class StanceDef(_M):
 
 class CombatStrategy(_M):
     mode: Literal["PASSIVE_ONLY", "ACTIVE_TACTICS", "HYBRID"] = "HYBRID"
-    stance: str = "balanced"
+    stance: str = "efficient"
     target_priority: Literal["first", "lowest_hp", "highest_hp", "elite_first", "boss_first", "healer_first"] = (
         "lowest_hp"
     )
@@ -96,7 +96,7 @@ class CombatConfig(_M):
             "pvp": {"damage": 0.7, "healing": 0.7, "cc_duration": 0.5},
         }
     )
-    stances: dict[str, StanceDef] = Field(default_factory=lambda: {"balanced": StanceDef()})
+    stances: dict[str, StanceDef] = Field(default_factory=dict)
 
 
 class CombatInput(_M):

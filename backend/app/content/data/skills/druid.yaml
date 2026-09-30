@@ -51,7 +51,7 @@ abilities:
     tags: [dot, single_target]
     cost: {resource: nature_essence, amount: 10}
     cooldown_s: 6
-    effects: [{effect_type: DAMAGE, params: {percent_of_power: 60, damage_type: arcane}}, {effect_type: DOT, params: {damage_type: arcane, percent_of_power: 15, duration_s: 12, tick_s: 2}}]
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 45, damage_type: arcane}}, {effect_type: DOT, params: {damage_type: arcane, percent_of_power: 8, duration_s: 12, tick_s: 2}}]
     l10n:
       name: {en: Moonfire, tr: Ay Ateşi, zh-CN: 月火术, es: Fuego lunar}
       description: {en: Magic damage over time., tr: Zamanla büyü hasarı., zh-CN: 持续魔法伤害。, es: Daño mágico en el tiempo.}

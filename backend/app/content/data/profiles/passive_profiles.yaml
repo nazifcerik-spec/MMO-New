@@ -1,0 +1,255 @@
+# Class passive profiles (Passive-only motor). Rules are designer-authored priority rules over the class kit;
+# `effects` add the profile's identity passives. No class-name logic in code.
+profiles:
+  - code: warrior_bulwark
+    class: warrior
+    defaults: {stance: guarded, target_priority: lowest_hp, potion_threshold_pct: 45}
+    rules:
+      - {use: {ability: last_stand}, when: [{kind: HP_PERCENT, op: lt, value: 35}]}
+      - {use: {ability: whirlwind}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}, {kind: RESOURCE_PERCENT, op: gte, value: 30}]}
+      - {use: {ability: execution}, when: [{kind: TARGET_HP, op: lt, value: 35}]}
+      - {use: {ability: shield_slam}, when: [{kind: EVERY_N_ACTIONS, value: 3}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_block, effects: [{effect_type: DAMAGE, params: {percent_of_power: 40}}]}}
+    l10n:
+      name: {en: Bulwark, tr: Siper, zh-CN: 壁垒, es: Baluarte}
+      description: {en: "Block counters, shield slam cycle, emergency Last Stand.", tr: "Blok karşı saldırıları, kalkan darbesi döngüsü, acil Son Direniş.", zh-CN: 格挡反击、盾击循环、紧急破釜沉舟。, es: "Contraataques al bloquear, ciclo de golpe de escudo, Última resistencia de emergencia."}
+  - code: warrior_executioner
+    class: warrior
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 35}
+    rules:
+      - {use: {ability: last_stand}, when: [{kind: HP_PERCENT, op: lt, value: 30}]}
+      - {use: {ability: execution}, when: [{kind: TARGET_HP, op: lt, value: 35}]}
+      - {use: {ability: whirlwind}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: war_cry}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: war_cry}]}
+      - {use: {ability: shield_slam}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+    effects:
+      - {effect_type: THRESHOLD_TRIGGER, params: {condition: {metric: self_resource_pct, op: gte, value: 80}, effects: [{effect_type: DAMAGE_MULTIPLIER, params: {percent: 5}}]}}
+    l10n:
+      name: {en: Executioner, tr: Cellat, zh-CN: 行刑者, es: Verdugo}
+      description: {en: "Execute threshold, rage stacks and cleaving whirlwinds.", tr: "İnfaz eşiği, öfke yığınları ve yarıcı kasırgalar.", zh-CN: 斩杀阈值、怒气叠加与旋风横扫。, es: "Umbral de ejecución, acumulación de ira y torbellinos."}
+  - code: rogue_opportunist
+    class: rogue
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: evasion}, when: [{kind: HP_PERCENT, op: lt, value: 35}]}
+      - {use: {ability: finisher}, when: [{kind: STACK_COUNT, op: gte, value: 5, code: opportunity}]}
+      - {use: {ability: fan_of_knives}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: poisoned_blade}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}]}
+      - {use: {ability: backstab}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 100, trigger: on_dodge, effects: [{effect_type: DAMAGE, params: {percent_of_power: 50}}]}}
+    l10n:
+      name: {en: Opportunist, tr: Fırsatçı, zh-CN: 投机者, es: Oportunista}
+      description: {en: "Opportunity finishers, poison upkeep and dodge counters.", tr: "Fırsat bitiricileri, zehir sürekliliği ve kaçınma karşı saldırıları.", zh-CN: 机遇终结、保持毒素与闪避反击。, es: "Remates de oportunidad, veneno constante y contraataques al esquivar."}
+  - code: rogue_venomous
+    class: rogue
+    defaults: {stance: efficient, target_priority: highest_hp, potion_threshold_pct: 45}
+    rules:
+      - {use: {ability: evasion}, when: [{kind: HP_PERCENT, op: lt, value: 40}]}
+      - {use: {ability: poisoned_blade}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}]}
+      - {use: {ability: finisher}, when: [{kind: STACK_COUNT, op: gte, value: 5, code: opportunity}]}
+      - {use: {ability: backstab}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 70}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 20, trigger: on_hit, effects: [{effect_type: DOT, params: {damage_type: poison, percent_of_power: 4, duration_s: 8, max_stacks: 5}}]}}
+    l10n:
+      name: {en: Venomous, tr: Zehirli, zh-CN: 剧毒, es: Venenoso}
+      description: {en: "Constant poison procs and patient backstabs.", tr: "Sürekli zehir tetiklenmeleri ve sabırlı sırttan bıçaklar.", zh-CN: 持续触发毒素，耐心背刺。, es: "Venenos constantes y puñaladas pacientes."}
+  - code: ranger_hunter
+    class: ranger
+    defaults: {stance: aggressive, target_priority: elite_first, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: disengage}, when: [{kind: HP_PERCENT, op: lt, value: 35}]}
+      - {use: {ability: aimed_shot}, when: [{kind: STACK_COUNT, op: gte, value: 5, code: aim}]}
+      - {use: {ability: multishot}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: companion_command}, when: [{kind: EVERY_N_ACTIONS, value: 4}]}
+    effects: []
+    l10n:
+      name: {en: Hunter, tr: Avcı, zh-CN: 猎人, es: Cazador}
+      description: {en: "Aim stacks into aimed shots; the pet attacks on command every few actions.", tr: "Nişan yığınları nişanlı atışa dönüşür; evcil hayvan düzenli saldırır.", zh-CN: 积累瞄准施放瞄准射击；宠物定期发动攻击。, es: "La Puntería se convierte en disparos apuntados; la mascota ataca cada pocas acciones."}
+  - code: ranger_trapper
+    class: ranger
+    defaults: {stance: guarded, target_priority: boss_first, potion_threshold_pct: 45}
+    rules:
+      - {use: {ability: disengage}, when: [{kind: HP_PERCENT, op: lt, value: 40}]}
+      - {use: {ability: snare_trap}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}]}
+      - {use: {ability: multishot}, when: [{kind: ENEMY_COUNT, op: gte, value: 2}]}
+      - {use: {ability: companion_command}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 50}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 10, trigger: on_hit, effects: [{effect_type: DEBUFF, params: {kind: slow, percent: 20, duration_s: 4}}]}}
+    l10n:
+      name: {en: Trapper, tr: Tuzakçı, zh-CN: 陷阱师, es: Trampero}
+      description: {en: "Traps first, slows on hit, pet support.", tr: "Önce tuzak, vuruşta yavaşlatma, evcil desteği.", zh-CN: 优先陷阱，命中减速，宠物支援。, es: "Primero trampas, ralentiza al golpear, apoyo de mascota."}
+  - code: mage_elemental_cycle
+    class: mage
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 45}
+    rules:
+      - {use: {ability: mana_shield}, when: [{kind: HP_PERCENT, op: lt, value: 40}]}
+      - {use: {ability: frost_nova}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: rune_burst}, when: [{kind: STACK_COUNT, op: gte, value: 4, code: arcane_charge}]}
+      - {use: {ability: fireball}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}]}
+      - {use: {ability: arcane_bolt}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 20}]}
+    effects: []
+    l10n:
+      name: {en: Elemental Cycle, tr: Element Döngüsü, zh-CN: 元素循环, es: Ciclo elemental}
+      description: {en: "Burn upkeep, rune bursts at full charge, mana threshold for bolts.", tr: "Yanma sürekliliği, tam yükte rün patlaması, oklar için mana eşiği.", zh-CN: 保持燃烧，满充能符文爆裂，法力阈值施放飞弹。, es: "Quemadura constante, estallido rúnico a carga máxima, umbral de maná para proyectiles."}
+  - code: mage_arcane_control
+    class: mage
+    defaults: {stance: guarded, target_priority: highest_hp, potion_threshold_pct: 50}
+    rules:
+      - {use: {ability: mana_shield}, when: [{kind: HP_PERCENT, op: lt, value: 60}]}
+      - {use: {ability: frost_nova}, when: [{kind: ENEMY_COUNT, op: gte, value: 2}]}
+      - {use: {ability: rune_burst}, when: [{kind: STACK_COUNT, op: gte, value: 4, code: arcane_charge}]}
+      - {use: {ability: arcane_bolt}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 30}]}
+    effects: []
+    l10n:
+      name: {en: Arcane Control, tr: Arkanik Kontrol, zh-CN: 奥术控制, es: Control arcano}
+      description: {en: "Freeze packs, keep a mana shield, fire rune bursts.", tr: "Grupları dondur, mana kalkanını koru, rün patlaması yap.", zh-CN: 冰冻敌群，维持法力护盾，释放符文爆裂。, es: "Congela grupos, mantén el escudo de maná, lanza estallidos rúnicos."}
+  - code: monk_flow
+    class: monk
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: meditate}, when: [{kind: HP_PERCENT, op: lt, value: 35}]}
+      - {use: {ability: dragon_fist}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+      - {use: {ability: cyclone_kick}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: palm_strike}, when: [{kind: EVERY_N_ACTIONS, value: 2}]}
+    effects: []
+    l10n:
+      name: {en: Flowing Fist, tr: Akan Yumruk, zh-CN: 行云拳, es: Puño fluido}
+      description: {en: "Chi cycle into Dragon Fist, combo palm strikes, meditate when low.", tr: "Chi döngüsüyle Ejder Yumruğu, kombo avuç darbeleri, düşükken meditasyon.", zh-CN: 气循环接龙拳，连击掌击，低血时冥想。, es: "Ciclo de Chi hacia Puño del dragón, palmas en combo, medita al estar bajo."}
+  - code: monk_iron_guard
+    class: monk
+    defaults: {stance: guarded, target_priority: lowest_hp, potion_threshold_pct: 50}
+    rules:
+      - {use: {ability: meditate}, when: [{kind: HP_PERCENT, op: lt, value: 40}]}
+      - {use: {ability: iron_guard}, when: [{kind: HP_PERCENT, op: lt, value: 70}]}
+      - {use: {ability: palm_strike}, when: [{kind: RESOURCE_PERCENT, op: lt, value: 50}]}
+      - {use: {ability: dragon_fist}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 80}]}
+    effects: []
+    l10n:
+      name: {en: Iron Guard, tr: Demir Muhafız, zh-CN: 铁卫, es: Guardia de hierro}
+      description: {en: "Defensive thresholds first, spend spare Chi on finishers.", tr: "Önce savunma eşikleri, artan Chi bitiricilere.", zh-CN: 优先防御阈值，富余的气用于终结技。, es: "Primero umbrales defensivos, el Chi sobrante para remates."}
+  - code: cleric_devout
+    class: cleric
+    defaults: {stance: efficient, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: heal}, when: [{kind: ALLY_HP_BELOW, value: 75}]}
+      - {use: {ability: barrier}, when: [{kind: HP_PERCENT, op: lt, value: 85}, {kind: BUFF_PRESENT, op: eq, value: 0, code: shield}]}
+      - {use: {ability: sanctuary}, when: [{kind: ALLY_HP_BELOW, value: 50}]}
+      - {use: {ability: renew}, when: [{kind: ALLY_HP_BELOW, value: 95}]}
+    effects: []
+    l10n:
+      name: {en: Devout, tr: Dindar, zh-CN: 虔诚, es: Devoto}
+      description: {en: "Auto-heal thresholds and barrier refresh; smite when healthy.", tr: "Otomatik şifa eşikleri ve bariyer yenileme; sağlıkluyken vuruş.", zh-CN: 自动治疗阈值与屏障刷新；健康时进行攻击。, es: "Umbrales de curación automática y renovación de barrera; ataca al estar sano."}
+  - code: cleric_warder
+    class: cleric
+    defaults: {stance: guarded, target_priority: lowest_hp, potion_threshold_pct: 45}
+    rules:
+      - {use: {ability: barrier}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: shield}]}
+      - {use: {ability: heal}, when: [{kind: ALLY_HP_BELOW, value: 50}]}
+      - {use: {ability: renew}, when: [{kind: ALLY_HP_BELOW, value: 75}]}
+    effects: []
+    l10n:
+      name: {en: Warder, tr: Koruyucu, zh-CN: 护卫, es: Custodio}
+      description: {en: "Keeps a barrier up at all times.", tr: "Bariyeri her zaman açık tutar.", zh-CN: 时刻维持屏障。, es: "Mantiene siempre una barrera."}
+  - code: paladin_aegis
+    class: paladin
+    defaults: {stance: guarded, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: lay_on_hands}, when: [{kind: HP_PERCENT, op: lt, value: 45}]}
+      - {use: {ability: shield_of_faith}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: shield}]}
+      - {use: {ability: consecration}, when: [{kind: ENEMY_COUNT, op: gte, value: 3}]}
+      - {use: {ability: judgment}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}, {kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+      - {use: {ability: holy_strike}, when: [{kind: COOLDOWN_READY}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 50, trigger: on_block, effects: [{effect_type: SHIELD, params: {percent_max_hp: 3, duration_s: 6}}]}}
+    l10n:
+      name: {en: Aegis, tr: Kalkan, zh-CN: 圣盾, es: Égida}
+      description: {en: "Aura, block shields and judgment procs.", tr: "Aura, blok kalkanları ve yargı tetiklenmeleri.", zh-CN: 光环、格挡护盾与审判触发。, es: "Aura, escudos al bloquear y juicios."}
+  - code: paladin_zealot
+    class: paladin
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 35}
+    rules:
+      - {use: {ability: lay_on_hands}, when: [{kind: HP_PERCENT, op: lt, value: 25}]}
+      - {use: {ability: judgment}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}]}
+      - {use: {ability: consecration}, when: [{kind: ENEMY_COUNT, op: gte, value: 2}]}
+      - {use: {ability: holy_strike}, when: [{kind: COOLDOWN_READY}]}
+    effects: []
+    l10n:
+      name: {en: Zealot, tr: Bağnaz, zh-CN: 狂信者, es: Fanático}
+      description: {en: "Holy strikes and judgments above all.", tr: "Her şeyden önce kutsal darbeler ve yargılar.", zh-CN: 神圣打击与审判优先。, es: "Golpes sagrados y juicios ante todo."}
+  - code: druid_grove
+    class: druid
+    defaults: {stance: efficient, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: bear_form_skill}, when: [{kind: HP_PERCENT, op: lt, value: 40}]}
+      - {use: {ability: regrowth}, when: [{kind: ALLY_HP_BELOW, value: 92}]}
+      - {use: {ability: thorn_ward}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: thorn_ward}]}
+      - {use: {ability: moonfire}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}, {kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+      - {use: {ability: entangle}, when: [{kind: ENEMY_COUNT, op: gte, value: 2}]}
+    effects: []
+    l10n:
+      name: {en: Grove Warden, tr: Koru Bekçisi, zh-CN: 林地守望, es: Guardián del bosque}
+      description: {en: "HoT refresh, bear form under threshold, thorns always up.", tr: "Zamanla şifa yenileme, eşik altında ayı formu, dikenler hep açık.", zh-CN: 刷新持续治疗，低于阈值变熊，荆棘常驻。, es: "Renueva CeT, forma de oso bajo umbral, espinas siempre activas."}
+  - code: druid_feral
+    class: druid
+    defaults: {stance: aggressive, target_priority: lowest_hp, potion_threshold_pct: 35}
+    rules:
+      - {use: {ability: bear_form_skill}, when: [{kind: COMBAT_TIME, op: lt, value: 2}]}
+      - {use: {ability: moonfire}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0, code: dot}]}
+      - {use: {ability: regrowth}, when: [{kind: HP_PERCENT, op: lt, value: 60}]}
+      - {use: {ability: entangle}, when: [{kind: ENEMY_COUNT, op: gte, value: 2}]}
+    effects: []
+    l10n:
+      name: {en: Feral, tr: Vahşi, zh-CN: 野性, es: Salvaje}
+      description: {en: "Starts in bear form and keeps moonfire rolling.", tr: "Ayı formunda başlar ve ay ateşini sürdürür.", zh-CN: 以熊形态开场并维持月火术。, es: "Empieza en forma de oso y mantiene el fuego lunar."}
+  - code: bard_ensemble
+    class: bard
+    defaults: {stance: efficient, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: healing_verse}, when: [{kind: ALLY_HP_BELOW, value: 75}]}
+      - {use: {ability: song_of_valor}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: song_of_valor}]}
+      - {use: {ability: quick_tempo}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: quick_tempo}]}
+      - {use: {ability: dissonant_chord}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}]}
+      - {use: {ability: encore}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 40}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 25, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 45, damage_type: arcane}}]}}
+    l10n:
+      name: {en: Ensemble, tr: Topluluk, zh-CN: 合奏, es: Conjunto}
+      description: {en: "Song rotation driven by party condition.", tr: "Grubun durumuna göre şarkı rotasyonu.", zh-CN: 根据队伍状态轮换歌曲。, es: "Rotación de canciones según el estado del grupo."}
+  - code: bard_discordant
+    class: bard
+    defaults: {stance: aggressive, target_priority: highest_hp, potion_threshold_pct: 35}
+    rules:
+      - {use: {ability: dissonant_chord}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}]}
+      - {use: {ability: song_of_valor}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: song_of_valor}]}
+      - {use: {ability: healing_verse}, when: [{kind: HP_PERCENT, op: lt, value: 50}]}
+    effects: []
+    l10n:
+      name: {en: Discordant, tr: Ahenksiz, zh-CN: 不谐, es: Discordante}
+      description: {en: "Debuffs first, valor song upkeep.", tr: "Önce zayıflatmalar, yiğitlik şarkısını sürdür.", zh-CN: 优先减益，保持勇气之歌。, es: "Primero perjuicios, mantiene la canción del valor."}
+  - code: shaman_totemic
+    class: shaman
+    defaults: {stance: efficient, target_priority: lowest_hp, potion_threshold_pct: 40}
+    rules:
+      - {use: {ability: spirit_mend}, when: [{kind: ALLY_HP_BELOW, value: 78}]}
+      - {use: {ability: earth_totem}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: earth_totem}]}
+      - {use: {ability: storm_totem_skill}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: storm_totem_skill}]}
+      - {use: {ability: ancestor_call}, when: [{kind: RESOURCE_PERCENT, op: gte, value: 60}]}
+      - {use: {ability: hex}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}, {kind: RESOURCE_PERCENT, op: gte, value: 30}]}
+    effects:
+      - {effect_type: PROC_CHANCE, params: {chance_percent: 15, trigger: on_hit, effects: [{effect_type: RESOURCE_GAIN, params: {resource: spirit_charges, amount: 1}}]}}
+    l10n:
+      name: {en: Totemic, tr: Totemci, zh-CN: 图腾, es: Totémico}
+      description: {en: "Totem slot priority with spirit procs.", tr: "Ruh tetiklenmeleriyle totem yuvası önceliği.", zh-CN: 图腾槽位优先并触发灵魂。, es: "Prioridad de tótems con activaciones espirituales."}
+  - code: shaman_hexer
+    class: shaman
+    defaults: {stance: aggressive, target_priority: highest_hp, potion_threshold_pct: 35}
+    rules:
+      - {use: {ability: hex}, when: [{kind: DEBUFF_PRESENT, op: eq, value: 0}]}
+      - {use: {ability: storm_totem_skill}, when: [{kind: BUFF_PRESENT, op: eq, value: 0, code: storm_totem_skill}]}
+      - {use: {ability: spirit_mend}, when: [{kind: HP_PERCENT, op: lt, value: 50}]}
+    effects: []
+    l10n:
+      name: {en: Hexer, tr: Lanetçi, zh-CN: 咒术师, es: Maleficiador}
+      description: {en: "Hexes and storm totems for damage.", tr: "Hasar için lanetler ve fırtına totemleri.", zh-CN: 以诅咒和风暴图腾造成伤害。, es: "Maleficios y tótems de tormenta para dañar."}

@@ -146,11 +146,12 @@ class Battle:
         self.data = data
         self.cfg = cfg
         self.rng = Rng(data.seed)
+        self.proc_depth = 0  # procs cannot trigger further procs (prevents unbounded chains)
         self.now = 0.0
         self.coeff = cfg.coefficients.get(data.context, {"damage": 1.0, "healing": 1.0, "cc_duration": 1.0})
         self.selector = selector or passive_only_selector
         self.enemy_selector = enemy_selector or passive_only_selector
-        self.stance = cfg.stances.get(data.strategy.stance) or cfg.stances.get("balanced")
+        self.stance = cfg.stances.get(data.strategy.stance)
         self.actors: list[Actor] = []
         for i, snap in enumerate((*data.players, *data.enemies)):
             self.actors.append(self._init_actor(snap, i))
@@ -788,7 +789,7 @@ class Battle:
 
     # ------------------------------------------------------------------ triggers
     def fire(self, a: Actor, trigger: str, other: Actor | None) -> None:
-        if not a.alive:
+        if not a.alive or self.proc_depth > 0:
             return
         entries = list(a.procs.get(trigger, ()))
         for t in a.timed:
@@ -814,8 +815,12 @@ class Battle:
             a.icd_ready[key] = self.now + p["internal_cooldown_s"]
         a.procs_fired[key] = a.procs_fired.get(key, 0) + 1
         self.emit("PROC", actor_id=a.id, proc=key)
-        for j, nested in enumerate(p["effects"]):
-            self.apply(a, nested, other, f"{key}.{j}", key)
+        self.proc_depth += 1
+        try:
+            for j, nested in enumerate(p["effects"]):
+                self.apply(a, nested, other, f"{key}.{j}", key)
+        finally:
+            self.proc_depth -= 1
 
     def _every_n(self, a: Actor, target: Actor) -> None:
         for key, p in a.every_n:

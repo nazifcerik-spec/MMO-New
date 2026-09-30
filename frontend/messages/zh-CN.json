@@ -113,7 +113,14 @@
     "multiple_capstones": "只能拥有一个终极天赋。",
     "talent_decrease": "降低天赋需要重置。",
     "material_system_unavailable": "暂时无法支付所需的重置材料。",
-    "nothing_to_reset": "没有可重置的天赋。"
+    "nothing_to_reset": "没有可重置的天赋。",
+    "invalid_stance": "未知姿态。",
+    "invalid_target_priority": "未知目标优先级。",
+    "invalid_risk": "未知风险等级。",
+    "invalid_preset": "未知预设。",
+    "invalid_passive_profile": "该方案不属于你的职业。",
+    "invalid_loot_filter": "拾取过滤无效。",
+    "invalid_tactics": "战术无效。"
   },
   "characters": {
     "title": "你的角色",
@@ -290,5 +297,54 @@
     "cooldown": "冷却 {seconds} 秒",
     "awakening": "觉醒：{name}",
     "awakeningInactive": "{level} 级觉醒"
+  },
+  "afk": {
+    "open": "挂机策略",
+    "title": "挂机战斗策略",
+    "intro": "你的角色会自动战斗。选择预设或微调策略；所有战斗由服务器结算。",
+    "presets": "预设",
+    "potionAt": "药水 <{pct}%",
+    "showAdvanced": "显示高级设置",
+    "hideAdvanced": "隐藏高级设置",
+    "mode": "战斗模式",
+    "modes": {
+      "PASSIVE_ONLY": "仅被动",
+      "ACTIVE_TACTICS": "主动战术",
+      "HYBRID": "混合（首领用战术）"
+    },
+    "passiveProfile": "职业被动方案",
+    "stance": "姿态",
+    "targetPriority": "目标优先级",
+    "risk": "风险等级",
+    "potionThreshold": "生命低于{pct}%时喝药",
+    "lootFilter": "拾取过滤",
+    "minRarity": "最低稀有度",
+    "minTier": "最低阶级",
+    "keepMaterials": "保留材料",
+    "autoSalvage": "自动分解其余",
+    "rarity": {
+      "worn": "破旧",
+      "common": "普通",
+      "fine": "精良",
+      "rare": "稀有",
+      "epic": "史诗",
+      "legendary": "传说",
+      "mythic": "神话",
+      "relic": "遗物"
+    },
+    "save": "保存策略",
+    "discard": "放弃更改",
+    "preview": "训练预览",
+    "bossEncounter": "首领战",
+    "runPreview": "模拟10场战斗",
+    "saveFirst": "请先保存再预览。",
+    "winRate": "胜率",
+    "deathRate": "死亡率",
+    "avgDuration": "平均时长",
+    "seconds": "{s}秒",
+    "dps": "每秒伤害",
+    "potionsUsed": "每场药水",
+    "uses": "{n}次",
+    "fallback": "普通攻击：{n}"
   }
 }

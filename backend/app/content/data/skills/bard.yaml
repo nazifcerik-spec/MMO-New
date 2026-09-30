@@ -7,7 +7,7 @@ abilities:
     tags: [buff, song]
     cost: {resource: rhythm, amount: 10}
     cooldown_s: 12
-    effects: [{effect_type: BUFF, params: {duration_s: 12, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 6}}]}}]
+    effects: [{effect_type: BUFF, params: {duration_s: 12, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 12}}]}}]
     l10n:
       name: {en: Song of Valor, tr: Yiğitlik Şarkısı, zh-CN: 勇气之歌, es: Canción del valor}
       description: {en: Attack buff., tr: Saldırı güçlendirmesi., zh-CN: 攻击增益。, es: Mejora de ataque.}
@@ -18,7 +18,7 @@ abilities:
     tags: [heal, hot, song]
     cost: {resource: rhythm, amount: 12}
     cooldown_s: 10
-    effects: [{effect_type: HOT, params: {percent_of_power: 15, duration_s: 10, tick_s: 2, target: party}}]
+    effects: [{effect_type: HOT, params: {percent_of_power: 36, duration_s: 10, tick_s: 2, target: party}}]
     l10n:
       name: {en: Healing Verse, tr: Şifa Dizesi, zh-CN: 治愈诗篇, es: Verso sanador}
       description: {en: Heal over time., tr: Zamanla şifa., zh-CN: 持续治疗。, es: Curación en el tiempo.}
@@ -29,7 +29,7 @@ abilities:
     tags: [debuff, song]
     cost: {resource: rhythm, amount: 15}
     cooldown_s: 12
-    effects: [{effect_type: DAMAGE, params: {percent_of_power: 80, damage_type: arcane}}, {effect_type: DEBUFF, params: {kind: weaken, percent: 8, duration_s: 8}}]
+    effects: [{effect_type: DAMAGE, params: {percent_of_power: 120, damage_type: arcane}}, {effect_type: DEBUFF, params: {kind: weaken, percent: 12, duration_s: 8}}]
     l10n:
       name: {en: Dissonant Chord, tr: Uyumsuz Akor, zh-CN: 不谐和弦, es: Acorde disonante}
       description: {en: Debuff., tr: Zayıflatma., zh-CN: 减益。, es: Perjuicio.}
@@ -40,7 +40,7 @@ abilities:
     tags: [buff, song]
     cost: {resource: rhythm, amount: 20}
     cooldown_s: 20
-    effects: [{effect_type: BUFF, params: {duration_s: 10, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 8}}]}}]
+    effects: [{effect_type: BUFF, params: {duration_s: 10, target: party, effects: [{effect_type: STAT_PERCENT, params: {stat: attack_speed, percent: 15}}]}}]
     l10n:
       name: {en: Quick Tempo, tr: Hızlı Tempo, zh-CN: 快板, es: Tempo rápido}
       description: {en: Attack speed., tr: Saldırı hızı., zh-CN: 攻击速度。, es: Velocidad de ataque.}

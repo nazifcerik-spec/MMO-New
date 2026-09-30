@@ -7,7 +7,7 @@ abilities:
     tags: [buff, totem, defensive]
     cost: {resource: spirit_charges, amount: 1}
     cooldown_s: 15
-    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 6}}]}}]
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: DAMAGE_REDUCTION, params: {percent: 10}}]}}]
     l10n:
       name: {en: Earth Totem, tr: Toprak Totemi, zh-CN: 大地图腾, es: Tótem de tierra}
       description: {en: Defense aura., tr: Savunma aurası., zh-CN: 防御光环。, es: Aura defensiva.}
@@ -18,7 +18,7 @@ abilities:
     tags: [buff, totem]
     cost: {resource: spirit_charges, amount: 1}
     cooldown_s: 15
-    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 15, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 30, damage_type: lightning}}]}}]}}]
+    effects: [{effect_type: BUFF, params: {duration_s: 15, target: party, effects: [{effect_type: PROC_CHANCE, params: {chance_percent: 30, trigger: on_hit, effects: [{effect_type: DAMAGE, params: {percent_of_power: 30, damage_type: lightning}}]}}]}}]
     l10n:
       name: {en: Storm Totem, tr: Fırtına Totemi, zh-CN: 风暴图腾, es: Tótem de tormenta}
       description: {en: Offensive proc., tr: Saldırgan tetiklenme., zh-CN: 进攻触发。, es: Activación ofensiva.}
@@ -29,7 +29,7 @@ abilities:
     tags: [heal]
     cost: {resource: spirit_charges, amount: 1}
     cooldown_s: 5
-    effects: [{effect_type: HEAL, params: {percent_of_power: 130, target: lowest_hp_ally}}]
+    effects: [{effect_type: HEAL, params: {percent_of_power: 170, target: lowest_hp_ally}}]
     l10n:
       name: {en: Spirit Mend, tr: Ruh Onarımı, zh-CN: 灵魂治愈, es: Remiendo espiritual}
       description: {en: Heal., tr: Şifa., zh-CN: 治疗。, es: Curación.}
@@ -40,7 +40,7 @@ abilities:
     tags: [debuff]
     cost: {resource: spirit_charges, amount: 1}
     cooldown_s: 10
-    effects: [{effect_type: DEBUFF, params: {kind: weaken, percent: 10, duration_s: 10}}, {effect_type: DOT, params: {damage_type: shadow, percent_of_power: 12, duration_s: 10, tick_s: 2}}]
+    effects: [{effect_type: DEBUFF, params: {kind: weaken, percent: 12, duration_s: 10}}, {effect_type: DOT, params: {damage_type: shadow, percent_of_power: 11, duration_s: 10, tick_s: 2}}]
     l10n:
       name: {en: Hex, tr: Lanet, zh-CN: 妖术, es: Maleficio}
       description: {en: Debuff., tr: Zayıflatma., zh-CN: 减益。, es: Perjuicio.}

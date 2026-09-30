@@ -1,0 +1,9 @@
+code: risk_profiles
+data:
+  # Canonical AFK risk levels: XP/loot multiplier and relative danger. Numeric config, not code.
+  profiles:
+    safe: {xp_loot_percent: 85, enemy_power_percent: 85, death_risk_percent: 30, consumption_percent: 70, rare_bonus_percent: 0}
+    balanced: {xp_loot_percent: 100, enemy_power_percent: 100, death_risk_percent: 100, consumption_percent: 100, rare_bonus_percent: 0}
+    dangerous: {xp_loot_percent: 120, enemy_power_percent: 118, death_risk_percent: 180, consumption_percent: 130, rare_bonus_percent: 0}
+    elite_hunt: {xp_loot_percent: 135, enemy_power_percent: 135, death_risk_percent: 260, consumption_percent: 140, rare_bonus_percent: 25}
+  default: balanced

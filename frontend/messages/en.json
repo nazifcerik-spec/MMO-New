@@ -113,7 +113,14 @@
     "multiple_capstones": "Only one capstone can be active.",
     "talent_decrease": "Lowering talents requires a reset.",
     "material_system_unavailable": "The required reset material cannot be paid yet.",
-    "nothing_to_reset": "No talents to reset."
+    "nothing_to_reset": "No talents to reset.",
+    "invalid_stance": "Unknown stance.",
+    "invalid_target_priority": "Unknown target priority.",
+    "invalid_risk": "Unknown risk level.",
+    "invalid_preset": "Unknown preset.",
+    "invalid_passive_profile": "That profile does not belong to your class.",
+    "invalid_loot_filter": "Invalid loot filter.",
+    "invalid_tactics": "Invalid tactics."
   },
   "characters": {
     "title": "Your characters",
@@ -290,5 +297,54 @@
     "cooldown": "Cooldown {seconds}s",
     "awakening": "Awakening: {name}",
     "awakeningInactive": "Awakens at Lv {level}"
+  },
+  "afk": {
+    "open": "AFK strategy",
+    "title": "AFK combat strategy",
+    "intro": "Your character fights automatically. Pick a preset or fine-tune the strategy; the server resolves every fight.",
+    "presets": "Presets",
+    "potionAt": "potion <{pct}%",
+    "showAdvanced": "Show advanced settings",
+    "hideAdvanced": "Hide advanced settings",
+    "mode": "Combat mode",
+    "modes": {
+      "PASSIVE_ONLY": "Passive only",
+      "ACTIVE_TACTICS": "Active tactics",
+      "HYBRID": "Hybrid (tactics for bosses)"
+    },
+    "passiveProfile": "Class passive profile",
+    "stance": "Stance",
+    "targetPriority": "Target priority",
+    "risk": "Risk level",
+    "potionThreshold": "Drink potion below {pct}% HP",
+    "lootFilter": "Loot filter",
+    "minRarity": "Minimum rarity",
+    "minTier": "Minimum tier",
+    "keepMaterials": "Keep materials",
+    "autoSalvage": "Auto-salvage the rest",
+    "rarity": {
+      "worn": "Worn",
+      "common": "Common",
+      "fine": "Fine",
+      "rare": "Rare",
+      "epic": "Epic",
+      "legendary": "Legendary",
+      "mythic": "Mythic",
+      "relic": "Relic"
+    },
+    "save": "Save strategy",
+    "discard": "Discard changes",
+    "preview": "Training preview",
+    "bossEncounter": "Boss encounter",
+    "runPreview": "Simulate 10 fights",
+    "saveFirst": "Save changes to preview them.",
+    "winRate": "Win rate",
+    "deathRate": "Death rate",
+    "avgDuration": "Avg. duration",
+    "seconds": "{s}s",
+    "dps": "Damage/s",
+    "potionsUsed": "Potions/fight",
+    "uses": "{n} uses",
+    "fallback": "Basic attacks: {n}"
   }
 }

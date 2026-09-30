@@ -7,7 +7,7 @@ abilities:
     tags: [defensive, shield]
     cost: {resource: conviction, amount: 10}
     cooldown_s: 10
-    effects: [{effect_type: SHIELD, params: {percent_max_hp: 10, duration_s: 8}}]
+    effects: [{effect_type: SHIELD, params: {percent_max_hp: 20, duration_s: 8}}]
     l10n:
       name: {en: Shield of Faith, tr: İnanç Kalkanı, zh-CN: 信仰之盾, es: Escudo de fe}
       description: {en: Defense., tr: Savunma., zh-CN: 防御。, es: Defensa.}
@@ -27,8 +27,8 @@ abilities:
     unlock_level: 25
     target: lowest_hp_ally
     tags: [heal, defensive]
-    cost: {resource: conviction, amount: 40}
-    cooldown_s: 60
+    cost: {resource: conviction, amount: 30}
+    cooldown_s: 40
     effects: [{effect_type: HEAL, params: {percent_of_power: 300, target: lowest_hp_ally}}]
     l10n:
       name: {en: Lay on Hands, tr: Elle Şifa, zh-CN: 圣疗术, es: Imposición de manos}

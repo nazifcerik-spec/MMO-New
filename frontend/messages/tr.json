@@ -113,7 +113,14 @@
     "multiple_capstones": "Yalnızca bir zirve etkin olabilir.",
     "talent_decrease": "Yeteneği düşürmek için sıfırlama gerekir.",
     "material_system_unavailable": "Gerekli sıfırlama malzemesi henüz ödenemiyor.",
-    "nothing_to_reset": "Sıfırlanacak yetenek yok."
+    "nothing_to_reset": "Sıfırlanacak yetenek yok.",
+    "invalid_stance": "Bilinmeyen duruş.",
+    "invalid_target_priority": "Bilinmeyen hedef önceliği.",
+    "invalid_risk": "Bilinmeyen risk seviyesi.",
+    "invalid_preset": "Bilinmeyen hazır ayar.",
+    "invalid_passive_profile": "Bu profil sınıfına ait değil.",
+    "invalid_loot_filter": "Geçersiz ganimet filtresi.",
+    "invalid_tactics": "Geçersiz taktikler."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -290,5 +297,54 @@
     "cooldown": "Bekleme {seconds} sn",
     "awakening": "Uyanış: {name}",
     "awakeningInactive": "Sv {level} uyanır"
+  },
+  "afk": {
+    "open": "AFK stratejisi",
+    "title": "AFK savaş stratejisi",
+    "intro": "Karakterin otomatik savaşır. Hazır bir ayar seç ya da stratejiyi detaylandır; tüm savaşları sunucu çözümler.",
+    "presets": "Hazır ayarlar",
+    "potionAt": "iksir <%{pct}",
+    "showAdvanced": "Gelişmiş ayarları göster",
+    "hideAdvanced": "Gelişmiş ayarları gizle",
+    "mode": "Savaş modu",
+    "modes": {
+      "PASSIVE_ONLY": "Yalnızca pasif",
+      "ACTIVE_TACTICS": "Aktif taktikler",
+      "HYBRID": "Hibrit (boss için taktik)"
+    },
+    "passiveProfile": "Sınıf pasif profili",
+    "stance": "Duruş",
+    "targetPriority": "Hedef önceliği",
+    "risk": "Risk seviyesi",
+    "potionThreshold": "Can %{pct} altına inince iksir iç",
+    "lootFilter": "Ganimet filtresi",
+    "minRarity": "En düşük nadirlik",
+    "minTier": "En düşük kademe",
+    "keepMaterials": "Malzemeleri tut",
+    "autoSalvage": "Kalanı otomatik parçala",
+    "rarity": {
+      "worn": "Yıpranmış",
+      "common": "Sıradan",
+      "fine": "Kaliteli",
+      "rare": "Nadir",
+      "epic": "Destansı",
+      "legendary": "Efsanevi",
+      "mythic": "Mitik",
+      "relic": "Kalıntı"
+    },
+    "save": "Stratejiyi kaydet",
+    "discard": "Değişiklikleri at",
+    "preview": "Eğitim önizlemesi",
+    "bossEncounter": "Boss karşılaşması",
+    "runPreview": "10 savaş simüle et",
+    "saveFirst": "Önizlemek için önce kaydet.",
+    "winRate": "Kazanma oranı",
+    "deathRate": "Ölüm oranı",
+    "avgDuration": "Ort. süre",
+    "seconds": "{s} sn",
+    "dps": "Hasar/sn",
+    "potionsUsed": "İksir/savaş",
+    "uses": "{n} kullanım",
+    "fallback": "Temel saldırı: {n}"
   }
 }

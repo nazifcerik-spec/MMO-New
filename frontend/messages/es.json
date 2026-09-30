@@ -113,7 +113,14 @@
     "multiple_capstones": "Solo puede haber una cúspide.",
     "talent_decrease": "Reducir talentos requiere restablecerlos.",
     "material_system_unavailable": "Aún no se puede pagar el material requerido.",
-    "nothing_to_reset": "No hay talentos que restablecer."
+    "nothing_to_reset": "No hay talentos que restablecer.",
+    "invalid_stance": "Postura desconocida.",
+    "invalid_target_priority": "Prioridad de objetivo desconocida.",
+    "invalid_risk": "Nivel de riesgo desconocido.",
+    "invalid_preset": "Preajuste desconocido.",
+    "invalid_passive_profile": "Ese perfil no pertenece a tu clase.",
+    "invalid_loot_filter": "Filtro de botín no válido.",
+    "invalid_tactics": "Tácticas no válidas."
   },
   "characters": {
     "title": "Tus personajes",
@@ -290,5 +297,54 @@
     "cooldown": "Enfriamiento {seconds} s",
     "awakening": "Despertar: {name}",
     "awakeningInactive": "Despierta en Nv {level}"
+  },
+  "afk": {
+    "open": "Estrategia AFK",
+    "title": "Estrategia de combate AFK",
+    "intro": "Tu personaje lucha automáticamente. Elige un preajuste o ajusta la estrategia; el servidor resuelve cada combate.",
+    "presets": "Preajustes",
+    "potionAt": "poción <{pct}%",
+    "showAdvanced": "Mostrar ajustes avanzados",
+    "hideAdvanced": "Ocultar ajustes avanzados",
+    "mode": "Modo de combate",
+    "modes": {
+      "PASSIVE_ONLY": "Solo pasivo",
+      "ACTIVE_TACTICS": "Tácticas activas",
+      "HYBRID": "Híbrido (tácticas para jefes)"
+    },
+    "passiveProfile": "Perfil pasivo de clase",
+    "stance": "Postura",
+    "targetPriority": "Prioridad de objetivo",
+    "risk": "Nivel de riesgo",
+    "potionThreshold": "Beber poción bajo {pct}% de vida",
+    "lootFilter": "Filtro de botín",
+    "minRarity": "Rareza mínima",
+    "minTier": "Nivel mínimo",
+    "keepMaterials": "Conservar materiales",
+    "autoSalvage": "Desguazar el resto",
+    "rarity": {
+      "worn": "Desgastado",
+      "common": "Común",
+      "fine": "Fino",
+      "rare": "Raro",
+      "epic": "Épico",
+      "legendary": "Legendario",
+      "mythic": "Mítico",
+      "relic": "Reliquia"
+    },
+    "save": "Guardar estrategia",
+    "discard": "Descartar cambios",
+    "preview": "Vista previa de entrenamiento",
+    "bossEncounter": "Encuentro con jefe",
+    "runPreview": "Simular 10 combates",
+    "saveFirst": "Guarda los cambios para previsualizarlos.",
+    "winRate": "Tasa de victoria",
+    "deathRate": "Tasa de muerte",
+    "avgDuration": "Duración media",
+    "seconds": "{s} s",
+    "dps": "Daño/s",
+    "potionsUsed": "Pociones/combate",
+    "uses": "{n} usos",
+    "fallback": "Ataques básicos: {n}"
   }
 }

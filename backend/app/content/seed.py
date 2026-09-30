@@ -303,6 +303,30 @@ async def seed_skills(session: AsyncSession) -> int:
     return created
 
 
+async def seed_passive_profiles(session: AsyncSession) -> int:
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types.afk_profiles import PASSIVE_PROFILE_TYPE
+
+    created = 0
+    order: dict[str, int] = {}
+    for prof in load_yaml("profiles/passive_profiles.yaml")["profiles"]:
+        order[prof["class"]] = order.get(prof["class"], -1) + 1
+        await _texts(session, f"passive_profile.{prof['code']}", prof["l10n"], "passive_profile")
+        created += await ensure_published(
+            session,
+            PASSIVE_PROFILE_TYPE,
+            prof["code"],
+            {
+                "base_class_code": prof["class"],
+                "sort_order": order[prof["class"]],
+                "defaults": prof["defaults"],
+                "rules": prof["rules"],
+                "effects": prof["effects"],
+            },
+        )
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -310,6 +334,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("races", seed_races),
     ("classes", seed_classes),
     ("skills", seed_skills),
+    ("passive_profiles", seed_passive_profiles),
 ]
 
 
