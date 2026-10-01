@@ -87,6 +87,7 @@ class ItemRules(_S):
     max_sockets: int = Field(ge=0, le=6)
     max_upgrade_level: int = Field(ge=0, le=30)
     upgrade_pct_per_level: float = Field(ge=0, le=50)
+    quality_stat_bonus_pct: dict[str, float] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def _check(self) -> "ItemRules":
@@ -222,6 +223,7 @@ def _scale_effect(effect: dict[str, Any], mult: float) -> dict[str, Any]:
 def instance_effects(template: dict[str, Any], instance: dict[str, Any], rules: ItemRules) -> list[dict[str, Any]]:
     """All effects granted by an equipped instance, computed from the *recorded* template revision data."""
     mult = 1 + instance.get("upgrade_level", 0) * rules.upgrade_pct_per_level / 100
+    mult *= 1 + rules.quality_stat_bonus_pct.get(instance.get("quality") or "common", 0) / 100
     out = [
         _scale_effect({"effect_type": "STAT_FLAT", "params": {"stat": s["stat"], "amount": s["amount"]}}, mult)
         for s in template.get("base_stats", [])
@@ -233,6 +235,8 @@ def instance_effects(template: dict[str, Any], instance: dict[str, Any], rules: 
         out += list(unique["effects"])
     for gem in instance.get("gems", []):
         out += list(gem.get("effects", []))
+    for ench in instance.get("enchantments", []):
+        out += list(ench.get("effects", []))
     return out
 
 

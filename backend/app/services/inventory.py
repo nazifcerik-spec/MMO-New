@@ -24,7 +24,8 @@ from app.services.races import stat_label_keys
 
 # Extra capacity sources (bags, account upgrades…): async (db, character) -> int
 CAPACITY_PROVIDERS: list[Any] = []
-SALVAGE_AVAILABLE = False  # flipped by the crafting/salvage system (Phase 18)
+# Salvage handlers (crafting system): async (db, character, template_code, qty, key) -> list[outcome]
+SALVAGE_HANDLERS: list[Any] = []
 
 
 async def config(db: AsyncSession) -> rules.InventoryConfig:
@@ -82,6 +83,7 @@ async def add_item(
     source_id: str | None,
     key: str,
     seed: int | None = None,
+    quality: str | None = None,
 ) -> list[dict[str, Any]]:
     """Place items: merge stacks → free inventory slots → overflow mailbox → auto-sell (never lost).
     Every sub-operation is idempotent on `key`."""
@@ -89,7 +91,7 @@ async def add_item(
     tpl = await items.published_template(db, template_code)
     outcome: list[dict[str, Any]] = []
     remaining = quantity
-    if tpl.stack_size > 1:
+    if tpl.stack_size > 1 and quality is None:
         stacks = list(
             (
                 await db.execute(
@@ -155,6 +157,7 @@ async def add_item(
                 quantity=qty,
                 seed=None if seed is None else derive_seed(seed, n),
                 location=location,
+                quality=quality,
             )
             outcome.append({"template_code": tpl.code, "qty": qty, "placed": location, "instance_id": inst.id})
         remaining -= qty
@@ -474,8 +477,12 @@ async def grant_afk_loot(
                 out.append({"drop": d, "placed": "none", "reason": "unknown_template"})
                 continue
             tdata = {"category": tpl.category, "rarity": tpl.rarity, "tier": tpl.tier, "class_tags": tpl.class_tags}
-            action = rules.evaluate_filter(lf, tdata, salvage_available=SALVAGE_AVAILABLE)
+            action = rules.evaluate_filter(lf, tdata, salvage_available=bool(SALVAGE_HANDLERS))
             sub = f"{key}:{i}:{code}"
+            if action == "salvage":
+                for handler in SALVAGE_HANDLERS:
+                    out += await handler(db, character, code, qty, f"{sub}:salvage")
+                continue
             if action == "keep":
                 out += await add_item(
                     db,

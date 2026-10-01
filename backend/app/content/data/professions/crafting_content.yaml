@@ -1,0 +1,67 @@
+# Sample gathering/crafting content (dev/test). Launch-scale recipe catalog comes with Phase 19.
+materials:   # code: [tier, rarity, vendor, {en, tr, zh-CN, es}]
+  silverleaf: [0, common, 2, {en: Silverleaf, tr: Gümüşyaprak, zh-CN: 银叶草, es: Hojaplata}]
+  moonpetal: [0, fine, 12, {en: Moonpetal, tr: Ayyaprağı, zh-CN: 月瓣花, es: Pétalo lunar}]
+  rabbit_hide: [0, common, 2, {en: Rabbit Hide, tr: Tavşan Postu, zh-CN: 兔皮, es: Piel de conejo}]
+  pristine_pelt: [0, fine, 14, {en: Pristine Pelt, tr: Kusursuz Post, zh-CN: 完美毛皮, es: Pelaje impecable}]
+  marsh_reed: [1, common, 4, {en: Marsh Reed, tr: Bataklık Sazı, zh-CN: 沼泽芦苇, es: Junco del pantano}]
+  river_eel: [1, common, 5, {en: River Eel, tr: Nehir Yılanbalığı, zh-CN: 河鳗, es: Anguila de río}]
+  glass_eel: [1, rare, 30, {en: Glass Eel, tr: Cam Yılanbalığı, zh-CN: 玻璃鳗, es: Angula de cristal}]
+  ironwood_log: [2, common, 8, {en: Ironwood Log, tr: Demirağaç Kütüğü, zh-CN: 铁木原木, es: Tronco de hierro}]
+  stag_hide: [2, fine, 10, {en: Stag Hide, tr: Geyik Postu, zh-CN: 雄鹿皮, es: Piel de ciervo}]
+  heartwood_sap: [2, rare, 40, {en: Heartwood Sap, tr: Özodun Özsuyu, zh-CN: 心木树液, es: Savia de duramen}]
+  frost_iron_ore: [4, rare, 25, {en: Frost Iron Ore, tr: Buz Demiri Cevheri, zh-CN: 霜铁矿, es: Mineral de hierro gélido}]
+  void_shard: [8, legendary, 120, {en: Void Shard, tr: Boşluk Kırığı, zh-CN: 虚空碎片, es: Fragmento del vacío}]
+  starbloom: [9, mythic, 200, {en: Starbloom, tr: Yıldızçiçeği, zh-CN: 星辰花, es: Flor estelar}]
+  eternity_carp: [10, mythic, 260, {en: Eternity Carp, tr: Sonsuzluk Sazanı, zh-CN: 永恒鲤, es: Carpa eterna}]
+nodes:       # code: [profession, tier, entries [[material, weight, min, max, rare]]]
+  meadow_herbs: [herbalism, 0, [[silverleaf, 90, 1, 2, false], [moonpetal, 10, 1, 1, true]]]
+  meadow_game: [hunting, 0, [[rabbit_hide, 90, 1, 2, false], [pristine_pelt, 10, 1, 1, true]]]
+  marsh_reeds: [herbalism, 1, [[marsh_reed, 90, 1, 3, false], [moonpetal, 10, 1, 1, true]]]
+  marsh_eels: [fishing, 1, [[river_eel, 92, 1, 2, false], [glass_eel, 8, 1, 1, true]]]
+  ironroot_timber: [logging, 2, [[ironwood_log, 90, 1, 3, false], [heartwood_sap, 10, 1, 1, true]]]
+  forest_stag: [hunting, 2, [[stag_hide, 95, 1, 2, false], [pristine_pelt, 5, 1, 1, true]]]
+  dune_copper: [mining, 3, [[copper_ore, 90, 2, 4, false], [iron_ingot, 10, 1, 1, true]]]
+  frost_iron: [mining, 4, [[frost_iron_ore, 85, 1, 2, false], [iron_ingot, 15, 1, 2, true]]]
+  ember_ore: [mining, 5, [[frost_iron_ore, 80, 1, 3, false], [iron_ingot, 20, 1, 2, true]]]
+  citadel_pearls: [fishing, 6, [[river_eel, 80, 2, 3, false], [glass_eel, 20, 1, 1, true]]]
+  storm_crystal: [mining, 7, [[frost_iron_ore, 80, 2, 3, false], [void_shard, 3, 1, 1, true]]]
+  void_shard_vein: [mining, 8, [[frost_iron_ore, 85, 2, 4, false], [void_shard, 15, 1, 1, true]]]
+  starbloom_field: [herbalism, 9, [[moonpetal, 85, 2, 4, false], [starbloom, 15, 1, 1, true]]]
+  eternity_pool: [fishing, 10, [[glass_eel, 85, 1, 3, false], [eternity_carp, 15, 1, 1, true]]]
+templates:   # extra items needed by recipes
+  - {code: apprentice_forge_kit, category: profession_tool, slot: tool, subcategory: forge_kit, tier: 0, level: 1, rarity: common, vendor: 20, durability: 60,
+     effects: [{effect_type: PROFESSION_YIELD_MOD, params: {profession: weaponsmithing, kind: speed, percent: 5}}],
+     l10n: {en: Apprentice Forge Kit, tr: Çırak Ocak Takımı, zh-CN: 学徒锻造工具, es: Kit de forja de aprendiz}}
+  - {code: salvage_drone, category: accessory, slot: trinket, tier: 1, level: 50, rarity: fine, vendor: 60, pool: [keen, of_fortune],
+     effects: [{effect_type: LOOT_MODIFIER, params: {scope: gold, percent: 5}}],
+     l10n: {en: Salvage Drone, tr: Hurda Dronu, zh-CN: 回收无人机, es: Dron recolector}}
+  - {code: treasure_sonar, category: accessory, slot: trinket, tier: 2, level: 150, rarity: rare, vendor: 200, pool: [keen, of_fortune, of_agility],
+     effects: [{effect_type: LOOT_MODIFIER, params: {scope: rare_chance, percent: 10}}],
+     l10n: {en: Treasure Sonar, tr: Hazine Sonarı, zh-CN: 寻宝声呐, es: Sonar de tesoros}}
+  - {code: schematic_treasure_sonar, category: recipe, tier: 2, level: 100, rarity: rare, vendor: 50, stack: 20,
+     l10n: {en: "Schematic: Treasure Sonar", tr: "Şema: Hazine Sonarı", zh-CN: 图纸：寻宝声呐, es: "Esquema: Sonar de tesoros"}}
+  - {code: grilled_eel, category: consumable, subcategory: food, tier: 0, level: 1, rarity: common, vendor: 8, stack: 50,
+     effects: [{effect_type: HEAL, params: {percent_of_power: 60}}],
+     l10n: {en: Grilled Eel, tr: Izgara Yılanbalığı, zh-CN: 烤鳗鱼, es: Anguila a la parrilla}}
+recipes:
+  - {code: smelt_iron_ingot, profession: blacksmithing, level: 1, ingredients: [[copper_ore, 3]], output: [iron_ingot, 1], time: 20, xp: 8,
+     workstation: forge, quality: false, fail: 0, l10n: {en: Smelt Iron Ingot, tr: Demir Külçe Erit, zh-CN: 熔炼铁锭, es: Fundir lingote de hierro}}
+  - {code: forge_militia_axe, profession: weaponsmithing, level: 50, ingredients: [[iron_ingot, 4], [ironwood_log, 1]], output: [militia_axe, 1], time: 120, xp: 40,
+     tool: forge_kit, workstation: anvil, fail: 10, l10n: {en: Forge Militia Axe, tr: Milis Baltası Döv, zh-CN: 锻造民兵战斧, es: Forjar hacha de milicia}}
+  - {code: forge_ironwall_helm, profession: armorsmithing, level: 100, ingredients: [[iron_ingot, 6]], output: [ironwall_helm, 1], time: 180, xp: 60,
+     workstation: anvil, fail: 12, l10n: {en: Forge Ironwall Helm, tr: Demirsur Miğferi Döv, zh-CN: 锻造铁壁头盔, es: Forjar yelmo de Murohierro}}
+  - {code: brew_minor_healing_potion, profession: alchemy, level: 1, ingredients: [[silverleaf, 2]], output: [minor_healing_potion, 2], time: 15, xp: 6,
+     workstation: alchemy_table, quality: false, fail: 5, l10n: {en: Brew Minor Healing Potion, tr: Küçük İyileştirme İksiri Demle, zh-CN: 酿造次级治疗药水, es: Preparar poción de curación menor}}
+  - {code: cook_grilled_eel, profession: cooking, level: 1, ingredients: [[river_eel, 1]], output: [grilled_eel, 1], time: 10, xp: 5,
+     workstation: kitchen, quality: false, fail: 0, l10n: {en: Cook Grilled Eel, tr: Izgara Yılanbalığı Pişir, zh-CN: 烹制烤鳗鱼, es: Cocinar anguila a la parrilla}}
+  - {code: build_salvage_drone, profession: engineering, level: 50, ingredients: [[iron_ingot, 3], [copper_ore, 5]], output: [salvage_drone, 1], time: 150, xp: 45,
+     workstation: workbench, fail: 8, l10n: {en: Build Salvage Drone, tr: Hurda Dronu Yap, zh-CN: 制造回收无人机, es: Construir dron recolector}}
+  - {code: build_treasure_sonar, profession: engineering, level: 150, rarity: rare, unlock: scroll, scroll: schematic_treasure_sonar,
+     ingredients: [[iron_ingot, 6], [glass_eel, 2]], output: [treasure_sonar, 1], time: 300, xp: 90, workstation: workbench, fail: 10,
+     l10n: {en: Build Treasure Sonar, tr: Hazine Sonarı Yap, zh-CN: 制造寻宝声呐, es: Construir sonar de tesoros}}
+imbues:
+  - {code: imbue_keen_edge, level: 1, categories: [weapon], effects: [{effect_type: STAT_FLAT, params: {stat: crit_chance, amount: 2}}], gold: 200,
+     materials: [[arcane_dust, 3]], l10n: {en: Keen Edge, tr: Keskin Ağız, zh-CN: 锋锐之刃, es: Filo agudo}}
+  - {code: imbue_warding, level: 50, categories: [armor], effects: [{effect_type: STAT_FLAT, params: {stat: armor, amount: 25}}], gold: 500,
+     materials: [[arcane_dust, 5]], l10n: {en: Warding, tr: Koruma, zh-CN: 守护, es: Protección}}

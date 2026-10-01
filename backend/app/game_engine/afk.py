@@ -64,6 +64,7 @@ class AfkBalance(_S):
     over_level: OverLevelPenalty = OverLevelPenalty()
     pity_threshold_fights: int = Field(default=150, ge=1, le=100_000)
     timeline_bucket_s: int = Field(default=1800, ge=300, le=10_800)
+    loot_modifier_caps: dict[str, float] = Field(default_factory=dict)  # LOOT_MODIFIER totals are capped per scope
 
     @model_validator(mode="after")
     def _bands(self) -> "AfkBalance":
@@ -241,9 +242,51 @@ def _stats_for(samples: dict[str, SampleStats], code: str) -> SampleStats:
     return samples.get(code) or samples["*"]
 
 
+def loot_modifiers(snap: AfkSnapshot) -> dict[str, float]:
+    """LOOT_MODIFIER totals from the player's effects (gear/gadgets/race), capped per scope by config."""
+    out: dict[str, float] = {}
+    for e in snap.player.effects:
+        if e.get("effect_type") == "LOOT_MODIFIER":
+            scope = e["params"]["scope"]
+            out[scope] = out.get(scope, 0.0) + float(e["params"]["percent"])
+    return {k: min(v, snap.afk.loot_modifier_caps.get(k, v)) for k, v in sorted(out.items())}
+
+
+def _empty_result(snap: AfkSnapshot, elapsed_s: float) -> dict[str, Any]:
+    """Profession-task sessions gather instead of fighting: no combat rewards, no deaths."""
+    result: dict[str, Any] = {
+        "elapsed_s": round(elapsed_s, 3),
+        "active_s": round(elapsed_s, 3),
+        "fights": 0,
+        "wins": 0,
+        "deaths": 0,
+        "kills": 0,
+        "boss_kills": 0,
+        "xp": 0,
+        "gold": 0,
+        "death_gold_cost": 0,
+        "durability_loss_pct": 0.0,
+        "potions_used": 0,
+        "avg_efficiency_pct": 0.0,
+        "drops": [],
+        "encounters": {},
+        "pity_end": snap.pity_start,
+        "timeline": [],
+        "samples": {"normal": {}, "boss": {}},
+        "rested_bonus_pct": snap.rested_bonus_pct,
+        "over_level_pct": snap.over_level_pct,
+        "mode": "profession",
+    }
+    result["hash"] = result_hash(result)
+    return result
+
+
 def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[..., Any] = simulate) -> dict[str, Any]:
     cfg = snap.afk
     elapsed_s = max(0.0, min(elapsed_s, float(snap.planned_seconds), float(cfg.max_session_seconds)))
+    if snap.profession_task is not None:
+        return _empty_result(snap, elapsed_s)
+    mods = loot_modifiers(snap)
     normal = _sample(snap, seed, boss=False, count=cfg.sample_fights, sim=sim)
     bosses = (
         _sample(snap, seed, boss=True, count=cfg.boss_sample_fights, sim=sim)
@@ -254,9 +297,12 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
     risk = snap.risk
     reward_mult = risk.xp_loot_percent / 100 * snap.over_level_pct / 100 * (1 + snap.rested_bonus_pct / 100)
     xp_mult = reward_mult * snap.zone.tier_scaling.xp_pct / 100 * snap.zone.loot_modifiers.get("xp_pct", 100) / 100
+    xp_mult *= 1 + mods.get("xp", 0) / 100
     gold_mult = (
         reward_mult * snap.zone.tier_scaling.gold_pct / 100 * snap.zone.loot_modifiers.get("gold_pct", 100) / 100
     )
+    gold_mult *= 1 + mods.get("gold", 0) / 100
+    drop_keep = 1 + mods.get("drop_rate", 0) / 100
     death_scale = risk.death_risk_percent / 100
     t = 0.0
     fights = wins = deaths = kills = boss_kills = 0
@@ -310,14 +356,14 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
                 table.rolls,
                 table.entries,
                 boss=enc.boss,
-                rare_bonus_pct=risk.rare_bonus_percent + (1_000_000 if forced_rare else 0),
+                rare_bonus_pct=risk.rare_bonus_percent + mods.get("rare_chance", 0) + (1_000_000 if forced_rare else 0),
             )
             got_rare = False
             for d in rolled:
                 if d["kind"] == "gold":
                     gold += d["qty"] * gold_mult * eff
                     continue
-                if not rng.chance(eff * 100):  # daily efficiency also thins item drops
+                if not rng.chance(min(100.0, eff * 100 * drop_keep)):  # efficiency thins drops; drop_rate helps
                     continue
                 key = (d["kind"], d.get("ref"), d.get("tier"), d.get("category"), d.get("rarity"))
                 drops[key] = drops.get(key, 0) + d["qty"]
@@ -356,6 +402,7 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
         },
         "rested_bonus_pct": snap.rested_bonus_pct,
         "over_level_pct": snap.over_level_pct,
+        "loot_modifiers": mods,
     }
     result["hash"] = result_hash(result)
     return result

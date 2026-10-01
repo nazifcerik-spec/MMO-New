@@ -8,6 +8,8 @@ import { useToast } from "@/components/ui/toast";
 import { useErrorMessage } from "@/lib/api/errors";
 import { professionApi, type ProfessionCard } from "@/lib/api/professions";
 
+import { CraftingPanel, GatheringPanel } from "./crafting-panel";
+
 export function ProfessionsScreen({ characterId }: { characterId: number }) {
   const t = useTranslations("professions");
   const tc = useTranslations("common");
@@ -74,6 +76,10 @@ export function ProfessionsScreen({ characterId }: { characterId: number }) {
           />
         ))}
       </ul>
+      <div className="grid gap-3 lg:grid-cols-2">
+        <CraftingPanel characterId={characterId} professions={v.professions} />
+        <GatheringPanel characterId={characterId} />
+      </div>
     </div>
   );
 }

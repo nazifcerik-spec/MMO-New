@@ -122,6 +122,7 @@ class ItemInstance(Base, TimestampMixin):
     durability_max: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     sockets: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     gems: Mapped[list[dict[str, Any]]] = mapped_column(JSONB, nullable=False, default=list)
+    enchantments: Mapped[list[dict[str, Any]]] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
     bound: Mapped[bool] = mapped_column(nullable=False, default=False)
     quality: Mapped[str | None] = mapped_column(String(24))
     upgrade_level: Mapped[int] = mapped_column(Integer, nullable=False, default=0)

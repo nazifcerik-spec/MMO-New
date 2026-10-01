@@ -869,7 +869,16 @@
     "broken": "已损坏：修理前效果失效。",
     "deltaIfEquipped": "若装备：",
     "deltaVsEquipped": "与已装备物品相比：",
-    "noDelta": "属性无变化"
+    "noDelta": "属性无变化",
+    "quality": "品质：{q}",
+    "qualityName": {
+      "common": "普通",
+      "fine": "精良",
+      "superior": "卓越",
+      "masterwork": "大师之作",
+      "mythic_crafted": "神话工艺"
+    },
+    "enchantment": "附魔"
   },
   "professions": {
     "open": "专业",
@@ -908,5 +917,45 @@
     "specAt": "{level} 级专精：{names}",
     "specialized": "已选择专精。",
     "specializeConfirm": "选择此专精？之后更换需要金币。"
+  },
+  "crafting": {
+    "title": "制作",
+    "profession": "专业",
+    "started": "开始制作",
+    "claimed": "制作完成：成功 {ok}，失败 {fail}（+{xp} 经验）",
+    "cancelConfirm": "取消此次制作？已预留的材料将退还。",
+    "noRecipes": "该专业暂无配方。",
+    "unknown": "尚未学会该配方",
+    "levelNeeded": "需要专业等级 {level}",
+    "toolNeeded": "请装备所需的专业工具",
+    "noMaterials": "材料不足",
+    "meta": "等级 {level} · 每件 {time} · {xp} 经验 · 失败率 {fail}%",
+    "quality": "品质判定",
+    "workstation": "工作台：{name}",
+    "quantity": "数量",
+    "craft": "制作",
+    "queueEmpty": "制作队列为空。",
+    "ready": "已完成",
+    "cancel": "取消",
+    "claim": "领取",
+    "gathering": "采集（挂机）",
+    "gatheringStarted": "采集挂机已开始",
+    "zone": "区域",
+    "hours": "小时",
+    "gather": "采集",
+    "gatheringHint": "采集使用挂机时段（最长 3 小时）；请在挂机界面领取结果。",
+    "rerolled": "词缀已重铸（−{gold} 金币）",
+    "imbued": "附魔已应用",
+    "salvaged": "物品已分解",
+    "learned": "已学会配方",
+    "learn": "学习配方",
+    "affix": "词缀",
+    "reroll": "重铸",
+    "rerollConfirm": "重铸此词缀数值？将消耗金币和奥术粉尘；物品不会被摧毁。",
+    "imbue": "附魔",
+    "chooseImbue": "选择附魔…",
+    "imbueConfirm": "应用此附魔？将替换现有附魔。",
+    "salvage": "分解",
+    "salvageConfirm": "将 {name} 分解为材料？此操作不可撤销。"
   }
 }

@@ -869,7 +869,16 @@
     "broken": "Kırık: onarılana kadar etkiler devre dışı.",
     "deltaIfEquipped": "Kuşanılırsa:",
     "deltaVsEquipped": "Kuşanılı eşyaya göre:",
-    "noDelta": "Stat değişikliği yok"
+    "noDelta": "Stat değişikliği yok",
+    "quality": "Kalite: {q}",
+    "qualityName": {
+      "common": "Sıradan",
+      "fine": "İnce",
+      "superior": "Üstün",
+      "masterwork": "Başyapıt",
+      "mythic_crafted": "Efsanevi Üretim"
+    },
+    "enchantment": "Aşılama"
   },
   "professions": {
     "open": "Meslekler",
@@ -908,5 +917,45 @@
     "specAt": "Sv {level} uzmanlığı: {names}",
     "specialized": "Uzmanlık seçildi.",
     "specializeConfirm": "Bu uzmanlık seçilsin mi? Sonradan değiştirmek altın gerektirir."
+  },
+  "crafting": {
+    "title": "Üretim",
+    "profession": "Meslek",
+    "started": "Üretim başladı",
+    "claimed": "Üretildi: {ok} başarılı, {fail} başarısız (+{xp} TP)",
+    "cancelConfirm": "Bu üretim iptal edilsin mi? Ayrılan malzemeler iade edilir.",
+    "noRecipes": "Bu meslek için henüz tarif yok.",
+    "unknown": "Tarif öğrenilmedi",
+    "levelNeeded": "Meslek seviyesi {level} gerekli",
+    "toolNeeded": "Gerekli meslek aletini kuşan",
+    "noMaterials": "Eksik malzeme",
+    "meta": "Sv {level} · adet başı {time} · {xp} TP · %{fail} başarısızlık",
+    "quality": "Kalite zarı",
+    "workstation": "Tezgâh: {name}",
+    "quantity": "Adet",
+    "craft": "Üret",
+    "queueEmpty": "Üretim kuyruğu boş.",
+    "ready": "Hazır",
+    "cancel": "İptal",
+    "claim": "Topla",
+    "gathering": "Toplama (AFK)",
+    "gatheringStarted": "Toplama oturumu başladı",
+    "zone": "Bölge",
+    "hours": "Saat",
+    "gather": "Topla",
+    "gatheringHint": "Toplama AFK oturumunu kullanır (en fazla 3 saat); sonuçları AFK ekranından topla.",
+    "rerolled": "Özellik yeniden atıldı (−{gold} altın)",
+    "imbued": "Aşılama uygulandı",
+    "salvaged": "Eşya parçalandı",
+    "learned": "Tarif öğrenildi",
+    "learn": "Tarifi öğren",
+    "affix": "Özellik",
+    "reroll": "Yeniden at",
+    "rerollConfirm": "Bu özellik değeri yeniden atılsın mı? Altın ve Arkanik Toz harcanır; eşya asla yok olmaz.",
+    "imbue": "Aşıla",
+    "chooseImbue": "Aşılama seç…",
+    "imbueConfirm": "Bu aşılama uygulansın mı? Mevcut aşılamanın yerini alır.",
+    "salvage": "Parçala",
+    "salvageConfirm": "{name} malzemeye ayrılsın mı? Geri alınamaz."
   }
 }

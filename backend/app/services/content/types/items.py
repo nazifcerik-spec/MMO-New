@@ -296,9 +296,13 @@ async def validate_template(db: AsyncSession, code: str, d: dict[str, Any]) -> l
         issues.append(
             Issue("error", "relic_random_affixes", "relics use fixed effects, not random affixes", "affix_rules")
         )
-    if budget.unique_required and not d["unique_effect"]:
+    if budget.unique_required and cat in SLOTS_BY_CATEGORY and not d["unique_effect"]:
         issues.append(Issue("error", "unique_required", f"{d['rarity']} items need a unique effect", "unique_effect"))
-    if budget.mastery_scaling_required and not (d["unique_effect"] or {}).get("mastery_scaling"):
+    if (
+        budget.mastery_scaling_required
+        and cat in SLOTS_BY_CATEGORY
+        and not (d["unique_effect"] or {}).get("mastery_scaling")
+    ):
         issues.append(
             Issue("error", "mastery_scaling_required", "mythic unique effects must scale with mastery", "unique_effect")
         )

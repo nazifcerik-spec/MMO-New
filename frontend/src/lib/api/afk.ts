@@ -61,12 +61,16 @@ export interface AfkClaim {
   gold: number;
   loot_pending: AfkDrop[];
   signals: AfkSignal[];
+  profession?: { node_code: string; actions: number; materials: Record<string, number> } | null;
   replayed: boolean;
 }
 
 export const afkApi = {
   current: (id: number) => apiFetch<{ session: AfkSessionView | null; server_now: string }>(`/characters/${id}/afk`),
-  start: (id: number, body: { zone_code: string; duration_s: number; risk_level?: string }) =>
+  start: (
+    id: number,
+    body: { zone_code: string; duration_s: number; risk_level?: string; profession_task?: { node_code: string } },
+  ) =>
     apiFetch<AfkSessionView>(`/characters/${id}/afk/start`, { method: "POST", body, idempotencyKey: newIdempotencyKey() }),
   stop: (id: number) => apiFetch<AfkSessionView>(`/characters/${id}/afk/stop`, { method: "POST" }),
   claim: (id: number, key: string) => apiFetch<AfkClaim>(`/characters/${id}/afk/claim`, { method: "POST", idempotencyKey: key }),

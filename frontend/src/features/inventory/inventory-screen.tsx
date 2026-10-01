@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/toast";
 import { useErrorMessage } from "@/lib/api/errors";
 import { inventoryApi, type ItemView } from "@/lib/api/inventory";
 
+import { EnchantActions } from "./enchant-actions";
 import { ItemTooltip, RARITY_TEXT, useUnmetText } from "./item-tooltip";
 
 export function InventoryScreen({ characterId }: { characterId: number }) {
@@ -194,6 +195,7 @@ export function InventoryScreen({ characterId }: { characterId: number }) {
                 {t("destroy")}
               </button>
             ) : null}
+            <EnchantActions characterId={characterId} item={selected} onDone={() => setSelected(null)} />
           </>
         ) : (
           <p className="text-sm text-muted">{t("pick")}</p>

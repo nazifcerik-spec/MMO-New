@@ -7,6 +7,7 @@ from app.models import (  # noqa: F401
     character,
     classes,
     content,
+    crafting,
     items,
     localization,
     professions,

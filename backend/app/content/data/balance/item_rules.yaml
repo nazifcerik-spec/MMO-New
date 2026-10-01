@@ -40,3 +40,5 @@ data:
   max_sockets: 3
   max_upgrade_level: 10
   upgrade_pct_per_level: 3
+  # Crafting quality (separate from rarity): base-stat bonus per quality.
+  quality_stat_bonus_pct: {common: 0, fine: 3, superior: 6, masterwork: 10, mythic_crafted: 15}

@@ -869,7 +869,16 @@
     "broken": "Roto: los efectos no funcionan hasta repararlo.",
     "deltaIfEquipped": "Si lo equipas:",
     "deltaVsEquipped": "Comparado con lo equipado:",
-    "noDelta": "Sin cambios"
+    "noDelta": "Sin cambios",
+    "quality": "Calidad: {q}",
+    "qualityName": {
+      "common": "Común",
+      "fine": "Fina",
+      "superior": "Superior",
+      "masterwork": "Obra maestra",
+      "mythic_crafted": "Artesanía mítica"
+    },
+    "enchantment": "Imbuición"
   },
   "professions": {
     "open": "Profesiones",
@@ -908,5 +917,45 @@
     "specAt": "Especialización Nv {level}: {names}",
     "specialized": "Especialización elegida.",
     "specializeConfirm": "¿Elegir esta especialización? Cambiarla después cuesta oro."
+  },
+  "crafting": {
+    "title": "Fabricación",
+    "profession": "Profesión",
+    "started": "Fabricación iniciada",
+    "claimed": "Fabricado: {ok} con éxito, {fail} fallidos (+{xp} PX)",
+    "cancelConfirm": "¿Cancelar esta fabricación? Los materiales reservados se devuelven.",
+    "noRecipes": "Aún no hay recetas para esta profesión.",
+    "unknown": "Receta no aprendida",
+    "levelNeeded": "Requiere nivel de profesión {level}",
+    "toolNeeded": "Equipa la herramienta de profesión necesaria",
+    "noMaterials": "Faltan materiales",
+    "meta": "Nv {level} · {time} c/u · {xp} PX · {fail}% fallo",
+    "quality": "Tirada de calidad",
+    "workstation": "Estación: {name}",
+    "quantity": "Cantidad",
+    "craft": "Fabricar",
+    "queueEmpty": "La cola de fabricación está vacía.",
+    "ready": "Listo",
+    "cancel": "Cancelar",
+    "claim": "Recoger",
+    "gathering": "Recolección (AFK)",
+    "gatheringStarted": "Sesión de recolección iniciada",
+    "zone": "Zona",
+    "hours": "Horas",
+    "gather": "Recolectar",
+    "gatheringHint": "La recolección usa la sesión AFK (máx. 3 h); recoge los resultados en la pantalla AFK.",
+    "rerolled": "Afijo rehecho (−{gold} oro)",
+    "imbued": "Imbuición aplicada",
+    "salvaged": "Objeto desguazado",
+    "learned": "Receta aprendida",
+    "learn": "Aprender receta",
+    "affix": "Afijo",
+    "reroll": "Rehacer",
+    "rerollConfirm": "¿Rehacer el valor de este afijo? Se consumen oro y Polvo arcano; el objeto nunca se destruye.",
+    "imbue": "Imbuir",
+    "chooseImbue": "Elige imbuición…",
+    "imbueConfirm": "¿Aplicar esta imbuición? Reemplaza la existente.",
+    "salvage": "Desguazar",
+    "salvageConfirm": "¿Desguazar {name} en materiales? No se puede deshacer."
   }
 }

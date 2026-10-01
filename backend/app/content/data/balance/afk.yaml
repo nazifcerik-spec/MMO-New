@@ -24,3 +24,4 @@ data:
   over_level: {grace_levels: 20, per_level_pct: 3, min_pct: 10}
   pity_threshold_fights: 150        # guaranteed rare roll after this many fights without one
   timeline_bucket_s: 1800
+  loot_modifier_caps: {xp: 25, gold: 25, drop_rate: 25, rare_chance: 50, material_yield: 25}   # gadgets/effects cap

@@ -24,6 +24,17 @@ MAX_PAGE = 50
 SEED_MASK = (1 << 62) - 1
 
 
+def instance_state(inst: ItemInstance) -> dict[str, Any]:
+    """The rolled/mutable state that shapes an instance's effects (affixes, quality, upgrades, gems, enchants)."""
+    return {
+        "affixes": inst.affixes,
+        "upgrade_level": inst.upgrade_level,
+        "gems": inst.gems,
+        "quality": inst.quality,
+        "enchantments": inst.enchantments,
+    }
+
+
 async def published_template(db: AsyncSession, code: str) -> ItemTemplate:
     row = (
         await db.execute(
@@ -134,6 +145,7 @@ async def create_instance(
     seed: int | None = None,
     actor_id: int | None = None,
     location: str = "inventory",
+    quality: str | None = None,
 ) -> ItemInstance:
     """Grant a new instance pinned to the current published revision. Same key ⇒ same instance (no dupes)."""
     prior = await existing_by_key(db, character.id, idempotency_key)
@@ -161,6 +173,7 @@ async def create_instance(
         source_type=source_type,
         source_id=source_id,
         location=location,
+        quality=quality,
     )
     db.add(inst)
     await db.flush()
@@ -231,12 +244,12 @@ async def instance_view(
         "durability_max": inst.durability_max,
         "bound": inst.bound,
         "upgrade_level": inst.upgrade_level,
+        "quality": inst.quality,
+        "enchantments": inst.enchantments,
         "location": inst.location,
         "equipped_slot": inst.equipped_slot,
         "requirements": data["requirements"],
-        "effects": rules_engine.instance_effects(
-            data, {"affixes": inst.affixes, "upgrade_level": inst.upgrade_level, "gems": inst.gems}, rules
-        ),
+        "effects": rules_engine.instance_effects(data, instance_state(inst), rules),
         "provenance_id": str(inst.provenance_id),
         "source_type": inst.source_type,
         "bind_policy": data["bind_policy"],
@@ -405,9 +418,7 @@ async def equipment_effects(
         if inst.durability_max and inst.durability == 0:
             continue
         data = await revision_data(db, inst.template_code, inst.template_revision_no)
-        out += rules_engine.instance_effects(
-            data, {"affixes": inst.affixes, "upgrade_level": inst.upgrade_level, "gems": inst.gems}, rules
-        )
+        out += rules_engine.instance_effects(data, instance_state(inst), rules)
         if data.get("set_code"):
             sets[data["set_code"]] = sets.get(data["set_code"], 0) + 1
     if sets:

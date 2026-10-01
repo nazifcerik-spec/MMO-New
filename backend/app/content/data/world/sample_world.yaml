@@ -137,7 +137,7 @@ zones:
     levels: [700, 775, 849]
     danger: 9
     env: [void, corrupted]
-    nodes: [{profession_code: enchanting, node_code: void_essence, tier: 8}]
+    nodes: [{profession_code: mining, node_code: void_shard_vein, tier: 8}]
     l10n: {name: {en: Voidscar Rift, tr: Boşlukyarası Yarığı, zh-CN: 虚空裂痕, es: Grieta Cicatriz del Vacío}}
     enemies:
       - {code: void_stalker, archetype: skirmisher, damage_type: shadow, profile: skirmisher_bleed, l10n: {en: Void Stalker, tr: Boşluk Avcısı, zh-CN: 虚空潜猎者, es: Acechador del vacío}}
@@ -149,7 +149,7 @@ zones:
     levels: [850, 900, 949]
     danger: 9
     env: [sky, holy]
-    nodes: [{profession_code: jewelcrafting, node_code: star_gems, tier: 9}]
+    nodes: [{profession_code: herbalism, node_code: starbloom_field, tier: 9}]
     l10n: {name: {en: Celestial Ruins, tr: Göksel Harabeler, zh-CN: 天界遗迹, es: Ruinas Celestiales}}
     enemies:
       - {code: fallen_seraph, archetype: skirmisher, damage_type: holy, profile: skirmisher_bleed, l10n: {en: Fallen Seraph, tr: Düşmüş Serafim, zh-CN: 堕落炽天使, es: Serafín caído}}
@@ -161,7 +161,7 @@ zones:
     levels: [950, 975, 1000]
     danger: 10
     env: [endgame, divine]
-    nodes: [{profession_code: enchanting, node_code: eternal_motes, tier: 10}]
+    nodes: [{profession_code: fishing, node_code: eternity_pool, tier: 10}]
     l10n: {name: {en: Throne of Eternity, tr: Sonsuzluk Tahtı, zh-CN: 永恒王座, es: Trono de la Eternidad}}
     enemies:
       - {code: eternal_guardian, archetype: tank, profile: brute_smash, l10n: {en: Eternal Guardian, tr: Ebedi Muhafız, zh-CN: 永恒守护者, es: Guardián eterno}}

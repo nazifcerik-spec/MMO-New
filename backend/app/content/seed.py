@@ -559,6 +559,87 @@ async def seed_professions(session: AsyncSession) -> int:
     return created
 
 
+async def seed_crafting(session: AsyncSession) -> int:
+    """Sample gathering nodes, materials, tools/gadgets, recipes and imbues (validated like editor content)."""
+    from app.game_engine.items import ItemRules
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types import crafting as cr
+    from app.services.content.types import items as it
+    from app.services.content.types.balance import get_published_balance
+
+    doc = load_yaml("professions/crafting_content.yaml")
+    rules = await get_published_balance(session, "item_rules", ItemRules)
+    created = 0
+    for code, (tier, rarity, vendor, names) in doc["materials"].items():
+        await l10n_service_seed(session, f"item.{code}.name", names, "item")
+        data = {
+            "category": "material",
+            "tier": tier,
+            "min_level": rules.gate(tier).min_level,
+            "rarity": rarity,
+            "stack_size": 999,
+            "vendor_value": vendor,
+            "sources": [{"kind": "drop"}],
+        }
+        created += await ensure_published(session, it.ITEM_TEMPLATE_TYPE, code, data)
+    for t in doc["templates"]:
+        await l10n_service_seed(session, f"item.{t['code']}.name", t["l10n"], "item")
+        data = {
+            "category": t["category"],
+            "slot": t.get("slot"),
+            "subcategory": t.get("subcategory"),
+            "tier": t["tier"],
+            "min_level": t["level"],
+            "rarity": t["rarity"],
+            "stack_size": t.get("stack", 1),
+            "vendor_value": t["vendor"],
+            "durability": {"max": t.get("durability", 0)},
+            "effects": t.get("effects", []),
+            "affix_rules": {"pool": t.get("pool", []), **({} if t.get("pool") else {"max": 0})},
+            "sources": [{"kind": "craft"}],
+        }
+        created += await ensure_published(session, it.ITEM_TEMPLATE_TYPE, t["code"], data)
+    for code, (prof, tier, entries) in doc["nodes"].items():
+        data = {
+            "profession_code": prof,
+            "tier": tier,
+            "entries": [
+                {"template_code": m, "weight": w, "min": lo, "max": hi, "rare": rare} for m, w, lo, hi, rare in entries
+            ],
+        }
+        created += await ensure_published(session, cr.GATHERING_NODE_TYPE, code, data)
+    for r in doc["recipes"]:
+        await l10n_service_seed(session, f"recipe.{r['code']}.name", r["l10n"], "profession")
+        data = {
+            "profession_code": r["profession"],
+            "required_level": r["level"],
+            "recipe_rarity": r.get("rarity", "common"),
+            "unlock": {"kind": r.get("unlock", "auto")},
+            "scroll_template_code": r.get("scroll"),
+            "ingredients": [{"template_code": c, "qty": q} for c, q in r["ingredients"]],
+            "tool_kind": r.get("tool"),
+            "workstation": r.get("workstation"),
+            "craft_time_s": r["time"],
+            "xp": r["xp"],
+            "output": {"template_code": r["output"][0], "qty": r["output"][1]},
+            "quality_applies": r.get("quality", True),
+            "fail_chance_pct": r.get("fail", 0),
+            "fail_return_pct": 50,
+        }
+        created += await ensure_published(session, cr.RECIPE_TYPE, r["code"], data)
+    for im in doc["imbues"]:
+        await l10n_service_seed(session, f"imbue.{im['code']}.name", im["l10n"], "profession")
+        data = {
+            "required_level": im["level"],
+            "categories": im["categories"],
+            "effects": im["effects"],
+            "gold_cost": im["gold"],
+            "materials": [{"template_code": c, "qty": q} for c, q in im["materials"]],
+        }
+        created += await ensure_published(session, cr.IMBUE_TYPE, im["code"], data)
+    return created
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -570,6 +651,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("professions", seed_professions),
     ("world", seed_world),
     ("items", seed_items),
+    ("crafting", seed_crafting),
 ]
 
 

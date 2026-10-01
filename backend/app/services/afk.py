@@ -170,7 +170,7 @@ async def start(
         if not PROFESSION_TASK_VALIDATORS:
             raise ValidationFailedError("Profession tasks are not available yet", code="profession_task_unavailable")
         for check in PROFESSION_TASK_VALIDATORS:
-            task = await check(db, character, profession_task)
+            task = await check(db, character, {**profession_task, "zone_code": zone_code})
     started = now or now_utc()
     player = await combat_snapshot.character_snapshot(db, character)
     rules, extra = await afk_profiles.resolved_rules(db, profile, encounter_type="normal")

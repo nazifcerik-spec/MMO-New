@@ -26,6 +26,12 @@ export function useUnmetText() {
         : t(`unmet.${u.kind}`, { code: u.code ?? "" });
 }
 
+/** Item effects minus those shown in their own affix / enchantment sections (compared structurally). */
+function baseEffects(item: ItemView) {
+  const own = new Set([...item.affixes.map((a) => a.effect), ...(item.enchantments ?? []).flatMap((e) => e.effects)].map((e) => JSON.stringify(e)));
+  return item.effects.filter((e) => !own.has(JSON.stringify(e)));
+}
+
 /** Localized item tooltip: identity, requirements (pass/fail), stats, affixes, unique, bind, durability,
  *  marketability, sources and — when given — the equip stat delta. */
 export function ItemTooltip({ item, labels, preview }: { item: ItemView; labels: Record<string, string>; preview?: EquipPreview }) {
@@ -40,6 +46,11 @@ export function ItemTooltip({ item, labels, preview }: { item: ItemView; labels:
         {item.name}
         {item.upgrade_level ? ` +${item.upgrade_level}` : ""}
       </p>
+      {item.quality ? (
+        <p className="text-xs text-epic" data-testid="tooltip-quality">
+          {t("quality", { q: t(`qualityName.${item.quality}`) })}
+        </p>
+      ) : null}
       <p className="text-xs text-muted">
         {tr(`rarityName.${item.rarity}`)} · T{item.tier} · {tr(`category.${item.category}`)}
         {item.slot ? ` · ${tr(`slot.${item.slot}`)}` : ""}
@@ -66,12 +77,18 @@ export function ItemTooltip({ item, labels, preview }: { item: ItemView; labels:
           ))}
       </ul>
       <div className={broken ? "opacity-50" : ""}>
-        <EffectList effects={item.effects.filter((e) => !item.affixes.some((a) => a.effect === e))} labels={labels} />
+        <EffectList effects={baseEffects(item)} labels={labels} />
       </div>
       {item.affixes.length ? (
         <div>
           <p className="text-xs text-muted">{t("affixes")}</p>
           <EffectList effects={item.affixes.map((a) => a.effect)} labels={labels} />
+        </div>
+      ) : null}
+      {item.enchantments?.length ? (
+        <div className="text-epic" data-testid="tooltip-enchant">
+          <p className="text-xs">{t("enchantment")}</p>
+          <EffectList effects={item.enchantments.flatMap((e) => e.effects)} labels={labels} />
         </div>
       ) : null}
       {item.unique_effect ? (

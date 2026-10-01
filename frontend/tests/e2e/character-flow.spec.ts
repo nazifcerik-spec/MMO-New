@@ -223,3 +223,36 @@ test("professions: activate and revoke a Specialist License", async ({ page }) =
   await page.getByTestId("license-mining").click();
   await expect(page.getByTestId("license-summary")).toContainText("0/3");
 });
+
+test("crafting: staff-granted ore is reserved into a queued craft job", async ({ page, baseURL }) => {
+  const admin = await adminApi(baseURL!);
+  test.skip(!admin, "staff credentials not provided");
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Crf${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await expect(page).toHaveURL(/\/game\/characters\/\d+$/);
+  const characterId = Number(page.url().split("/").pop());
+  const grant = await admin!.ctx.post(`/api/v1/admin/characters/${characterId}/items`, {
+    data: { template_code: "copper_ore", quantity: 6, reason: "e2e" },
+    headers: { "X-CSRF-Token": admin!.csrf, "Idempotency-Key": crypto.randomUUID() },
+  });
+  expect(grant.ok(), await grant.text()).toBeTruthy();
+  await page.getByTestId("open-professions").click();
+  await page.getByTestId("craft-profession").selectOption("blacksmithing");
+  const row = page.getByTestId("recipe-smelt_iron_ingot");
+  await expect(row).toContainText("Copper Ore 6/3");
+  await page.getByTestId("craft-smelt_iron_ingot").click();
+  await expect(page.getByTestId("craft-queue")).toContainText("smelt_iron_ingot ×1");
+  await expect(row).toContainText("Copper Ore 3/3");
+});

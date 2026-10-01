@@ -29,6 +29,8 @@ export interface ItemView {
   durability_max: number;
   bound: boolean;
   upgrade_level: number;
+  quality?: string | null;
+  enchantments?: { code: string; effects: EffectData[] }[];
   location: string;
   equipped_slot: string | null;
   requirements: { stats: Record<string, number> };

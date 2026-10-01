@@ -869,7 +869,16 @@
     "broken": "Broken: effects are inactive until repaired.",
     "deltaIfEquipped": "If equipped:",
     "deltaVsEquipped": "Compared with equipped item:",
-    "noDelta": "No stat change"
+    "noDelta": "No stat change",
+    "quality": "Quality: {q}",
+    "qualityName": {
+      "common": "Common",
+      "fine": "Fine",
+      "superior": "Superior",
+      "masterwork": "Masterwork",
+      "mythic_crafted": "Mythic Crafted"
+    },
+    "enchantment": "Imbue"
   },
   "professions": {
     "open": "Professions",
@@ -908,5 +917,45 @@
     "specAt": "Lv {level} specialization: {names}",
     "specialized": "Specialization chosen.",
     "specializeConfirm": "Choose this specialization? Changing it later costs gold."
+  },
+  "crafting": {
+    "title": "Crafting",
+    "profession": "Profession",
+    "started": "Crafting started",
+    "claimed": "Crafted: {ok} succeeded, {fail} failed (+{xp} XP)",
+    "cancelConfirm": "Cancel this craft? Reserved materials are refunded.",
+    "noRecipes": "No recipes for this profession yet.",
+    "unknown": "Recipe not learned",
+    "levelNeeded": "Requires profession level {level}",
+    "toolNeeded": "Equip the required profession tool",
+    "noMaterials": "Missing materials",
+    "meta": "Lv {level} · {time} each · {xp} XP · {fail}% fail",
+    "quality": "Quality roll",
+    "workstation": "Workstation: {name}",
+    "quantity": "Quantity",
+    "craft": "Craft",
+    "queueEmpty": "Craft queue is empty.",
+    "ready": "Ready",
+    "cancel": "Cancel",
+    "claim": "Collect",
+    "gathering": "Gathering (AFK)",
+    "gatheringStarted": "Gathering session started",
+    "zone": "Zone",
+    "hours": "Hours",
+    "gather": "Gather",
+    "gatheringHint": "Gathering uses the AFK session (max 3h); collect results on the AFK screen.",
+    "rerolled": "Affix rerolled (−{gold} gold)",
+    "imbued": "Imbue applied",
+    "salvaged": "Item salvaged",
+    "learned": "Recipe learned",
+    "learn": "Learn recipe",
+    "affix": "Affix",
+    "reroll": "Reroll",
+    "rerollConfirm": "Reroll this affix value? Gold and Arcane Dust are consumed; the item is never destroyed.",
+    "imbue": "Imbue",
+    "chooseImbue": "Choose imbue…",
+    "imbueConfirm": "Apply this imbue? It replaces any existing imbue.",
+    "salvage": "Salvage",
+    "salvageConfirm": "Salvage {name} into materials? This cannot be undone."
   }
 }

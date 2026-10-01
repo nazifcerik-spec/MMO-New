@@ -1,0 +1,24 @@
+code: crafting
+data:
+  max_active_jobs: 2                    # parallel craft queue slots per character
+  max_batch: 50
+  xp_on_failure_pct: 25                 # failed attempts still teach a little
+  fail_chance_reduction_per_10_levels: 1.0
+  min_fail_chance_pct: 0
+  gathering:
+    default_actions_per_hour: 120
+    xp_per_action_base: 4
+    xp_per_action_per_tier: 3
+  salvage:
+    xp_per_item_base: 6
+    xp_per_item_per_tier: 4
+    profession: enchanting              # disenchanting trains Enchanting
+  enchanting:
+    level_per_tier: 50                  # enchanting level needed = tier * 50 (min 1)
+    reroll_gold_base: 100
+    reroll_gold_per_tier: 250
+    reroll_material: arcane_dust
+    reroll_material_qty_base: 2
+    reroll_material_qty_per_tier: 2
+    reroll_xp: 20
+  workstations: [forge, anvil, alchemy_table, loom, tannery, jeweler_bench, kitchen, enchanting_altar, workbench]

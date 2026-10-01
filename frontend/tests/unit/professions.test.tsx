@@ -15,6 +15,13 @@ const card = (code: string, over: Record<string, unknown> = {}) => ({
   swap_cost_gold: 0, title_earned: false, ...over,
 }); // prettier-ignore
 
+const recipe = {
+  code: "smelt_iron_ingot", name: "Smelt Iron Ingot", profession: "blacksmithing", required_level: 1, recipe_rarity: "common",
+  unlock: { kind: "auto" }, known: true, ingredients: [{ template_code: "copper_ore", qty: 3, name: "Copper Ore", have: 9 }],
+  output: { template_code: "iron_ingot", qty: 1, name: "Iron Ingot" }, tool_kind: null, tool_ok: true, workstation: "forge",
+  craft_time_s: 20, xp: 8, quality_applies: false, fail_chance_pct: 0, max_craftable: 3, craftable: true,
+}; // prettier-ignore
+
 function mock(licensedCount: number) {
   const calls: { url: string; init?: RequestInit }[] = [];
   vi.stubGlobal(
@@ -23,8 +30,16 @@ function mock(licensedCount: number) {
       calls.push({ url, init });
       const body = url.includes("/license")
         ? { cost_gold: 0 }
-        : {
-            professions: [card("mining", { licensed: true, level: 250, level_cap_now: 500, rank: "expert", rank_name: "Expert" }), card("fishing")],
+        : url.includes("/recipes")
+          ? [recipe]
+          : url.includes("/crafts")
+            ? init?.method === "POST"
+              ? { id: 5, ends_at: "2030-01-01T00:00:00Z" }
+              : [{ id: 3, recipe: "smelt_iron_ingot", quantity: 2, started_at: "", ends_at: "", remaining_s: 0, claimable: true }]
+            : url.includes("/zones")
+              ? { items: [], next_cursor: null }
+              : {
+            professions: [card("blacksmithing", { type: "crafting" }), card("mining", { licensed: true, level: 250, level_cap_now: 500, rank: "expert", rank_name: "Expert" }), card("fishing")],
             licenses: { active: licensedCount, max: 3, free_remaining: 2, cooldown_until: null },
             specialization_level: 200,
             level_cap: 500,
@@ -67,6 +82,19 @@ describe("ProfessionsScreen", () => {
     await waitFor(() => expect(calls.some((c) => c.url.includes("/fishing/license"))).toBe(true));
     const post = calls.find((c) => c.url.includes("/license"))!;
     expect(JSON.parse(String(post.init?.body))).toEqual({ active: true });
+    expect(new Headers(post.init?.headers).get("Idempotency-Key")).toBeTruthy();
+  });
+
+  it("lists recipes with material counts, starts crafts idempotently and offers claim for finished jobs", async () => {
+    const calls = mock(1);
+    renderScreen();
+    const row = await screen.findByTestId("recipe-smelt_iron_ingot");
+    expect(row).toHaveTextContent("Copper Ore 9/3");
+    expect(await screen.findByTestId("claim-craft-3")).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId("craft-smelt_iron_ingot"));
+    await waitFor(() => expect(calls.some((c) => c.url.endsWith("/crafts") && c.init?.method === "POST")).toBe(true));
+    const post = calls.find((c) => c.url.endsWith("/crafts") && c.init?.method === "POST")!;
+    expect(JSON.parse(String(post.init?.body))).toEqual({ recipe_code: "smelt_iron_ingot", quantity: 1 });
     expect(new Headers(post.init?.headers).get("Idempotency-Key")).toBeTruthy();
   });
 

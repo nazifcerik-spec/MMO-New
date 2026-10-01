@@ -5,6 +5,7 @@ from app.services.content.types import (  # noqa: F401
     afk_profiles,
     balance,
     classes,
+    crafting,
     items,
     professions,
     race,
