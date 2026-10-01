@@ -10,6 +10,7 @@ from app.models import (  # noqa: F401
     crafting,
     items,
     localization,
+    party,
     professions,
     profiles,
     progression,

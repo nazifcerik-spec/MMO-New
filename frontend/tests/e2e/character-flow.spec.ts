@@ -298,3 +298,26 @@ test("market: list a staff-granted item, see it in My listings and cancel (escro
   await row.locator('[data-testid^="cancel-"]').click();
   await expect(row).toContainText("Cancelled");
 });
+
+test("party: create a party and post to party chat", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Pty${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("open-party").click();
+  await page.getByTestId("create-party").click();
+  await expect(page.getByTestId("party-members")).toContainText(name);
+  await page.getByLabel("Message").fill("ready for the meadows");
+  await page.getByTestId("send-chat").click();
+  await expect(page.getByTestId("party-chat")).toContainText("ready for the meadows");
+});

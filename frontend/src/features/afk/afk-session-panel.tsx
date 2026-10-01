@@ -235,6 +235,19 @@ function ClaimSummary({ claim, onClose }: { claim: AfkClaim; onClose: () => void
         <dt className="text-muted">{t("durability")}</dt>
         <dd>-{r.durability_loss_pct}%</dd>
       </dl>
+      {r.contribution ? (
+        <div data-testid="summary-contribution" className="text-xs">
+          <p className="font-semibold">{t("contribution", { role: r.contribution.role, size: r.contribution.party_size })}</p>
+          <dl className="grid grid-cols-2 gap-x-4 font-mono sm:grid-cols-3">
+            {Object.entries(r.contribution.per_fight).map(([k, v]) => (
+              <div key={k} className="flex justify-between gap-2">
+                <dt className="text-muted">{t(`contrib.${k}`)}</dt>
+                <dd>{f.number(Math.round(v * 10) / 10)}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ) : null}
       {claim.loot_pending.length ? (
         <div>
           <h3 className="font-semibold">{t("drops")}</h3>

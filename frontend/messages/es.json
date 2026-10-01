@@ -392,7 +392,17 @@
     "fallback": "Ataques básicos: {n}",
     "lootCategories": "Conservar solo estas categorías (ninguna = todas)",
     "lootClassTags": "Conservar solo objetos con etiqueta (ninguna = cualquiera)",
-    "lootFilterHint": "El botín filtrado se vende por oro; los materiales y objetos de misión nunca se filtran."
+    "lootFilterHint": "El botín filtrado se vende por oro; los materiales y objetos de misión nunca se filtran.",
+    "contribution": "Contribución al grupo ({role}, grupo de {size}) — por combate",
+    "contrib": {
+      "damage": "Daño",
+      "healing": "Curación",
+      "shield_granted": "Escudos",
+      "damage_prevented": "Daño evitado",
+      "ally_buff_uptime_s": "Duración de mejoras (s)",
+      "debuffs_applied": "Penalizaciones",
+      "party_dps_gained": "DPS de grupo ganado"
+    }
   },
   "tactics": {
     "title": "Prioridades de tácticas activas",
@@ -1037,5 +1047,55 @@
     "items": "Eventos de objetos",
     "market": "Mercado",
     "marketLine": "{sales} ventas · volumen {volume} · impuesto {tax} · {active} anuncios activos"
+  },
+  "party": {
+    "title": "Grupo",
+    "open": "Grupo",
+    "role": "Rol",
+    "defaultRole": "Rol por defecto",
+    "roles": {
+      "tank": "Tanque",
+      "healer": "Sanador",
+      "support": "Apoyo",
+      "dps": "Daño"
+    },
+    "invites": "Invitaciones",
+    "invitedBy": "{name} te ha invitado",
+    "accept": "Unirse",
+    "decline": "Rechazar",
+    "joined": "Te has unido al grupo",
+    "noParty": "No estás en un grupo (hasta {max} miembros).",
+    "create": "Crear grupo",
+    "created": "Grupo creado",
+    "members": "Miembros",
+    "leave": "Salir",
+    "leaveConfirm": "¿Salir del grupo? Las sesiones AFK en curso no se ven afectadas.",
+    "online": "En línea",
+    "offline": "Desconectado",
+    "leader": "Líder",
+    "afkUntil": "AFK en {zone} hasta {at}",
+    "promote": "Hacer líder",
+    "kick": "Expulsar",
+    "bonuses": "Bonificaciones de composición: {list}",
+    "noBonuses": "Ninguna bonificación activa.",
+    "bonus": {
+      "frontline_and_mender": "Vanguardia y sanador",
+      "battle_rhythm": "Ritmo de batalla",
+      "steady_company": "Compañía firme"
+    },
+    "myRole": "Mi rol",
+    "inviteName": "Nombre del personaje",
+    "invite": "Invitar",
+    "invited": "Invitación enviada",
+    "groupAfk": "AFK en grupo",
+    "zone": "Zona",
+    "hours": "Duración",
+    "hoursN": "{h} h",
+    "start": "Iniciar para el grupo",
+    "groupStarted": "AFK en grupo iniciado",
+    "groupHint": "Cada miembro tiene su propia instantánea y botín personal; recoge en tu pantalla AFK.",
+    "chat": "Chat de grupo",
+    "message": "Mensaje",
+    "send": "Enviar"
   }
 }

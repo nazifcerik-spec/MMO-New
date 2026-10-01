@@ -392,7 +392,17 @@
     "fallback": "普通攻击：{n}",
     "lootCategories": "仅保留这些类别（不选=全部）",
     "lootClassTags": "仅保留带这些标签的物品（不选=任意）",
-    "lootFilterHint": "被过滤的战利品会卖给商人换取金币；材料与任务物品永不过滤。"
+    "lootFilterHint": "被过滤的战利品会卖给商人换取金币；材料与任务物品永不过滤。",
+    "contribution": "队伍贡献（{role}，{size} 人队伍）— 每场",
+    "contrib": {
+      "damage": "伤害",
+      "healing": "治疗量",
+      "shield_granted": "护盾",
+      "damage_prevented": "抵挡伤害",
+      "ally_buff_uptime_s": "友方增益时长（秒）",
+      "debuffs_applied": "减益",
+      "party_dps_gained": "队伍 DPS 提升"
+    }
   },
   "tactics": {
     "title": "主动战术优先级",
@@ -1037,5 +1047,55 @@
     "items": "物品事件",
     "market": "市场",
     "marketLine": "{sales} 笔成交 · 成交额 {volume} · 税 {tax} · {active} 个在售"
+  },
+  "party": {
+    "title": "队伍",
+    "open": "队伍",
+    "role": "职责",
+    "defaultRole": "默认职责",
+    "roles": {
+      "tank": "坦克",
+      "healer": "治疗",
+      "support": "辅助",
+      "dps": "输出"
+    },
+    "invites": "队伍邀请",
+    "invitedBy": "{name} 邀请了你",
+    "accept": "加入",
+    "decline": "拒绝",
+    "joined": "已加入队伍",
+    "noParty": "你不在队伍中（最多 {max} 人）。",
+    "create": "创建队伍",
+    "created": "队伍已创建",
+    "members": "成员",
+    "leave": "离开",
+    "leaveConfirm": "离开队伍？进行中的挂机不受影响。",
+    "online": "在线",
+    "offline": "离线",
+    "leader": "队长",
+    "afkUntil": "在 {zone} 挂机至 {at}",
+    "promote": "设为队长",
+    "kick": "移除",
+    "bonuses": "阵容加成：{list}",
+    "noBonuses": "当前无阵容加成。",
+    "bonus": {
+      "frontline_and_mender": "前线与医者",
+      "battle_rhythm": "战斗节奏",
+      "steady_company": "稳固小队"
+    },
+    "myRole": "我的职责",
+    "inviteName": "角色名",
+    "invite": "邀请",
+    "invited": "邀请已发送",
+    "groupAfk": "组队挂机",
+    "zone": "区域",
+    "hours": "时长",
+    "hoursN": "{h} 小时",
+    "start": "为队伍开始",
+    "groupStarted": "组队挂机已开始",
+    "groupHint": "每位成员拥有独立快照与个人掉落；请在挂机界面领取。",
+    "chat": "队伍聊天",
+    "message": "消息",
+    "send": "发送"
   }
 }

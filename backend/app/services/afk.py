@@ -138,8 +138,12 @@ async def start(
     idempotency_key: str,
     profession_task: dict[str, Any] | None = None,
     now: datetime | None = None,
+    group: dict[str, Any] | None = None,
 ) -> AfkSession:
-    """Caller holds a row lock on the character. Snapshot everything the result depends on."""
+    """Caller holds a row lock on the character. Snapshot everything the result depends on.
+
+    `group` (party AFK): {player, party, group_id, seed, loot_salt, power_pct} — this member's pre-built snapshot,
+    the frozen ally snapshots, the shared fight seed and a personal loot salt."""
     replay = (
         await db.execute(
             select(AfkSession).where(
@@ -173,10 +177,12 @@ async def start(
         for check in PROFESSION_TASK_VALIDATORS:
             task = await check(db, character, {**profession_task, "zone_code": zone_code})
     started = now or now_utc()
-    player = await combat_snapshot.character_snapshot(db, character)
     rules, extra = await afk_profiles.resolved_rules(db, profile, encounter_type="normal")
     boss_rules, _ = await afk_profiles.resolved_rules(db, profile, encounter_type="boss")
-    player = afk_profiles.with_extra_effects(player, extra)
+    if group is not None:
+        player = group["player"]
+    else:
+        player = afk_profiles.with_extra_effects(await combat_snapshot.character_snapshot(db, character), extra)
     potions = await afk_profiles.potion_count(db, character)
     prog_cfg = await progression.load_config(db)
     xp_per_unit = prog.reference_xp_per_hour(prog_cfg, character.level) * cfg.reference_cycle_s / 3600
@@ -207,6 +213,10 @@ async def start(
         pity_start=stats.pity_counter,
         loot=await get_published_balance(db, "loot", LootConfig),
         profession_task=task,
+        party=tuple(group["party"]) if group else (),
+        group_id=group["group_id"] if group else None,
+        loot_salt=group["loot_salt"] if group else 0,
+        party_power_pct_per_member=group["power_pct"] if group else 0.0,
         segments=engine.efficiency_segments(cfg, started, duration_s, prior),
         planned_seconds=duration_s,
         content_version=await content_service.current_release_version(db),
@@ -220,8 +230,9 @@ async def start(
         risk_level=risk_code,
         started_at=started,
         ends_at=started + timedelta(seconds=duration_s),
-        seed=secrets.randbits(62),
+        seed=group["seed"] if group else secrets.randbits(62),
         start_idempotency_key=idempotency_key,
+        group_id=group["group_id"] if group else None,
         snapshot=snap.model_dump(mode="json"),
         snapshot_hash=engine.snapshot_hash(snap),
         content_version=snap.content_version,

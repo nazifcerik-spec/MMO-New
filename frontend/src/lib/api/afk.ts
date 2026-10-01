@@ -54,6 +54,7 @@ export interface AfkClaim {
     durability_loss_pct: number;
     potions_used: number;
     avg_efficiency_pct: number;
+    contribution?: { role: string; party_size: number; sample_fights: number; per_fight: Record<string, number> };
     drops: AfkDrop[];
     timeline: { xp: number; kills: number; deaths: number }[];
   };

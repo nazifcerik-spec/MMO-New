@@ -392,7 +392,17 @@
     "fallback": "Temel saldırı: {n}",
     "lootCategories": "Yalnızca bu kategorileri tut (hiçbiri = hepsi)",
     "lootClassTags": "Yalnızca şu etiketli eşyaları tut (hiçbiri = hepsi)",
-    "lootFilterHint": "Filtreye takılan ganimet satıcıya altın karşılığı satılır; malzemeler ve görev eşyaları asla filtrelenmez."
+    "lootFilterHint": "Filtreye takılan ganimet satıcıya altın karşılığı satılır; malzemeler ve görev eşyaları asla filtrelenmez.",
+    "contribution": "Grup katkısı ({role}, {size} kişilik grup) — dövüş başına",
+    "contrib": {
+      "damage": "Hasar",
+      "healing": "İyileştirme",
+      "shield_granted": "Kalkanlar",
+      "damage_prevented": "Önlenen hasar",
+      "ally_buff_uptime_s": "Müttefik güçlendirme süresi (sn)",
+      "debuffs_applied": "Zayıflatmalar",
+      "party_dps_gained": "Kazandırılan grup DPS"
+    }
   },
   "tactics": {
     "title": "Aktif Taktik öncelikleri",
@@ -1037,5 +1047,55 @@
     "items": "Eşya olayları",
     "market": "Pazar",
     "marketLine": "{sales} satış · hacim {volume} · vergi {tax} · {active} aktif ilan"
+  },
+  "party": {
+    "title": "Grup",
+    "open": "Grup",
+    "role": "Rol",
+    "defaultRole": "Varsayılan rol",
+    "roles": {
+      "tank": "Tank",
+      "healer": "Şifacı",
+      "support": "Destek",
+      "dps": "Hasar"
+    },
+    "invites": "Grup davetleri",
+    "invitedBy": "{name} seni davet etti",
+    "accept": "Katıl",
+    "decline": "Reddet",
+    "joined": "Gruba katıldın",
+    "noParty": "Bir grupta değilsin (en fazla {max} üye).",
+    "create": "Grup kur",
+    "created": "Grup kuruldu",
+    "members": "Üyeler",
+    "leave": "Ayrıl",
+    "leaveConfirm": "Gruptan ayrılınsın mı? Devam eden AFK oturumları etkilenmez.",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı",
+    "leader": "Lider",
+    "afkUntil": "{zone} bölgesinde {at}'e kadar AFK",
+    "promote": "Lider yap",
+    "kick": "Çıkar",
+    "bonuses": "Kompozisyon bonusları: {list}",
+    "noBonuses": "Aktif kompozisyon bonusu yok.",
+    "bonus": {
+      "frontline_and_mender": "Öncü ve Şifacı",
+      "battle_rhythm": "Savaş Ritmi",
+      "steady_company": "Sağlam Bölük"
+    },
+    "myRole": "Rolüm",
+    "inviteName": "Karakter adı",
+    "invite": "Davet et",
+    "invited": "Davet gönderildi",
+    "groupAfk": "Grup AFK",
+    "zone": "Bölge",
+    "hours": "Süre",
+    "hoursN": "{h} sa",
+    "start": "Grup için başlat",
+    "groupStarted": "Grup AFK başladı",
+    "groupHint": "Her üye kendi anlık görüntüsünü ve kişisel ganimetini alır; AFK ekranından topla.",
+    "chat": "Grup sohbeti",
+    "message": "Mesaj",
+    "send": "Gönder"
   }
 }

@@ -44,10 +44,12 @@ def test_same_snapshot_and_seed_gives_identical_result() -> None:
     assert a.content_version == 7 and a.seed == 2026
 
 
+# Phase 21: digests re-baselined only for the new result fields (damage_prevented, ally_buff_uptime_s);
+# combat math verified unchanged against the previous digests.
 GOLDEN_DIGESTS = {
-    1: "da71c00b53746fdfcefdbcdc8f059116618dfb1f4b6b589f90df8f0b72a8ba5f",
-    42: "b39bfcd5c7740f3af3a76333ec7048d6a29432a43524de13c80989a02440a4b1",
-    2026: "27ed0c6ff6c52853fbc85ee6d3bf3ba4389643f68c148c7499dab72143835d35",
+    1: "247c47d9646c9aed9b72908ed3a3a36dcb333e8cddfc85c40b6e9a5700286ba5",
+    42: "ea696e5faf8e2884428f6b445978156dc7971ea36586526b91d7293e88867b78",
+    2026: "5fc60f1d075814ca62b413b257f487f931bbfb1af7634aa1d5bdfe821b640996",
 }
 
 

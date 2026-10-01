@@ -392,7 +392,17 @@
     "fallback": "Basic attacks: {n}",
     "lootCategories": "Keep only these categories (none = all)",
     "lootClassTags": "Keep only items tagged for (none = any)",
-    "lootFilterHint": "Filtered-out loot is sold to the vendor for gold; materials and quest items are never filtered."
+    "lootFilterHint": "Filtered-out loot is sold to the vendor for gold; materials and quest items are never filtered.",
+    "contribution": "Party contribution ({role}, party of {size}) — per fight",
+    "contrib": {
+      "damage": "Damage",
+      "healing": "Healing",
+      "shield_granted": "Shields",
+      "damage_prevented": "Damage prevented",
+      "ally_buff_uptime_s": "Ally buff uptime (s)",
+      "debuffs_applied": "Debuffs",
+      "party_dps_gained": "Party DPS gained"
+    }
   },
   "tactics": {
     "title": "Active Tactics priorities",
@@ -1037,5 +1047,55 @@
     "items": "Item events",
     "market": "Market",
     "marketLine": "{sales} sales · volume {volume} · tax {tax} · {active} active listings"
+  },
+  "party": {
+    "title": "Party",
+    "open": "Party",
+    "role": "Role",
+    "defaultRole": "Default role",
+    "roles": {
+      "tank": "Tank",
+      "healer": "Healer",
+      "support": "Support",
+      "dps": "Damage"
+    },
+    "invites": "Party invites",
+    "invitedBy": "{name} invited you",
+    "accept": "Join",
+    "decline": "Decline",
+    "joined": "Joined the party",
+    "noParty": "You are not in a party (up to {max} members).",
+    "create": "Create party",
+    "created": "Party created",
+    "members": "Members",
+    "leave": "Leave",
+    "leaveConfirm": "Leave the party? Running AFK sessions are not affected.",
+    "online": "Online",
+    "offline": "Offline",
+    "leader": "Leader",
+    "afkUntil": "AFK in {zone} until {at}",
+    "promote": "Make leader",
+    "kick": "Remove",
+    "bonuses": "Composition bonuses: {list}",
+    "noBonuses": "No composition bonus active.",
+    "bonus": {
+      "frontline_and_mender": "Frontline & Mender",
+      "battle_rhythm": "Battle Rhythm",
+      "steady_company": "Steady Company"
+    },
+    "myRole": "My role",
+    "inviteName": "Character name",
+    "invite": "Invite",
+    "invited": "Invite sent",
+    "groupAfk": "Group AFK",
+    "zone": "Zone",
+    "hours": "Duration",
+    "hoursN": "{h} h",
+    "start": "Start for party",
+    "groupStarted": "Group AFK started",
+    "groupHint": "Every member gets their own snapshot and personal loot; claim on your AFK screen.",
+    "chat": "Party chat",
+    "message": "Message",
+    "send": "Send"
   }
 }

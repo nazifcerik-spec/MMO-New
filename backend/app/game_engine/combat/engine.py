@@ -94,7 +94,7 @@ class Actor:
     threshold_state: dict[str, bool] = field(default_factory=dict)
     threshold_used: set[str] = field(default_factory=set)
     cooldown_ready: dict[str, float] = field(default_factory=dict)
-    shields: list[list[float]] = field(default_factory=list)  # [amount, expires_at]
+    shields: list[list[float]] = field(default_factory=list)  # [amount, expires_at, source actor index]
     threat: dict[str, float] = field(default_factory=dict)
     frozen_until: float = 0.0
     hit_count: int = 0
@@ -117,6 +117,8 @@ class Actor:
     procs_fired: dict[str, int] = field(default_factory=dict)
     potions_used: int = 0
     buff_uptime: float = 0.0
+    ally_buff_uptime: float = 0.0
+    damage_prevented: float = 0.0  # shield absorption credited to the shield's caster
     debuffs_applied: int = 0
 
     @property
@@ -543,6 +545,8 @@ class Battle:
             take = min(sh[0], amount - absorbed)
             sh[0] -= take
             absorbed += take
+            if len(sh) > 2:
+                self.actors[int(sh[2])].damage_prevented += take
             if absorbed >= amount:
                 break
         tgt.shields = [s for s in tgt.shields if s[0] > 0 and s[1] > self.now]
@@ -610,7 +614,7 @@ class Battle:
 
     def add_shield(self, src: Actor, tgt: Actor, amount: float, duration: float) -> None:
         amount *= 1 + self.stat(src, "shield_power") / 1000.0
-        tgt.shields.append([amount, self.now + duration])
+        tgt.shields.append([amount, self.now + duration, float(src.index)])
         src.shield_granted += amount
         self.emit("SHIELD", actor_id=src.id, target_id=tgt.id, amount=round(amount, 2))
 
@@ -743,6 +747,8 @@ class Battle:
         t.timed = [x for x in t.timed if x.expires_at > self.now]
         if not is_debuff:
             self.by_id[source_id].buff_uptime += duration
+            if t is not src:
+                src.ally_buff_uptime += duration
 
     def add_debuff(self, src: Actor, tgt: Actor, p: dict[str, Any], key: str) -> None:
         kind = p["kind"]
@@ -1032,6 +1038,8 @@ class Battle:
                 procs=dict(sorted(a.procs_fired.items())),
                 potions_used=a.potions_used,
                 buff_uptime_s=round(a.buff_uptime, 3),
+                ally_buff_uptime_s=round(a.ally_buff_uptime, 3),
+                damage_prevented=round(a.damage_prevented, 3),
                 debuffs_applied=a.debuffs_applied,
             )
             for a in self.actors

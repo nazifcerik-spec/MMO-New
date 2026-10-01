@@ -43,6 +43,7 @@ class AfkSession(Base, TimestampMixin):
     snapshot: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
     snapshot_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     content_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    group_id: Mapped[str | None] = mapped_column(String(36), index=True)  # shared by a party's group AFK sessions
     result: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
     result_hash: Mapped[str | None] = mapped_column(String(64))
     resolved_at: Mapped[datetime | None] = mapped_column()

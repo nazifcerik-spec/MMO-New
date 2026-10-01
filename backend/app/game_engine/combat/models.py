@@ -129,6 +129,8 @@ class CombatantResult(_M):
     potions_used: int
     buff_uptime_s: float
     debuffs_applied: int
+    ally_buff_uptime_s: float = 0.0
+    damage_prevented: float = 0.0
 
 
 class CombatResult(_M):

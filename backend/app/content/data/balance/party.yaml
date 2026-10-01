@@ -1,0 +1,31 @@
+code: party
+data:
+  max_size: 5                       # canonical default; configurable
+  invite_ttl_minutes: 30
+  online_window_minutes: 5          # "online" = account activity within this window
+  chat: {max_length: 300, page_size: 50}
+  enemy_power_pct_per_extra_member: 60   # group encounters scale with party size
+  # Which party roles each base class may declare (prevents fake tank/healer declarations).
+  role_options:
+    warrior: [tank, dps]
+    rogue: [dps]
+    ranger: [dps]
+    mage: [dps]
+    monk: [tank, dps]
+    paladin: [tank, healer, support]
+    cleric: [healer, support]
+    druid: [healer, support, dps]
+    shaman: [healer, support, dps]
+    bard: [support, healer]
+  # Small, capped composition bonuses (added to every member's group snapshot). No single meta comp.
+  max_composition_bonuses: 2
+  composition_bonuses:
+    - code: frontline_and_mender
+      requires: {tank: 1, healer: 1}
+      effects: [{effect_type: STAT_PERCENT, params: {stat: max_hp, percent: 3}}]
+    - code: battle_rhythm
+      requires: {support: 1, dps: 2}
+      effects: [{effect_type: STAT_PERCENT, params: {stat: attack_power, percent: 2}}, {effect_type: STAT_PERCENT, params: {stat: spell_power, percent: 2}}]
+    - code: steady_company
+      requires: {tank: 1, dps: 2}
+      effects: [{effect_type: STAT_PERCENT, params: {stat: armor, percent: 3}}]

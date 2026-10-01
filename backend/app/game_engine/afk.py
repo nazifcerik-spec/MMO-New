@@ -187,6 +187,11 @@ class AfkSnapshot(_S):
     pity_start: int = 0
     profession_task: dict[str, Any] | None = None
     loot: LootConfig | None = None  # Phase 19; None for older sessions (legacy drop rolls)
+    # Phase 21 group AFK: allies frozen at start (own snapshot per member), shared fight seed, personal loot salt.
+    party: tuple[CombatantSnapshot, ...] = ()
+    group_id: str | None = None
+    loot_salt: int = 0
+    party_power_pct_per_member: float = 0.0
     segments: tuple[Segment, ...]
     planned_seconds: int
     content_version: int
@@ -201,8 +206,31 @@ class SampleStats(_S):
     avg_potions: float
 
 
-def _sample(snap: AfkSnapshot, seed: int, *, boss: bool, count: int, sim: Callable[..., Any]) -> dict[str, SampleStats]:
-    """Full combat simulations grouped by encounter code (+ '*' aggregate)."""
+def drop_seed(seed: int, fight: int, salt: int) -> int:
+    """Group members share the fight timeline but roll personal loot (salted); salt 0 keeps solo/legacy rolls."""
+    return derive_seed(seed, "drops", fight, salt) if salt else derive_seed(seed, "drops", fight)
+
+
+def enemy_power_pct(snap: AfkSnapshot) -> float:
+    """Encounters scale with party size (config recorded in the snapshot)."""
+    return snap.risk.enemy_power_percent * (1 + len(snap.party) * snap.party_power_pct_per_member / 100)
+
+
+CONTRIB_KEYS = ("damage", "healing", "shield_granted", "damage_prevented", "ally_buff_uptime_s", "debuffs_applied")
+
+
+def _sample(
+    snap: AfkSnapshot,
+    seed: int,
+    *,
+    boss: bool,
+    count: int,
+    sim: Callable[..., Any],
+    contrib: dict[str, float] | None = None,
+) -> dict[str, SampleStats]:
+    """Full combat simulations grouped by encounter code (+ '*' aggregate). With a party, every fight includes the
+    frozen ally snapshots; `contrib` (if given) accumulates this member's support metrics, including the party
+    DPS gained versus the same fight without this member (counterfactual)."""
     rules = validate_rules(list(snap.boss_rules if boss else snap.rules))
     enemy_sel = rules_by_code_selector(enemy_rules(snap.zone))
     acc: dict[str, list[tuple[bool, float, float, int]]] = {}
@@ -213,12 +241,12 @@ def _sample(snap: AfkSnapshot, seed: int, *, boss: bool, count: int, sim: Callab
             snap.zone,
             Rng(derive_seed(fight_seed, "encounter")),
             snap.character_level,
-            power_percent=snap.risk.enemy_power_percent,
+            power_percent=enemy_power_pct(snap),
             force_boss=boss,
         )
         strategy = snap.strategy.model_copy(update={"potions": min(snap.potions_reserved, 3)})
         r = sim(
-            CombatInput(players=(snap.player,), enemies=enc.enemies, strategy=strategy, seed=fight_seed),
+            CombatInput(players=(snap.player, *snap.party), enemies=enc.enemies, strategy=strategy, seed=fight_seed),
             snap.combat,
             selector=rule_selector(rules),
             enemy_selector=enemy_sel,
@@ -228,6 +256,29 @@ def _sample(snap: AfkSnapshot, seed: int, *, boss: bool, count: int, sim: Callab
         row = (r.outcome == "win", r.elapsed_s, net, me.potions_used)
         acc.setdefault(enc.code, []).append(row)
         acc.setdefault("*", []).append(row)
+        if contrib is not None and snap.party:
+            n_party = len(snap.party) + 1
+            allies_with = sum(c.damage_dealt for c in r.combatants[1:n_party]) / max(r.elapsed_s, 1.0)
+            without = sim(
+                CombatInput(players=snap.party, enemies=enc.enemies, strategy=strategy, seed=fight_seed),
+                snap.combat,
+                selector=rule_selector(rules),
+                enemy_selector=enemy_sel,
+            )
+            allies_without = sum(c.damage_dealt for c in without.combatants[: n_party - 1]) / max(
+                without.elapsed_s, 1.0
+            )
+            for k, v in (
+                ("damage", me.damage_dealt),
+                ("healing", me.healing_done),
+                ("shield_granted", me.shield_granted),
+                ("damage_prevented", me.damage_prevented),
+                ("ally_buff_uptime_s", me.ally_buff_uptime_s),
+                ("debuffs_applied", float(me.debuffs_applied)),
+                ("party_dps_gained", allies_with - allies_without),
+                ("fights", 1.0),
+            ):
+                contrib[k] = contrib.get(k, 0.0) + v
     return {
         code: SampleStats(
             fights=len(rows),
@@ -252,6 +303,12 @@ def loot_modifiers(snap: AfkSnapshot) -> dict[str, float]:
             scope = e["params"]["scope"]
             out[scope] = out.get(scope, 0.0) + float(e["params"]["percent"])
     return {k: min(v, snap.afk.loot_modifier_caps.get(k, v)) for k, v in sorted(out.items())}
+
+
+def _contribution(snap: AfkSnapshot, c: dict[str, float]) -> dict[str, Any]:
+    n = max(c.get("fights", 0.0), 1.0)
+    per = {k: round(c.get(k, 0.0) / n, 3) for k in (*CONTRIB_KEYS, "party_dps_gained")}
+    return {"role": snap.player.role, "party_size": len(snap.party) + 1, "per_fight": per, "sample_fights": int(n)}
 
 
 def _empty_result(snap: AfkSnapshot, elapsed_s: float) -> dict[str, Any]:
@@ -289,7 +346,8 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
     if snap.profession_task is not None:
         return _empty_result(snap, elapsed_s)
     mods = loot_modifiers(snap)
-    normal = _sample(snap, seed, boss=False, count=cfg.sample_fights, sim=sim)
+    contrib: dict[str, float] = {}
+    normal = _sample(snap, seed, boss=False, count=cfg.sample_fights, sim=sim, contrib=contrib)
     bosses = (
         _sample(snap, seed, boss=True, count=cfg.boss_sample_fights, sim=sim)
         if snap.zone.bosses and cfg.boss_sample_fights
@@ -325,7 +383,7 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
             snap.zone,
             Rng(derive_seed(seed, "fight", fights)),
             snap.character_level,
-            power_percent=risk.enemy_power_percent,
+            power_percent=enemy_power_pct(snap),
         )
         stats = _stats_for(bosses, enc.code) if enc.boss and bosses else _stats_for(normal, enc.code)
         if t + stats.avg_time_s > elapsed_s:
@@ -358,7 +416,7 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
                 forced_rare = snap.loot.pity.enabled and pity + 1 >= snap.loot.pity.threshold_fights
                 rolled = roll_table(
                     snap.loot,
-                    Rng(derive_seed(seed, "drops", fights)),
+                    Rng(drop_seed(seed, fights, snap.loot_salt)),
                     table.rolls,
                     table.entries,
                     {"boss": enc.boss, "zone_code": snap.zone.code, "zone_tags": snap.zone.tags,
@@ -415,6 +473,7 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
         "encounters": dict(sorted(encounters.items())),
         "pity_end": pity,
         "luck_bonus_pct": luck,
+        **({"contribution": _contribution(snap, contrib)} if snap.party else {}),
         "timeline": [{k: round(v, 2) for k, v in b.items()} for b in timeline],
         "samples": {
             "normal": {k: v.model_dump() for k, v in sorted(normal.items())},
