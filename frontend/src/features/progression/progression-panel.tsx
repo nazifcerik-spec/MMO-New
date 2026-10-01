@@ -232,7 +232,7 @@ export function ProgressionPanel({ characterId }: { characterId: number }) {
         <h2 id="derived" className="mb-2 font-semibold">
           {t("derivedStats")}
         </h2>
-        <ul className="grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-x-6 gap-y-1 @md:grid-cols-2 @3xl:grid-cols-3">
           {Object.values(view.stats.derived).map((line) => (
             <li key={line.code} className="text-sm">
               <div className="flex justify-between gap-2">

@@ -29,6 +29,11 @@ export default async function AdminPage() {
           {t("contentStudio.localization")}
         </Link>
       ) : null}
+      {me?.permissions.includes("balance.simulate") ? (
+        <Link href="/admin/balance" className="ml-3 underline" data-testid="open-balance">
+          {t("balanceLab.title")}
+        </Link>
+      ) : null}
       {me?.permissions.includes("economy.view") || me?.permissions.includes("*") ? (
         <Link href="/admin/economy" className="ml-3 underline" data-testid="open-economy">
           {t("economyAdmin.title")}

@@ -12,6 +12,7 @@ from app.game_engine.combat.rules import RuleValidationError, validate_rules
 from app.game_engine.effects import EffectValidationError, validate_effects
 from app.game_engine.loot import LootConfig
 from app.game_engine.party import PartyConfig
+from app.game_engine.simulator import SimulatorConfig
 from app.game_engine.stats import DAMAGE_TYPES
 from app.game_engine.world import ENEMY_STATS, EnemyScaling, TierScaling, enemy_stats, sanity_issues
 from app.models.world import (
@@ -29,6 +30,7 @@ from app.services.content.types.balance import BALANCE_SCHEMAS, get_published_ba
 BALANCE_SCHEMAS["enemy_scaling"] = EnemyScaling
 BALANCE_SCHEMAS["loot"] = LootConfig
 BALANCE_SCHEMAS["party"] = PartyConfig
+BALANCE_SCHEMAS["simulator"] = SimulatorConfig
 CODE = r"^[a-z0-9_]+$"
 RARITIES = ("worn", "common", "fine", "rare", "epic", "legendary", "mythic", "relic")
 # Checkers for drop references into systems added later (items Phase 14, materials/currencies Phase 16/19):

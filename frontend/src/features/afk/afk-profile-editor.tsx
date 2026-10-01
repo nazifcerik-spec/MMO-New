@@ -57,7 +57,7 @@ export function AfkProfileEditor({ characterId }: { characterId: number }) {
         <h2 id="afk-presets" className="mb-2 font-semibold">
           {t("presets")}
         </h2>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4" role="radiogroup" aria-label={t("presets")}>
+        <div className="grid gap-2 @md:grid-cols-2 @3xl:grid-cols-4" role="radiogroup" aria-label={t("presets")}>
           {options.presets.map((preset) => {
             const active = data.profile.preset_code === preset.code;
             return (

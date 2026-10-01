@@ -11,7 +11,7 @@ export async function SiteHeader() {
   const me = await serverApi<Me>("/auth/me").catch(() => null);
   return (
     <header className="border-b border-border bg-panel">
-      <nav aria-label="Primary" className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
+      <nav aria-label="Primary" className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
         <Link href="/" className="font-mono font-bold text-accent">
           {t("common.appName")}
         </Link>

@@ -86,7 +86,7 @@ function Quests({ characterId }: { characterId: number }) {
   if (!q.data) return <p role="alert">{tc("error")}</p>;
   const log = q.data;
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
+    <div className="grid gap-3 @3xl:grid-cols-2">
       <section aria-label={t("active")}>
         <h2 className="font-semibold">{t("active")}</h2>
         <ul className="space-y-1">
@@ -149,7 +149,7 @@ function Achievements({ characterId }: { characterId: number }) {
         <span className={STATUS_RARITY_TEXT[a.prestige.rarity]}>{t(`rarity.${a.prestige.rarity}`)}</span> · {t("prestige", { points: String(a.prestige.points) })}
         {a.prestige.next ? ` · ${t("nextRank", { points: String(a.prestige.next.points) })}` : ""}
       </p>
-      <ul className="grid gap-1 md:grid-cols-2">
+      <ul className="grid gap-1 @xl:grid-cols-2">
         {a.achievements.map((x) => (
           <li key={x.code} className={`rounded border border-border p-2 text-sm ${x.unlocked_at ? "" : "opacity-60"}`} data-testid={`achievement-${x.code}`}>
             <span className={`font-semibold ${STATUS_RARITY_TEXT[x.rarity]}`}>{x.name}</span>

@@ -70,7 +70,7 @@ export function InventoryScreen({ characterId }: { characterId: number }) {
   const statName = (s: string) => labels[`stat.${s.toLowerCase()}.name`] ?? s;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)_20rem]">
+    <div className="grid gap-4 @2xl:grid-cols-[16rem_minmax(0,1fr)] @5xl:grid-cols-[18rem_minmax(0,1fr)_20rem]">
       <section id="equipment" aria-labelledby="equip-title" className="scroll-mt-4 space-y-2" data-testid="equipment">
         <h2 id="equip-title" className="font-semibold">
           {t("equipment")}

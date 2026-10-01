@@ -78,7 +78,7 @@ function PartyPanel({ characterId, view, run }: { characterId: number; view: Par
   const isLeader = p.leader_character_id === characterId;
   const [invitee, setInvitee] = useState("");
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
+    <div className="grid gap-3 @3xl:grid-cols-2">
       <section aria-label={t("members")} className="space-y-2 rounded border border-border bg-panel p-3">
         <div className="flex items-center gap-2">
           <h2 className="font-semibold">{t("members")} ({p.members.length}/{p.max_size})</h2>

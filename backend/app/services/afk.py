@@ -128,6 +128,82 @@ async def _build_summary(db: AsyncSession, character: Character) -> dict[str, An
     }
 
 
+async def build_snapshot(
+    db: AsyncSession,
+    character: Character,
+    *,
+    cfg: engine.AfkBalance,
+    zone_code: str,
+    duration_s: int,
+    risk_level: str | None,
+    started: datetime,
+    prior: dict[date, float],
+    profession_task: dict[str, Any] | None = None,
+    group: dict[str, Any] | None = None,
+    extra_effects: list[dict[str, Any]] | None = None,
+) -> tuple[engine.AfkSnapshot, str]:
+    """Everything an AFK result depends on, frozen. Shared by real sessions and the balance simulator."""
+    bundle = await world.load_bundle(db, zone_code)
+    profile = await afk_profiles.get_profile(db, character)
+    risk_code = risk_level or profile.risk_level
+    if risk_code not in RISK_LEVELS:
+        raise ValidationFailedError("Unknown risk level", code="invalid_risk")
+    risks = await get_published_balance(db, "risk_profiles", RiskProfiles)
+    task = None
+    if profession_task is not None:
+        if not PROFESSION_TASK_VALIDATORS:
+            raise ValidationFailedError("Profession tasks are not available yet", code="profession_task_unavailable")
+        for check in PROFESSION_TASK_VALIDATORS:
+            task = await check(db, character, {**profession_task, "zone_code": zone_code})
+    rules, extra = await afk_profiles.resolved_rules(db, profile, encounter_type="normal")
+    boss_rules, _ = await afk_profiles.resolved_rules(db, profile, encounter_type="boss")
+    if group is not None:
+        player = group["player"]
+    else:
+        player = afk_profiles.with_extra_effects(
+            await combat_snapshot.character_snapshot(db, character), [*extra, *(extra_effects or [])]
+        )
+    potions = await afk_profiles.potion_count(db, character)
+    prog_cfg = await progression.load_config(db)
+    xp_per_unit = prog.reference_xp_per_hour(prog_cfg, character.level) * cfg.reference_cycle_s / 3600
+    xp_per_unit /= cfg.reference_units_per_fight
+    rested = 0.0
+    if cfg.rested.enabled:
+        for p in RESTED_PROVIDERS:
+            rested += float(await p(db, character, cfg))
+        rested = min(rested, cfg.rested.max_bonus_pct)
+    stats = await _stats(db, character.id)
+    snap = engine.AfkSnapshot(
+        character_id=character.id,
+        character_level=character.level,
+        character_xp=character.xp,
+        player=player,
+        strategy=afk_profiles.strategy_for(profile, potions),
+        rules=tuple(r.model_dump(exclude_none=True) for r in rules.rules),
+        boss_rules=tuple(r.model_dump(exclude_none=True) for r in boss_rules.rules),
+        zone=bundle,
+        risk=engine.RiskSnapshot(code=risk_code, **risks.profiles[risk_code].model_dump()),
+        combat=await combat_snapshot.load_combat_config(db),
+        afk=cfg,
+        xp_per_unit=round(xp_per_unit, 6),
+        over_level_pct=engine.over_level_pct(cfg, character.level, bundle.max_level),
+        rested_bonus_pct=rested,
+        potions_reserved=potions,
+        pity_start=stats.pity_counter,
+        loot=await get_published_balance(db, "loot", LootConfig),
+        profession_task=task,
+        party=tuple(group["party"]) if group else (),
+        group_id=group["group_id"] if group else None,
+        loot_salt=group["loot_salt"] if group else 0,
+        party_power_pct_per_member=group["power_pct"] if group else 0.0,
+        segments=engine.efficiency_segments(cfg, started, duration_s, prior),
+        planned_seconds=duration_s,
+        content_version=await content_service.current_release_version(db),
+        build=await _build_summary(db, character),
+    )
+    return snap, risk_code
+
+
 async def start(
     db: AsyncSession,
     *,
@@ -164,64 +240,12 @@ async def start(
     unmet = await world.unmet_requirements(db, character, zone_row)
     if unmet:
         raise ConflictError("Zone requirements not met", code="zone_locked", details=unmet)
-    bundle = await world.load_bundle(db, zone_code)
-    profile = await afk_profiles.get_profile(db, character)
-    risk_code = risk_level or profile.risk_level
-    if risk_code not in RISK_LEVELS:
-        raise ValidationFailedError("Unknown risk level", code="invalid_risk")
-    risks = await get_published_balance(db, "risk_profiles", RiskProfiles)
-    task = None
-    if profession_task is not None:
-        if not PROFESSION_TASK_VALIDATORS:
-            raise ValidationFailedError("Profession tasks are not available yet", code="profession_task_unavailable")
-        for check in PROFESSION_TASK_VALIDATORS:
-            task = await check(db, character, {**profession_task, "zone_code": zone_code})
     started = now or now_utc()
-    rules, extra = await afk_profiles.resolved_rules(db, profile, encounter_type="normal")
-    boss_rules, _ = await afk_profiles.resolved_rules(db, profile, encounter_type="boss")
-    if group is not None:
-        player = group["player"]
-    else:
-        player = afk_profiles.with_extra_effects(await combat_snapshot.character_snapshot(db, character), extra)
-    potions = await afk_profiles.potion_count(db, character)
-    prog_cfg = await progression.load_config(db)
-    xp_per_unit = prog.reference_xp_per_hour(prog_cfg, character.level) * cfg.reference_cycle_s / 3600
-    xp_per_unit /= cfg.reference_units_per_fight
-    rested = 0.0
-    if cfg.rested.enabled:
-        for p in RESTED_PROVIDERS:
-            rested += float(await p(db, character, cfg))
-        rested = min(rested, cfg.rested.max_bonus_pct)
     prior = await _reserve_days(db, character.user_id, cfg, started, duration_s)
-    stats = await _stats(db, character.id)
-    snap = engine.AfkSnapshot(
-        character_id=character.id,
-        character_level=character.level,
-        character_xp=character.xp,
-        player=player,
-        strategy=afk_profiles.strategy_for(profile, potions),
-        rules=tuple(r.model_dump(exclude_none=True) for r in rules.rules),
-        boss_rules=tuple(r.model_dump(exclude_none=True) for r in boss_rules.rules),
-        zone=bundle,
-        risk=engine.RiskSnapshot(code=risk_code, **risks.profiles[risk_code].model_dump()),
-        combat=await combat_snapshot.load_combat_config(db),
-        afk=cfg,
-        xp_per_unit=round(xp_per_unit, 6),
-        over_level_pct=engine.over_level_pct(cfg, character.level, bundle.max_level),
-        rested_bonus_pct=rested,
-        potions_reserved=potions,
-        pity_start=stats.pity_counter,
-        loot=await get_published_balance(db, "loot", LootConfig),
-        profession_task=task,
-        party=tuple(group["party"]) if group else (),
-        group_id=group["group_id"] if group else None,
-        loot_salt=group["loot_salt"] if group else 0,
-        party_power_pct_per_member=group["power_pct"] if group else 0.0,
-        segments=engine.efficiency_segments(cfg, started, duration_s, prior),
-        planned_seconds=duration_s,
-        content_version=await content_service.current_release_version(db),
-        build=await _build_summary(db, character),
-    )
+    snap, risk_code = await build_snapshot(
+        db, character, cfg=cfg, zone_code=zone_code, duration_s=duration_s, risk_level=risk_level,
+        started=started, prior=prior, profession_task=profession_task, group=group,
+    )  # fmt: skip
     session = AfkSession(
         character_id=character.id,
         user_id=character.user_id,

@@ -90,7 +90,7 @@ export function GameShell({ characterId, children }: { characterId: number; chil
         <nav aria-label={t("gameNav")} className="hidden lg:block">
           <ul className="space-y-0.5 text-sm">{navLinks("nav")}</ul>
         </nav>
-        <div className="min-w-0">{children}</div>
+        <div className="@container min-w-0">{children}</div>
         <aside aria-label={t("sidebar")} className="hidden space-y-3 lg:block">
           {sum ? <NextGoals characterId={characterId} goals={sum.next_goals} /> : null}
           <ActivityLog characterId={characterId} />

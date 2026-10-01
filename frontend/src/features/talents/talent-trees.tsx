@@ -76,7 +76,7 @@ export function TalentTrees({ characterId }: { characterId: number }) {
           {errorMessage(err)}
         </p>
       ) : null}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 @3xl:grid-cols-2 @5xl:grid-cols-3">
         {view.trees.map((tree) => {
           const treeSpent = tree.nodes.reduce((s, n) => s + rankOf(n.code, n.rank), 0);
           const tiers = [...new Set(tree.nodes.map((n) => n.tier))].sort((a, b) => a - b);

@@ -1,0 +1,23 @@
+code: simulator
+data:
+  # Synthetic gear used by the balance simulator: curves from the Item Studio generator at the tier's level.
+  class_gear:
+    warrior: {weapon: weapon_melee, armor: armor_plate}
+    paladin: {weapon: weapon_melee, armor: armor_plate}
+    rogue: {weapon: weapon_melee, armor: armor_leather}
+    monk: {weapon: weapon_melee, armor: armor_leather}
+    ranger: {weapon: weapon_ranged, armor: armor_mail}
+    shaman: {weapon: weapon_magic, armor: armor_mail}
+    druid: {weapon: weapon_magic, armor: armor_leather}
+    mage: {weapon: weapon_magic, armor: armor_cloth}
+    cleric: {weapon: weapon_magic, armor: armor_cloth}
+    bard: {weapon: weapon_instrument, armor: armor_cloth}
+  stat_profile: {combat: physical_dps, support: hybrid_support, mage: caster_dps}
+  armor_slots: [head, shoulders, chest, hands, waist, legs, feet, back]
+  limits: {max_iterations: 20, max_fights: 40, max_duration_s: 10800}
+  checker:
+    racial_target_pct: 3            # design target for racial combat advantage
+    racial_warn_pct: 5              # warn above this
+    support_band_pct: [70, 80]      # support solo kill speed vs pure DPS
+    dominance_warn_pct: 15          # spec/talent tree above its peers' median
+    fights: 6

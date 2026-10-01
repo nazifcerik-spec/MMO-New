@@ -62,7 +62,7 @@ export function ClassTree({ characterId }: { characterId: number }) {
       ) : null}
       <section className="rounded border border-border bg-panel p-4" aria-label={cls.name}>
         <h2 className="text-center font-mono font-bold">{cls.name}</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-2" data-testid="class-tree">
+        <div className="mt-4 grid gap-4 @xl:grid-cols-2" data-testid="class-tree">
           {cls.branches.map((b) => {
             const chosen = view.branch_code === b.code;
             const otherChosen = view.branch_code !== null && !chosen;

@@ -21,7 +21,7 @@ export function AbilityList({ characterId }: { characterId: number }) {
           {data.awakening.active ? "" : ` · ${t("awakeningInactive", { level: data.awakening.required_level })}`}
         </p>
       ) : null}
-      <ul className="grid gap-2 md:grid-cols-2" data-testid="ability-list">
+      <ul className="grid gap-2 @xl:grid-cols-2" data-testid="ability-list">
         {data.abilities.map((a) => (
           <li key={a.code} className={`rounded border border-border p-2 ${a.unlocked ? "" : "opacity-50"}`}>
             <div className="flex flex-wrap items-baseline justify-between gap-2">

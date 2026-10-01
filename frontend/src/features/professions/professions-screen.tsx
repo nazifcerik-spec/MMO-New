@@ -59,7 +59,7 @@ export function ProfessionsScreen({ characterId }: { characterId: number }) {
         </label>
       </div>
       <p className="text-xs text-muted">{t("rules", { cap: v.unlicensed_level_cap, spec: v.specialization_level })}</p>
-      <ul className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid gap-2 @xl:grid-cols-2 @4xl:grid-cols-3">
         {list.map((p) => (
           <ProfessionItem
             key={p.code}
@@ -76,7 +76,7 @@ export function ProfessionsScreen({ characterId }: { characterId: number }) {
           />
         ))}
       </ul>
-      <div className="grid gap-3 lg:grid-cols-2">
+      <div className="grid gap-3 @3xl:grid-cols-2">
         <CraftingPanel characterId={characterId} professions={v.professions} />
         <GatheringPanel characterId={characterId} />
       </div>

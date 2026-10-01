@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               {t("skipToContent")}
             </a>
             <SiteHeader />
-            <main id="main" className="mx-auto w-full max-w-6xl px-4 py-6">
+            <main id="main" className="mx-auto w-full max-w-7xl px-4 py-6">
               {children}
             </main>
           </Providers>

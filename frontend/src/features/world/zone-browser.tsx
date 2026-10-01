@@ -29,7 +29,7 @@ export function ZoneBrowser({ characterId }: { characterId: number }) {
   const zones = list.data.pages.flatMap((p) => p.items);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
+    <div className="grid gap-4 @3xl:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
       <ul className="space-y-2" aria-label={t("list")}>
         {zones.map((z) => (
           <li key={z.code}>

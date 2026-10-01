@@ -21,6 +21,7 @@ from app.api import (
     talents,
     world,
 )
+from app.api.admin import balance as admin_balance
 from app.api.admin import content as admin_content
 from app.api.admin import items as admin_items
 from app.api.admin import localization as admin_localization
@@ -51,6 +52,7 @@ _MODULES = (
     admin_users,
     admin_items,
     admin_content,
+    admin_balance,
 )
 for module in _MODULES:
     api_router.include_router(module.router)
