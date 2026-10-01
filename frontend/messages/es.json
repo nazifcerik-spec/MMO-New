@@ -1097,5 +1097,87 @@
     "chat": "Chat de grupo",
     "message": "Mensaje",
     "send": "Enviar"
+  },
+  "goals": {
+    "title": "Diario",
+    "open": "Diario",
+    "tab": {
+      "quests": "Misiones",
+      "achievements": "Logros",
+      "titles": "Títulos",
+      "collections": "Colecciones"
+    },
+    "objective": {
+      "kill": "Derrota enemigos en {zone}",
+      "boss": "Derrota jefes en {zone}",
+      "explore": "Completa una sesión AFK en {zone}",
+      "collect": "Trae {item}",
+      "profession": "Alcanza nivel de {profession}",
+      "level": "Alcanza el nivel de personaje",
+      "action": "{action}"
+    },
+    "anywhere": "cualquier zona",
+    "action": {
+      "equip_item": "Equipa un objeto",
+      "start_afk": "Inicia una sesión AFK",
+      "craft_item": "Fabrica objetos",
+      "trade": "Completa intercambios"
+    },
+    "type": {
+      "kill": "Caza",
+      "collect": "Recolección",
+      "profession": "Profesión",
+      "explore": "Exploración",
+      "boss": "Jefe",
+      "promotion": "Prueba de ascenso",
+      "tutorial": "Tutorial"
+    },
+    "repeatable": "repetible",
+    "rewards": "Recompensas: {xp} PX · {gold} oro",
+    "rewardTitle": "título",
+    "active": "Activas",
+    "available": "Disponibles",
+    "claim": "Entregar",
+    "claimed": "¡Misión completada!",
+    "abandon": "Abandonar",
+    "noActive": "No hay misiones activas.",
+    "accept": "Aceptar",
+    "accepted": "Misión aceptada",
+    "lockedCount": "Misiones bloqueadas ({n})",
+    "completedCount": "{n} misiones completadas",
+    "rarity": {
+      "bronze": "Bronce",
+      "silver": "Plata",
+      "gold": "Oro",
+      "platinum": "Platino",
+      "mythic": "Mítico",
+      "relic": "Reliquia"
+    },
+    "prestige": "Prestigio {points} pts",
+    "nextRank": "siguiente rango en {points}",
+    "counter": {
+      "kills": "Bajas",
+      "boss_kills": "Jefes derrotados",
+      "afk_sessions": "Sesiones AFK",
+      "crafts": "Objetos fabricados",
+      "trades": "Intercambios",
+      "max_level": "Nivel máximo",
+      "max_profession_level": "Mejor nivel de profesión",
+      "quests_completed": "Misiones completadas",
+      "gold_earned": "Oro ganado"
+    },
+    "chooseTitle": "Título mostrado",
+    "rarityNote": "La rareza de estatus es solo prestigio: nunca otorga poder.",
+    "titleSelected": "Título actualizado",
+    "titleKind": {
+      "level": "Nivel",
+      "class": "Clase",
+      "race": "Raza",
+      "profession": "Profesión",
+      "achievement": "Logro",
+      "quest": "Misión",
+      "guild": "Gremio"
+    },
+    "collected": "Coleccionados {owned} de {total}"
   }
 }

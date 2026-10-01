@@ -1097,5 +1097,87 @@
     "chat": "Party chat",
     "message": "Message",
     "send": "Send"
+  },
+  "goals": {
+    "title": "Journal",
+    "open": "Journal",
+    "tab": {
+      "quests": "Quests",
+      "achievements": "Achievements",
+      "titles": "Titles",
+      "collections": "Collections"
+    },
+    "objective": {
+      "kill": "Defeat enemies in {zone}",
+      "boss": "Defeat bosses in {zone}",
+      "explore": "Finish an AFK session in {zone}",
+      "collect": "Bring {item}",
+      "profession": "Reach {profession} level",
+      "level": "Reach character level",
+      "action": "{action}"
+    },
+    "anywhere": "any zone",
+    "action": {
+      "equip_item": "Equip an item",
+      "start_afk": "Start an AFK session",
+      "craft_item": "Craft items",
+      "trade": "Complete market trades"
+    },
+    "type": {
+      "kill": "Hunt",
+      "collect": "Gathering",
+      "profession": "Profession",
+      "explore": "Exploration",
+      "boss": "Boss",
+      "promotion": "Promotion trial",
+      "tutorial": "Tutorial"
+    },
+    "repeatable": "repeatable",
+    "rewards": "Rewards: {xp} XP · {gold} gold",
+    "rewardTitle": "title",
+    "active": "Active",
+    "available": "Available",
+    "claim": "Turn in",
+    "claimed": "Quest complete!",
+    "abandon": "Abandon",
+    "noActive": "No active quests.",
+    "accept": "Accept",
+    "accepted": "Quest accepted",
+    "lockedCount": "Locked quests ({n})",
+    "completedCount": "{n} quests completed",
+    "rarity": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "platinum": "Platinum",
+      "mythic": "Mythic",
+      "relic": "Relic"
+    },
+    "prestige": "Prestige {points} pts",
+    "nextRank": "next rank at {points}",
+    "counter": {
+      "kills": "Kills",
+      "boss_kills": "Boss kills",
+      "afk_sessions": "AFK sessions",
+      "crafts": "Items crafted",
+      "trades": "Market trades",
+      "max_level": "Highest level",
+      "max_profession_level": "Best profession level",
+      "quests_completed": "Quests completed",
+      "gold_earned": "Gold earned"
+    },
+    "chooseTitle": "Displayed title",
+    "rarityNote": "Status rarity is prestige presentation only — it never adds power.",
+    "titleSelected": "Title updated",
+    "titleKind": {
+      "level": "Level",
+      "class": "Class",
+      "race": "Race",
+      "profession": "Profession",
+      "achievement": "Achievement",
+      "quest": "Quest",
+      "guild": "Guild"
+    },
+    "collected": "Collected {owned} of {total}"
   }
 }

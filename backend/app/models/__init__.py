@@ -14,6 +14,7 @@ from app.models import (  # noqa: F401
     professions,
     profiles,
     progression,
+    quests,
     race,
     world,
 )

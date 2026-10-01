@@ -640,6 +640,36 @@ async def seed_crafting(session: AsyncSession) -> int:
     return created
 
 
+async def seed_goals(session: AsyncSession) -> int:
+    """Starter quests (graph), achievements and earned-title names."""
+    from app.services.content.seeding import ensure_published
+    from app.services.content.types import goals as gt
+
+    doc = load_yaml("goals/goals.yaml")
+    created = 0
+    for code, names in doc["titles"].items():
+        await l10n_service_seed(session, f"title.earned.{code}.name", names, "title")
+    for q in doc["quests"]:  # file order respects prerequisites
+        await l10n_service_seed(session, f"quest.{q['code']}.name", q["l10n"], "quest")
+        data = {
+            "quest_type": q["type"],
+            "chain": q.get("chain"),
+            "min_level": q.get("min_level", 1),
+            "prerequisites": q.get("prerequisites", []),
+            "class_codes": q.get("class_codes", []),
+            "objectives": q["objectives"],
+            "rewards": q.get("rewards", {}),
+            "repeatable": q.get("repeatable", False),
+        }
+        created += await ensure_published(session, gt.QUEST_TYPE, q["code"], data)
+    for code, (counter, threshold, rarity, points, title, category, names) in doc["achievements"].items():
+        await l10n_service_seed(session, f"achievement.{code}.name", names, "achievement")
+        data = {"counter": counter, "threshold": threshold, "status_rarity": rarity, "points": points,
+                "title_code": title, "category": category}  # fmt: skip
+        created += await ensure_published(session, gt.ACHIEVEMENT_TYPE, code, data)
+    return created
+
+
 async def seed_catalog(session: AsyncSession) -> int:
     """Canonical launch catalog (1,520 templates); idempotent — existing codes are skipped."""
     from app.core.config import get_settings
@@ -663,6 +693,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("world", seed_world),
     ("items", seed_items),
     ("crafting", seed_crafting),
+    ("goals", seed_goals),
     ("catalog", seed_catalog),
 ]
 

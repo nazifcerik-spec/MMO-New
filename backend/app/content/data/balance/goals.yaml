@@ -1,0 +1,28 @@
+code: goals
+data:
+  # Lv100 / Lv300 class choices: level alone is sufficient unless the stage requires a promotion quest.
+  promotion_quest_required: {promotion: false, specialization: false}
+  promotion_quests: {promotion: trial_of_the_branch, specialization: trial_of_mastery}
+  max_active_quests: 25
+  # Status rarity is prestige presentation only (never power).
+  level_title_rarity:                # min level -> rarity
+    - {level: 1, rarity: bronze}
+    - {level: 200, rarity: silver}
+    - {level: 400, rarity: gold}
+    - {level: 600, rarity: platinum}
+    - {level: 850, rarity: mythic}
+    - {level: 1000, rarity: relic}
+  class_stage_rarity: {base: bronze, branch: silver, specialization: gold, awakened: platinum, ascendant: mythic, eternal: relic}
+  race_title_rarity: silver
+  profession_title_rarity: gold
+  quest_title_rarity: silver
+  # Prestige (post-Lv1000 horizontal progression, presentation only): achievement points + mastery XP.
+  prestige:
+    mastery_xp_per_point: 100000
+    ranks:                            # min prestige points -> rarity
+      - {points: 0, rarity: bronze}
+      - {points: 100, rarity: silver}
+      - {points: 400, rarity: gold}
+      - {points: 1000, rarity: platinum}
+      - {points: 2500, rarity: mythic}
+      - {points: 6000, rarity: relic}

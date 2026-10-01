@@ -6,6 +6,7 @@ from app.services.content.types import (  # noqa: F401
     balance,
     classes,
     crafting,
+    goals,
     items,
     professions,
     race,

@@ -15,7 +15,7 @@ from app.localization.service import resolve_text_map
 from app.models.character import Character
 from app.models.items import ItemInstance, ItemProvenance, ItemTemplate
 from app.models.progression import EconomyLedger, MarketListing
-from app.services import audit, inventory, items, wallet
+from app.services import audit, events, inventory, items, wallet
 from app.services.content.types.balance import get_published_balance
 
 MAX_DASHBOARD_DAYS = 90
@@ -344,6 +344,8 @@ async def buy(db: AsyncSession, *, buyer: Character, listing_id: int, key: str) 
     )
     row.status, row.buyer_character_id, row.purchase_key, row.closed_at = "sold", buyer.id, key, now_utc()
     await db.flush()
+    for who in (buyer, seller):
+        await events.emit(db, who, "action", {"action": "trade"})
     await audit.record(
         db, actor_id=buyer.user_id, action="market.buy", entity_type="market_listing", entity_id=row.id,
         meta={"total": total, "tax": tax, "seller": seller.id, "buyer": buyer.id},

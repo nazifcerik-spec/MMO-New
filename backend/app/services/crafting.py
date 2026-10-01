@@ -21,7 +21,7 @@ from app.models.character import Character
 from app.models.content import ContentRevision
 from app.models.crafting import CharacterRecipe, CraftJob, EnchantEvent, GatheringNode, ImbueDefinition, Recipe
 from app.models.items import AffixDefinition, ItemInstance, ItemProvenance, ItemTemplate
-from app.services import afk, audit, inventory, items, professions, wallet
+from app.services import afk, audit, events, inventory, items, professions, wallet
 from app.services.content.types.balance import get_published_balance
 
 MAX_HISTORY = 50
@@ -397,6 +397,8 @@ async def claim_craft(db: AsyncSession, *, character: Character, job_id: int, ke
     result = {"job_id": job.id, "recipe": job.recipe_code, **res, "placed": placed, "profession_xp": xp}
     job.status, job.claim_key, job.result = "claimed", key, result
     await db.flush()
+    if res["successes"]:
+        await events.emit(db, character, "action", {"action": "craft_item", "count": res["successes"]})
     await audit.record(
         db, actor_id=character.user_id, action="craft.claim", entity_type="craft_job", entity_id=job.id,
         meta={"successes": res["successes"], "failures": res["failures"], "outputs": res["outputs"]},

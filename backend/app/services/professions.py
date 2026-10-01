@@ -23,7 +23,7 @@ from app.models.professions import (
     ProfessionXpEvent,
 )
 from app.models.race import Race
-from app.services import audit, items, progression, wallet
+from app.services import audit, events, items, progression, wallet
 from app.services.content.types.balance import get_published_balance
 
 # Extra PROFESSION_YIELD_MOD sources (titles, events, housing…): async (db, character) -> list[effect]
@@ -184,6 +184,8 @@ async def grant_xp(
     before = row.level
     res = rules.apply_xp(cfg, row.level, row.xp, gain, licensed=row.licensed)
     row.level, row.xp = res.level, res.xp
+    if res.levels_gained:
+        await events.emit(db, character, "profession_level", {"profession": profession_code, "level": res.level})
     title = None
     if res.reached_cap:
         title = await _award_title(db, character, profession_code)

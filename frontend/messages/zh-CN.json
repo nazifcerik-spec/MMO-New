@@ -1097,5 +1097,87 @@
     "chat": "队伍聊天",
     "message": "消息",
     "send": "发送"
+  },
+  "goals": {
+    "title": "日志",
+    "open": "日志",
+    "tab": {
+      "quests": "任务",
+      "achievements": "成就",
+      "titles": "称号",
+      "collections": "收藏"
+    },
+    "objective": {
+      "kill": "在{zone}击败敌人",
+      "boss": "在{zone}击败首领",
+      "explore": "在{zone}完成一次挂机",
+      "collect": "带来 {item}",
+      "profession": "{profession} 达到等级",
+      "level": "角色达到等级",
+      "action": "{action}"
+    },
+    "anywhere": "任意区域",
+    "action": {
+      "equip_item": "装备一件物品",
+      "start_afk": "开始一次挂机",
+      "craft_item": "制作物品",
+      "trade": "完成市场交易"
+    },
+    "type": {
+      "kill": "狩猎",
+      "collect": "收集",
+      "profession": "专业",
+      "explore": "探索",
+      "boss": "首领",
+      "promotion": "晋升试炼",
+      "tutorial": "教程"
+    },
+    "repeatable": "可重复",
+    "rewards": "奖励：{xp} 经验 · {gold} 金币",
+    "rewardTitle": "称号",
+    "active": "进行中",
+    "available": "可接取",
+    "claim": "交付",
+    "claimed": "任务完成！",
+    "abandon": "放弃",
+    "noActive": "暂无进行中的任务。",
+    "accept": "接受",
+    "accepted": "已接受任务",
+    "lockedCount": "未解锁任务（{n}）",
+    "completedCount": "已完成 {n} 个任务",
+    "rarity": {
+      "bronze": "青铜",
+      "silver": "白银",
+      "gold": "黄金",
+      "platinum": "铂金",
+      "mythic": "神话",
+      "relic": "遗物"
+    },
+    "prestige": "声望 {points} 点",
+    "nextRank": "下一级需 {points}",
+    "counter": {
+      "kills": "击杀",
+      "boss_kills": "首领击杀",
+      "afk_sessions": "挂机次数",
+      "crafts": "制作物品",
+      "trades": "市场交易",
+      "max_level": "最高等级",
+      "max_profession_level": "最高专业等级",
+      "quests_completed": "完成任务",
+      "gold_earned": "获得金币"
+    },
+    "chooseTitle": "展示称号",
+    "rarityNote": "称号稀有度仅用于展示声望，不提供任何战力。",
+    "titleSelected": "称号已更新",
+    "titleKind": {
+      "level": "等级",
+      "class": "职业",
+      "race": "种族",
+      "profession": "专业",
+      "achievement": "成就",
+      "quest": "任务",
+      "guild": "公会"
+    },
+    "collected": "已收集 {owned}/{total}"
   }
 }

@@ -16,7 +16,7 @@ from app.game_engine import progression as prog
 from app.game_engine.loot import LootConfig, pity_visible
 from app.models.afk import AfkDailyUsage, AfkSession, CharacterAfkStats
 from app.models.character import Character
-from app.services import afk_profiles, audit, classes, combat_snapshot, progression, wallet, world
+from app.services import afk_profiles, audit, classes, combat_snapshot, events, progression, wallet, world
 from app.services.content import service as content_service
 from app.services.content.types.afk_profiles import RISK_LEVELS, RiskProfiles
 from app.services.content.types.balance import get_published_balance
@@ -239,6 +239,7 @@ async def start(
     )
     db.add(session)
     await db.flush()
+    await events.emit(db, character, "action", {"action": "start_afk"})
     await audit.record(
         db,
         actor_id=character.user_id,
@@ -427,6 +428,8 @@ async def _claim_locked(
             LootConfig.model_validate(session.snapshot["loot"]) if session.snapshot.get("loot") else None,
         ),
     }
+    claimed = {k: result[k] for k in ("kills", "boss_kills", "gold")}
+    await events.emit(db, character, "afk_claimed", {"zone_code": session.zone_code, **claimed})
     session.status = "claimed"
     session.claimed_at = now
     session.claim_idempotency_key = idempotency_key

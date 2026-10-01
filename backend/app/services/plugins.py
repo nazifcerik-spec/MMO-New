@@ -3,6 +3,7 @@
 import app.services.classes
 import app.services.content.types
 import app.services.crafting
+import app.services.goals
 import app.services.inventory
 import app.services.items
 import app.services.races

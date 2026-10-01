@@ -195,7 +195,7 @@ async def _on_level(db: AsyncSession, character: Character, _res: XpResult) -> N
     await sync_milestones(db, character)
 
 
-def _check_gate(character: Character, req: dict[str, Any], stage: str) -> None:
+async def _check_gate(db: AsyncSession, character: Character, req: dict[str, Any], stage: str) -> None:
     need = req[stage]
     if character.level < need["min_level"]:
         raise ValidationFailedError(
@@ -203,13 +203,13 @@ def _check_gate(character: Character, req: dict[str, Any], stage: str) -> None:
             code="level_too_low",
             details={"required_level": need["min_level"], "level": character.level},
         )
-    if need["required_quest_code"]:
-        # Quest-gated promotions are enforced by the quest system (Phase 22) through this hook.
-        for check in QUEST_GATE_CHECKS:
-            check(character, need["required_quest_code"])
+    # Quest-gated promotions (class data `required_quest_code` or the goals config) are enforced by the quest
+    # system through this hook; with no requirement, level alone is sufficient.
+    for check in QUEST_GATE_CHECKS:
+        await check(db, character, stage, need["required_quest_code"])
 
 
-QUEST_GATE_CHECKS: list[Any] = []
+QUEST_GATE_CHECKS: list[Any] = []  # async (db, character, stage, required_quest_code | None) -> None
 
 
 async def promote(
@@ -218,7 +218,7 @@ async def promote(
     row = await get_progression_row(db, character, for_update=True)
     if row.branch_code is not None:
         raise ConflictError("Already promoted", code="already_promoted")
-    _check_gate(character, await requirements(db, row.base_class_code), "promotion")
+    await _check_gate(db, character, await requirements(db, row.base_class_code), "promotion")
     branch = (
         await db.execute(select(ClassBranch).where(ClassBranch.code == branch_code, ClassBranch.status == "published"))
     ).scalar_one_or_none()
@@ -245,7 +245,7 @@ async def specialize(
         raise ConflictError("Already specialized", code="already_specialized")
     if row.branch_code is None:
         raise ValidationFailedError("Choose a Lv100 path first", code="promotion_required")
-    _check_gate(character, await requirements(db, row.base_class_code), "specialization")
+    await _check_gate(db, character, await requirements(db, row.base_class_code), "specialization")
     spec = (
         await db.execute(
             select(Specialization).where(Specialization.code == spec_code, Specialization.status == "published")

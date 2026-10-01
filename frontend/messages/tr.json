@@ -1097,5 +1097,87 @@
     "chat": "Grup sohbeti",
     "message": "Mesaj",
     "send": "Gönder"
+  },
+  "goals": {
+    "title": "Günlük",
+    "open": "Günlük",
+    "tab": {
+      "quests": "Görevler",
+      "achievements": "Başarımlar",
+      "titles": "Unvanlar",
+      "collections": "Koleksiyonlar"
+    },
+    "objective": {
+      "kill": "{zone} bölgesinde düşman yen",
+      "boss": "{zone} bölgesinde patron yen",
+      "explore": "{zone} bölgesinde bir AFK oturumu tamamla",
+      "collect": "{item} getir",
+      "profession": "{profession} seviyesine ulaş",
+      "level": "Karakter seviyesine ulaş",
+      "action": "{action}"
+    },
+    "anywhere": "herhangi bir bölge",
+    "action": {
+      "equip_item": "Bir eşya kuşan",
+      "start_afk": "Bir AFK oturumu başlat",
+      "craft_item": "Eşya üret",
+      "trade": "Pazar takası yap"
+    },
+    "type": {
+      "kill": "Av",
+      "collect": "Toplama",
+      "profession": "Meslek",
+      "explore": "Keşif",
+      "boss": "Patron",
+      "promotion": "Terfi sınavı",
+      "tutorial": "Eğitim"
+    },
+    "repeatable": "tekrarlanabilir",
+    "rewards": "Ödüller: {xp} TP · {gold} altın",
+    "rewardTitle": "unvan",
+    "active": "Aktif",
+    "available": "Alınabilir",
+    "claim": "Teslim et",
+    "claimed": "Görev tamamlandı!",
+    "abandon": "Bırak",
+    "noActive": "Aktif görev yok.",
+    "accept": "Kabul et",
+    "accepted": "Görev kabul edildi",
+    "lockedCount": "Kilitli görevler ({n})",
+    "completedCount": "{n} görev tamamlandı",
+    "rarity": {
+      "bronze": "Bronz",
+      "silver": "Gümüş",
+      "gold": "Altın",
+      "platinum": "Platin",
+      "mythic": "Mitik",
+      "relic": "Kalıntı"
+    },
+    "prestige": "Prestij {points} puan",
+    "nextRank": "sonraki rütbe {points}",
+    "counter": {
+      "kills": "Öldürme",
+      "boss_kills": "Patron öldürme",
+      "afk_sessions": "AFK oturumu",
+      "crafts": "Üretilen eşya",
+      "trades": "Pazar takası",
+      "max_level": "En yüksek seviye",
+      "max_profession_level": "En iyi meslek seviyesi",
+      "quests_completed": "Tamamlanan görev",
+      "gold_earned": "Kazanılan altın"
+    },
+    "chooseTitle": "Gösterilen unvan",
+    "rarityNote": "Statü nadirliği yalnızca prestij gösterimidir — güç vermez.",
+    "titleSelected": "Unvan güncellendi",
+    "titleKind": {
+      "level": "Seviye",
+      "class": "Sınıf",
+      "race": "Irk",
+      "profession": "Meslek",
+      "achievement": "Başarım",
+      "quest": "Görev",
+      "guild": "Lonca"
+    },
+    "collected": "{total} içinden {owned} toplandı"
   }
 }

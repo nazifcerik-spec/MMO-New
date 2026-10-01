@@ -1,0 +1,86 @@
+# Canonical starter quests + achievements (data-driven). Objective kinds: kill, boss, explore, collect, profession,
+# level, action. Quest graph via prerequisites (validated acyclic).
+quests:
+  - code: first_steps
+    type: tutorial
+    chain: tutorial
+    objectives: [{kind: action, action: equip_item}]
+    rewards: {xp: 200, gold: 20}
+    l10n: {en: First Steps, tr: İlk Adımlar, zh-CN: 第一步, es: Primeros pasos}
+  - code: into_the_meadows
+    type: tutorial
+    chain: tutorial
+    prerequisites: [first_steps]
+    objectives: [{kind: action, action: start_afk}, {kind: explore, zone: whispering_meadows}]
+    rewards: {xp: 400, gold: 40, items: [{template_code: minor_healing_potion, qty: 5}]}
+    l10n: {en: Into the Meadows, tr: Çayırlara Doğru, zh-CN: 踏入草原, es: Hacia las praderas}
+  - code: meadow_cull
+    type: kill
+    chain: tutorial
+    prerequisites: [into_the_meadows]
+    objectives: [{kind: kill, zone: whispering_meadows, count: 50}]
+    rewards: {xp: 1000, gold: 100, title_code: meadow_warden}
+    l10n: {en: The Meadow Cull, tr: Çayır Temizliği, zh-CN: 草原清剿, es: Limpieza de la pradera}
+  - code: herbal_beginnings
+    type: profession
+    objectives: [{kind: profession, profession: herbalism, level: 10}]
+    rewards: {xp: 500, gold: 50}
+    l10n: {en: Herbal Beginnings, tr: Bitkiciliğe Giriş, zh-CN: 草药入门, es: Inicios herbales}
+  - code: silverleaf_supply
+    type: collect
+    prerequisites: [herbal_beginnings]
+    objectives: [{kind: collect, template_code: silverleaf, count: 10}]
+    rewards: {xp: 600, gold: 120}
+    repeatable: true
+    l10n: {en: Silverleaf Supply, tr: Gümüşyaprak Tedariki, zh-CN: 银叶草补给, es: Suministro de hojaplata}
+  - code: marsh_explorer
+    type: explore
+    min_level: 50
+    objectives: [{kind: explore, zone: mistfen_marsh}]
+    rewards: {xp: 3000, gold: 200}
+    l10n: {en: Marsh Explorer, tr: Bataklık Kaşifi, zh-CN: 沼泽探索者, es: Explorador del pantano}
+  - code: forest_tyrant
+    type: boss
+    min_level: 100
+    objectives: [{kind: boss, zone: ironroot_forest, count: 1}]
+    rewards: {xp: 20000, gold: 1000}
+    l10n: {en: Tyrant of Ironroot, tr: Demirkök Tiranı, zh-CN: 铁根暴君, es: El tirano de Raízférrea}
+  - code: trial_of_the_branch
+    type: promotion
+    min_level: 90
+    objectives: [{kind: level, level: 100}, {kind: kill, zone: mistfen_marsh, count: 100}]
+    rewards: {xp: 5000, gold: 500, title_code: proven}
+    l10n: {en: Trial of the Branch, tr: Dal Sınavı, zh-CN: 分支试炼, es: Prueba de la rama}
+  - code: trial_of_mastery
+    type: promotion
+    min_level: 280
+    prerequisites: [trial_of_the_branch]
+    objectives: [{kind: level, level: 300}, {kind: boss, zone: sunscar_dunes, count: 3}]
+    rewards: {xp: 50000, gold: 5000, title_code: specialist}
+    l10n: {en: Trial of Mastery, tr: Ustalık Sınavı, zh-CN: 精通试炼, es: Prueba de maestría}
+achievements:   # code: [counter, threshold, rarity, points, title_code|null, category, {l10n}]
+  slayer_1: [kills, 100, bronze, 5, null, combat, {en: Novice Slayer, tr: Acemi Avcı, zh-CN: 初级猎杀者, es: Cazador novato}]
+  slayer_2: [kills, 5000, silver, 15, null, combat, {en: Seasoned Slayer, tr: Deneyimli Avcı, zh-CN: 熟练猎杀者, es: Cazador curtido}]
+  slayer_3: [kills, 250000, gold, 40, slayer, combat, {en: Legendary Slayer, tr: Efsanevi Avcı, zh-CN: 传奇猎杀者, es: Cazador legendario}]
+  boss_1: [boss_kills, 10, silver, 10, null, combat, {en: Boss Hunter, tr: Patron Avcısı, zh-CN: 首领猎人, es: Cazajefes}]
+  boss_2: [boss_kills, 500, gold, 40, bossbane, combat, {en: Bossbane, tr: Patron Belası, zh-CN: 首领克星, es: Azote de jefes}]
+  afk_1: [afk_sessions, 10, bronze, 5, null, journey, {en: Patient Adventurer, tr: Sabırlı Maceracı, zh-CN: 耐心的冒险者, es: Aventurero paciente}]
+  afk_2: [afk_sessions, 300, gold, 30, null, journey, {en: Tireless Wanderer, tr: Yorulmaz Gezgin, zh-CN: 不倦的旅人, es: Viajero incansable}]
+  crafter_1: [crafts, 10, bronze, 5, null, professions, {en: Apprentice Maker, tr: Çırak Usta, zh-CN: 学徒工匠, es: Aprendiz artesano}]
+  crafter_2: [crafts, 1000, gold, 30, artisan, professions, {en: Master Maker, tr: Usta Zanaatkâr, zh-CN: 大师工匠, es: Maestro artesano}]
+  trader_1: [trades, 10, bronze, 5, null, economy, {en: Market Regular, tr: Pazar Müdavimi, zh-CN: 市场常客, es: Habitual del mercado}]
+  level_100: [max_level, 100, bronze, 10, null, journey, {en: First Promotion, tr: İlk Terfi, zh-CN: 首次晋升, es: Primer ascenso}]
+  level_300: [max_level, 300, silver, 20, null, journey, {en: Specialist, tr: Uzman, zh-CN: 专精者, es: Especialista}]
+  level_600: [max_level, 600, gold, 30, null, journey, {en: Awakened, tr: Uyanmış, zh-CN: 觉醒者, es: Despertado}]
+  level_850: [max_level, 850, platinum, 50, null, journey, {en: Ascendant, tr: Yükselmiş, zh-CN: 升华者, es: Ascendente}]
+  level_1000: [max_level, 1000, mythic, 100, worldbreaker, journey, {en: Class Mastery, tr: Sınıf Ustalığı, zh-CN: 职业精通, es: Maestría de clase}]
+  profession_500: [max_profession_level, 500, platinum, 60, null, professions, {en: Grandmaster of a Craft, tr: Bir Zanaatın Büyük Ustası, zh-CN: 技艺宗师, es: Gran maestro de un oficio}]
+  questor_1: [quests_completed, 5, bronze, 5, null, journey, {en: Errand Runner, tr: Ayak İşçisi, zh-CN: 跑腿者, es: Recadero}]
+titles:   # earned-title display names
+  meadow_warden: {en: Meadow Warden, tr: Çayır Bekçisi, zh-CN: 草原守望者, es: Guardián de la pradera}
+  proven: {en: the Proven, tr: Kanıtlanmış, zh-CN: 历练者, es: el Probado}
+  specialist: {en: the Specialist, tr: Uzman, zh-CN: 专精者, es: el Especialista}
+  slayer: {en: Slayer, tr: Katil, zh-CN: 屠戮者, es: Asesino}
+  bossbane: {en: Bossbane, tr: Patron Belası, zh-CN: 首领克星, es: Azote de jefes}
+  artisan: {en: the Artisan, tr: Zanaatkâr, zh-CN: 工匠, es: el Artesano}
+  worldbreaker: {en: Worldbreaker, tr: Dünya Kıran, zh-CN: 碎界者, es: Rompemundos}

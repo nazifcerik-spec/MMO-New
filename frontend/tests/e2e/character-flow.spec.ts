@@ -321,3 +321,26 @@ test("party: create a party and post to party chat", async ({ page }) => {
   await page.getByTestId("send-chat").click();
   await expect(page.getByTestId("party-chat")).toContainText("ready for the meadows");
 });
+
+test("journal: accept the first tutorial quest and pick a title", async ({ page }) => {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Jrn${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await page.getByTestId("open-goals").click();
+  await page.getByTestId("accept-first_steps").click();
+  await expect(page.getByTestId("quest-first_steps")).toContainText("Equip an item — 0/1");
+  await page.getByTestId("goals-tab-titles").click();
+  await page.getByLabel(/Diplomat/).click();
+  await expect(page.getByLabel(/Diplomat/)).toBeChecked();
+});

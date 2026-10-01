@@ -19,7 +19,7 @@ from app.models.character import Character
 from app.models.classes import BaseClass
 from app.models.items import ItemInstance, ItemProvenance, ItemTemplate
 from app.models.race import Race
-from app.services import afk, afk_profiles, audit, items, progression, wallet
+from app.services import afk, afk_profiles, audit, events, items, progression, wallet
 from app.services.content.types.balance import get_published_balance
 from app.services.races import stat_label_keys
 
@@ -277,6 +277,7 @@ async def equip(
         entity_id=inst.id,
         meta={"slot": target, "displaced": [d.id for d in displaced], "character_id": character.id},
     )
+    await events.emit(db, character, "action", {"action": "equip_item"})
     return {"slot": target, "displaced": [d.id for d in displaced]}
 
 
