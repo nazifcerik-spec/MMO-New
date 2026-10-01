@@ -234,3 +234,27 @@ async def test_deaths_cost_efficiency_not_progress(make_client, make_character, 
     if res["deaths"]:
         assert res["durability_loss_pct"] > 0 and res["xp"] >= 0 and res["gold"] >= 0
     assert res["fights"] >= res["wins"] + res["deaths"] - 1
+
+
+async def test_loot_config_is_snapshotted_pity_forces_rares_and_legacy_sessions_still_resolve(  # type: ignore[no-untyped-def]
+    make_client, make_character, clock
+) -> None:
+    u, cid = await _hero(make_client, make_character)
+    sid = (await _start(u, cid, duration=2 * 3600)).json()["id"]
+    async with get_sessionmaker()() as db:
+        row = await db.get(AfkSession, sid)
+        assert row is not None
+        snap, seed = dict(row.snapshot), row.seed
+    assert snap["loot"]["pity"]["threshold_fights"] > 1
+    normal = afk._resolve_sync(snap, seed, 7200)
+    assert "luck_bonus_pct" in normal and normal["luck_bonus_pct"] >= 0
+    eager = {**snap, "loot": {**snap["loot"], "pity": {**snap["loot"]["pity"], "threshold_fights": 1}}}
+    forced = afk._resolve_sync(eager, seed, 7200)
+
+    def rare(r: dict) -> int:  # type: ignore[type-arg]
+        return sum(d["qty"] for d in r["drops"] if d.get("rarity") in ("rare", "epic", "legendary", "mythic", "relic"))
+
+    assert forced["pity_end"] == 0 and rare(forced) >= rare(normal)
+    legacy = {k: v for k, v in snap.items() if k != "loot"}
+    old = afk._resolve_sync(legacy, seed, 7200)
+    assert old == afk._resolve_sync(legacy, seed, 7200) and "luck_bonus_pct" in old

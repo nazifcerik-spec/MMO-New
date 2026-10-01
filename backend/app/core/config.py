@@ -35,6 +35,8 @@ class Settings(BaseSettings):
     rl_register_ip: str = "10/3600"
     rl_mutation_user: str = "120/60"
     max_characters_per_account: int = 8
+    # Seed the 1,520-template launch catalog (canonical content). Tests disable it for speed and cover it directly.
+    seed_launch_catalog: bool = True
 
     @property
     def is_prod(self) -> bool:

@@ -1,0 +1,231 @@
+# Launch item catalog (canonical): exactly 1,520 templates generated deterministically from these tokens.
+# Codes are derived from stable token codes + tier + index and never change on regeneration.
+# EN names are canonical (published); TR / ZH-CN / ES are machine-assembled drafts for translator review.
+version: 1
+targets: {weapon: 280, armor: 360, accessory: 120, profession_tool: 90, consumable: 160, material: 240,
+          recipe: 120, quest_key_token: 80, cosmetic_collectible: 70}
+locales: [en, tr, zh-CN, es]
+# Name assembly per locale ({epithet} {material} {family} {noun} / {grade}); empty tokens collapse.
+patterns:
+  equipment: {en: "{epithet} {material} {family} {noun}", tr: "{epithet} {material} {family} {noun}", zh-CN: "{epithet}{material}{family}{noun}", es: "{noun} {family} {material} {epithet}"}
+  graded:    {en: "{grade} {epithet} {noun}", tr: "{grade} {epithet} {noun}", zh-CN: "{grade}{epithet}{noun}", es: "{noun} {grade} {epithet}"}
+  recipe:    {en: "{noun}: {grade} {epithet}", tr: "{noun}: {grade} {epithet}", zh-CN: "{noun}：{grade}{epithet}", es: "{noun}: {grade} {epithet}"}
+epithets:   # code: [en, tr, zh-CN, es]
+  dawn: [Dawn, Şafak, 黎明, del Alba]
+  dusk: [Dusk, Alacakaranlık, 黄昏, del Ocaso]
+  ember: [Ember, Kor, 余烬, de Brasas]
+  frost: [Frost, Ayaz, 寒霜, de Escarcha]
+  storm: [Storm, Fırtına, 风暴, de la Tormenta]
+  gloom: [Gloom, Kasvet, 幽暗, de la Penumbra]
+  warden: ["Warden's", Muhafız, 守卫, del Guardián]
+  hunter: ["Hunter's", Avcı, 猎手, del Cazador]
+  sage: ["Sage's", Bilge, 贤者, del Sabio]
+  pilgrim: ["Pilgrim's", Hacı, 朝圣者, del Peregrino]
+  oath: [Oathbound, Yeminli, 誓约, del Juramento]
+  wild: [Wildgrown, Yaban, 荒野, de lo Salvaje]
+  steadfast: [Steadfast, Sarsılmaz, 坚毅, de la Firmeza]
+  whisper: [Whispering, Fısıltı, 低语, de los Susurros]
+  thorn: [Thorned, Dikenli, 荆棘, de Espinas]
+  raven: [Raven, Kuzgun, 渡鸦, del Cuervo]
+  lion: [Lionheart, Aslanyürek, 狮心, del León]
+  serpent: [Serpent, Yılan, 蛇牙, de la Serpiente]
+  tide: [Tidecaller, Gelgit, 潮汐, de las Mareas]
+  ash: [Ashen, Küllü, 灰烬, de Ceniza]
+  moon: [Moonlit, Mehtap, 月辉, de la Luna]
+  sun: [Sunforged, Güneş, 日耀, del Sol]
+  grave: [Gravewalker, Mezar, 墓行, de la Tumba]
+  ward: [Warding, Koruyucu, 守护, de Protección]
+  valor: [Valorous, Yiğit, 英勇, del Valor]
+  mirth: [Mirthful, Neşeli, 欢愉, de la Alegría]
+  echo: [Echoing, Yankı, 回响, del Eco]
+  ruin: [Ruinous, Yıkım, 毁灭, de la Ruina]
+  silent: [Silent, Sessiz, 寂静, del Silencio]
+  crown: [Crowned, Taçlı, 王冠, de la Corona]
+  wanderer: ["Wanderer's", Gezgin, 游侠, del Errante]
+  hollow: [Hollow, Kovuk, 空洞, de lo Hueco]
+materials:  # per tier T0..T10: [en, tr, zh-CN, es]
+  metal:
+    - [Bronze, Tunç, 青铜, de bronce]
+    - [Iron, Demir, 铁, de hierro]
+    - [Steel, Çelik, 钢, de acero]
+    - [Runesteel, Run Çeliği, 符文钢, de acero rúnico]
+    - [Frostiron, Buz Demiri, 霜铁, de hierro gélido]
+    - [Embersteel, Kor Çeliği, 烬钢, de acero de brasa]
+    - [Starsteel, Yıldız Çeliği, 星钢, de acero estelar]
+    - [Dragonbone, Ejder Kemiği, 龙骨, de hueso de dragón]
+    - [Voidglass, Boşluk Camı, 虚空琉璃, de vidrio del vacío]
+    - [Celestite, Gök Taşı, 天青石, de celestita]
+    - [Eternium, Ebediyet Metali, 永恒金, de eternio]
+  fabric:
+    - [Linen, Keten, 亚麻, de lino]
+    - [Wool, Yün, 羊毛, de lana]
+    - [Silk, İpek, 丝绸, de seda]
+    - [Runesilk, Run İpeği, 符文丝, de seda rúnica]
+    - [Frostweave, Buz Dokuma, 霜织, de tejido gélido]
+    - [Embercloth, Kor Kumaşı, 烬布, de tela de brasa]
+    - [Starweave, Yıldız Dokuma, 星织, de tejido estelar]
+    - [Dragonsilk, Ejder İpeği, 龙丝, de seda de dragón]
+    - [Voidweave, Boşluk Dokuma, 虚空织, de tejido del vacío]
+    - [Celestial Silk, Gök İpeği, 天丝, de seda celestial]
+    - [Eternal Weave, Ebedi Dokuma, 永恒织锦, de tejido eterno]
+  hide:
+    - [Rawhide, Ham Deri, 生皮, de cuero crudo]
+    - [Boarhide, Yaban Domuzu Derisi, 野猪皮, de piel de jabalí]
+    - [Wolfhide, Kurt Derisi, 狼皮, de piel de lobo]
+    - [Bearhide, Ayı Derisi, 熊皮, de piel de oso]
+    - [Frosthide, Buz Postu, 霜皮, de piel gélida]
+    - [Salamander Hide, Semender Derisi, 火蜥皮, de piel de salamandra]
+    - [Wyvernhide, Vivern Derisi, 飞龙皮, de piel de guiverno]
+    - [Dragonhide, Ejder Derisi, 龙皮, de piel de dragón]
+    - [Voidhide, Boşluk Derisi, 虚空皮, de piel del vacío]
+    - [Celestial Hide, Gök Postu, 天兽皮, de piel celestial]
+    - [Eternal Hide, Ebedi Post, 永恒兽皮, de piel eterna]
+grades:     # per tier T0..T10 (gender-invariant ES adjectives)
+  - [Minor, Küçük, 次级, menor]
+  - [Lesser, Hafif, 初级, leve]
+  - [Moderate, Orta, 中级, notable]
+  - [Greater, Büyük, 高级, mayor]
+  - [Superior, Üstün, 上等, superior]
+  - [Major, Yüce, 强效, excelente]
+  - [Grand, Ulu, 宏大, grande]
+  - [Heroic, Kahraman, 英雄, insigne]
+  - [Exalted, Yüceltilmiş, 崇高, sublime]
+  - [Sublime, Kusursuz, 卓绝, inmortal]
+  - [Eternal, Ebedi, 永恒, perenne]
+# Equipment lines ------------------------------------------------------------------------------------------
+weapon_lines:   # family: {profile, tags}; each family -> 10 items (one tier rotated out per family)
+  per_family: 10
+  material: metal
+  pool: [brutal, arcane, keen, of_strength, of_agility, of_intellect, of_wisdom, of_vitality, of_fortune, sturdy]
+  families:
+    sword: {profile: heavy_weapon, tags: [vanguard, slayer]}
+    axe: {profile: heavy_weapon, tags: [slayer]}
+    mace: {profile: heavy_weapon, tags: [vanguard, faith]}
+    greatsword: {profile: heavy_weapon, tags: [slayer]}
+    greataxe: {profile: heavy_weapon, tags: [slayer, primal]}
+    spear: {profile: heavy_weapon, tags: [hunter, vanguard]}
+    dagger: {profile: finesse_weapon, tags: [shadow]}
+    shortsword: {profile: finesse_weapon, tags: [shadow]}
+    fist_weapon: {profile: finesse_weapon, tags: [harmony]}
+    throwing_knife: {profile: finesse_weapon, tags: [shadow, hunter]}
+    bow: {profile: finesse_weapon, tags: [hunter]}
+    longbow: {profile: finesse_weapon, tags: [hunter]}
+    crossbow: {profile: finesse_weapon, tags: [hunter]}
+    staff: {profile: caster_weapon, tags: [arcane, primal]}
+    wand: {profile: caster_weapon, tags: [arcane]}
+    orb: {profile: caster_weapon, tags: [arcane]}
+    grimoire: {profile: caster_weapon, tags: [arcane, spirit]}
+    tonfa: {profile: finesse_weapon, tags: [harmony]}
+    holy_tome: {profile: healing_focus, tags: [faith]}
+    two_handed_mace: {profile: heavy_weapon, tags: [vanguard, faith]}
+    sickle: {profile: finesse_weapon, tags: [primal]}
+    nature_focus: {profile: healing_focus, tags: [primal]}
+    lute: {profile: support_relic, tags: [harmony]}
+    harp: {profile: support_relic, tags: [harmony]}
+    flute: {profile: support_relic, tags: [harmony]}
+    rapier: {profile: finesse_weapon, tags: [shadow, slayer]}
+    ritual_axe: {profile: heavy_weapon, tags: [spirit]}
+    totem: {profile: healing_focus, tags: [spirit]}
+slot_nouns:   # [en, tr, zh-CN, es]
+  head: [Helm, Miğfer, 头盔, Yelmo]
+  shoulders: [Pauldrons, Omuzluk, 肩甲, Hombreras]
+  chest: [Chestguard, Göğüslük, 胸甲, Coraza]
+  hands: [Gauntlets, Eldiven, 护手, Guanteletes]
+  waist: [Belt, Kemer, 腰带, Cinturón]
+  legs: [Legguards, Bacaklık, 腿甲, Grebas]
+  feet: [Boots, Çizme, 战靴, Botas]
+  back: [Cloak, Pelerin, 披风, Capa]
+  off_hand: [Shield, Kalkan, 盾牌, Escudo]
+  neck: [Amulet, Muska, 护符, Amuleto]
+  ring: [Ring, Yüzük, 戒指, Anillo]
+  trinket: [Charm, Tılsım, 饰物, Talismán]
+armor_family_words: {plate: [Plate, Plaka, 板, de placas], mail: [Mail, Zincir, 锁, de malla]}
+armor_lines:
+  pool: [warded, sturdy, of_strength, of_agility, of_intellect, of_wisdom, of_vitality, of_fortune]
+  families:
+    plate: {material: metal, profile: heavy_armor, tags: [vanguard]}
+    mail: {material: metal, profile: heavy_armor, tags: [slayer, hunter]}
+    leather: {material: hide, profile: light_armor, tags: [shadow, hunter, primal]}
+    cloth: {material: fabric, profile: cloth_armor, tags: [arcane, faith, harmony, spirit]}
+  slots: [head, shoulders, chest, hands, waist, legs, feet]
+  per_line: 11
+  extra:
+    - {slot: back, count: 22, material: fabric, family: null, profile: null, tags: []}
+    - {slot: off_hand, count: 30, material: metal, family: shield, profile: heavy_armor, tags: [vanguard, faith]}
+accessory_lines:
+  pool: [arcane, keen, sturdy, of_strength, of_agility, of_intellect, of_wisdom, of_vitality, of_fortune]
+  material: metal
+  slots: {neck: 40, ring: 40, trinket: 40}
+  tag_cycle: [vanguard, slayer, shadow, hunter, arcane, faith, harmony, primal, spirit]
+tool_lines:
+  per_profession: 6
+  material: metal
+  pool: [sturdy, of_strength, of_agility, of_intellect, of_wisdom, of_vitality, of_fortune]
+  nouns:
+    pickaxe: [Pickaxe, Kazma, 矿镐, Pico]
+    axe: [Felling Axe, Kesim Baltası, 伐木斧, Hacha de tala]
+    rod: [Fishing Rod, Olta, 鱼竿, Caña de pescar]
+    knife_bow: [Skinning Kit, Yüzme Takımı, 剥皮工具, Kit de desollar]
+    sickle: [Herb Sickle, Ot Orağı, 草镰, Hoz de hierbas]
+    forge_hammer: [Forge Hammer, Örs Çekici, 锻锤, Martillo de forja]
+    forge_kit: [Forge Kit, Ocak Takımı, 锻造工具, Kit de forja]
+    leather_tools: [Leather Tools, Deri Aletleri, 制皮工具, Herramientas de cuero]
+    needle_kit: [Needle Kit, İğne Takımı, 针线包, Juego de agujas]
+    jeweler_kit: ["Jeweler's Kit", Kuyumcu Takımı, 珠宝工具, Kit de joyero]
+    alchemist_kit: [Alembic, İmbik, 蒸馏器, Alambique]
+    cookware: [Cookware, Mutfak Takımı, 炊具, Utensilios de cocina]
+    arcane_focus: [Arcane Focus, Arkanik Odak, 奥术法器, Foco arcano]
+    toolbox: [Toolbox, Alet Kutusu, 工具箱, Caja de herramientas]
+  speed_per_tier: 2
+  yield_per_tier: 1.5
+# Stackable / non-equipment lines: {code: [count, subcategory, noun[en,tr,zh,es], kind]} -------------------
+consumable_lines:
+  healing_potion: {count: 44, subcategory: potion, noun: [Healing Potion, İyileştirme İksiri, 治疗药水, Poción de curación]}
+  battle_elixir: {count: 44, subcategory: elixir, noun: [Battle Elixir, Savaş İksiri, 战斗秘药, Elixir de batalla]}
+  hearty_meal: {count: 44, subcategory: food, noun: [Hearty Meal, Doyurucu Yemek, 丰盛餐点, Comida abundante]}
+  warding_draught: {count: 28, subcategory: draught, noun: [Warding Draught, Koruma Şerbeti, 护盾药剂, Brebaje protector]}
+material_lines:
+  ore: {count: 20, noun: [Ore, Cevher, 矿石, Mineral], profession: mining}
+  ingot: {count: 20, noun: [Ingot, Külçe, 锭, Lingote], profession: blacksmithing}
+  timber: {count: 20, noun: [Timber, Kereste, 木材, Madera], profession: logging}
+  fish: {count: 20, noun: [Catch, Av, 渔获, Captura], profession: fishing}
+  pelt: {count: 20, noun: [Pelt, Post, 毛皮, Pellejo], profession: hunting}
+  herb: {count: 20, noun: [Herb, Ot, 草药, Hierba], profession: herbalism}
+  leather: {count: 20, noun: [Cured Leather, İşlenmiş Deri, 熟皮, Cuero curtido], profession: leatherworking}
+  bolt: {count: 20, noun: [Cloth Bolt, Kumaş Topu, 布匹, Rollo de tela], profession: tailoring}
+  gem: {count: 20, noun: [Gemstone, Değerli Taş, 宝石, Gema], profession: jewelcrafting}
+  reagent: {count: 20, noun: [Reagent, Ayıraç, 试剂, Reactivo], profession: alchemy}
+  essence: {count: 20, noun: [Essence, Öz, 精华, Esencia], profession: enchanting}
+  component: {count: 20, noun: [Component, Parça, 零件, Componente], profession: engineering}
+recipe_lines:
+  plans_weapon: {count: 12, noun: [Weaponsmith Plans, Silahçı Planı, 武器锻造图, Planos de armero], profession: weaponsmithing}
+  plans_armor: {count: 12, noun: [Armorsmith Plans, Zırhçı Planı, 护甲锻造图, Planos de armadurero], profession: armorsmithing}
+  plans_smith: {count: 12, noun: [Smithing Plans, Demircilik Planı, 锻造图纸, Planos de herrería], profession: blacksmithing}
+  pattern_leather: {count: 12, noun: [Leather Pattern, Deri Kalıbı, 制皮图样, Patrón de cuero], profession: leatherworking}
+  pattern_cloth: {count: 12, noun: [Tailoring Pattern, Terzilik Kalıbı, 裁缝图样, Patrón de sastrería], profession: tailoring}
+  design_jewel: {count: 12, noun: [Jewelry Design, Mücevher Tasarımı, 珠宝设计图, Diseño de joyería], profession: jewelcrafting}
+  formula_alchemy: {count: 12, noun: [Alchemy Formula, Simya Formülü, 炼金配方, Fórmula alquímica], profession: alchemy}
+  recipe_cooking: {count: 12, noun: [Cooking Recipe, Yemek Tarifi, 烹饪食谱, Receta de cocina], profession: cooking}
+  formula_enchant: {count: 12, noun: [Enchanting Formula, Büyü Formülü, 附魔配方, Fórmula de encantamiento], profession: enchanting}
+  schematic: {count: 12, noun: [Engineering Schematic, Mühendislik Şeması, 工程图纸, Esquema de ingeniería], profession: engineering}
+quest_lines:
+  zone_key: {count: 20, noun: [Key, Anahtar, 钥匙, Llave]}
+  boss_sigil: {count: 20, noun: [Sigil, Mühür, 印记, Sello]}
+  token: {count: 20, noun: [Token, Nişan, 徽记, Ficha]}
+  writ: {count: 20, noun: [Writ, Ferman, 令状, Mandato]}
+cosmetic_lines:
+  banner: {count: 14, noun: [Banner, Sancak, 旗帜, Estandarte]}
+  companion_charm: {count: 14, noun: [Companion Charm, Yoldaş Tılsımı, 伙伴护符, Amuleto de compañero]}
+  dye: {count: 14, noun: [Wardrobe Dye, Gardırop Boyası, 衣橱染料, Tinte de vestuario]}
+  trophy: {count: 14, noun: [Trophy, Kupa, 奖杯, Trofeo]}
+  portrait_frame: {count: 14, noun: [Portrait Frame, Portre Çerçevesi, 头像框, Marco de retrato]}
+# Legendary+/relic effect templates by category (values scale with tier) --------------------------------------
+unique_effects:
+  weapon: {stat: crit_chance, base: 1.0, per_tier: 0.3}
+  armor: {stat: max_hp, base: 2.0, per_tier: 0.4, percent: true}
+  accessory: {stat: crit_chance, base: 0.8, per_tier: 0.25}
+  profession_tool: {profession_kind: rare_find, base: 4, per_tier: 1}
+# Stat budget outlier report: power = Σ amount × weight, compared with the (category, slot-agnostic) tier median.
+stat_weights: {attack_power: 1.0, spell_power: 1.0, buff_power: 30.0, accuracy: 40.0, armor: 0.5, max_hp: 0.8,
+               magic_resist: 0.6, dodge: 40.0, block: 30.0, crit_chance: 25.0}
+outlier_band: [0.55, 1.6]

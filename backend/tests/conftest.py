@@ -7,6 +7,7 @@ os.environ.setdefault("MMO_LOG_JSON", "false")
 os.environ.setdefault("MMO_LOG_LEVEL", "WARNING")
 os.environ.setdefault("MMO_RL_REGISTER_IP", "100000/3600")
 os.environ.setdefault("MMO_RL_LOGIN_IP", "100000/60")
+os.environ.setdefault("MMO_SEED_LAUNCH_CATALOG", "false")
 
 from collections.abc import AsyncIterator
 

@@ -640,6 +640,17 @@ async def seed_crafting(session: AsyncSession) -> int:
     return created
 
 
+async def seed_catalog(session: AsyncSession) -> int:
+    """Canonical launch catalog (1,520 templates); idempotent — existing codes are skipped."""
+    from app.core.config import get_settings
+    from app.services import catalog
+
+    if not get_settings().seed_launch_catalog:
+        return 0
+    result = await catalog.commit(session, publish=True, actor_id=None)
+    return int(result["created"])
+
+
 STEPS: list[tuple[str, SeedStep]] = [
     ("rbac", seed_rbac),
     ("localization", seed_localization_files),
@@ -652,6 +663,7 @@ STEPS: list[tuple[str, SeedStep]] = [
     ("world", seed_world),
     ("items", seed_items),
     ("crafting", seed_crafting),
+    ("catalog", seed_catalog),
 ]
 
 

@@ -270,6 +270,7 @@ class ZoneBundle(_M):
     zone_drop_table: str | None
     loot_modifiers: dict[str, float]
     content_version: int = 0
+    tags: tuple[str, ...] = ()  # zone environment tags (drop conditions)
 
 
 class GeneratedEncounter(_M):

@@ -807,7 +807,17 @@
     "vendorValue": "Valor de venta (cobre)",
     "warningsCount": "{n} avisos",
     "weaponFamily": "Tipo de arma",
-    "yours": "tuyo"
+    "yours": "tuyo",
+    "catalogTitle": "Catálogo de lanzamiento (1520 objetos)",
+    "catalogDryRun": "Ejecutar simulación",
+    "catalogRunning": "Validando…",
+    "catalogHint": "Genera de forma determinista todas las plantillas y ejecuta los validadores de publicación. No se escribe nada hasta confirmar.",
+    "catalogTotals": "{total}/{target} plantillas · {errors} errores · {warnings} avisos",
+    "catalogOutliers": "Valores atípicos de presupuesto: {n}",
+    "catalogCommitDrafts": "Crear faltantes como borradores",
+    "catalogCommitPublish": "Crear y publicar",
+    "catalogPublishConfirm": "¿Publicar todas las plantillas faltantes? Los códigos existentes nunca se sobrescriben.",
+    "catalogCommitted": "Creadas {created}, publicadas {published}, omitidas {skipped} existentes"
   },
   "inventory": {
     "open": "Inventario",

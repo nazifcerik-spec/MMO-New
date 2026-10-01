@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from app.game_engine.combat.engine import simulate
 from app.game_engine.combat.models import CombatantSnapshot, CombatConfig, CombatInput, CombatStrategy
 from app.game_engine.combat.rules import rule_selector, validate_rules
+from app.game_engine.loot import LootConfig, luck_bonus, roll_table
 from app.game_engine.rng import Rng, derive_seed
 from app.game_engine.world import ZoneBundle, enemy_rules, generate_encounter, roll_drops, rules_by_code_selector
 
@@ -185,6 +186,7 @@ class AfkSnapshot(_S):
     potions_reserved: int = 0
     pity_start: int = 0
     profession_task: dict[str, Any] | None = None
+    loot: LootConfig | None = None  # Phase 19; None for older sessions (legacy drop rolls)
     segments: tuple[Segment, ...]
     planned_seconds: int
     content_version: int
@@ -303,6 +305,8 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
     )
     gold_mult *= 1 + mods.get("gold", 0) / 100
     drop_keep = 1 + mods.get("drop_rate", 0) / 100
+    luck = luck_bonus(snap.loot, snap.player.stats.get("LUK", 0)) if snap.loot is not None else 0.0
+    rare_bonus = risk.rare_bonus_percent + mods.get("rare_chance", 0) + luck
     death_scale = risk.death_risk_percent / 100
     t = 0.0
     fights = wins = deaths = kills = boss_kills = 0
@@ -350,14 +354,29 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
         table_code = snap.zone.enemies[enc.code].drop_table if enc.boss else snap.zone.zone_drop_table
         table = snap.zone.drop_tables.get(table_code or "")
         if table is not None:
-            forced_rare = pity + 1 >= cfg.pity_threshold_fights
-            rolled = roll_drops(
-                Rng(derive_seed(seed, "drops", fights)),
-                table.rolls,
-                table.entries,
-                boss=enc.boss,
-                rare_bonus_pct=risk.rare_bonus_percent + mods.get("rare_chance", 0) + (1_000_000 if forced_rare else 0),
-            )
+            if snap.loot is not None:
+                forced_rare = snap.loot.pity.enabled and pity + 1 >= snap.loot.pity.threshold_fights
+                rolled = roll_table(
+                    snap.loot,
+                    Rng(derive_seed(seed, "drops", fights)),
+                    table.rolls,
+                    table.entries,
+                    {"boss": enc.boss, "zone_code": snap.zone.code, "zone_tags": snap.zone.tags,
+                     "level": snap.character_level},
+                    rare_bonus_pct=rare_bonus,
+                    force_rare=forced_rare,
+                )  # fmt: skip
+            else:
+                forced_rare = pity + 1 >= cfg.pity_threshold_fights
+                rolled = roll_drops(
+                    Rng(derive_seed(seed, "drops", fights)),
+                    table.rolls,
+                    table.entries,
+                    boss=enc.boss,
+                    rare_bonus_pct=risk.rare_bonus_percent
+                    + mods.get("rare_chance", 0)
+                    + (1_000_000 if forced_rare else 0),
+                )
             got_rare = False
             for d in rolled:
                 if d["kind"] == "gold":
@@ -395,6 +414,7 @@ def resolve(snap: AfkSnapshot, seed: int, elapsed_s: float, *, sim: Callable[...
         ],
         "encounters": dict(sorted(encounters.items())),
         "pity_end": pity,
+        "luck_bonus_pct": luck,
         "timeline": [{k: round(v, 2) for k, v in b.items()} for b in timeline],
         "samples": {
             "normal": {k: v.model_dump() for k, v in sorted(normal.items())},

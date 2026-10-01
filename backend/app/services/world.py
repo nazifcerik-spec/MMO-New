@@ -258,5 +258,6 @@ async def load_bundle(db: AsyncSession, code: str) -> ZoneBundle:
         drop_tables=tables,
         zone_drop_table=zone.drop_table_code if zone.drop_table_code in tables else None,
         loot_modifiers=zone.loot_modifiers,
+        tags=tuple(zone.environment_tags),
         content_version=await content_service.current_release_version(db),
     )

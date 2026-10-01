@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.errors import ConflictError, NotFoundError, ValidationFailedError
 from app.game_engine import inventory as rules
 from app.game_engine.items import requirement_check
+from app.game_engine.loot import LootConfig
 from app.game_engine.rng import Rng, derive_seed
 from app.game_engine.stat_calculator import allocation_contribution, compute_stat_sheet, contribution_from_effects
 from app.localization.service import resolve_text_map
@@ -442,11 +443,26 @@ async def _pool_template(db: AsyncSession, drop: dict[str, Any], seed: int) -> I
     return options[Rng(seed).randint(0, len(options) - 1)]
 
 
+async def _owned_count(db: AsyncSession, character_id: int, template_code: str) -> int:
+    return int(
+        (
+            await db.execute(
+                select(func.coalesce(func.sum(ItemInstance.quantity), 0)).where(
+                    ItemInstance.owner_character_id == character_id,
+                    ItemInstance.template_code == template_code,
+                    ItemInstance.location != "destroyed",
+                )
+            )
+        ).scalar_one()
+    )
+
+
 async def grant_afk_loot(
     db: AsyncSession, character: Character, drops: list[dict[str, Any]], key: str
 ) -> list[dict[str, Any]]:
     """AFK LOOT_GRANTER: resolve drops to templates, apply the player's loot filter, place or sell."""
     cfg = await config(db)
+    loot_cfg = await get_published_balance(db, "loot", LootConfig)
     profile = await afk_profiles.get_profile(db, character)
     lf = rules.LootFilter.model_validate(
         {
@@ -483,6 +499,23 @@ async def grant_afk_loot(
                 for handler in SALVAGE_HANDLERS:
                     out += await handler(db, character, code, qty, f"{sub}:salvage")
                 continue
+            limit = loot_cfg.owned_limits.get(tpl.rarity)
+            if action == "keep" and limit is not None:
+                owned = await _owned_count(db, character.id, code)
+                if owned + qty > limit:
+                    excess = owned + qty - limit
+                    qty -= excess
+                    gold = tpl.vendor_value * excess
+                    if gold:
+                        await wallet.change_gold(
+                            db, character_id=character.id, delta=gold, reason="loot_owned_limit",
+                            idempotency_key=f"{sub}:limit", ref_type="item_template", ref_id=code,
+                        )  # fmt: skip
+                    out.append(
+                        {"template_code": code, "qty": excess, "placed": "sold", "gold": gold, "reason": "owned_limit"}
+                    )
+                    if qty <= 0:
+                        continue
             if action == "keep":
                 out += await add_item(
                     db,

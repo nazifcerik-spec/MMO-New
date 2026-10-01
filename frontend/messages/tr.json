@@ -807,7 +807,17 @@
     "vendorValue": "Satıcı değeri (bakır)",
     "warningsCount": "{n} uyarı",
     "weaponFamily": "Silah ailesi",
-    "yours": "seninki"
+    "yours": "seninki",
+    "catalogTitle": "Lansman kataloğu (1.520 eşya)",
+    "catalogDryRun": "Deneme çalıştır",
+    "catalogRunning": "Doğrulanıyor…",
+    "catalogHint": "Tüm lansman şablonlarını deterministik üretir ve yayın doğrulayıcılarını çalıştırır. Onaylayana kadar hiçbir şey yazılmaz.",
+    "catalogTotals": "{total}/{target} şablon · {errors} hata · {warnings} uyarı",
+    "catalogOutliers": "Stat bütçesi aykırıları: {n}",
+    "catalogCommitDrafts": "Eksikleri taslak olarak oluştur",
+    "catalogCommitPublish": "Oluştur ve yayınla",
+    "catalogPublishConfirm": "Eksik tüm katalog şablonları yayınlansın mı? Mevcut kodların üzerine asla yazılmaz.",
+    "catalogCommitted": "{created} oluşturuldu, {published} yayınlandı, {skipped} mevcut atlandı"
   },
   "inventory": {
     "open": "Envanter",

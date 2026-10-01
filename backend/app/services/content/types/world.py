@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.game_engine.combat.rules import RuleValidationError, validate_rules
 from app.game_engine.effects import EffectValidationError, validate_effects
+from app.game_engine.loot import LootConfig
 from app.game_engine.stats import DAMAGE_TYPES
 from app.game_engine.world import ENEMY_STATS, EnemyScaling, TierScaling, enemy_stats, sanity_issues
 from app.models.world import (
@@ -25,6 +26,7 @@ from app.services.content.registry import ContentType, Issue, register
 from app.services.content.types.balance import BALANCE_SCHEMAS, get_published_balance
 
 BALANCE_SCHEMAS["enemy_scaling"] = EnemyScaling
+BALANCE_SCHEMAS["loot"] = LootConfig
 CODE = r"^[a-z0-9_]+$"
 RARITIES = ("worn", "common", "fine", "rare", "epic", "legendary", "mythic", "relic")
 # Checkers for drop references into systems added later (items Phase 14, materials/currencies Phase 16/19):
@@ -75,6 +77,13 @@ class EnemyAbilityProfileData(_S):
     effects: list[dict[str, Any]] = Field(default_factory=list, max_length=8)
 
 
+class DropConditions(_S):
+    zone_codes: list[str] = Field(default_factory=list, max_length=32)
+    zone_tags: list[str] = Field(default_factory=list, max_length=16)
+    min_level: int = Field(default=1, ge=1, le=1000)
+    max_level: int = Field(default=1000, ge=1, le=1000)
+
+
 class DropEntry(_S):
     kind: Literal["gold", "item", "item_pool", "material", "currency", "nothing"]
     ref: str | None = Field(default=None, max_length=96, pattern=CODE)
@@ -87,6 +96,7 @@ class DropEntry(_S):
     max_qty: int = Field(default=1, ge=1, le=100_000)
     boss_only: bool = False
     rare: bool = False  # boosted by risk profile rare_bonus_percent
+    conditions: DropConditions | None = None
 
     @model_validator(mode="after")
     def _shape(self) -> "DropEntry":

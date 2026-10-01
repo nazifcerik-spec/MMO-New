@@ -8,10 +8,10 @@ from fastapi.responses import Response
 from pydantic import Field
 
 from app.api.deps import DbSession, require
-from app.core.errors import ValidationFailedError
+from app.core.errors import PermissionDeniedError, ValidationFailedError
 from app.game_engine.item_generator import GeneratorParams
 from app.schemas.common import ApiModel
-from app.services import item_studio
+from app.services import catalog, item_studio
 from app.services.auth import AuthContext
 
 router = APIRouter(prefix="/admin/items", tags=["admin-items"])
@@ -90,6 +90,25 @@ async def generator(body: GeneratorIn, db: DbSession, ctx: Editor) -> dict[str, 
     out = await item_studio.generator(
         db, body.params, commit=body.commit, confirm_non_dev=body.confirm_non_dev, actor_id=ctx.user_id
     )
+    await db.commit()
+    return out
+
+
+@router.get("/catalog")
+async def catalog_dry_run(db: DbSession, _: Editor) -> dict[str, Any]:
+    """Launch catalog dry-run: full 1,520-template generation through the real validators (nothing written)."""
+    return await catalog.dry_run(db)
+
+
+class CatalogIn(ApiModel):
+    publish: bool = False
+
+
+@router.post("/catalog")
+async def catalog_commit(body: CatalogIn, db: DbSession, ctx: Editor) -> dict[str, Any]:
+    if body.publish and not ctx.has("item.publish"):
+        raise PermissionDeniedError("Publishing the catalog requires item.publish")
+    out = await catalog.commit(db, publish=body.publish, actor_id=ctx.user_id)
     await db.commit()
     return out
 

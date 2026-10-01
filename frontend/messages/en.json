@@ -807,7 +807,17 @@
     "vendorValue": "Vendor value (copper)",
     "warningsCount": "{n} warnings",
     "weaponFamily": "Weapon family",
-    "yours": "yours"
+    "yours": "yours",
+    "catalogTitle": "Launch catalog (1,520 items)",
+    "catalogDryRun": "Run dry-run",
+    "catalogRunning": "Validating…",
+    "catalogHint": "Generates every launch template deterministically and runs the publish validators. Nothing is written until you commit.",
+    "catalogTotals": "{total}/{target} templates · {errors} errors · {warnings} warnings",
+    "catalogOutliers": "Stat budget outliers: {n}",
+    "catalogCommitDrafts": "Create missing as drafts",
+    "catalogCommitPublish": "Create & publish",
+    "catalogPublishConfirm": "Publish all missing catalog templates? Existing codes are never overwritten.",
+    "catalogCommitted": "Created {created}, published {published}, skipped {skipped} existing"
   },
   "inventory": {
     "open": "Inventory",

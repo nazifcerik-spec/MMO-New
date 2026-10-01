@@ -1,0 +1,14 @@
+code: loot
+data:
+  # LUK -> rare-chance bonus with diminishing returns: bonus = max * LUK / (LUK + half_point). Small by design.
+  luck: {max_rare_bonus_pct: 15, half_point: 600, max_quantity_bonus_pct: 5}
+  # Rarity roll for item_pool drops without a fixed rarity (weights before luck/risk shift).
+  rarity_weights: {common: 6000, fine: 2800, rare: 900, epic: 240, legendary: 50, mythic: 9, relic: 1}
+  rare_threshold: rare            # rarity at or above which a drop counts as "rare" (pity, rare bonus)
+  # Pity is a separate mechanic: after N qualifying fights without a rare drop the next table roll is rare.
+  pity:
+    enabled: true
+    threshold_fights: 150
+    show_progress_for: [afk, boss]   # content kinds that show user-visible pity progress
+  # Per-character ownership limits by rarity (excess drops are auto-sold, never duplicated).
+  owned_limits: {relic: 1, mythic: 3}

@@ -214,7 +214,28 @@ export interface GeneratorResult {
 const C = "/admin/content/item_template";
 const I = "/admin/items";
 
+export interface CatalogSummary {
+  targets: Record<string, number>;
+  target_total: number;
+  matches_targets: boolean;
+  errors: number;
+  warnings: number;
+  issue_codes: Record<string, number>;
+  distribution: {
+    total: number;
+    by_category: Record<string, number>;
+    by_rarity: Record<string, number>;
+    by_class_tag: Record<string, number>;
+    duplicate_codes: number;
+    duplicate_names: Record<string, number>;
+  };
+  outliers: { code: string; category: string; family: string; tier: number; ratio: number }[];
+}
+
 export const adminItemsApi = {
+  catalogDryRun: () => apiFetch<CatalogSummary>(`${I}/catalog`),
+  catalogCommit: (publish: boolean) =>
+    apiFetch<{ created: number; published: number; skipped_existing: number }>(`${I}/catalog`, { method: "POST", body: { publish } }),
   list: (f: Filters, offset: number, limit = 100) =>
     apiFetch<{ items: ItemRow[]; total: number; offset: number; limit: number }>(I, { query: { ...f, offset, limit } }),
   meta: () => apiFetch<Meta>(`${I}/meta`),

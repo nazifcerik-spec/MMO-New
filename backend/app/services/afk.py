@@ -13,6 +13,7 @@ from app.core.errors import ConflictError, NotFoundError, ValidationFailedError
 from app.db.redis import get_redis
 from app.game_engine import afk as engine
 from app.game_engine import progression as prog
+from app.game_engine.loot import LootConfig, pity_visible
 from app.models.afk import AfkDailyUsage, AfkSession, CharacterAfkStats
 from app.models.character import Character
 from app.services import afk_profiles, audit, classes, combat_snapshot, progression, wallet, world
@@ -204,6 +205,7 @@ async def start(
         rested_bonus_pct=rested,
         potions_reserved=potions,
         pity_start=stats.pity_counter,
+        loot=await get_published_balance(db, "loot", LootConfig),
         profession_task=task,
         segments=engine.efficiency_segments(cfg, started, duration_s, prior),
         planned_seconds=duration_s,
@@ -275,7 +277,11 @@ async def resolve(session: AfkSession, now: datetime) -> None:
 
 
 def signals(
-    result: dict[str, Any], before: dict[str, Any], after: dict[str, Any], cfg: engine.AfkBalance
+    result: dict[str, Any],
+    before: dict[str, Any],
+    after: dict[str, Any],
+    cfg: engine.AfkBalance,
+    loot: LootConfig | None = None,
 ) -> list[dict[str, Any]]:
     """3-Hour Satisfaction Rule: every finished session reports at least one visible progress signal."""
     out: list[dict[str, Any]] = []
@@ -290,7 +296,12 @@ def signals(
         out.append({"kind": "rare_drops", "count": sum(d["qty"] for d in rare)})
     if result["gold"] > 0:
         out.append({"kind": "gold", "amount": result["gold"]})
-    out.append({"kind": "pity_progress", "percent": round(100 * result["pity_end"] / cfg.pity_threshold_fights, 1)})
+    if loot is None:
+        out.append({"kind": "pity_progress", "percent": round(100 * result["pity_end"] / cfg.pity_threshold_fights, 1)})
+    elif pity_visible(loot, "afk"):
+        out.append(
+            {"kind": "pity_progress", "percent": round(100 * result["pity_end"] / loot.pity.threshold_fights, 1)}
+        )
     return out
 
 
@@ -397,7 +408,13 @@ async def _claim_locked(
         "loot_granted": granted,
         "loot_pending": [] if LOOT_GRANTERS else result["drops"],
         "profession": profession,
-        "signals": signals(result, before, xp, cfg),
+        "signals": signals(
+            result,
+            before,
+            xp,
+            cfg,
+            LootConfig.model_validate(session.snapshot["loot"]) if session.snapshot.get("loot") else None,
+        ),
     }
     session.status = "claimed"
     session.claimed_at = now

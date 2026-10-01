@@ -807,7 +807,17 @@
     "vendorValue": "商店价值（铜）",
     "warningsCount": "{n} 个警告",
     "weaponFamily": "武器类型",
-    "yours": "你的"
+    "yours": "你的",
+    "catalogTitle": "上线物品目录（1,520 件）",
+    "catalogDryRun": "试运行",
+    "catalogRunning": "校验中…",
+    "catalogHint": "确定性生成全部上线模板并运行发布校验。提交前不会写入任何内容。",
+    "catalogTotals": "{total}/{target} 个模板 · {errors} 个错误 · {warnings} 个警告",
+    "catalogOutliers": "属性预算异常：{n}",
+    "catalogCommitDrafts": "将缺失项创建为草稿",
+    "catalogCommitPublish": "创建并发布",
+    "catalogPublishConfirm": "发布所有缺失的目录模板？已存在的代码不会被覆盖。",
+    "catalogCommitted": "已创建 {created}，已发布 {published}，跳过已存在 {skipped}"
   },
   "inventory": {
     "open": "背包",
