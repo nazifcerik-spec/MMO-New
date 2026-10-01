@@ -10,6 +10,7 @@ import { inventoryApi, type ItemView } from "@/lib/api/inventory";
 
 import { EnchantActions } from "./enchant-actions";
 import { ItemTooltip, RARITY_TEXT, useUnmetText } from "./item-tooltip";
+import { RepairPanel, TradeActions } from "./trade-actions";
 
 export function InventoryScreen({ characterId }: { characterId: number }) {
   const t = useTranslations("inventory");
@@ -165,6 +166,7 @@ export function InventoryScreen({ characterId }: { characterId: number }) {
             </button>
           ) : null}
           <p className="text-xs text-muted">{t("overflowPolicy")}</p>
+          <RepairPanel characterId={characterId} />
         </div>
       </section>
 
@@ -196,6 +198,7 @@ export function InventoryScreen({ characterId }: { characterId: number }) {
               </button>
             ) : null}
             <EnchantActions characterId={characterId} item={selected} onDone={() => setSelected(null)} />
+            <TradeActions characterId={characterId} item={selected} onDone={() => setSelected(null)} />
           </>
         ) : (
           <p className="text-sm text-muted">{t("pick")}</p>

@@ -1,7 +1,18 @@
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import BigInteger, CheckConstraint, ForeignKey, Index, Integer, String, UniqueConstraint, func
+from sqlalchemy import (
+    BigInteger,
+    CheckConstraint,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    UniqueConstraint,
+    func,
+    text,
+)
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -92,3 +103,45 @@ class EconomyLedger(Base):
     idempotency_key: Mapped[str] = mapped_column(String(128), nullable=False)
     correlation_id: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+
+
+class MarketListing(Base):
+    """Buyout market listing. The item is escrowed (location='market'); purchase is atomic and idempotent."""
+
+    __tablename__ = "market_listings"
+    __table_args__ = (
+        CheckConstraint("status IN ('active','sold','cancelled','expired')", name="status_valid"),
+        CheckConstraint("unit_price >= 1 AND total_price >= unit_price AND quantity >= 1", name="price_valid"),
+        UniqueConstraint("seller_character_id", "listing_key"),
+        UniqueConstraint("buyer_character_id", "purchase_key"),
+        Index("ix_market_listings_active", "status", "template_code", "unit_price"),
+        Index("ix_market_listings_expiry", "status", "expires_at"),
+        Index(
+            "uq_market_listings_active_instance", "instance_id", unique=True, postgresql_where=text("status = 'active'")
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    seller_character_id: Mapped[int] = mapped_column(
+        ForeignKey("characters.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    instance_id: Mapped[int] = mapped_column(ForeignKey("item_instances.id", ondelete="RESTRICT"), nullable=False)
+    template_code: Mapped[str] = mapped_column(String(96), nullable=False)
+    category: Mapped[str] = mapped_column(String(32), nullable=False)
+    tier: Mapped[int] = mapped_column(Integer, nullable=False)
+    rarity: Mapped[str] = mapped_column(String(16), nullable=False)
+    quantity: Mapped[int] = mapped_column(Integer, nullable=False)
+    unit_price: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    total_price: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    tax_pct: Mapped[float] = mapped_column(Float, nullable=False)
+    fee_paid: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0)
+    status: Mapped[str] = mapped_column(String(16), nullable=False, default="active")
+    listing_key: Mapped[str] = mapped_column(String(128), nullable=False)
+    buyer_character_id: Mapped[int | None] = mapped_column(ForeignKey("characters.id", ondelete="SET NULL"))
+    purchase_key: Mapped[str | None] = mapped_column(String(128))
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(nullable=False)
+    closed_at: Mapped[datetime | None] = mapped_column()
+    version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+
+    __mapper_args__ = {"version_id_col": version}

@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.game_engine.economy import EconomyConfig
 from app.game_engine.effects import EffectValidationError, validate_effects
 from app.game_engine.inventory import InventoryConfig
 from app.game_engine.item_generator import ItemStudioConfig
@@ -29,6 +30,7 @@ from app.services.content.types.balance import BALANCE_SCHEMAS, get_published_ba
 BALANCE_SCHEMAS["item_rules"] = ItemRules
 BALANCE_SCHEMAS["item_studio"] = ItemStudioConfig
 BALANCE_SCHEMAS["inventory"] = InventoryConfig
+BALANCE_SCHEMAS["economy"] = EconomyConfig
 CODE = r"^[a-z0-9_]+$"
 CLASS_TAGS = ("vanguard", "slayer", "shadow", "hunter", "arcane", "faith", "harmony", "primal", "spirit")
 Rarity = Literal["worn", "common", "fine", "rare", "epic", "legendary", "mythic", "relic"]

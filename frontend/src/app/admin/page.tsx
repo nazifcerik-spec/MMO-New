@@ -19,6 +19,11 @@ export default async function AdminPage() {
           {t("itemStudio.title")}
         </Link>
       ) : null}
+      {me?.permissions.includes("economy.view") || me?.permissions.includes("*") ? (
+        <Link href="/admin/economy" className="ml-3 underline" data-testid="open-economy">
+          {t("economyAdmin.title")}
+        </Link>
+      ) : null}
     </section>
   );
 }

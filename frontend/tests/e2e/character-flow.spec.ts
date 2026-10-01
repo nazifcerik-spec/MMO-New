@@ -256,3 +256,45 @@ test("crafting: staff-granted ore is reserved into a queued craft job", async ({
   await expect(page.getByTestId("craft-queue")).toContainText("smelt_iron_ingot ×1");
   await expect(row).toContainText("Copper Ore 3/3");
 });
+
+test("market: list a staff-granted item, see it in My listings and cancel (escrow returns it)", async ({ page, baseURL }) => {
+  const admin = await adminApi(baseURL!);
+  test.skip(!admin, "staff credentials not provided");
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `Mkt${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await expect(page).toHaveURL(/\/game\/characters\/\d+$/);
+  const characterId = Number(page.url().split("/").pop());
+  for (const [code, qty] of [["iron_ingot", 3]] as const) {
+    const grant = await admin!.ctx.post(`/api/v1/admin/characters/${characterId}/items`, {
+      data: { template_code: code, quantity: qty, reason: "e2e" },
+      headers: { "X-CSRF-Token": admin!.csrf, "Idempotency-Key": crypto.randomUUID() },
+    });
+    expect(grant.ok(), await grant.text()).toBeTruthy();
+  }
+  const gold = await admin!.ctx.post(`/api/v1/admin/characters/${characterId}/gold`, {
+    data: { amount: 100, reason: "e2e" },
+    headers: { "X-CSRF-Token": admin!.csrf, "Idempotency-Key": crypto.randomUUID() },
+  });
+  expect(gold.ok(), await gold.text()).toBeTruthy();
+  await page.getByTestId("open-inventory").click();
+  await page.getByTestId("bag-item-iron_ingot").click();
+  await page.getByTestId("list-item").click();
+  await page.goto(`/game/characters/${characterId}/market`);
+  await page.getByTestId("tab-mine").click();
+  const row = page.locator('[data-testid^="listing-"]').first();
+  await expect(row).toContainText("Iron Ingot");
+  await row.locator('[data-testid^="cancel-"]').click();
+  await expect(row).toContainText("Cancelled");
+});

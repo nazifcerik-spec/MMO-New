@@ -967,5 +967,75 @@
     "imbueConfirm": "Apply this imbue? It replaces any existing imbue.",
     "salvage": "Salvage",
     "salvageConfirm": "Salvage {name} into materials? This cannot be undone."
+  },
+  "market": {
+    "title": "Market & Vendor",
+    "open": "Market",
+    "tab": {
+      "browse": "Browse",
+      "mine": "My listings",
+      "vendor": "Vendor"
+    },
+    "price": "{unit} each · {total} total",
+    "expires": "expires {at}",
+    "status": {
+      "active": "Active",
+      "sold": "Sold",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    },
+    "tier": "Tier",
+    "any": "Any",
+    "maxPrice": "Max unit price",
+    "taxNote": "Sales tax {tax}% · listing fee {fee}%",
+    "yours": "Your listing",
+    "buy": "Buy",
+    "buyConfirm": "Buy {name} for {total} gold?",
+    "bought": "Purchased for {total} gold",
+    "empty": "No listings match.",
+    "next": "Next page",
+    "listHint": "List items from your inventory. Listed items are held in escrow until sold, cancelled or expired.",
+    "cancel": "Cancel",
+    "noListings": "You have no listings.",
+    "vendorBought": "Bought for {gold} gold",
+    "each": "{gold} gold each",
+    "quantity": "Quantity",
+    "soldToVendor": "Sold for {gold} gold",
+    "listed": "Listed (fee {fee} gold)",
+    "sellConfirm": "Sell {name} to the vendor?",
+    "sellToVendor": "Sell to vendor",
+    "unitPrice": "Unit price",
+    "duration": "Duration",
+    "hours": "{h} h",
+    "listOnMarket": "List on market",
+    "notTradeable": "Bound or not tradeable",
+    "repaired": "Repaired for {gold} gold",
+    "repairQuote": "{n} damaged items · repair {gold} gold",
+    "repairAll": "Repair all"
+  },
+  "economyAdmin": {
+    "title": "Economy dashboard",
+    "window": "Window",
+    "days": "{d} days",
+    "gold": {
+      "sources": "Gold created",
+      "sinks": "Gold removed",
+      "transfers": "Player transfers",
+      "net_created": "Net change"
+    },
+    "byReason": "Gold flows by reason",
+    "reason": "Reason",
+    "kind": "Kind",
+    "entries": "Entries",
+    "in": "In",
+    "out": "Out",
+    "kindName": {
+      "source": "Source",
+      "sink": "Sink",
+      "transfer": "Transfer"
+    },
+    "items": "Item events",
+    "market": "Market",
+    "marketLine": "{sales} sales · volume {volume} · tax {tax} · {active} active listings"
   }
 }

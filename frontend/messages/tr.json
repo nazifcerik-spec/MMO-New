@@ -967,5 +967,75 @@
     "imbueConfirm": "Bu aşılama uygulansın mı? Mevcut aşılamanın yerini alır.",
     "salvage": "Parçala",
     "salvageConfirm": "{name} malzemeye ayrılsın mı? Geri alınamaz."
+  },
+  "market": {
+    "title": "Pazar ve Satıcı",
+    "open": "Pazar",
+    "tab": {
+      "browse": "Göz at",
+      "mine": "İlanlarım",
+      "vendor": "Satıcı"
+    },
+    "price": "Adet {unit} · toplam {total}",
+    "expires": "bitiş {at}",
+    "status": {
+      "active": "Aktif",
+      "sold": "Satıldı",
+      "cancelled": "İptal",
+      "expired": "Süresi doldu"
+    },
+    "tier": "Kademe",
+    "any": "Hepsi",
+    "maxPrice": "En yüksek birim fiyat",
+    "taxNote": "Satış vergisi %{tax} · ilan ücreti %{fee}",
+    "yours": "Senin ilanın",
+    "buy": "Satın al",
+    "buyConfirm": "{name} {total} altına satın alınsın mı?",
+    "bought": "{total} altına satın alındı",
+    "empty": "Eşleşen ilan yok.",
+    "next": "Sonraki sayfa",
+    "listHint": "Envanterinden eşya listele. İlandaki eşyalar satılana, iptal edilene veya süresi dolana kadar emanette tutulur.",
+    "cancel": "İptal",
+    "noListings": "İlanın yok.",
+    "vendorBought": "{gold} altına alındı",
+    "each": "Adet {gold} altın",
+    "quantity": "Adet",
+    "soldToVendor": "{gold} altına satıldı",
+    "listed": "İlana kondu (ücret {fee} altın)",
+    "sellConfirm": "{name} satıcıya satılsın mı?",
+    "sellToVendor": "Satıcıya sat",
+    "unitPrice": "Birim fiyat",
+    "duration": "Süre",
+    "hours": "{h} sa",
+    "listOnMarket": "Pazara koy",
+    "notTradeable": "Bağlı ya da takas edilemez",
+    "repaired": "{gold} altına tamir edildi",
+    "repairQuote": "{n} hasarlı eşya · tamir {gold} altın",
+    "repairAll": "Hepsini tamir et"
+  },
+  "economyAdmin": {
+    "title": "Ekonomi paneli",
+    "window": "Aralık",
+    "days": "{d} gün",
+    "gold": {
+      "sources": "Üretilen altın",
+      "sinks": "Yok edilen altın",
+      "transfers": "Oyuncu transferleri",
+      "net_created": "Net değişim"
+    },
+    "byReason": "Nedene göre altın akışı",
+    "reason": "Neden",
+    "kind": "Tür",
+    "entries": "Kayıt",
+    "in": "Giriş",
+    "out": "Çıkış",
+    "kindName": {
+      "source": "Kaynak",
+      "sink": "Tüketim",
+      "transfer": "Transfer"
+    },
+    "items": "Eşya olayları",
+    "market": "Pazar",
+    "marketLine": "{sales} satış · hacim {volume} · vergi {tax} · {active} aktif ilan"
   }
 }

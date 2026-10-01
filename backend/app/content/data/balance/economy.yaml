@@ -1,0 +1,27 @@
+code: economy
+data:
+  # Static (non-dynamic) vendor pricing in integer gold, derived from template vendor_value.
+  vendor:
+    buy_price_pct: 400              # player buys vendor stock at 4x vendor value
+    sell_price_pct: 25              # player sells to vendor at 25% of vendor value
+    stock_max_rarity: fine          # vendors only stock published `vendor`-sourced templates up to this rarity
+    max_quantity: 999
+  repair:
+    gold_per_point_base: 1          # per missing durability point
+    gold_per_point_per_tier: 2
+    quality_multiplier: {common: 1.0, fine: 1.1, superior: 1.2, masterwork: 1.35, mythic_crafted: 1.5}
+  market:
+    tax_pct: 5                      # gold sink taken from the seller's proceeds on sale
+    listing_fee_pct: 1              # non-refundable deposit at listing time (sink), min 1 gold
+    durations_h: [12, 24, 48, 72]
+    max_active_listings: 20
+    min_unit_price: 1
+    max_total_price: 1000000000000  # 1e12 hard cap (overflow guard)
+    page_size: 50
+  # Ledger reason -> flow classification for the admin economy dashboard.
+  flows:
+    sources: [afk_reward, quest_reward, loot_filter_sell, overflow_autosell, loot_owned_limit, vendor_sell,
+              market_sale, market_refund, admin_grant]
+    sinks: [repair, respec, talent_reset, class_path_change, license_swap, profession_respec, enchant_reroll,
+            enchant_imbue, crafting_quality, vendor_buy, market_tax, market_fee, cosmetic, prestige]
+    transfers: [market_purchase, market_proceeds, trade]

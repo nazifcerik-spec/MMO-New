@@ -967,5 +967,75 @@
     "imbueConfirm": "¿Aplicar esta imbuición? Reemplaza la existente.",
     "salvage": "Desguazar",
     "salvageConfirm": "¿Desguazar {name} en materiales? No se puede deshacer."
+  },
+  "market": {
+    "title": "Mercado y vendedor",
+    "open": "Mercado",
+    "tab": {
+      "browse": "Explorar",
+      "mine": "Mis anuncios",
+      "vendor": "Vendedor"
+    },
+    "price": "{unit} c/u · {total} total",
+    "expires": "expira {at}",
+    "status": {
+      "active": "Activo",
+      "sold": "Vendido",
+      "cancelled": "Cancelado",
+      "expired": "Expirado"
+    },
+    "tier": "Nivel",
+    "any": "Cualquiera",
+    "maxPrice": "Precio unitario máx.",
+    "taxNote": "Impuesto {tax}% · tarifa de anuncio {fee}%",
+    "yours": "Tu anuncio",
+    "buy": "Comprar",
+    "buyConfirm": "¿Comprar {name} por {total} de oro?",
+    "bought": "Comprado por {total} de oro",
+    "empty": "No hay anuncios.",
+    "next": "Página siguiente",
+    "listHint": "Publica objetos desde tu inventario. Quedan en depósito hasta venderse, cancelarse o expirar.",
+    "cancel": "Cancelar",
+    "noListings": "No tienes anuncios.",
+    "vendorBought": "Comprado por {gold} de oro",
+    "each": "{gold} de oro c/u",
+    "quantity": "Cantidad",
+    "soldToVendor": "Vendido por {gold} de oro",
+    "listed": "Publicado (tarifa {fee} de oro)",
+    "sellConfirm": "¿Vender {name} al vendedor?",
+    "sellToVendor": "Vender al vendedor",
+    "unitPrice": "Precio unitario",
+    "duration": "Duración",
+    "hours": "{h} h",
+    "listOnMarket": "Publicar en mercado",
+    "notTradeable": "Ligado o no comerciable",
+    "repaired": "Reparado por {gold} de oro",
+    "repairQuote": "{n} objetos dañados · reparar {gold} de oro",
+    "repairAll": "Reparar todo"
+  },
+  "economyAdmin": {
+    "title": "Panel de economía",
+    "window": "Periodo",
+    "days": "{d} días",
+    "gold": {
+      "sources": "Oro creado",
+      "sinks": "Oro retirado",
+      "transfers": "Transferencias",
+      "net_created": "Cambio neto"
+    },
+    "byReason": "Flujos de oro por motivo",
+    "reason": "Motivo",
+    "kind": "Tipo",
+    "entries": "Entradas",
+    "in": "Entrada",
+    "out": "Salida",
+    "kindName": {
+      "source": "Fuente",
+      "sink": "Sumidero",
+      "transfer": "Transferencia"
+    },
+    "items": "Eventos de objetos",
+    "market": "Mercado",
+    "marketLine": "{sales} ventas · volumen {volume} · impuesto {tax} · {active} anuncios activos"
   }
 }

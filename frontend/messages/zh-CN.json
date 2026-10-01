@@ -967,5 +967,75 @@
     "imbueConfirm": "应用此附魔？将替换现有附魔。",
     "salvage": "分解",
     "salvageConfirm": "将 {name} 分解为材料？此操作不可撤销。"
+  },
+  "market": {
+    "title": "市场与商人",
+    "open": "市场",
+    "tab": {
+      "browse": "浏览",
+      "mine": "我的挂单",
+      "vendor": "商人"
+    },
+    "price": "单价 {unit} · 总价 {total}",
+    "expires": "{at} 到期",
+    "status": {
+      "active": "在售",
+      "sold": "已售出",
+      "cancelled": "已取消",
+      "expired": "已过期"
+    },
+    "tier": "阶级",
+    "any": "全部",
+    "maxPrice": "最高单价",
+    "taxNote": "交易税 {tax}% · 挂单费 {fee}%",
+    "yours": "你的挂单",
+    "buy": "购买",
+    "buyConfirm": "以 {total} 金币购买 {name}？",
+    "bought": "已花费 {total} 金币购买",
+    "empty": "没有匹配的挂单。",
+    "next": "下一页",
+    "listHint": "从背包挂单出售物品。挂单物品在售出、取消或过期前由系统托管。",
+    "cancel": "取消",
+    "noListings": "你没有挂单。",
+    "vendorBought": "已花费 {gold} 金币",
+    "each": "每件 {gold} 金币",
+    "quantity": "数量",
+    "soldToVendor": "已卖出，获得 {gold} 金币",
+    "listed": "已挂单（手续费 {fee} 金币）",
+    "sellConfirm": "将 {name} 卖给商人？",
+    "sellToVendor": "卖给商人",
+    "unitPrice": "单价",
+    "duration": "时长",
+    "hours": "{h} 小时",
+    "listOnMarket": "挂单出售",
+    "notTradeable": "已绑定或不可交易",
+    "repaired": "已花费 {gold} 金币修理",
+    "repairQuote": "{n} 件受损物品 · 修理需 {gold} 金币",
+    "repairAll": "全部修理"
+  },
+  "economyAdmin": {
+    "title": "经济面板",
+    "window": "时间范围",
+    "days": "{d} 天",
+    "gold": {
+      "sources": "金币产出",
+      "sinks": "金币回收",
+      "transfers": "玩家间转移",
+      "net_created": "净变化"
+    },
+    "byReason": "按来源分类的金币流动",
+    "reason": "原因",
+    "kind": "类型",
+    "entries": "条目",
+    "in": "流入",
+    "out": "流出",
+    "kindName": {
+      "source": "产出",
+      "sink": "回收",
+      "transfer": "转移"
+    },
+    "items": "物品事件",
+    "market": "市场",
+    "marketLine": "{sales} 笔成交 · 成交额 {volume} · 税 {tax} · {active} 个在售"
   }
 }
