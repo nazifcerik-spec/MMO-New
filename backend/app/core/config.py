@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     max_characters_per_account: int = 8
     # Seed the 1,520-template launch catalog (canonical content). Tests disable it for speed and cover it directly.
     seed_launch_catalog: bool = True
+    # Four-eyes review before publishing content via the admin API (recommended on in production).
+    content_review_required: bool = False
 
     @property
     def is_prod(self) -> bool:

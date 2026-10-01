@@ -13,7 +13,7 @@ from app.game_engine.effects import registry_schema
 from app.models.content import ContentRelease
 from app.schemas.common import ApiModel
 from app.services.auth import AuthContext
-from app.services.content import service
+from app.services.content import references, service, workflow
 from app.services.content.registry import CONTENT_TYPES, ContentType, get_type
 
 router = APIRouter(prefix="/admin/content", tags=["admin:content"])
@@ -52,6 +52,11 @@ class PublishIn(ApiModel):
 
 class StatusIn(ApiModel):
     status: str = Field(pattern="^(published|disabled|archived)$")
+    acknowledge_references: bool = False
+
+
+class ReviewIn(ApiModel):
+    note: str | None = Field(default=None, max_length=500)
 
 
 class RollbackIn(ApiModel):
@@ -73,6 +78,89 @@ async def list_types(ctx: Auth) -> list[dict[str, Any]]:
     ]
 
 
+MODULES: dict[str, tuple[str, ...]] = {
+    "races": ("race",),
+    "classes": ("base_class", "class_branch", "specialization", "class_resource", "weapon_family", "armor_family"),
+    "skills": ("ability", "passive_profile", "awakening", "mastery"),
+    "talents": ("talent_tree", "talent_node"),
+    "professions": ("profession", "profession_specialization", "gathering_node"),
+    "world": ("zone_tier", "zone", "enemy", "boss", "encounter", "enemy_ability_profile"),
+    "drops": ("drop_table",),
+    "crafting": ("recipe", "imbue"),
+    "quests": ("quest",),
+    "achievements": ("achievement",),
+    "items": ("item_template", "affix", "item_set"),
+    "balance": ("balance_config",),
+}
+
+
+@router.get("/modules")
+async def modules(ctx: Auth, db: DbSession) -> list[dict[str, Any]]:
+    """Content Studio home: modules → types with per-status counts and pending drafts."""
+    _read(ctx)
+    from sqlalchemy import func
+
+    from app.models.content import ContentDraft
+
+    drafts = dict(
+        (await db.execute(select(ContentDraft.entity_type, func.count()).group_by(ContentDraft.entity_type))).all()
+    )
+    out = []
+    for module, types in MODULES.items():
+        entries = []
+        for t in types:
+            ct = CONTENT_TYPES.get(t)
+            if ct is None:
+                continue
+            counts: dict[str, int] = dict(
+                (
+                    await db.execute(
+                        select(ct.model.status, func.count())
+                        .where(ct.model.deleted_at.is_(None))
+                        .group_by(ct.model.status)
+                    )
+                ).all()
+            )
+            entries.append(
+                {
+                    "entity_type": t,
+                    "counts": counts,
+                    "pending_drafts": int(drafts.get(t, 0)),
+                    "can_edit": ctx.has(ct.edit_permission),
+                    "can_publish": ctx.has(ct.publish_permission),
+                }
+            )
+        out.append({"module": module, "types": entries})
+    return out
+
+
+@router.get("/pending")
+async def pending(ctx: Auth, db: DbSession, limit: Annotated[int, Query(ge=1, le=500)] = 200) -> list[dict[str, Any]]:
+    """Unpublished work across all types (drafts of published entities + never-published entities) for bundles."""
+    _read(ctx)
+    from app.models.content import ContentDraft
+
+    out: list[dict[str, Any]] = []
+    drafts = list(
+        (await db.execute(select(ContentDraft).order_by(ContentDraft.updated_at.desc()).limit(limit))).scalars()
+    )
+    for ct in CONTENT_TYPES.values():
+        ids = [d.entity_id for d in drafts if d.entity_type == ct.entity_type]
+        rows = (
+            await db.execute(
+                select(ct.model.code, ct.model.status, ct.model.revision_no, ct.model.updated_at)
+                .where(ct.model.deleted_at.is_(None), (ct.model.revision_no == 0) | ct.model.id.in_(ids))
+                .limit(limit)
+            )
+        ).all()
+        out += [
+            {"entity_type": ct.entity_type, "code": c, "status": st, "new": rev == 0, "updated_at": up}
+            for c, st, rev, up in rows
+        ]
+    out.sort(key=lambda r: r["updated_at"], reverse=True)
+    return out[:limit]
+
+
 @router.get("/effects/registry")
 async def effect_registry(ctx: Auth) -> list[dict[str, Any]]:
     _read(ctx)
@@ -86,6 +174,7 @@ async def publish(body: PublishIn, ctx: Auth, db: DbSession) -> dict[str, Any]:
         ct = get_type(it.entity_type)
         _need(ctx, ct.publish_permission)
         items.append((ct, it.code))
+    await workflow.check_publishable(db, items)
     release = await service.publish(
         db,
         items,
@@ -190,6 +279,7 @@ async def discard(entity_type: str, code: str, ctx: Auth, db: DbSession) -> None
 async def delete_unpublished(entity_type: str, code: str, ctx: Auth, db: DbSession) -> None:
     ct = get_type(entity_type)
     _need(ctx, ct.edit_permission)
+    await workflow.guard_references(db, ct, code, acknowledged=False)  # referenced content is never hard-deleted
     await service.delete_unpublished(db, ct, code=code, actor_id=ctx.user_id)
     await db.commit()
 
@@ -208,9 +298,57 @@ async def validate_entity(entity_type: str, code: str, ctx: Auth, db: DbSession)
 async def change_status(entity_type: str, code: str, body: StatusIn, ctx: Auth, db: DbSession) -> dict[str, Any]:
     ct = get_type(entity_type)
     _need(ctx, ct.publish_permission)
+    if body.status != "published":
+        await workflow.guard_references(db, ct, code, acknowledged=body.acknowledge_references)
     row = await service.set_status(db, ct, code=code, status=body.status, actor_id=ctx.user_id)
     await db.commit()
     return {"code": row.code, "status": row.status, "revision_no": row.revision_no}
+
+
+@router.get("/{entity_type}/{code}/references")
+async def entity_references(entity_type: str, code: str, ctx: Auth, db: DbSession) -> dict[str, Any]:
+    """Dependency graph around one entity: who references it (incoming) and what it references (outgoing)."""
+    _read(ctx)
+    ct = get_type(entity_type)
+    row = await service.get_row(db, ct, code)
+    view = await service.working_view(db, ct, row)
+    return {
+        **await references.incoming(db, ct.entity_type, code),
+        "outgoing": await references.outgoing(db, view["data"]),
+    }
+
+
+@router.get("/{entity_type}/{code}/workflow")
+async def workflow_state(entity_type: str, code: str, ctx: Auth, db: DbSession) -> dict[str, Any]:
+    _read(ctx)
+    return await workflow.review_state(db, get_type(entity_type), code)
+
+
+@router.post("/{entity_type}/{code}/review/request")
+async def review_request(entity_type: str, code: str, ctx: Auth, db: DbSession) -> dict[str, Any]:
+    ct = get_type(entity_type)
+    _need(ctx, ct.edit_permission)
+    out = await workflow.request_review(db, ct, code, actor_id=ctx.user_id)
+    await db.commit()
+    return out
+
+
+@router.post("/{entity_type}/{code}/review/approve")
+async def review_approve(entity_type: str, code: str, body: ReviewIn, ctx: Auth, db: DbSession) -> dict[str, Any]:
+    ct = get_type(entity_type)
+    _need(ctx, ct.publish_permission)
+    out = await workflow.decide(db, ct, code, actor_id=ctx.user_id, approve=True, note=body.note)
+    await db.commit()
+    return out
+
+
+@router.post("/{entity_type}/{code}/review/reject")
+async def review_reject(entity_type: str, code: str, body: ReviewIn, ctx: Auth, db: DbSession) -> dict[str, Any]:
+    ct = get_type(entity_type)
+    _need(ctx, ct.publish_permission)
+    out = await workflow.decide(db, ct, code, actor_id=ctx.user_id, approve=False, note=body.note)
+    await db.commit()
+    return out
 
 
 @router.get("/{entity_type}/{code}/history")

@@ -19,6 +19,16 @@ export default async function AdminPage() {
           {t("itemStudio.title")}
         </Link>
       ) : null}
+      {me?.permissions.includes("content.read_drafts") ? (
+        <Link href="/admin/content" className="ml-3 underline" data-testid="open-content-studio">
+          {t("contentStudio.title")}
+        </Link>
+      ) : null}
+      {me?.permissions.includes("localization.edit") ? (
+        <Link href="/admin/localization" className="ml-3 underline" data-testid="open-localization">
+          {t("contentStudio.localization")}
+        </Link>
+      ) : null}
       {me?.permissions.includes("economy.view") || me?.permissions.includes("*") ? (
         <Link href="/admin/economy" className="ml-3 underline" data-testid="open-economy">
           {t("economyAdmin.title")}

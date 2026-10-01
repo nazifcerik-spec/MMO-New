@@ -105,3 +105,26 @@ class BalanceConfig(Base, ContentMixin):
     __table_args__ = (ContentMixin.status_check(),)
 
     data: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+
+
+class ContentReview(Base):
+    """Review step of the publish workflow (Draft → Validation → Review → Published → Archived). A review is
+    bound to one edit_version: any later edit makes it stale, so approvals always cover the exact data."""
+
+    __tablename__ = "content_reviews"
+    __table_args__ = (
+        CheckConstraint("status IN ('requested','approved','changes_requested')", name="status_valid"),
+        UniqueConstraint("entity_type", "entity_id", "base_revision_no", "edit_version"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    entity_type: Mapped[str] = mapped_column(String(48), nullable=False)
+    entity_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    base_revision_no: Mapped[int] = mapped_column(Integer, nullable=False)
+    edit_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    status: Mapped[str] = mapped_column(String(24), nullable=False, default="requested")
+    requested_by: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    reviewed_by: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    note: Mapped[str | None] = mapped_column(String(500))
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    reviewed_at: Mapped[datetime | None] = mapped_column()
