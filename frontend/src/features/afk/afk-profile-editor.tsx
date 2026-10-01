@@ -8,6 +8,8 @@ import { afkApi, pct, type AfkProfile, type LootFilter, type ProfileUpdate } fro
 import { ApiError } from "@/lib/api/client";
 import { useErrorMessage } from "@/lib/api/errors";
 
+import { CombatLog } from "@/features/combat/combat-log";
+
 import { TacticsEditor } from "./tactics-editor";
 
 type Draft = Omit<ProfileUpdate, "expected_version">;
@@ -323,6 +325,7 @@ export function AfkProfileEditor({ characterId }: { characterId: number }) {
               ))}
               <li className="list-none text-muted">{t("fallback", { n: r.fallback_basic_attacks })}</li>
             </ol>
+            {r.sample_log ? <CombatLog log={r.sample_log} /> : null}
           </div>
         ) : null}
       </section>

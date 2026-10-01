@@ -32,6 +32,11 @@ export interface RequestOptions extends Omit<RequestInit, "body"> {
 
 export async function apiFetch<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { body, idempotencyKey, query, headers, ...rest } = options;
+  const method = (rest.method ?? "GET").toUpperCase();
+  // Offline mode is read-only: never queue or fake gameplay results client-side (server is authoritative).
+  if (method !== "GET" && typeof navigator !== "undefined" && navigator.onLine === false) {
+    throw new ApiError(0, "offline", "You are offline");
+  }
   const url = new URL(`${API_BASE}${path}`, typeof window === "undefined" ? "http://localhost" : window.location.origin);
   if (query) {
     for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== null) url.searchParams.set(k, String(v));

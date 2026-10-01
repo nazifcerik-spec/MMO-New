@@ -76,6 +76,7 @@ export interface CombatPreview {
   draft: boolean;
   rules: { index: number; ability: string | null; tag: string | null; name: string | null; uses: number }[];
   fallback_basic_attacks: number;
+  sample_log?: SampleLog;
 }
 
 export type ProfileUpdate = Partial<Omit<AfkProfile, "version">> & { expected_version: number };
@@ -111,4 +112,23 @@ export function cleanRule(rule: TacticRule): TacticRule {
     use: rule.use.ability ? { ability: rule.use.ability } : { tag: rule.use.tag },
     when: rule.when.map((c) => Object.fromEntries(Object.entries(c).filter(([, v]) => v !== undefined && v !== "")) as TacticCondition),
   };
+}
+
+export interface CombatEvent {
+  t: number;
+  event_type: string;
+  actor_id?: string;
+  target_id?: string;
+  ability_code?: string | null;
+  amount?: number;
+  damage_type?: string;
+  kind?: string;
+  proc?: string;
+  outcome?: string;
+}
+
+export interface SampleLog {
+  events: CombatEvent[];
+  actors: Record<string, { side: "players" | "enemies"; code: string }>;
+  labels: Record<string, string>;
 }

@@ -13,7 +13,8 @@
     "settings": "Ajustes",
     "search": "Buscar",
     "online": "En línea",
-    "offline": "Sin conexión"
+    "offline": "Sin conexión",
+    "skipToContent": "Saltar al contenido"
   },
   "nav": {
     "home": "Inicio",
@@ -164,7 +165,8 @@
     "license_cooldown": "Los cambios de licencia están en espera.",
     "license_required": "Se requiere una licencia de especialista.",
     "specialization_locked": "La especialización aún no está desbloqueada.",
-    "profession_not_found": "Profesión no encontrada."
+    "profession_not_found": "Profesión no encontrada.",
+    "offline": "Sin conexión. Las acciones están desactivadas hasta que vuelva la conexión."
   },
   "characters": {
     "title": "Tus personajes",
@@ -1179,5 +1181,95 @@
       "guild": "Gremio"
     },
     "collected": "Coleccionados {owned} de {total}"
+  },
+  "shell": {
+    "identity": "Personaje",
+    "level": "Nv {level}",
+    "xp": "Experiencia",
+    "gold": "{gold} de oro",
+    "statPoints": "{n} puntos de atributo",
+    "afkReady": "AFK terminado — recoger",
+    "afkRunning": "AFK hasta {at}",
+    "gameNav": "Juego",
+    "mobileNav": "Navegación del juego",
+    "sidebar": "Actividad y objetivos",
+    "more": "Más",
+    "close": "Cerrar",
+    "nav": {
+      "character": "Personaje",
+      "adventure": "Aventura",
+      "afk": "AFK",
+      "inventory": "Inventario",
+      "equipment": "Equipo",
+      "skills": "Habilidades y talentos",
+      "class": "Clase",
+      "professions": "Profesiones",
+      "crafting": "Fabricación",
+      "market": "Mercado",
+      "party": "Grupo",
+      "collections": "Colecciones",
+      "settings": "Ajustes"
+    },
+    "nextGoals": "Próximos objetivos",
+    "goal": {
+      "afk_claim": "Tu sesión AFK está lista",
+      "stat_points": "Asigna {points} puntos de atributo",
+      "talent_points": "Usa {points} puntos de talento",
+      "class_stage_ready": "{name} disponible: elige tu camino",
+      "class_stage": "{name} en el nivel {level}",
+      "level_title": "Título «{name}» en el nivel {level}",
+      "item_tier": "Equipo T{tier} en el nivel {level}",
+      "zone_unlock": "{name} se abre en el nivel {level}",
+      "profession_rank": "{profession} llega a {rank} en {level}"
+    },
+    "activity": "Actividad",
+    "noActivity": "Nada aún: inicia una sesión AFK.",
+    "showMore": "Mostrar {n} más",
+    "showLess": "Mostrar menos",
+    "act": {
+      "afk": "AFK en {zone}: {kills} bajas, +{xp} PX, +{gold} oro",
+      "craft": "Fabricado {recipe}: {ok} hechos, {fail} fallidos",
+      "quest": "Misión completada: {name}",
+      "achievement": "Logro desbloqueado: {name}",
+      "market_sold": "Vendido {item} por {gold} de oro",
+      "market_bought": "Comprado {item} por {gold} de oro",
+      "profession": "{profession} alcanzó el nivel {level}",
+      "levelUp": "¡Subes de nivel ×{n}!",
+      "rare": "{n} botines raros"
+    },
+    "offline": "Sin conexión: se muestra información en caché de solo lectura. Las acciones vuelven al reconectar.",
+    "offlineTitle": "Sin conexión",
+    "offlineNote": "Jugar sin conexión nunca produce resultados: el servidor decide cada recompensa.",
+    "language": "Idioma",
+    "reduceMotion": "Reducir movimiento",
+    "reduceMotionHint": "Desactiva animaciones aunque tu sistema las permita."
+  },
+  "combatLog": {
+    "you": "Tú",
+    "attack": "un ataque",
+    "sample": "Combate de ejemplo",
+    "summary": "{hits} golpes · {crits} críticos · {blocks} bloqueos · {dodges} esquivas · {procs} activaciones · {kills} derrotados",
+    "details": "Ver detalles del combate",
+    "outcome": {
+      "win": "Victoria",
+      "loss": "Derrota",
+      "timeout": "Tiempo agotado"
+    },
+    "event": {
+      "HIT": "{self, select, yes {Golpeas} other {{actor} golpea}} a {target} con {ability} por {amount}",
+      "TICK": "{tself, select, yes {Recibes} other {{target} recibe}} {amount} de {ability}",
+      "CRIT": "¡CRÍTICO! {self, select, yes {Golpeas} other {{actor} golpea}} a {target} con {ability} por {amount}",
+      "BLOCK": "{tself, select, yes {Bloqueas} other {{target} bloquea}} {ability} de {actor} ({amount} recibido)",
+      "DODGE": "{tself, select, yes {Esquivas} other {{target} esquiva}} {ability} de {actor}",
+      "HEAL": "{self, select, yes {Curas} other {{actor} cura}} a {target} por {amount}",
+      "CRIT_HEAL": "¡Curación crítica! {self, select, yes {Curas} other {{actor} cura}} a {target} por {amount}",
+      "PROC": "{actor}: se activa {proc}",
+      "ABILITY": "{self, select, yes {Usas} other {{actor} usa}} {ability}",
+      "SHIELD": "{self, select, yes {Escudas} other {{actor} escuda}} a {target} ({amount})",
+      "DEBUFF": "{self, select, yes {Debilitas} other {{actor} debilita}} a {target} ({kind})",
+      "POTION": "{self, select, yes {Bebes} other {{actor} bebe}} una poción (+{amount})",
+      "DEATH": "{self, select, yes {Derrotas} other {{actor} derrota}} a {target}",
+      "END": "Combate terminado: {outcome}"
+    }
   }
 }

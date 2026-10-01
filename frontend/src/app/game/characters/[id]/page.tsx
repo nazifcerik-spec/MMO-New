@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { AfkSessionPanel } from "@/features/afk/afk-session-panel";
+import { MobileGoals } from "@/features/shell/mobile-goals";
 import { ProgressionPanel } from "@/features/progression/progression-panel";
 
 export default async function CharacterPage(props: PageProps<"/game/characters/[id]">) {
@@ -51,6 +52,7 @@ export default async function CharacterPage(props: PageProps<"/game/characters/[
           {tg("open")}
         </Link>
       </div>
+      <MobileGoals characterId={characterId} />
       <AfkSessionPanel characterId={characterId} />
       <ProgressionPanel characterId={characterId} />
     </div>

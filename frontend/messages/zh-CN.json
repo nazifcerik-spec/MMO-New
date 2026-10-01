@@ -13,7 +13,8 @@
     "settings": "设置",
     "search": "搜索",
     "online": "在线",
-    "offline": "离线"
+    "offline": "离线",
+    "skipToContent": "跳到正文"
   },
   "nav": {
     "home": "首页",
@@ -164,7 +165,8 @@
     "license_cooldown": "执照更换冷却中。",
     "license_required": "需要专精执照。",
     "specialization_locked": "专精尚未解锁。",
-    "profession_not_found": "未找到专业。"
+    "profession_not_found": "未找到专业。",
+    "offline": "你已离线。恢复连接前无法执行操作。"
   },
   "characters": {
     "title": "你的角色",
@@ -1179,5 +1181,95 @@
       "guild": "公会"
     },
     "collected": "已收集 {owned}/{total}"
+  },
+  "shell": {
+    "identity": "角色",
+    "level": "等级 {level}",
+    "xp": "经验",
+    "gold": "{gold} 金币",
+    "statPoints": "{n} 属性点",
+    "afkReady": "挂机完成 — 领取",
+    "afkRunning": "挂机至 {at}",
+    "gameNav": "游戏",
+    "mobileNav": "游戏导航",
+    "sidebar": "动态与目标",
+    "more": "更多",
+    "close": "关闭",
+    "nav": {
+      "character": "角色",
+      "adventure": "冒险",
+      "afk": "挂机",
+      "inventory": "背包",
+      "equipment": "装备",
+      "skills": "技能与天赋",
+      "class": "职业",
+      "professions": "专业",
+      "crafting": "制作",
+      "market": "市场",
+      "party": "队伍",
+      "collections": "收藏",
+      "settings": "设置"
+    },
+    "nextGoals": "下一步目标",
+    "goal": {
+      "afk_claim": "挂机已完成，可以领取",
+      "stat_points": "分配 {points} 属性点",
+      "talent_points": "使用 {points} 天赋点",
+      "class_stage_ready": "{name}已开放 — 选择你的道路",
+      "class_stage": "{name}：等级 {level}",
+      "level_title": "等级 {level} 获得称号“{name}”",
+      "item_tier": "等级 {level} 解锁 T{tier} 装备",
+      "zone_unlock": "{name}在等级 {level} 开放",
+      "profession_rank": "{profession}在 {level} 级达到 {rank}"
+    },
+    "activity": "动态",
+    "noActivity": "暂无动态 — 开始一次挂机吧。",
+    "showMore": "再显示 {n} 条",
+    "showLess": "收起",
+    "act": {
+      "afk": "{zone}挂机：击杀 {kills}，+{xp} 经验，+{gold} 金币",
+      "craft": "制作 {recipe}：成功 {ok}，失败 {fail}",
+      "quest": "任务完成：{name}",
+      "achievement": "成就解锁：{name}",
+      "market_sold": "以 {gold} 金币售出 {item}",
+      "market_bought": "以 {gold} 金币购入 {item}",
+      "profession": "{profession}达到 {level} 级",
+      "levelUp": "升级 ×{n}！",
+      "rare": "{n} 件稀有掉落"
+    },
+    "offline": "离线：仅显示缓存的只读信息。重新连接后可继续操作。",
+    "offlineTitle": "你已离线",
+    "offlineNote": "离线时不会产生任何结果：所有奖励由服务器决定。",
+    "language": "语言",
+    "reduceMotion": "减少动态效果",
+    "reduceMotionHint": "即使系统允许也会关闭动画。"
+  },
+  "combatLog": {
+    "you": "你",
+    "attack": "普通攻击",
+    "sample": "示例战斗",
+    "summary": "命中 {hits} · 暴击 {crits} · 格挡 {blocks} · 闪避 {dodges} · 触发 {procs} · 击倒 {kills}",
+    "details": "显示战斗详情",
+    "outcome": {
+      "win": "胜利",
+      "loss": "失败",
+      "timeout": "超时"
+    },
+    "event": {
+      "HIT": "{actor}用{ability}对{target}造成 {amount} 伤害",
+      "TICK": "{target}受到{ability} {amount} 点伤害",
+      "CRIT": "暴击！{actor}用{ability}对{target}造成 {amount} 伤害",
+      "BLOCK": "{target}格挡了{actor}的{ability}（承受 {amount}）",
+      "DODGE": "{target}闪避了{actor}的{ability}",
+      "HEAL": "{actor}为{target}恢复 {amount}",
+      "CRIT_HEAL": "治疗暴击！{actor}为{target}恢复 {amount}",
+      "PROC": "{actor}：{proc} 触发",
+      "ABILITY": "{actor}使用{ability}",
+      "SHIELD": "{actor}为{target}施加护盾（{amount}）",
+      "DEBUFF": "{actor}对{target}施加减益（{kind}）",
+      "POTION": "{actor}喝下药水（+{amount}）",
+      "DEATH": "{actor}击败了{target}",
+      "END": "战斗结束：{outcome}"
+    }
   }
 }

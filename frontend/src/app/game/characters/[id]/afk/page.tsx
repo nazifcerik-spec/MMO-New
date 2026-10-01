@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { AfkProfileEditor } from "@/features/afk/afk-profile-editor";
+import { AfkSessionPanel } from "@/features/afk/afk-session-panel";
 
 export default async function AfkProfilePage(props: PageProps<"/game/characters/[id]/afk">) {
   const { id } = await props.params;
@@ -12,6 +13,7 @@ export default async function AfkProfilePage(props: PageProps<"/game/characters/
     <div className="space-y-4">
       <h1 className="text-xl font-bold">{t("title")}</h1>
       <p className="text-sm text-muted">{t("intro")}</p>
+      <AfkSessionPanel characterId={characterId} />
       <AfkProfileEditor characterId={characterId} />
     </div>
   );

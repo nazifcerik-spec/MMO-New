@@ -52,7 +52,7 @@ export function CraftingPanel({ characterId, professions }: { characterId: numbe
   const cancel = useMutation({ mutationFn: (job: number) => craftingApi.cancel(characterId, job), onSuccess: refresh, onError });
 
   return (
-    <section aria-label={t("title")} className="space-y-2 rounded border border-border bg-panel p-3">
+    <section id="crafting" aria-label={t("title")} className="scroll-mt-4 space-y-2 rounded border border-border bg-panel p-3">
       <div className="flex flex-wrap items-center gap-2">
         <h2 className="font-semibold">{t("title")}</h2>
         <label className="ml-auto text-xs">

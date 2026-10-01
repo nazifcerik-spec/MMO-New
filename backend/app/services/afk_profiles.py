@@ -42,6 +42,8 @@ RARITIES = ("worn", "common", "fine", "rare", "epic", "legendary", "mythic", "re
 # Providers of available potion counts (inventory, Phase 16).
 POTION_PROVIDERS: list[Any] = []
 
+SAMPLE_LOG_LIMIT = 80  # structured events of the first preview fight, for the readable text log
+
 
 class LootFilter(BaseModel):
     """Contract for loot filtering (applied at AFK claim, Phase 16); auto-salvage can be enabled later."""
@@ -267,6 +269,8 @@ async def preview(
     total_time = total_taken = total_potions = total_dealt = 0.0
     enemy_selector = rules_by_code_selector(enemy_rules(zone)) if zone else None
     encounter_codes: dict[str, int] = {}
+    first_log: list[dict[str, Any]] = []
+    actors: dict[str, dict[str, str]] = {}
     for i in range(fights):
         seed = zlib.crc32(f"preview:{character.id}:{i}".encode())
         if zone is not None:
@@ -296,6 +300,11 @@ async def preview(
             selector=rule_selector(rules, usage),
             enemy_selector=enemy_selector,
         )
+        if i == 0:
+            first_log = list(result.log[:SAMPLE_LOG_LIMIT])
+            actors = {snap.id: {"side": "players", "code": snap.code}} | {
+                e.id: {"side": "enemies", "code": e.code} for e in enemies
+            }
         me = result.combatants[0]
         wins += result.outcome == "win"
         deaths += not me.alive
@@ -305,6 +314,11 @@ async def preview(
         total_potions += me.potions_used
     per_rule = usage.get(snap.id, {})
     labels = await resolve_text_map(db, [f"ability.{r.use.ability}.name" for r in rules.rules if r.use.ability], locale)
+    ability_codes = sorted({str(e["ability_code"]) for e in first_log if e.get("ability_code")})
+    enemy_codes = sorted({a["code"] for a in actors.values() if a["side"] == "enemies"})
+    log_labels = await resolve_text_map(
+        db, [f"ability.{c}.name" for c in ability_codes] + [f"enemy.{c}.name" for c in enemy_codes], locale
+    )
     return {
         "fights": fights,
         "win_rate": round(wins / fights, 3),
@@ -330,6 +344,7 @@ async def preview(
             for i, r in enumerate(rules.rules)
         ],
         "fallback_basic_attacks": per_rule.get("fallback", 0),
+        "sample_log": {"events": first_log, "actors": actors, "labels": log_labels},
     }
 
 

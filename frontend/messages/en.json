@@ -13,7 +13,8 @@
     "settings": "Settings",
     "search": "Search",
     "online": "Online",
-    "offline": "Offline"
+    "offline": "Offline",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "home": "Home",
@@ -164,7 +165,8 @@
     "license_cooldown": "License changes are on cooldown.",
     "license_required": "A Specialist License is required.",
     "specialization_locked": "Specialization is not unlocked yet.",
-    "profession_not_found": "Profession not found."
+    "profession_not_found": "Profession not found.",
+    "offline": "You are offline. Actions are disabled until the connection returns."
   },
   "characters": {
     "title": "Your characters",
@@ -1179,5 +1181,95 @@
       "guild": "Guild"
     },
     "collected": "Collected {owned} of {total}"
+  },
+  "shell": {
+    "identity": "Character",
+    "level": "Lv {level}",
+    "xp": "Experience",
+    "gold": "{gold} gold",
+    "statPoints": "{n} stat points",
+    "afkReady": "AFK done — claim",
+    "afkRunning": "AFK until {at}",
+    "gameNav": "Game",
+    "mobileNav": "Game navigation",
+    "sidebar": "Activity and goals",
+    "more": "More",
+    "close": "Close",
+    "nav": {
+      "character": "Character",
+      "adventure": "Adventure",
+      "afk": "AFK",
+      "inventory": "Inventory",
+      "equipment": "Equipment",
+      "skills": "Skills & Talents",
+      "class": "Class",
+      "professions": "Professions",
+      "crafting": "Crafting",
+      "market": "Market",
+      "party": "Party",
+      "collections": "Collections",
+      "settings": "Settings"
+    },
+    "nextGoals": "Next goals",
+    "goal": {
+      "afk_claim": "Your AFK session is ready to claim",
+      "stat_points": "Spend {points} stat points",
+      "talent_points": "Spend {points} talent points",
+      "class_stage_ready": "{name} is available — choose your path",
+      "class_stage": "{name} at level {level}",
+      "level_title": "Title “{name}” at level {level}",
+      "item_tier": "Tier {tier} gear at level {level}",
+      "zone_unlock": "{name} opens at level {level}",
+      "profession_rank": "{profession} reaches {rank} at {level}"
+    },
+    "activity": "Activity",
+    "noActivity": "Nothing yet — start an AFK session.",
+    "showMore": "Show {n} more",
+    "showLess": "Show less",
+    "act": {
+      "afk": "AFK in {zone}: {kills} kills, +{xp} XP, +{gold} gold",
+      "craft": "Crafted {recipe}: {ok} made, {fail} failed",
+      "quest": "Quest complete: {name}",
+      "achievement": "Achievement unlocked: {name}",
+      "market_sold": "Sold {item} for {gold} gold",
+      "market_bought": "Bought {item} for {gold} gold",
+      "profession": "{profession} reached level {level}",
+      "levelUp": "Level up ×{n}!",
+      "rare": "{n} rare drops"
+    },
+    "offline": "Offline: showing cached, read-only information. Actions resume when you reconnect.",
+    "offlineTitle": "You are offline",
+    "offlineNote": "Offline play never produces results: the server decides every reward.",
+    "language": "Language",
+    "reduceMotion": "Reduce motion",
+    "reduceMotionHint": "Disables animations even if your system allows them."
+  },
+  "combatLog": {
+    "you": "You",
+    "attack": "an attack",
+    "sample": "Sample fight",
+    "summary": "{hits} hits · {crits} crits · {blocks} blocks · {dodges} dodges · {procs} procs · {kills} defeated",
+    "details": "Show fight details",
+    "outcome": {
+      "win": "Victory",
+      "loss": "Defeat",
+      "timeout": "Timeout"
+    },
+    "event": {
+      "HIT": "{self, select, yes {You hit} other {{actor} hits}} {target} with {ability} for {amount}",
+      "TICK": "{tself, select, yes {You take} other {{target} takes}} {amount} from {ability}",
+      "CRIT": "CRITICAL! {self, select, yes {You hit} other {{actor} hits}} {target} with {ability} for {amount}",
+      "BLOCK": "{tself, select, yes {You block} other {{target} blocks}} {actor}'s {ability} ({amount} taken)",
+      "DODGE": "{tself, select, yes {You dodge} other {{target} dodges}} {actor}'s {ability}",
+      "HEAL": "{self, select, yes {You heal} other {{actor} heals}} {target} for {amount}",
+      "CRIT_HEAL": "Critical heal! {self, select, yes {You heal} other {{actor} heals}} {target} for {amount}",
+      "PROC": "{actor}: {proc} triggers",
+      "ABILITY": "{self, select, yes {You use} other {{actor} uses}} {ability}",
+      "SHIELD": "{self, select, yes {You shield} other {{actor} shields}} {target} ({amount})",
+      "DEBUFF": "{self, select, yes {You afflict} other {{actor} afflicts}} {target} ({kind})",
+      "POTION": "{self, select, yes {You drink} other {{actor} drinks}} a potion (+{amount})",
+      "DEATH": "{self, select, yes {You defeat} other {{actor} defeats}} {target}",
+      "END": "Fight over: {outcome}"
+    }
   }
 }

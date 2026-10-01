@@ -65,7 +65,7 @@ export const goalsApi = {
 };
 
 export const STATUS_RARITY_TEXT: Record<StatusRarity, string> = {
-  bronze: "text-[#b08d57]",
+  bronze: "text-bronze",
   silver: "text-muted",
   gold: "text-legendary",
   platinum: "text-accent",

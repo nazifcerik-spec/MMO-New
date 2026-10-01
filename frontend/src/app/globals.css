@@ -11,7 +11,8 @@
   --bad: #b3261e;
   --rare: #1e5fb3;
   --epic: #7b2cbf;
-  --legendary: #c26a00;
+  --legendary: #9a5300;
+  --bronze: #7a4f1d;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +28,7 @@
     --rare: #6ea8ff;
     --epic: #c08cff;
     --legendary: #ffb347;
+    --bronze: #d6ad72;
   }
 }
 
@@ -42,6 +44,7 @@
   --color-rare: var(--rare);
   --color-epic: var(--epic);
   --color-legendary: var(--legendary);
+  --color-bronze: var(--bronze);
   --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Noto Sans Mono CJK SC", Menlo, monospace;
   --font-sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Noto Sans SC", "PingFang SC",
     "Microsoft YaHei", sans-serif;
@@ -73,4 +76,27 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Player-chosen reduced motion (in addition to the OS preference). */
+:root[data-reduce-motion] *,
+:root[data-reduce-motion] *::before,
+:root[data-reduce-motion] *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 50;
+  padding: 0.25rem 0.5rem;
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.skip-link:focus {
+  top: 0.5rem;
 }

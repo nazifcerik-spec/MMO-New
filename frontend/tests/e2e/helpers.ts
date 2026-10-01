@@ -21,3 +21,23 @@ export async function login(page: Page, email: string, password: string) {
   await page.getByRole("button", { name: /^log in$/i }).last().click();
   await expect(page).toHaveURL(/\/game$/);
 }
+
+/** Register, create a human warrior and land on its character page; returns the character id. */
+export async function newCharacter(page: Page, prefix = "Hero"): Promise<number> {
+  await register(page);
+  await page.getByRole("link", { name: /create character/i }).click();
+  const name = `${prefix}${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+  await page.getByLabel("Character name").fill(name);
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.getByText("Name is available.")).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-human").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByTestId("option-warrior").click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
+  await expect(page).toHaveURL(/\/game$/);
+  await page.getByRole("link", { name: new RegExp(name) }).click();
+  await expect(page).toHaveURL(/\/game\/characters\/\d+$/);
+  return Number(page.url().split("/").pop());
+}

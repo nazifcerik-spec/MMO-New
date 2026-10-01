@@ -9,7 +9,13 @@ import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("common");
-  return { title: t("appName"), description: "Oldschool AFK text MMORPG" };
+  return {
+    title: t("appName"),
+    description: "Oldschool AFK text MMORPG",
+    applicationName: t("appName"),
+    appleWebApp: { capable: true, title: t("appName"), statusBarStyle: "black-translucent" },
+    icons: { icon: "/icons/icon-192.png", apple: "/icons/apple-touch-icon.png" },
+  };
 }
 
 export const viewport: Viewport = {
@@ -20,11 +26,15 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
+  const t = await getTranslations("common");
   return (
     <html lang={locale}>
       <body className="min-h-dvh antialiased">
         <NextIntlClientProvider>
           <Providers>
+            <a href="#main" className="skip-link">
+              {t("skipToContent")}
+            </a>
             <SiteHeader />
             <main id="main" className="mx-auto w-full max-w-6xl px-4 py-6">
               {children}

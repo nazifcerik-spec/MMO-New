@@ -71,7 +71,7 @@ export function InventoryScreen({ characterId }: { characterId: number }) {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)_20rem]">
-      <section aria-labelledby="equip-title" className="space-y-2" data-testid="equipment">
+      <section id="equipment" aria-labelledby="equip-title" className="scroll-mt-4 space-y-2" data-testid="equipment">
         <h2 id="equip-title" className="font-semibold">
           {t("equipment")}
         </h2>

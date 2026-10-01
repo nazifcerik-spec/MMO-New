@@ -13,7 +13,8 @@
     "settings": "Ayarlar",
     "search": "Ara",
     "online": "Çevrimiçi",
-    "offline": "Çevrimdışı"
+    "offline": "Çevrimdışı",
+    "skipToContent": "İçeriğe geç"
   },
   "nav": {
     "home": "Ana sayfa",
@@ -164,7 +165,8 @@
     "license_cooldown": "Lisans değişikliği beklemede.",
     "license_required": "Uzmanlık Lisansı gerekli.",
     "specialization_locked": "Uzmanlık henüz açılmadı.",
-    "profession_not_found": "Meslek bulunamadı."
+    "profession_not_found": "Meslek bulunamadı.",
+    "offline": "Çevrimdışısın. Bağlantı gelene kadar işlemler devre dışı."
   },
   "characters": {
     "title": "Karakterlerin",
@@ -1179,5 +1181,95 @@
       "guild": "Lonca"
     },
     "collected": "{total} içinden {owned} toplandı"
+  },
+  "shell": {
+    "identity": "Karakter",
+    "level": "Sv {level}",
+    "xp": "Tecrübe",
+    "gold": "{gold} altın",
+    "statPoints": "{n} stat puanı",
+    "afkReady": "AFK bitti — topla",
+    "afkRunning": "{at}'e kadar AFK",
+    "gameNav": "Oyun",
+    "mobileNav": "Oyun menüsü",
+    "sidebar": "Etkinlik ve hedefler",
+    "more": "Daha fazla",
+    "close": "Kapat",
+    "nav": {
+      "character": "Karakter",
+      "adventure": "Macera",
+      "afk": "AFK",
+      "inventory": "Envanter",
+      "equipment": "Ekipman",
+      "skills": "Yetenekler",
+      "class": "Sınıf",
+      "professions": "Meslekler",
+      "crafting": "Üretim",
+      "market": "Pazar",
+      "party": "Grup",
+      "collections": "Koleksiyonlar",
+      "settings": "Ayarlar"
+    },
+    "nextGoals": "Sıradaki hedefler",
+    "goal": {
+      "afk_claim": "AFK oturumun toplanmaya hazır",
+      "stat_points": "{points} stat puanı dağıt",
+      "talent_points": "{points} yetenek puanı kullan",
+      "class_stage_ready": "{name} açık — yolunu seç",
+      "class_stage": "{name}: seviye {level}",
+      "level_title": "Seviye {level}'de “{name}” unvanı",
+      "item_tier": "Seviye {level}'de T{tier} ekipman",
+      "zone_unlock": "{name} seviye {level}'de açılır",
+      "profession_rank": "{profession} {level}'de {rank} olur"
+    },
+    "activity": "Etkinlik",
+    "noActivity": "Henüz bir şey yok — bir AFK oturumu başlat.",
+    "showMore": "{n} tane daha göster",
+    "showLess": "Daha az göster",
+    "act": {
+      "afk": "{zone} AFK: {kills} öldürme, +{xp} TP, +{gold} altın",
+      "craft": "{recipe} üretildi: {ok} başarılı, {fail} başarısız",
+      "quest": "Görev tamamlandı: {name}",
+      "achievement": "Başarım açıldı: {name}",
+      "market_sold": "{item} {gold} altına satıldı",
+      "market_bought": "{item} {gold} altına alındı",
+      "profession": "{profession} seviye {level} oldu",
+      "levelUp": "Seviye atladın ×{n}!",
+      "rare": "{n} nadir ganimet"
+    },
+    "offline": "Çevrimdışı: önbellekteki salt okunur bilgiler gösteriliyor. Bağlantı gelince işlemler devam eder.",
+    "offlineTitle": "Çevrimdışısın",
+    "offlineNote": "Çevrimdışı oyun sonuç üretmez: tüm ödülleri sunucu belirler.",
+    "language": "Dil",
+    "reduceMotion": "Hareketi azalt",
+    "reduceMotionHint": "Sistemin izin verse bile animasyonları kapatır."
+  },
+  "combatLog": {
+    "you": "Sen",
+    "attack": "bir saldırı",
+    "sample": "Örnek dövüş",
+    "summary": "{hits} vuruş · {crits} kritik · {blocks} blok · {dodges} kaçış · {procs} tetik · {kills} yenilen",
+    "details": "Dövüş ayrıntılarını göster",
+    "outcome": {
+      "win": "Zafer",
+      "loss": "Yenilgi",
+      "timeout": "Süre doldu"
+    },
+    "event": {
+      "HIT": "{actor}, {ability} ile {target} hedefine {amount} vurdu",
+      "TICK": "{target}, {ability} ile {amount} hasar aldı",
+      "CRIT": "KRİTİK! {actor}, {ability} ile {target} hedefine {amount} vurdu",
+      "BLOCK": "{target}, {actor} saldırısını blokladı ({amount} aldı)",
+      "DODGE": "{target}, {actor} saldırısından kaçtı",
+      "HEAL": "{actor}, {target} hedefini {amount} iyileştirdi",
+      "CRIT_HEAL": "Kritik iyileştirme! {actor}, {target} hedefini {amount} iyileştirdi",
+      "PROC": "{actor}: {proc} tetiklendi",
+      "ABILITY": "{actor}, {ability} kullandı",
+      "SHIELD": "{actor}, {target} hedefine kalkan verdi ({amount})",
+      "DEBUFF": "{actor}, {target} hedefini zayıflattı ({kind})",
+      "POTION": "{actor} iksir içti (+{amount})",
+      "DEATH": "{actor}, {target} hedefini yendi",
+      "END": "Dövüş bitti: {outcome}"
+    }
   }
 }
